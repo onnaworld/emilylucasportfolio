@@ -132,7 +132,6 @@ export const productionCases = [
     task: "Execute the visual campaign for emerging Qatari designer Yasmin Mansour following her LVMH Prize win. As an inaugural production in Doha, broker location logistics at the region's most architecturally significant site, The National Museum of Qatar.",
     outcome: "Facilitated the cross-border mobilisation of a specialised Dubai-based creative team to Qatar, overseeing the technical requirements of a high-fashion shoot within a state-level cultural institution. Proved the capacity to export production standards across the GCC, and to merge high-concept couture with iconic regional locations.",
     images: [
-      "/work/yasmin-mansour/1.jpg",
       "/work/yasmin-mansour/2.jpg",
       "/work/yasmin-mansour/3.jpg",
     ],
