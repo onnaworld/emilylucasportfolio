@@ -5,19 +5,21 @@ import { productionCases } from "../data/work";
 
 const SERVICES = ["PRODUCTION", "VISUAL RESEARCH", "JOURNALISM", "STRATEGY"];
 
-const BRANDS = [
-  "Aman", "Bvlgari", "Cartier", "Cipriani", "Condé Nast",
-  "Huda Beauty", "J.Crew", "Louis Vuitton", "Lululemon",
-  "Mastercard", "MR PORTER", "Net-a-Porter Group",
-  "Nike", "One&Only", "Richemont", "Tiffany & Co.",
-  "Yasmin Mansour",
-];
-
-const PUBLICATIONS = [
-  "The Glass Magazine",
-  "MR PORTER, The Journal",
-  "Trippin",
-  "Vogue Arabia",
+const BRAND_LOGOS = [
+  "TIFFANY & CO.",
+  "AMAN",
+  "ONE&ONLY",
+  "NIKE",
+  "VOGUE",
+  "LORO PIANA",
+  "MR PORTER",
+  "HENNESSY",
+  "BVLGARI",
+  "CONDÉ NAST",
+  "LOUIS VUITTON",
+  "CARTIER",
+  "MASTERCARD",
+  "RICHEMONT",
 ];
 
 const ACCENT = "#ff5a2a"; // small "+" colour, like Aalto's
@@ -111,14 +113,8 @@ export default function Landing() {
         </p>
       </section>
 
-      {/* ───── 4. BRANDS AND PUBLICATIONS ───── */}
-      <section
-        style={{
-          padding: `${space.xl}px ${space.xl}px ${space.xxl}px`,
-        }}
-      >
-        <ListBlock label="BRANDS AND PUBLICATIONS" items={[...BRANDS, ...PUBLICATIONS]} />
-      </section>
+      {/* ───── 4. BRAND LOGO CAROUSEL ───── */}
+      <LogoCarousel logos={BRAND_LOGOS} />
 
       {/* ───── 5. SELECTED WORK GRID ───── */}
       <section>
@@ -162,33 +158,53 @@ export default function Landing() {
   );
 }
 
-function ListBlock({ label, items }) {
-  return (
-    <div>
-      <h3
-        style={{
-          fontFamily: fonts.sans,
-          fontSize: 13,
-          fontWeight: 700,
-          letterSpacing: 1.6,
-          marginBottom: space.lg,
-          color: colors.text,
-        }}
-      >
-        {label}
-      </h3>
-      <p
-        style={{
-          fontFamily: fonts.sans,
-          fontSize: 15,
-          lineHeight: 1.7,
-          color: colors.text,
-          margin: 0,
-        }}
-      >
-        {items.join(" / ")}
-      </p>
+function LogoCarousel({ logos }) {
+  // Render each logo in a row, then repeat the whole row twice for seamless looping.
+  const row = (
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 80, paddingRight: 80 }}>
+      {logos.map((logo, i) => (
+        <span
+          key={i}
+          style={{
+            fontFamily: fonts.sans,
+            fontSize: 22,
+            fontWeight: 600,
+            letterSpacing: 3,
+            color: colors.text,
+            whiteSpace: "nowrap",
+          }}
+        >
+          {logo}
+        </span>
+      ))}
     </div>
+  );
+  return (
+    <section
+      style={{
+        background: "#fff",
+        padding: `${space.xxl}px 0`,
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-flex",
+          animation: "logo-slide 60s linear infinite",
+          willChange: "transform",
+        }}
+      >
+        {row}
+        {row}
+      </div>
+      <style>{`
+        @keyframes logo-slide {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+      `}</style>
+    </section>
   );
 }
 
