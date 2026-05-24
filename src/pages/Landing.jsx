@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import Lenis from "lenis";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
 
@@ -41,6 +42,27 @@ const CREDENTIAL_IMAGES = [
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Heavy/bouncy smooth scroll — long duration + gentle easing.
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.8,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.4,
+    });
+    let rafId;
+    const raf = (time) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
 
   return (
     <div
@@ -181,6 +203,7 @@ export default function Landing() {
           Visual Researcher
         </div>
 
+        <DownArrow color="#fff" />
       </section>
 
       {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
@@ -188,7 +211,7 @@ export default function Landing() {
       {/* ───── 2. ABOUT (Studio Move-style giant intro paragraph) ───── */}
       <section
         style={{
-          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+          padding: `${space.xxl}px ${space.xl}px ${space.lg}px`,
           display: "grid",
           gridTemplateColumns: "1fr 6fr",
           gap: space.xl,
