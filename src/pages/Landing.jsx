@@ -263,9 +263,9 @@ export default function Landing() {
       </section>
 
       <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
-      <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={WRITING_IMAGES} />
-      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} />
-      <CategorySlide label="SOCIAL MEDIA CREATIVE STRATEGY" images={SOCIAL_IMAGES} />
+      <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={WRITING_IMAGES} compact />
+      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact />
+      <CategorySlide label="SOCIAL MEDIA CREATIVE STRATEGY" images={SOCIAL_IMAGES} compact />
 
       {/* View all work — small Times link, centered between two lines */}
       <div
@@ -347,14 +347,15 @@ export default function Landing() {
   );
 }
 
-function CategorySlide({ label, images }) {
+function CategorySlide({ label, images, compact = false }) {
+  const padV = compact ? space.sm : space.md;
   return (
     <section
       style={{
-        padding: `${space.md}px ${space.xl}px ${space.md}px`,
+        padding: `${padV}px ${space.xl}px ${padV}px`,
         borderBottom: `1px solid ${colors.text}`,
         display: "grid",
-        gridTemplateColumns: "200px 1fr",
+        gridTemplateColumns: compact ? "160px 1fr" : "200px 1fr",
         gap: space.md,
         alignItems: "end",
       }}
@@ -374,7 +375,7 @@ function CategorySlide({ label, images }) {
           {label}
         </div>
       </div>
-      <CredentialsCarousel images={images} />
+      <CredentialsCarousel images={images} compact={compact} />
     </section>
   );
 }
@@ -568,8 +569,10 @@ function Brand({ children }) {
 
 // Horizontal infinite carousel — fixed-width images, marginRight pattern
 // so translateX(-50%) lands exactly on the duplicate boundary (no overlap).
-function CredentialsCarousel({ images }) {
+function CredentialsCarousel({ images, compact = false }) {
   const doubled = [...images, ...images];
+  const h = compact ? 240 : 420;
+  const w = compact ? 180 : 320;
   return (
     <div style={{ overflow: "hidden", width: "100%" }}>
       <div
@@ -587,8 +590,8 @@ function CredentialsCarousel({ images }) {
             alt=""
             loading="lazy"
             style={{
-              height: 420,
-              width: 320,
+              height: h,
+              width: w,
               marginRight: 12,
               objectFit: "cover",
               display: "block",
