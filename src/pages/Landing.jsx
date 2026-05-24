@@ -27,6 +27,7 @@ const SACKERS = "'Sackers Gothic Std', 'Optima', sans-serif";
 const UNICA = "'Unica 77', 'Helvetica Neue', sans-serif";
 const AVENIR = "'Avenir', 'Avenir Next', 'Helvetica Neue', sans-serif";
 const IMPACT = "'Impact', 'Helvetica Neue Condensed Bold', 'Arial Narrow', sans-serif";
+const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 
 // Slide-2 work imagery
 const CREDENTIAL_IMAGES = [
@@ -167,9 +168,9 @@ export default function Landing() {
             </div>
             <h2
               style={{
-                fontFamily: IMPACT,
+                fontFamily: HEROS,
                 fontSize: 16,
-                fontWeight: 400,
+                fontWeight: 700,
                 letterSpacing: "-0.02em",
                 lineHeight: 1.4,
                 margin: 0,
@@ -185,7 +186,7 @@ export default function Landing() {
           <div>
             <p
               style={{
-                fontFamily: AVENIR,
+                fontFamily: HEROS,
                 fontSize: 16,
                 fontWeight: 400,
                 lineHeight: 1.6,
