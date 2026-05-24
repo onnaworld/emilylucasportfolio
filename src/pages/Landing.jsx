@@ -1,378 +1,360 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
 
+const SERVICES = ["PRODUCTION", "VISUAL RESEARCH", "JOURNALISM", "STRATEGY"];
+
+const BRANDS = [
+  "Aman", "Bvlgari", "Cartier", "Cipriani", "Condé Nast",
+  "Huda Beauty", "J.Crew", "Louis Vuitton", "Lululemon",
+  "Mastercard", "MR PORTER", "Net-a-Porter Group",
+  "Nike", "One&Only", "Richemont", "Tiffany & Co.",
+  "Yasmin Mansour",
+];
+
+const PUBLICATIONS = [
+  "The Glass Magazine",
+  "MR PORTER, The Journal",
+  "Trippin",
+  "Vogue Arabia",
+];
+
+const ACCENT = "#ff5a2a"; // small "+" colour, like Aalto's
+
 export default function Landing() {
-  const [activeSlug, setActiveSlug] = useState(null);
-  const [scrollY, setScrollY] = useState(0);
-  const rightPanelRef = useRef(null);
-
-  // Restore selection from URL hash
-  useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (hash && productionCases.find(c => c.slug === hash)) {
-      setActiveSlug(hash);
-    }
-  }, []);
-
-  // Parallax glide on scroll
-  useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const setActive = (slug) => {
-    setActiveSlug(slug);
-    if (slug) {
-      window.history.replaceState(null, "", `#${slug}`);
-      // Scroll right panel to top when switching projects
-      setTimeout(() => {
-        if (rightPanelRef.current) rightPanelRef.current.scrollTop = 0;
-      }, 0);
-    } else {
-      window.history.replaceState(null, "", window.location.pathname);
-    }
-  };
-
-  const activeStudy = productionCases.find(c => c.slug === activeSlug);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
-      <TopBar activeStudy={activeStudy} />
-
-      {/* Three-column grid */}
-      <div
+    <div style={{ minHeight: "100vh", background: "#fff", color: colors.text }}>
+      {/* ───── 1. HERO: black, wordmark, showreel ───── */}
+      <section
         style={{
-          display: "grid",
-          gridTemplateColumns: "1.1fr 0.9fr 1.4fr",
-          gap: 0,
+          background: "#000",
+          color: "#fff",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
           position: "relative",
-          minHeight: "100vh",
-          padding: `${space.xl}px ${space.xl}px ${space.xxl}px`,
+          overflow: "hidden",
         }}
       >
-        {/* ─── LEFT: huge "Works," + scattered numbered thumbs ─── */}
-        <div style={{ position: "relative", minHeight: "240vh" }}>
-          <h1
+        <header
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto 1fr",
+            alignItems: "center",
+            padding: `${space.lg}px ${space.xl}px`,
+            position: "relative",
+            zIndex: 10,
+          }}
+        >
+          <div />
+          <Link
+            to="/"
             style={{
+              color: "#fff",
               fontFamily: fonts.sans,
-              fontWeight: 900,
-              fontSize: "clamp(80px, 13vw, 200px)",
-              letterSpacing: "-0.05em",
-              lineHeight: 0.9,
-              margin: 0,
-              marginBottom: space.xxl,
+              fontSize: 20,
+              letterSpacing: "0.55em",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              textAlign: "center",
+              display: "inline-block",
+              paddingLeft: "0.55em", // optical balance for letter-spacing
             }}
           >
-            Works,
-          </h1>
-          {productionCases.map((study, i) => (
-            <ScatterThumb
-              key={study.slug}
-              study={study}
-              index={i + 1}
-              scrollY={scrollY}
-              active={activeSlug === study.slug}
-              onClick={() => setActive(study.slug)}
-            />
-          ))}
-        </div>
-
-        {/* ─── CENTER: project list (sticky) ─── */}
-        <div
-          style={{
-            position: "sticky",
-            top: 80,
-            alignSelf: "start",
-            height: "fit-content",
-            paddingTop: space.xxl,
-            paddingLeft: space.xl,
-          }}
-        >
-          {productionCases.map(study => {
-            const isActive = activeSlug === study.slug;
-            return (
-              <div key={study.slug} style={{ padding: "3px 0" }}>
-                <button
-                  onClick={() => setActive(isActive ? null : study.slug)}
-                  onMouseEnter={e => {
-                    if (!isActive) e.currentTarget.style.color = colors.text;
-                  }}
-                  onMouseLeave={e => {
-                    if (!isActive) e.currentTarget.style.color = colors.textMuted;
-                  }}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 0,
-                    fontFamily: fonts.sans,
-                    fontSize: 13,
-                    letterSpacing: 1.6,
-                    textTransform: "uppercase",
-                    color: isActive ? colors.text : colors.textMuted,
-                    fontWeight: isActive ? 700 : 500,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: space.md,
-                    transition: "color 0.15s",
-                    textAlign: "left",
-                  }}
-                >
-                  <span>{study.project}</span>
-                  <span style={{ opacity: isActive ? 1 : 0, fontSize: 10 }}>◀</span>
-                </button>
-              </div>
-            );
-          })}
-
-          <div style={{ marginTop: space.xxl, ...t("body"), fontWeight: 700, fontSize: 14 }}>
-            Emily Lucas
+            EMILY&nbsp;&nbsp;LUCAS
+          </Link>
+          <div style={{ textAlign: "right" }}>
+            <button
+              onClick={() => setMenuOpen(o => !o)}
+              aria-label="Menu"
+              style={{
+                background: "none",
+                border: "none",
+                color: ACCENT,
+                fontSize: 28,
+                lineHeight: 1,
+                cursor: "pointer",
+                padding: 0,
+                fontWeight: 300,
+              }}
+            >
+              {menuOpen ? "×" : "+"}
+            </button>
           </div>
-        </div>
+        </header>
 
-        {/* ─── RIGHT: case study panel ─── */}
-        <div
-          ref={rightPanelRef}
-          style={{
-            paddingLeft: space.xl,
-            paddingTop: space.xxl,
-          }}
-        >
-          {activeStudy ? (
-            <CaseStudyView study={activeStudy} />
-          ) : (
-            <EmptyState />
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TopBar({ activeStudy }) {
-  return (
-    <header
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 50,
-        background: colors.bg,
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr",
-        alignItems: "center",
-        padding: `${space.lg}px ${space.xl}px`,
-        fontFamily: fonts.sans,
-        fontSize: 13,
-        letterSpacing: 0.3,
-      }}
-    >
-      <div>
-        <span style={{ color: colors.text, fontWeight: 600 }}>Index</span>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        <span style={{ color: colors.text, fontWeight: 600 }}>Works,</span>
-        <Link to="/about" style={{ color: colors.textMuted, marginLeft: 6 }}>About,</Link>
-        <Link to="/contact" style={{ color: colors.textMuted, marginLeft: 4 }}>Contact</Link>
-      </div>
-      <div style={{ textAlign: "right", color: colors.textMuted, minHeight: 18 }}>
-        {activeStudy ? `${activeStudy.year}, ${activeStudy.client}` : ""}
-      </div>
-    </header>
-  );
-}
-
-function ScatterThumb({ study, index, scrollY, active, onClick }) {
-  // Asymmetric placement — left/top offsets in viewport units so it scales.
-  const positions = [
-    { left: "8%",  top: 380,  width: 200, speed: 0.10 },
-    { left: "62%", top: 180,  width: 170, speed: 0.18 },
-    { left: "20%", top: 760,  width: 180, speed: 0.06 },
-    { left: "55%", top: 980,  width: 210, speed: 0.14 },
-    { left: "5%",  top: 1240, width: 160, speed: 0.20 },
-    { left: "50%", top: 1480, width: 190, speed: 0.08 },
-    { left: "15%", top: 1740, width: 220, speed: 0.16 },
-    { left: "60%", top: 1960, width: 170, speed: 0.10 },
-    { left: "10%", top: 2240, width: 190, speed: 0.18 },
-    { left: "55%", top: 2480, width: 200, speed: 0.07 },
-    { left: "25%", top: 2760, width: 175, speed: 0.13 },
-  ];
-  const p = positions[index - 1] || { left: "20%", top: index * 280, width: 180, speed: 0.1 };
-  const glide = -scrollY * p.speed;
-
-  return (
-    <div
-      onClick={onClick}
-      style={{
-        position: "absolute",
-        left: p.left,
-        top: p.top,
-        width: p.width,
-        cursor: "pointer",
-        transform: `translateY(${glide}px)`,
-        transition: "opacity 0.25s",
-        opacity: active ? 1 : 0.92,
-        willChange: "transform",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: fonts.sans,
-          fontWeight: 900,
-          fontSize: 36,
-          letterSpacing: "-0.04em",
-          marginBottom: space.sm,
-          color: colors.text,
-        }}
-      >
-        {String(index).padStart(2, "0")}
-      </div>
-      {study.heroImage && (
-        <div style={{ background: "#eee", overflow: "hidden" }}>
-          <img
-            src={study.heroImage}
-            alt=""
-            loading="lazy"
-            style={{
-              width: "100%",
-              aspectRatio: "4 / 3",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function EmptyState() {
-  return (
-    <div
-      style={{
-        padding: `${space.xl}px ${space.md}px`,
-        ...t("small"),
-        color: colors.textSubtle,
-        fontStyle: "italic",
-      }}
-    >
-      Select a project →
-    </div>
-  );
-}
-
-function CaseStudyView({ study }) {
-  return (
-    <article style={{ paddingBottom: space.xxl }}>
-      {/* Hero */}
-      <div style={{ background: "#0a0a0a", marginBottom: space.lg, overflow: "hidden" }}>
-        {study.heroVideo ? (
+        {/* Showreel */}
+        <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
           <video
-            src={study.heroVideo}
-            poster={study.heroImage}
+            src="/showreel.mp4"
+            poster="/showreel-poster.jpg"
             autoPlay
             muted
             loop
             playsInline
-            style={{ width: "100%", display: "block" }}
+            preload="metadata"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
           />
-        ) : study.heroImage ? (
-          <img
-            src={study.heroImage}
-            alt={study.project}
-            style={{ width: "100%", display: "block" }}
-          />
-        ) : null}
-      </div>
+        </div>
 
-      {/* Meta */}
-      <div
+        {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
+      </section>
+
+      {/* ───── 2. MARQUEE ───── */}
+      <Marquee items={SERVICES} />
+
+      {/* ───── 3. SUMMARY ───── */}
+      <section
         style={{
-          ...t("label"),
-          color: colors.textMuted,
-          marginBottom: space.sm,
-          letterSpacing: 1.6,
+          padding: `${space.xxl}px ${space.xl}px ${space.xl}px`,
+          maxWidth: 1100,
         }}
       >
-        {study.year} · {study.client}
-      </div>
+        <p
+          style={{
+            fontFamily: fonts.sans,
+            fontSize: "clamp(20px, 2.2vw, 30px)",
+            fontWeight: 700,
+            lineHeight: 1.3,
+            letterSpacing: "-0.01em",
+            margin: 0,
+            color: colors.text,
+          }}
+        >
+          I'm a senior producer and editorial researcher with 7+ years across luxury production
+          and cultural publishing. I lead ONNA Production — a creative house working between
+          Dubai, London, and New York — partnering with global brands and editorial titles. My
+          practice sits at the intersection of stills, motion, and the cultural research that
+          anchors them.
+        </p>
+      </section>
 
-      {/* Project name */}
-      <h2
+      {/* ───── 4. BRANDS & PUBLICATIONS ───── */}
+      <section
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: space.xxl,
+          padding: `${space.xl}px ${space.xl}px ${space.xxl}px`,
+        }}
+      >
+        <ListBlock label="BRANDS" items={BRANDS} />
+        <ListBlock label="PUBLICATIONS" items={PUBLICATIONS} />
+      </section>
+
+      {/* ───── 5. SELECTED WORK GRID ───── */}
+      <section>
+        <div
+          style={{
+            textAlign: "center",
+            padding: `${space.md}px ${space.xl}px`,
+            borderTop: `1px solid ${colors.text}`,
+            borderBottom: `1px solid ${colors.text}`,
+          }}
+        >
+          <Link
+            to="/work"
+            style={{
+              fontFamily: fonts.sans,
+              color: colors.text,
+              fontWeight: 600,
+              textTransform: "uppercase",
+              letterSpacing: 2,
+              fontSize: 13,
+              textDecoration: "underline",
+              textUnderlineOffset: 4,
+            }}
+          >
+            ALL WORK
+          </Link>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 0,
+          }}
+        >
+          {productionCases.map(study => (
+            <GridTile key={study.slug} study={study} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ListBlock({ label, items }) {
+  return (
+    <div>
+      <h3
         style={{
           fontFamily: fonts.sans,
-          fontSize: 28,
+          fontSize: 13,
           fontWeight: 700,
-          letterSpacing: "-0.01em",
-          lineHeight: 1.15,
-          marginBottom: space.md,
+          letterSpacing: 1.6,
+          marginBottom: space.lg,
           color: colors.text,
         }}
       >
-        {study.project}
-      </h2>
-
-      {/* Lede */}
+        {label}
+      </h3>
       <p
         style={{
           fontFamily: fonts.sans,
-          fontSize: 18,
-          lineHeight: 1.4,
+          fontSize: 15,
+          lineHeight: 1.7,
           color: colors.text,
-          marginBottom: space.xl,
+          margin: 0,
         }}
       >
-        {study.title}
+        {items.join(" / ")}
       </p>
+    </div>
+  );
+}
 
-      {/* Task */}
-      <div style={{ marginBottom: space.lg }}>
-        <div style={{ ...t("label"), marginBottom: space.sm, color: colors.text }}>The Task</div>
-        <p
+function GridTile({ study }) {
+  return (
+    <Link
+      to={`/work#${study.slug}`}
+      style={{
+        position: "relative",
+        display: "block",
+        aspectRatio: "3 / 4",
+        overflow: "hidden",
+        background: "#000",
+      }}
+      onMouseEnter={e => {
+        const cap = e.currentTarget.querySelector("[data-cap]");
+        if (cap) cap.style.opacity = "1";
+      }}
+      onMouseLeave={e => {
+        const cap = e.currentTarget.querySelector("[data-cap]");
+        if (cap) cap.style.opacity = "0";
+      }}
+    >
+      {study.heroImage && (
+        <img
+          src={study.heroImage}
+          alt={study.project}
+          loading="lazy"
           style={{
-            fontFamily: fonts.sans,
-            fontSize: 14,
-            lineHeight: 1.6,
-            color: colors.text,
-            margin: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
           }}
-        >
-          {study.task}
-        </p>
-      </div>
-
-      {/* Outcome */}
-      <div style={{ marginBottom: space.xl }}>
-        <div style={{ ...t("label"), marginBottom: space.sm, color: colors.text }}>The Outcome</div>
-        <p
-          style={{
-            fontFamily: fonts.sans,
-            fontSize: 14,
-            lineHeight: 1.6,
-            color: colors.text,
-            margin: 0,
-          }}
-        >
-          {study.outcome}
-        </p>
-      </div>
-
-      {/* Image gallery — vertical stack inside the right column */}
-      {study.images && study.images.length > 0 && (
-        <div style={{ display: "flex", flexDirection: "column", gap: space.md }}>
-          {study.images.map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt={`${study.project} – ${i + 1}`}
-              loading="lazy"
-              style={{ width: "100%", display: "block", background: colors.surface }}
-            />
-          ))}
-        </div>
+        />
       )}
-    </article>
+      <div
+        data-cap
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0) 60%)",
+          color: "#fff",
+          padding: space.lg,
+          display: "flex",
+          alignItems: "flex-end",
+          opacity: 0,
+          transition: "opacity 0.2s",
+          fontFamily: fonts.sans,
+        }}
+      >
+        <div>
+          <div style={{ fontSize: 11, letterSpacing: 1.5, opacity: 0.8, marginBottom: 4 }}>
+            {study.client.toUpperCase()}
+          </div>
+          <div style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em" }}>
+            {study.project}
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function Marquee({ items }) {
+  const segment = items.join("   ·   ");
+  // Repeat enough segments to fill the screen + cushion for the slide
+  const copies = Array.from({ length: 8 }, (_, i) => (
+    <span key={i} style={{ paddingRight: 60 }}>
+      {segment}
+    </span>
+  ));
+  return (
+    <div
+      style={{
+        background: "#fff",
+        color: colors.text,
+        borderTop: `1px solid ${colors.text}`,
+        borderBottom: `1px solid ${colors.text}`,
+        padding: "16px 0",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-block",
+          animation: "marquee-slide 45s linear infinite",
+          fontFamily: fonts.sans,
+          fontSize: 15,
+          fontWeight: 700,
+          letterSpacing: 2.5,
+        }}
+      >
+        {copies}
+      </div>
+      <style>{`
+        @keyframes marquee-slide {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function MenuOverlay({ onClose }) {
+  const linkStyle = {
+    color: "#fff",
+    fontFamily: fonts.sans,
+    fontSize: 36,
+    fontWeight: 700,
+    letterSpacing: "-0.01em",
+    textDecoration: "none",
+    padding: "8px 0",
+  };
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "absolute",
+        inset: 0,
+        background: "rgba(0,0,0,0.92)",
+        zIndex: 20,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 4,
+      }}
+    >
+      <Link to="/work" style={linkStyle}>Work</Link>
+      <Link to="/about" style={linkStyle}>About</Link>
+      <Link to="/contact" style={linkStyle}>Contact</Link>
+    </div>
   );
 }
