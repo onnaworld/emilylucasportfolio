@@ -9,12 +9,12 @@ const TIMES = "'Times New Roman', Times, serif";
 // Numbered list. Items with a `slug` matching an existing productionCase open
 // the case study panel on the right; the rest are placeholders for now.
 const PROJECTS = [
-  { n: 1, title: "Vogue Arabia", slug: "vogue-relaunch" },
-  { n: 2, title: "Aman", slug: "aman" },
-  { n: 3, title: "MR PORTER", slug: "mr-porter-in-america" },
-  { n: 4, title: "One&Only" },
-  { n: 5, title: "Cipriani", slug: "mr-c-residences" },
-  { n: 6, title: "Columbia Sportswear" },
+  { n: 1, title: "Vogue Arabia", slug: "vogue-relaunch", thumb: "/work/all-work/01.jpg" },
+  { n: 2, title: "Aman", slug: "aman", thumb: "/work/all-work/2..jpg" },
+  { n: 3, title: "MR PORTER", slug: "mr-porter-in-america", thumb: "/work/all-work/3..webp" },
+  { n: 4, title: "One&Only", thumb: "/work/all-work/4..mp4.gif" },
+  { n: 5, title: "Cipriani", slug: "mr-c-residences", thumb: "/work/all-work/5..jpg" },
+  { n: 6, title: "Columbia Sportswear", thumb: "/work/all-work/6..jpg" },
   { n: 7, title: "Mastercard", slug: "mastercard-sailgp" },
   { n: 8, title: "Nike", slug: "nike-vomero" },
   { n: 10, title: "J.Crew" },
@@ -383,8 +383,11 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
         const dur = 1.1 + ((i * 37) % 100) / 200; // 1.10s..1.60s, deterministic per project
         const ease = "cubic-bezier(0.34, 1.56, 0.64, 1)"; // softer with more bounce/overshoot
 
+        // Use the project's own thumb if defined; fall back to a matching
+        // productionCase heroImage; otherwise blank.
         const study = p.slug ? productionCases.find(s => s.slug === p.slug) : null;
-        const heroImg = study?.heroImage;
+        const thumbSrc = p.thumb || study?.heroImage;
+        const isVideo = thumbSrc && /\.(mp4|webm|mov)$/i.test(thumbSrc);
 
         return (
           <div
@@ -412,27 +415,24 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
             >
               {String(p.n).padStart(2, "0")}
             </div>
-            <div
-              style={{
-                background: heroImg ? "transparent" : "#f2f2f2",
-                aspectRatio: "4 / 3",
-                overflow: "hidden",
-              }}
-            >
-              {heroImg && (
+            {thumbSrc ? (
+              isVideo ? (
+                <video
+                  src={thumbSrc}
+                  autoPlay muted loop playsInline
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+              ) : (
                 <img
-                  src={heroImg}
+                  src={thumbSrc}
                   alt=""
                   loading="lazy"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
+                  style={{ width: "100%", height: "auto", display: "block" }}
                 />
-              )}
-            </div>
+              )
+            ) : (
+              <div style={{ background: "#f2f2f2", aspectRatio: "4 / 3" }} />
+            )}
           </div>
         );
       })}
