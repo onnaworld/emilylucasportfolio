@@ -27,7 +27,7 @@ const SACKERS = "'Sackers Gothic Std', 'Optima', sans-serif";
 const UNICA = "'Unica 77', 'Helvetica Neue', sans-serif";
 const AVENIR = "'Avenir', 'Avenir Next', 'Helvetica Neue', sans-serif";
 
-// Slide-2 work imagery (drop files into public/credentials/)
+// Slide-2 work imagery
 const CREDENTIAL_IMAGES = [
   "/credentials/01.jpg",
   "/credentials/02.jpg",
@@ -35,8 +35,6 @@ const CREDENTIAL_IMAGES = [
   "/credentials/04.jpg",
   "/credentials/05.jpg",
   "/credentials/06.jpg",
-  "/credentials/07.jpg",
-  "/credentials/08.jpg",
 ];
 
 export default function Landing() {
