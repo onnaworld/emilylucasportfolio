@@ -88,17 +88,17 @@ export default function Work() {
       `}</style>
       <WorkHero />
 
-      {/* Bottom fade so thumbs don't look harshly clipped at the page edge —
-          fades from transparent to page bg over ~30vh */}
+      {/* Bottom fade — only covers the right half (the scattered thumb area).
+          Short, sharper ramp so it reads as a defined fade, not a haze. */}
       <div
         aria-hidden="true"
         style={{
           position: "fixed",
           bottom: 0,
-          left: 0,
+          left: "50%",
           right: 0,
-          height: "30vh",
-          background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 90%)`,
+          height: "12vh",
+          background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
           pointerEvents: "none",
           zIndex: 40,
         }}
@@ -425,10 +425,10 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
           width = SCATTER_SLOTS[2].width;
         }
 
-        // Per-project duration variation — wider spread so thumbs arrive at
-        // visibly different times and bump into each other as they transit.
-        const dur = 1.1 + ((i * 37) % 100) / 200; // 1.10s..1.60s, deterministic per project
-        const ease = "cubic-bezier(0.34, 1.56, 0.64, 1)"; // softer with more bounce/overshoot
+        // Per-project duration variation — slow, gentle glide. Wide spread
+        // so thumbs arrive at visibly different times and bump as they transit.
+        const dur = 2.2 + ((i * 37) % 100) / 100; // 2.2s..3.2s, deterministic per project
+        const ease = "cubic-bezier(0.34, 1.56, 0.64, 1)"; // soft overshoot/bounce
 
         // Use the project's own thumb if defined; fall back to a matching
         // productionCase heroImage; otherwise blank.
@@ -451,7 +451,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
               top: `${topPct}%`,
               width,
               opacity: targetOpacity,
-              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.35s ease-out`,
+              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.5s ease-out`,
               pointerEvents: visible ? "auto" : "none",
               willChange: "top, left, opacity",
             }}
