@@ -39,55 +39,28 @@ export default function Landing() {
           overflow: "hidden",
         }}
       >
-        <header
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto 1fr",
-            alignItems: "center",
-            padding: `${space.lg}px ${space.xl}px`,
-            position: "relative",
-            zIndex: 10,
-          }}
-        >
-          <div />
-          <Link
-            to="/"
-            style={{
-              color: "#fff",
-              fontFamily: fonts.sans,
-              fontSize: 20,
-              letterSpacing: "0.55em",
-              fontWeight: 400,
-              textTransform: "uppercase",
-              textAlign: "center",
-              display: "inline-block",
-              paddingLeft: "0.55em", // optical balance for letter-spacing
-            }}
-          >
-            EMILY&nbsp;&nbsp;LUCAS
-          </Link>
-          <div style={{ textAlign: "right" }}>
-            <button
-              onClick={() => setMenuOpen(o => !o)}
-              aria-label="Menu"
-              style={{
-                background: "none",
-                border: "none",
-                color: ACCENT,
-                fontSize: 28,
-                lineHeight: 1,
-                cursor: "pointer",
-                padding: 0,
-                fontWeight: 300,
-              }}
-            >
-              {menuOpen ? "×" : "+"}
-            </button>
-          </div>
-        </header>
-
         {/* Showreel */}
         <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
+          <button
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label="Menu"
+            style={{
+              position: "absolute",
+              top: space.lg,
+              right: space.xl,
+              zIndex: 10,
+              background: "none",
+              border: "none",
+              color: ACCENT,
+              fontSize: 28,
+              lineHeight: 1,
+              cursor: "pointer",
+              padding: 0,
+              fontWeight: 300,
+            }}
+          >
+            {menuOpen ? "×" : "+"}
+          </button>
           <video
             src="/showreel.mp4"
             poster="/showreel-poster.jpg"
@@ -122,12 +95,12 @@ export default function Landing() {
         <p
           style={{
             fontFamily: fonts.sans,
-            fontSize: "clamp(20px, 2.2vw, 30px)",
-            fontWeight: 700,
-            lineHeight: 1.3,
-            letterSpacing: "-0.01em",
+            fontSize: 15,
+            fontWeight: 400,
+            lineHeight: 1.6,
             margin: 0,
             color: colors.text,
+            maxWidth: 760,
           }}
         >
           Executive Producer specialising in photo and video production for luxury and
@@ -140,17 +113,13 @@ export default function Landing() {
         </p>
       </section>
 
-      {/* ───── 4. BRANDS & PUBLICATIONS ───── */}
+      {/* ───── 4. BRANDS AND PUBLICATIONS ───── */}
       <section
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: space.xxl,
           padding: `${space.xl}px ${space.xl}px ${space.xxl}px`,
         }}
       >
-        <ListBlock label="BRANDS" items={BRANDS} />
-        <ListBlock label="PUBLICATIONS" items={PUBLICATIONS} />
+        <ListBlock label="BRANDS AND PUBLICATIONS" items={[...BRANDS, ...PUBLICATIONS]} />
       </section>
 
       {/* ───── 5. SELECTED WORK GRID ───── */}
