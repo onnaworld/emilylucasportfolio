@@ -368,7 +368,7 @@ function WorkHero() {
         }}
       />
 
-      {/* Top-left: ← Home + All Work */}
+      {/* Top-left: ← Home + Selected */}
       <div
         style={{
           position: "absolute",
@@ -402,7 +402,7 @@ function WorkHero() {
             letterSpacing: "-0.04em",
           }}
         >
-          All Work
+          Selected
         </div>
       </div>
 
@@ -423,6 +423,44 @@ function WorkHero() {
         }}
       >
         +
+      </div>
+
+      {/* Bottom-right: Projects */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: space.xl,
+          right: space.xl,
+          color: "#fff",
+          fontFamily: "'Times New Roman', Times, serif",
+          fontSize: "clamp(44px, 7vw, 100px)",
+          fontStyle: "italic",
+          fontWeight: 400,
+          lineHeight: 0.9,
+          letterSpacing: "-0.02em",
+          zIndex: 5,
+        }}
+      >
+        Projects
+      </div>
+
+      {/* Bottom-left: All Work */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: space.xl,
+          left: space.xl,
+          color: "#fff",
+          fontFamily: "'Times New Roman', Times, serif",
+          fontStyle: "italic",
+          fontSize: 14,
+          fontWeight: 400,
+          lineHeight: 1.5,
+          zIndex: 5,
+          pointerEvents: "none",
+        }}
+      >
+        All Work
       </div>
 
       {/* Bottom-center: down arrow */}
