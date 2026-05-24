@@ -44,10 +44,6 @@ export default function Landing() {
     <div
       className="landing-snap"
       style={{
-        height: "100vh",
-        overflowY: "auto",
-        scrollSnapType: "y mandatory",
-        scrollBehavior: "smooth",
         background: "#fff",
         color: colors.text,
       }}
@@ -57,14 +53,12 @@ export default function Landing() {
         .landing-snap, .landing-snap * { cursor: none !important; }
       `}</style>
 
-      {/* ───── 1. HERO: cover image + typography ───── */}
+      {/* ───── 1. HERO: cover image + EMILY LUCAS only ───── */}
       <section
         style={{
           background: "#000",
           color: "#fff",
           height: "100vh",
-          scrollSnapAlign: "start",
-          scrollSnapStop: "always",
           display: "flex",
           flexDirection: "column",
           position: "relative",
@@ -137,17 +131,6 @@ export default function Landing() {
             >
               EMILY LUCAS
             </h1>
-            <div
-              style={{
-                fontFamily: SACKERS,
-                fontSize: "clamp(8px, 0.7vw, 11px)",
-                fontWeight: 400,
-                letterSpacing: 0,
-                marginTop: space.sm,
-              }}
-            >
-              EXECUTIVE PRODUCER &amp; CULTURAL CONSULTANT
-            </div>
           </div>
 
         </div>
@@ -155,52 +138,101 @@ export default function Landing() {
         {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
       </section>
 
-      {/* ───── 2. SUMMARY + credentials carousel ───── */}
+      {/* ───── 2. ABOUT row (Meraki style) ───── */}
       <section
         style={{
-          minHeight: "100vh",
-          scrollSnapAlign: "start",
-          scrollSnapStop: "always",
-          display: "flex",
-          flexDirection: "column",
-          paddingTop: space.xxl,
+          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+          borderBottom: `1px solid ${colors.text}`,
         }}
       >
-        <div style={{ padding: `0 ${space.xl}px ${space.xl}px` }}>
-          <p
-            style={{
-              fontFamily: AVENIR,
-              fontSize: 15,
-              fontWeight: 400,
-              lineHeight: 1.6,
-              margin: 0,
-              color: colors.text,
-              maxWidth: 760,
-            }}
-          >
-            Executive Producer specialising in photo and video production for luxury and
-            lifestyle brands across the US, UK, and GCC. Delivered campaigns for MR PORTER
-            (2.65M views on 'In America'), Aman, Nike and Condé Nast, with a $500k+ brand
-            partnership framework built inside the Richemont Group. Run an 11-agent AI
-            production system that handles estimating, SOWs, and crew logistics end-to-end,
-            built to eliminate operational bottlenecks and increase output velocity.
-            Production fluency across in-house brand, agency, and editorial.
-          </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 2fr",
+            gap: space.xxl,
+            alignItems: "start",
+          }}
+        >
+          <div>
+            <div
+              style={{
+                fontFamily: SACKERS,
+                fontSize: 11,
+                marginBottom: space.lg,
+                color: colors.text,
+              }}
+            >
+              ■ ABOUT
+            </div>
+            <h2
+              style={{
+                fontFamily: SACKERS,
+                fontSize: "clamp(18px, 2vw, 26px)",
+                fontWeight: 900,
+                lineHeight: 1.2,
+                margin: 0,
+                color: colors.text,
+              }}
+            >
+              EXECUTIVE PRODUCER<br />&amp; CULTURAL CONSULTANT
+            </h2>
+          </div>
+          <div>
+            <p
+              style={{
+                fontFamily: AVENIR,
+                fontSize: 16,
+                fontWeight: 400,
+                lineHeight: 1.6,
+                margin: 0,
+                color: colors.text,
+                maxWidth: 820,
+              }}
+            >
+              Executive Producer specialising in photo and video production for luxury and
+              lifestyle brands across the US, UK, and GCC. Delivered campaigns for MR PORTER
+              (2.65M views on 'In America'), Aman, Nike and Condé Nast, with a $500k+ brand
+              partnership framework built inside the Richemont Group. Run an 11-agent AI
+              production system that handles estimating, SOWs, and crew logistics end-to-end,
+              built to eliminate operational bottlenecks and increase output velocity.
+              Production fluency across in-house brand, agency, and editorial.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ───── 3. LATEST row: label left, carousel right ───── */}
+      <section
+        style={{
+          padding: `${space.xxl}px 0`,
+          borderBottom: `1px solid ${colors.text}`,
+          display: "grid",
+          gridTemplateColumns: "1fr 4fr",
+          gap: 0,
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: SACKERS,
+            fontSize: 11,
+            color: colors.text,
+            paddingLeft: space.xl,
+          }}
+        >
+          ■ LATEST
         </div>
         <CredentialsCarousel images={CREDENTIAL_IMAGES} />
       </section>
 
-      {/* ───── 3. BRAND LOGO CAROUSEL ───── */}
+      {/* ───── 4. BRAND LOGO CAROUSEL ───── */}
       <LogoCarousel logos={BRAND_LOGOS} />
 
-      {/* ───── 4. SHOWREEL ───── */}
+      {/* ───── 5. SHOWREEL ───── */}
       <section
         style={{
           background: "#000",
           padding: 0,
-          minHeight: "100vh",
-          scrollSnapAlign: "start",
-          scrollSnapStop: "always",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -233,8 +265,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ───── 5. SELECTED WORK GRID ───── */}
-      <section style={{ scrollSnapAlign: "start" }}>
+      {/* ───── 6. SELECTED WORK GRID ───── */}
+      <section>
         <div
           style={{
             textAlign: "center",
@@ -300,11 +332,8 @@ function LogoCarousel({ logos }) {
     <section
       style={{
         background: "#fff",
-        minHeight: "100vh",
-        scrollSnapAlign: "start",
-        scrollSnapStop: "always",
-        display: "flex",
-        alignItems: "center",
+        padding: `${space.xxl}px 0`,
+        borderBottom: `1px solid ${colors.text}`,
         overflow: "hidden",
         whiteSpace: "nowrap",
       }}
@@ -448,9 +477,6 @@ function CredentialsCarousel({ images }) {
   return (
     <div
       style={{
-        flex: 1,
-        display: "flex",
-        alignItems: "center",
         overflow: "hidden",
         whiteSpace: "nowrap",
       }}
