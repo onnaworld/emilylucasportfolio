@@ -66,10 +66,15 @@ export default function Landing() {
         }}
       >
         <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
-          {/* Hero photo */}
-          <img
-            src="/hero.jpg"
-            alt=""
+          {/* Hero showreel */}
+          <video
+            src="/showreel.mp4"
+            poster="/showreel-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
             style={{
               position: "absolute",
               inset: 0,
@@ -80,7 +85,26 @@ export default function Landing() {
             }}
           />
 
-          {/* + menu */}
+          {/* EMILY LUCAS — top-left */}
+          <h1
+            style={{
+              position: "absolute",
+              top: space.lg,
+              left: space.xl,
+              margin: 0,
+              fontFamily: SACKERS,
+              fontSize: "clamp(18px, 2.4vw, 30px)",
+              fontWeight: 900,
+              letterSpacing: 0,
+              lineHeight: 1,
+              color: "#fff",
+              zIndex: 10,
+            }}
+          >
+            EMILY LUCAS
+          </h1>
+
+          {/* + menu — top-right */}
           <button
             onClick={() => setMenuOpen(o => !o)}
             aria-label="Menu"
@@ -101,38 +125,6 @@ export default function Landing() {
           >
             {menuOpen ? "×" : "+"}
           </button>
-
-          {/* Centered wordmark + role */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              color: "#fff",
-              padding: `0 ${space.xl}px`,
-              zIndex: 5,
-              pointerEvents: "none",
-            }}
-          >
-            <h1
-              style={{
-                fontFamily: SACKERS,
-                fontSize: "clamp(20px, 2.8vw, 36px)",
-                fontWeight: 900,
-                letterSpacing: 0,
-                lineHeight: 1.05,
-                margin: 0,
-                WebkitTextStroke: "0.4px #fff",
-              }}
-            >
-              EMILY LUCAS
-            </h1>
-          </div>
-
         </div>
 
         {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
@@ -150,14 +142,16 @@ export default function Landing() {
             display: "grid",
             gridTemplateColumns: "1fr 2fr",
             gap: space.xxl,
-            alignItems: "start",
+            alignItems: "end",
           }}
         >
           <div>
             <div
               style={{
-                fontFamily: SACKERS,
+                fontFamily: UNICA,
                 fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
                 marginBottom: space.lg,
                 color: colors.text,
               }}
@@ -166,12 +160,14 @@ export default function Landing() {
             </div>
             <h2
               style={{
-                fontFamily: SACKERS,
+                fontFamily: AVENIR,
                 fontSize: 13,
                 fontWeight: 900,
-                lineHeight: 1.5,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.4,
                 margin: 0,
                 color: colors.text,
+                textTransform: "uppercase",
               }}
             >
               EXECUTIVE PRODUCER<br />
@@ -216,8 +212,10 @@ export default function Landing() {
       >
         <div
           style={{
-            fontFamily: SACKERS,
+            fontFamily: UNICA,
             fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
             color: colors.text,
             paddingLeft: space.xl,
           }}
@@ -230,44 +228,7 @@ export default function Landing() {
       {/* ───── 4. BRAND LOGO CAROUSEL ───── */}
       <LogoCarousel logos={BRAND_LOGOS} />
 
-      {/* ───── 5. SHOWREEL ───── */}
-      <section
-        style={{
-          background: "#000",
-          padding: 0,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            padding: `${space.lg}px ${space.xl}px`,
-            color: "#fff",
-            fontFamily: fonts.sans,
-            fontSize: 13,
-            fontWeight: 700,
-            letterSpacing: 2,
-          }}
-        >
-          SHOWREEL
-        </div>
-        <div style={{ width: "100%", aspectRatio: "16 / 9", background: "#000" }}>
-          <video
-            src="/showreel.mp4"
-            poster="/showreel-poster.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        </div>
-      </section>
-
-      {/* ───── 6. SELECTED WORK GRID ───── */}
+      {/* ───── 5. SELECTED WORK GRID ───── */}
       <section>
         <div
           style={{
