@@ -14,9 +14,9 @@ export default function Layout({ children }) {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: colors.bg, color: colors.text }}>
-      <Header isLanding={isLanding} />
+      {!isLanding && <Header isLanding={isLanding} />}
       <main style={{ flex: 1, width: "100%" }}>{children}</main>
-      <Footer />
+      {!isLanding && <Footer />}
     </div>
   );
 }
