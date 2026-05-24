@@ -346,37 +346,58 @@ function WorkHero() {
   );
 }
 
-// Three thumbs scattered at fixed positions inside the right half of the
-// viewport. Each slot pulls from projects[windowStart + slotIndex]. Slight
-// per-slot animation delay gives a loose "drift through" feel as the user
-// hovers different list items.
+// All projects rendered as a fluid carousel — each project slides through
+// the three scattered slot positions as windowStart advances. Per-project
+// transition duration varies so thumbs travel at slightly different speeds,
+// crossing and bumping into each other as they transit between slots.
 const SCATTER_SLOTS = [
-  { left: "8%",  top: "6%",  width: 220, delay: 0    },
-  { left: "52%", top: "38%", width: 200, delay: 0.08 },
-  { left: "18%", top: "62%", width: 240, delay: 0.16 },
+  { leftPct: 8,  topPct: 6,  width: 220 },
+  { leftPct: 52, topPct: 38, width: 200 },
+  { leftPct: 18, topPct: 62, width: 240 },
 ];
 
 function ScatteredThumbs({ projects, productionCases, windowStart }) {
   return (
-    <div style={{ position: "relative", height: "100%" }}>
-      {[0, 1, 2].map(slot => {
-        const p = projects[windowStart + slot];
-        if (!p) return <div key={slot} />;
+    <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
+      {projects.map((p, i) => {
+        const slot = i - windowStart; // -∞..-1 = off above, 0/1/2 = visible, 3..∞ = off below
+        const visible = slot >= 0 && slot < SCATTER_SLOTS.length;
+
+        let leftPct, topPct, width;
+        if (visible) {
+          ({ leftPct, topPct, width } = SCATTER_SLOTS[slot]);
+        } else if (slot < 0) {
+          // Stack above the viewport, further up the more negative
+          leftPct = SCATTER_SLOTS[0].leftPct;
+          topPct = -40 + slot * 8;
+          width = SCATTER_SLOTS[0].width;
+        } else {
+          // Stack below the viewport, further down the more positive
+          leftPct = SCATTER_SLOTS[2].leftPct;
+          topPct = 110 + (slot - SCATTER_SLOTS.length) * 8;
+          width = SCATTER_SLOTS[2].width;
+        }
+
+        // Per-project duration variation — projects travel at slightly
+        // different speeds so they cross paths and bump as they transit.
+        const dur = 0.72 + ((i * 37) % 100) / 350; // 0.72s..1.00s, deterministic per project
+        const ease = "cubic-bezier(0.34, 1.20, 0.64, 1)"; // gentle overshoot
+
         const study = p.slug ? productionCases.find(s => s.slug === p.slug) : null;
         const heroImg = study?.heroImage;
-        const pos = SCATTER_SLOTS[slot];
+
         return (
           <div
-            // Re-key on windowStart so each window-change replays the enter
-            // animation — drift-in from below.
-            key={`${windowStart}-${slot}`}
+            key={p.n}
             style={{
               position: "absolute",
-              left: pos.left,
-              top: pos.top,
-              width: pos.width,
-              animation: `thumb-drift-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${pos.delay}s both`,
-              willChange: "transform, opacity",
+              left: `${leftPct}%`,
+              top: `${topPct}%`,
+              width,
+              opacity: visible ? 1 : 0,
+              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.45s ease-out`,
+              pointerEvents: visible ? "auto" : "none",
+              willChange: "top, left, opacity",
             }}
           >
             <div
@@ -415,12 +436,6 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
           </div>
         );
       })}
-      <style>{`
-        @keyframes thumb-drift-in {
-          from { opacity: 0; transform: translateY(28px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </div>
   );
 }
