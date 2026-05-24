@@ -54,13 +54,14 @@ export default function Landing() {
         .landing-snap, .landing-snap * { cursor: none !important; }
       `}</style>
 
-      {/* Emily Lucas wordmark — fixed top-left, mix-blend inverts based on background */}
+      {/* EMILY LUCAS wordmark — fixed top-left, mix-blend inverts based on background */}
       <h1
         style={{
           position: "fixed",
           top: 36,
           left: space.xl,
           margin: 0,
+          fontFamily: "'TeX Gyre Heros', 'Helvetica Neue', sans-serif",
           fontSize: "clamp(22px, 2.2vw, 28px)",
           fontWeight: 700,
           letterSpacing: "-0.02em",
@@ -71,13 +72,33 @@ export default function Landing() {
           pointerEvents: "none",
         }}
       >
-        <span style={{ fontFamily: "'TeX Gyre Heros', 'Helvetica Neue', sans-serif", fontWeight: 700 }}>
-          Emily
-        </span>{" "}
-        <span style={{ fontFamily: "'Times New Roman', Times, serif", fontWeight: 400 }}>
-          Lucas
-        </span>
+        EMILY LUCAS
       </h1>
+
+      {/* + menu — fixed top-right, mirrors the wordmark style */}
+      <button
+        onClick={() => setMenuOpen(o => !o)}
+        aria-label="Menu"
+        style={{
+          position: "fixed",
+          top: 36,
+          right: space.xl,
+          margin: 0,
+          background: "none",
+          border: "none",
+          padding: 0,
+          fontFamily: "'TeX Gyre Heros', 'Helvetica Neue', sans-serif",
+          fontSize: "clamp(22px, 2.2vw, 28px)",
+          fontWeight: 700,
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
+          color: "#fff",
+          mixBlendMode: "difference",
+          zIndex: 100,
+        }}
+      >
+        {menuOpen ? "×" : "+"}
+      </button>
 
       {/* ───── 1. HERO: cover image + EMILY LUCAS only ───── */}
       <section
@@ -111,31 +132,10 @@ export default function Landing() {
             }}
           />
 
-          {/* + menu — top-right */}
-          <button
-            onClick={() => setMenuOpen(o => !o)}
-            aria-label="Menu"
-            style={{
-              position: "absolute",
-              top: space.lg,
-              right: space.xl,
-              zIndex: 10,
-              background: "none",
-              border: "none",
-              color: ACCENT,
-              fontSize: 28,
-              lineHeight: 1,
-              cursor: "pointer",
-              padding: 0,
-              fontWeight: 300,
-            }}
-          >
-            {menuOpen ? "×" : "+"}
-          </button>
         </div>
-
-        {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
       </section>
+
+      {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
 
       {/* ───── 2. ABOUT row (Meraki style) ───── */}
       <section
@@ -404,10 +404,10 @@ function MenuOverlay({ onClose }) {
     <div
       onClick={onClose}
       style={{
-        position: "absolute",
+        position: "fixed",
         inset: 0,
         background: "rgba(0,0,0,0.92)",
-        zIndex: 20,
+        zIndex: 90,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
