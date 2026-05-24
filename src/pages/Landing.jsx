@@ -393,44 +393,6 @@ export default function Landing() {
         <CredentialsCarousel images={CREDENTIAL_IMAGES} />
       </section>
 
-      {/* ───── 6. SELECTED WORK GRID ───── */}
-      <section>
-        <div
-          style={{
-            textAlign: "center",
-            padding: `${space.md}px ${space.xl}px`,
-            borderTop: `1px solid ${colors.text}`,
-            borderBottom: `1px solid ${colors.text}`,
-          }}
-        >
-          <Link
-            to="/work"
-            style={{
-              fontFamily: fonts.sans,
-              color: colors.text,
-              fontWeight: 600,
-              textTransform: "uppercase",
-              letterSpacing: 2,
-              fontSize: 13,
-              textDecoration: "underline",
-              textUnderlineOffset: 4,
-            }}
-          >
-            ALL WORK
-          </Link>
-        </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 0,
-          }}
-        >
-          {productionCases.map(study => (
-            <GridTile key={study.slug} study={study} />
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
