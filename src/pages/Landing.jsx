@@ -222,10 +222,10 @@ export default function Landing() {
         <p
           style={{
             fontFamily: HEROS,
-            fontSize: "clamp(34px, 4.6vw, 76px)",
+            fontSize: "clamp(20px, 2.6vw, 42px)",
             fontWeight: 700,
-            lineHeight: 1.05,
-            letterSpacing: "-0.02em",
+            lineHeight: 1.15,
+            letterSpacing: "-0.015em",
             margin: 0,
             color: colors.text,
           }}
