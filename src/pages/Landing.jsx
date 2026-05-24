@@ -43,12 +43,12 @@ const PRODUCTION_IMAGES = [
 // Items can be a string OR { src, landscape? } so individual images can opt
 // into a wider crop without changing the rest of the row.
 const WRITING_IMAGES = [
-  { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif", landscape: true },
+  "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",
+  { src: "/Cultural%20Strategy/w1500_q80%20(1).jpg", landscape: true },
   "/Cultural%20Strategy/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",
   "/Cultural%20Strategy/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",
   "/Cultural%20Strategy/w1500_q80.jpg",
-  "/Cultural%20Strategy/w1500_q80%20(1).jpg",
-  "/Cultural%20Strategy/w1500_q80.jpeg",
+  { src: "/Cultural%20Strategy/w1500_q80.jpeg", landscape: true },
   "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",
   "/Cultural%20Strategy/Group_Shot.jpg",
 ];
