@@ -46,12 +46,9 @@ export default function Landing() {
     <div
       className="landing-snap"
       style={{
-        height: "100vh",
-        overflowY: "auto",
-        scrollSnapType: "y mandatory",
-        scrollBehavior: "smooth",
         background: "#fff",
         color: colors.text,
+        scrollBehavior: "smooth",
       }}
     >
       <CustomCursor />
@@ -90,8 +87,6 @@ export default function Landing() {
           background: "#000",
           color: "#fff",
           height: "100vh",
-          scrollSnapAlign: "start",
-          scrollSnapStop: "always",
           position: "relative",
           overflow: "hidden",
         }}
@@ -186,7 +181,6 @@ export default function Landing() {
           Visual Researcher
         </div>
 
-        <DownArrow color="#fff" />
       </section>
 
       {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
@@ -194,16 +188,12 @@ export default function Landing() {
       {/* ───── 2. ABOUT (Studio Move-style giant intro paragraph) ───── */}
       <section
         style={{
-          minHeight: "100vh",
-          scrollSnapAlign: "start",
-          scrollSnapStop: "always",
           padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
           display: "grid",
           gridTemplateColumns: "1fr 6fr",
           gap: space.xl,
           alignItems: "start",
           borderBottom: `1px solid ${colors.text}`,
-          position: "relative",
         }}
       >
         <div
@@ -239,8 +229,6 @@ export default function Landing() {
           streamline output velocity across budget estimating, SOWs, and crew logistics
           end-to-end.
         </p>
-
-        <DownArrow color={colors.text} />
       </section>
 
       <CategorySlide label="PRODUCTION" images={CREDENTIAL_IMAGES} />
@@ -255,16 +243,12 @@ function CategorySlide({ label, images, last }) {
   return (
     <section
       style={{
-        height: "100vh",
-        scrollSnapAlign: "start",
-        scrollSnapStop: "always",
         padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
         borderBottom: last ? "none" : `1px solid ${colors.text}`,
         display: "grid",
         gridTemplateColumns: "1fr 2fr",
         gap: space.xl,
         alignItems: "center",
-        position: "relative",
       }}
     >
       <div>
@@ -294,7 +278,6 @@ function CategorySlide({ label, images, last }) {
         </Link>
       </div>
       <CredentialsCarousel images={images} />
-      {!last && <DownArrow color={colors.text} />}
     </section>
   );
 }
