@@ -378,10 +378,10 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
           width = SCATTER_SLOTS[2].width;
         }
 
-        // Per-project duration variation — projects travel at slightly
-        // different speeds so they cross paths and bump as they transit.
-        const dur = 0.72 + ((i * 37) % 100) / 350; // 0.72s..1.00s, deterministic per project
-        const ease = "cubic-bezier(0.34, 1.20, 0.64, 1)"; // gentle overshoot
+        // Per-project duration variation — wider spread so thumbs arrive at
+        // visibly different times and bump into each other as they transit.
+        const dur = 1.1 + ((i * 37) % 100) / 200; // 1.10s..1.60s, deterministic per project
+        const ease = "cubic-bezier(0.34, 1.56, 0.64, 1)"; // softer with more bounce/overshoot
 
         const study = p.slug ? productionCases.find(s => s.slug === p.slug) : null;
         const heroImg = study?.heroImage;
@@ -395,7 +395,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
               top: `${topPct}%`,
               width,
               opacity: visible ? 1 : 0,
-              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.45s ease-out`,
+              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.7s ease-out`,
               pointerEvents: visible ? "auto" : "none",
               willChange: "top, left, opacity",
             }}
