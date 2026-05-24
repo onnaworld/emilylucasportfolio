@@ -116,11 +116,12 @@ export default function Landing() {
         >
           <div
             style={{
-              fontFamily: "'Times New Roman', Times, serif",
-              fontStyle: "italic",
-              fontSize: 16,
+              fontFamily: HEROS,
+              fontSize: 13,
               fontWeight: 400,
+              letterSpacing: 0,
               marginBottom: space.sm,
+              marginLeft: 2, // optical alignment with Emily's left edge
               opacity: 0.95,
             }}
           >
@@ -202,10 +203,10 @@ export default function Landing() {
 
       {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
 
-      {/* ───── 2. ABOUT row (Meraki style) ───── */}
+      {/* ───── 2. ABOUT row: label + role list LEFT, summary RIGHT ───── */}
       <section
         style={{
-          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+          padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
           borderBottom: `1px solid ${colors.text}`,
         }}
       >
@@ -213,27 +214,27 @@ export default function Landing() {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 2fr",
-            gap: space.xxl,
-            alignItems: "end",
+            gap: space.xl,
+            alignItems: "start",
           }}
         >
           <div>
             <div
               style={{
-                fontFamily: UNICA,
-                fontSize: 11,
+                fontFamily: HEROS,
+                fontSize: 12,
                 fontWeight: 700,
-                letterSpacing: "-0.02em",
+                letterSpacing: "-0.01em",
                 marginBottom: space.lg,
                 color: colors.text,
               }}
             >
-              ■ ABOUT
+              ABOUT
             </div>
             <h2
               style={{
                 fontFamily: "'Times New Roman', Times, serif",
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: 400,
                 letterSpacing: 0,
                 lineHeight: 1.5,
@@ -250,9 +251,9 @@ export default function Landing() {
             <p
               style={{
                 fontFamily: HEROS,
-                fontSize: 16,
+                fontSize: 15,
                 fontWeight: 700,
-                lineHeight: 1.6,
+                lineHeight: 1.5,
                 margin: 0,
                 color: colors.text,
                 maxWidth: 820,
@@ -272,28 +273,42 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ───── 3. LATEST row: label left, carousel right ───── */}
+      {/* ───── 3. PRODUCTION row: label + view-more LEFT, image strip RIGHT ───── */}
       <section
         style={{
-          padding: `${space.xxl}px 0`,
+          padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
           borderBottom: `1px solid ${colors.text}`,
           display: "grid",
-          gridTemplateColumns: "1fr 4fr",
-          gap: 0,
-          alignItems: "center",
+          gridTemplateColumns: "1fr 2fr",
+          gap: space.xl,
+          alignItems: "start",
         }}
       >
-        <div
-          style={{
-            fontFamily: UNICA,
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: "-0.02em",
-            color: colors.text,
-            paddingLeft: space.xl,
-          }}
-        >
-          ■ LATEST
+        <div>
+          <div
+            style={{
+              fontFamily: HEROS,
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              marginBottom: space.xl,
+              color: colors.text,
+            }}
+          >
+            PRODUCTION
+          </div>
+          <Link
+            to="/work"
+            style={{
+              fontFamily: HEROS,
+              fontSize: 13,
+              fontWeight: 400,
+              color: colors.text,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            View More →
+          </Link>
         </div>
         <CredentialsCarousel images={CREDENTIAL_IMAGES} />
       </section>
@@ -508,7 +523,7 @@ function Brand({ children }) {
 // Horizontal infinite carousel of credential images, with gaps between each.
 function CredentialsCarousel({ images }) {
   const row = (
-    <div style={{ display: "inline-flex", alignItems: "center", gap: 32, paddingRight: 32 }}>
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 16, paddingRight: 16 }}>
       {images.map((src, i) => (
         <img
           key={i}
@@ -516,7 +531,7 @@ function CredentialsCarousel({ images }) {
           alt=""
           loading="lazy"
           style={{
-            height: "44vh",
+            height: 420,
             width: "auto",
             objectFit: "cover",
             display: "block",
