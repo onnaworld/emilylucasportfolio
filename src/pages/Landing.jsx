@@ -46,7 +46,12 @@ const WRITING_IMAGES = [
   "/Written%20Work/w1500_q80.jpg",
   "/Written%20Work/w1500_q80%20(1).jpg",
 ];
-const VISUAL_RESEARCH_IMAGES = PRODUCTION_IMAGES; // placeholder until folder is filled
+const VISUAL_RESEARCH_IMAGES = [
+  "/Visual%20Research/w1500_q80%20(2).jpg",
+  "/Visual%20Research/w1500_q80%20(3).jpg",
+  "/Visual%20Research/w1500_q80%20(4).jpg",
+  "/Visual%20Research/w1500_q80%20(5).jpg",
+];
 const SOCIAL_IMAGES = PRODUCTION_IMAGES; // placeholder until folder is filled
 
 export default function Landing() {
@@ -265,7 +270,7 @@ export default function Landing() {
 
       <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
       <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={WRITING_IMAGES} compact />
-      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact />
+      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape />
       <CategorySlide label="SOCIAL MEDIA CREATIVE STRATEGY" images={SOCIAL_IMAGES} compact />
 
       {/* View all work — small Times link, centered between two lines */}
@@ -348,7 +353,7 @@ export default function Landing() {
   );
 }
 
-function CategorySlide({ label, images, compact = false }) {
+function CategorySlide({ label, images, compact = false, landscape = false }) {
   const padV = compact ? space.sm : space.md;
   return (
     <section
@@ -376,7 +381,7 @@ function CategorySlide({ label, images, compact = false }) {
           {label}
         </div>
       </div>
-      <CredentialsCarousel images={images} compact={compact} />
+      <CredentialsCarousel images={images} compact={compact} landscape={landscape} />
     </section>
   );
 }
@@ -570,10 +575,10 @@ function Brand({ children }) {
 
 // Horizontal infinite carousel — fixed-width images, marginRight pattern
 // so translateX(-50%) lands exactly on the duplicate boundary (no overlap).
-function CredentialsCarousel({ images, compact = false }) {
+function CredentialsCarousel({ images, compact = false, landscape = false }) {
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
-  const w = compact ? 180 : 320;
+  const w = landscape ? 360 : compact ? 180 : 320;
   return (
     <div style={{ overflow: "hidden", width: "100%" }}>
       <div
