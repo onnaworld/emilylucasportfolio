@@ -33,7 +33,7 @@ const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 // Per-section work imagery (URL-encoded spaces in folder names)
 const PRODUCTION_IMAGES = [
   "/Production/01.jpg",
-  "/Production/02.jpg",
+  "/Production/2..mp4",
   "/Production/03.jpg",
   "/Production/04.jpg",
   "/Production/05.jpg",
@@ -44,6 +44,7 @@ const WRITING_IMAGES = [
   "/Written%20Work/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",
   "/Written%20Work/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",
   "/Written%20Work/w1500_q80.jpg",
+  "/Written%20Work/w1500_q80%20(1).jpg",
 ];
 const VISUAL_RESEARCH_IMAGES = PRODUCTION_IMAGES; // placeholder until folder is filled
 const SOCIAL_IMAGES = PRODUCTION_IMAGES; // placeholder until folder is filled
@@ -583,23 +584,37 @@ function CredentialsCarousel({ images, compact = false }) {
           willChange: "transform",
         }}
       >
-        {doubled.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            loading="lazy"
-            style={{
-              height: h,
-              width: w,
-              marginRight: 12,
-              objectFit: "cover",
-              display: "block",
-              background: colors.surface,
-              flexShrink: 0,
-            }}
-          />
-        ))}
+        {doubled.map((src, i) => {
+          const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+          const sharedStyle = {
+            height: h,
+            width: w,
+            marginRight: 12,
+            objectFit: "cover",
+            display: "block",
+            background: colors.surface,
+            flexShrink: 0,
+          };
+          return isVideo ? (
+            <video
+              key={i}
+              src={src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={sharedStyle}
+            />
+          ) : (
+            <img
+              key={i}
+              src={src}
+              alt=""
+              loading="lazy"
+              style={sharedStyle}
+            />
+          );
+        })}
       </div>
       <style>{`
         @keyframes credentials-slide {
