@@ -191,117 +191,54 @@ export default function Landing() {
 
       {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
 
-      {/* ───── 2. ABOUT + BRANDS & COLLABORATORS (single slide) ───── */}
+      {/* ───── 2. ABOUT (Studio Move-style giant intro paragraph) ───── */}
       <section
         style={{
-          height: "100vh",
+          minHeight: "100vh",
           scrollSnapAlign: "start",
           scrollSnapStop: "always",
           padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
+          display: "grid",
+          gridTemplateColumns: "1fr 6fr",
+          gap: space.xl,
+          alignItems: "start",
           borderBottom: `1px solid ${colors.text}`,
           position: "relative",
         }}
       >
-        {/* ABOUT row */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 2fr",
-            gap: space.xl,
-            alignItems: "start",
+            fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
+            fontSize: "clamp(28px, 3.4vw, 48px)",
+            fontWeight: 400,
+            color: colors.text,
+            lineHeight: 1,
+            paddingTop: 8,
           }}
         >
-          <div
-            style={{
-              fontFamily: HEROS,
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "-0.01em",
-              color: colors.text,
-            }}
-          >
-            ABOUT
-          </div>
-          <p
-            style={{
-              fontFamily: HEROS,
-              fontSize: 15,
-              fontWeight: 700,
-              lineHeight: 1.5,
-              margin: 0,
-              color: colors.text,
-              maxWidth: 820,
-              textTransform: "uppercase",
-            }}
-          >
-            Executive Producer specialising in photo and video production for luxury and
-            lifestyle brands across the US, UK, and GCC. Delivered campaigns for{" "}
-            <Brand>MR PORTER</Brand> (2.65M views on 'In America'),{" "}
-            <Brand>Aman</Brand>, <Brand>Nike</Brand> and{" "}
-            <Brand>Condé Nast</Brand>, with a $500k+ brand partnership framework built
-            inside the <Brand>Richemont Group</Brand>. Run an 11-agent AI production
-            system that handles estimating, SOWs, and crew logistics end-to-end, built
-            to eliminate operational bottlenecks and increase output velocity. Production
-            fluency across in-house brand, agency, and editorial.
-          </p>
+          About
         </div>
-
-        {/* BRANDS & COLLABORATORS row */}
-        <div
+        <p
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 2fr",
-            gap: space.xl,
-            alignItems: "start",
+            fontFamily: HEROS,
+            fontSize: "clamp(34px, 4.6vw, 76px)",
+            fontWeight: 700,
+            lineHeight: 1.05,
+            letterSpacing: "-0.02em",
+            margin: 0,
+            color: colors.text,
           }}
         >
-          <div
-            style={{
-              fontFamily: HEROS,
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "-0.01em",
-              color: colors.text,
-            }}
-          >
-            BRANDS &amp; COLLABORATORS
-          </div>
-          <p
-            style={{
-              fontFamily: HEROS,
-              fontSize: 15,
-              fontWeight: 700,
-              lineHeight: 1.6,
-              color: colors.text,
-              maxWidth: 820,
-              margin: 0,
-              textTransform: "uppercase",
-            }}
-          >
-            Commercial{" "}
-            <Brand>
-              Aman, Nike, MR PORTER, Jumeirah, Janu, Cipriani, Anantara, Emirates,
-              Siro Hotel, Charlotte Tillbury, Columbia Sportswear, Harvey Nichols,
-              Mastercard, J.Crew, GUESS, The Fold, Hamilton Watches, Puma
-            </Brand>
-            . Partnerships{" "}
-            <Brand>
-              Louis Vuitton, Bvlgari, Hennessy, Loro Piana, Stone Island, Brunello
-              Cucinneli, Tiffany &amp; Co., The Frankie Shop, New Balance, Loewe,
-              Gucci, SMR Days, The Elder Statesman, Greg Lauren, INCOTEX, Gucci,
-              Burberry, Bogner
-            </Brand>
-            . Editorial{" "}
-            <Brand>
-              The Glass Magazine, Vogue Arabia, Trippin, MR PORTER The Journal, MR
-              PORTER The Post
-            </Brand>
-            .
-          </p>
-        </div>
+          Executive Producer specialising in photo and video production for luxury and
+          lifestyle brands across the US, UK, and GCC. Delivered campaigns for{" "}
+          <Brand>MR PORTER</Brand> (2.65M views on 'In America'),{" "}
+          <Brand>Aman</Brand>, <Brand>Nike</Brand> and{" "}
+          <Brand>Condé Nast</Brand>, with a $500k+ brand partnership framework built
+          inside the <Brand>Richemont Group</Brand>. Integrating AI workflows to
+          streamline output velocity across budget estimating, SOWs, and crew logistics
+          end-to-end.
+        </p>
 
         <DownArrow color={colors.text} />
       </section>
@@ -539,7 +476,7 @@ function Brand({ children }) {
         fontFamily: "'Times New Roman', Times, serif",
         fontStyle: "italic",
         fontWeight: 400,
-        fontSize: "1.12em",
+        fontSize: "1.05em",
         letterSpacing: 0,
         textTransform: "none",
       }}
