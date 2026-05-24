@@ -26,6 +26,7 @@ const ACCENT = "#ff5a2a"; // small "+" colour, like Aalto's
 const SACKERS = "'Sackers Gothic Std', 'Optima', sans-serif";
 const UNICA = "'Unica 77', 'Helvetica Neue', sans-serif";
 const AVENIR = "'Avenir', 'Avenir Next', 'Helvetica Neue', sans-serif";
+const IMPACT = "'Impact', 'Helvetica Neue Condensed Bold', 'Arial Narrow', sans-serif";
 
 // Slide-2 work imagery
 const CREDENTIAL_IMAGES = [
@@ -52,6 +53,27 @@ export default function Landing() {
       <style>{`
         .landing-snap, .landing-snap * { cursor: none !important; }
       `}</style>
+
+      {/* EMILY LUCAS — fixed top-left, mix-blend inverts based on background */}
+      <h1
+        style={{
+          position: "fixed",
+          top: 36,
+          left: space.xl,
+          margin: 0,
+          fontFamily: IMPACT,
+          fontSize: "clamp(22px, 2.2vw, 28px)",
+          fontWeight: 400,
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
+          color: "#fff",
+          mixBlendMode: "difference",
+          zIndex: 100,
+          pointerEvents: "none",
+        }}
+      >
+        EMILY LUCAS
+      </h1>
 
       {/* ───── 1. HERO: cover image + EMILY LUCAS only ───── */}
       <section
@@ -84,25 +106,6 @@ export default function Landing() {
               display: "block",
             }}
           />
-
-          {/* EMILY LUCAS — top-left */}
-          <h1
-            style={{
-              position: "absolute",
-              top: 36,
-              left: space.xl,
-              margin: 0,
-              fontFamily: "'Impact', 'Helvetica Neue', sans-serif",
-              fontSize: 14,
-              fontWeight: 400,
-              letterSpacing: "-0.02em",
-              lineHeight: 1,
-              color: "#fff",
-              zIndex: 10,
-            }}
-          >
-            EMILY LUCAS
-          </h1>
 
           {/* + menu — top-right */}
           <button
@@ -160,9 +163,9 @@ export default function Landing() {
             </div>
             <h2
               style={{
-                fontFamily: AVENIR,
-                fontSize: 13,
-                fontWeight: 900,
+                fontFamily: IMPACT,
+                fontSize: 16,
+                fontWeight: 400,
                 letterSpacing: "-0.02em",
                 lineHeight: 1.4,
                 margin: 0,
