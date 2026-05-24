@@ -130,11 +130,13 @@ export default function Landing() {
             color: colors.text,
           }}
         >
-          I'm a senior producer and editorial researcher with 7+ years across luxury production
-          and cultural publishing. I lead ONNA Production — a creative house working between
-          Dubai, London, and New York — partnering with global brands and editorial titles. My
-          practice sits at the intersection of stills, motion, and the cultural research that
-          anchors them.
+          Executive Producer specialising in photo and video production for luxury and
+          lifestyle brands across the US, UK, and GCC. Delivered campaigns for MR PORTER
+          (2.65M views on 'In America'), Aman, Nike and Condé Nast, with a $500k+ brand
+          partnership framework built inside the Richemont Group. Run an 11-agent AI
+          production system that handles estimating, SOWs, and crew logistics end-to-end,
+          built to eliminate operational bottlenecks and increase output velocity. Production
+          fluency across in-house brand, agency, and editorial.
         </p>
       </section>
 
