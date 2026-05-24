@@ -112,11 +112,16 @@ export default function Work() {
             height: "100vh",
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            alignItems: "center",
           }}
         >
-          {/* LEFT: project list */}
-          <div style={{ paddingLeft: space.xxl }}>
+          {/* LEFT: list centred vertically; ← Back to Home sits beneath it */}
+          <div
+            style={{
+              alignSelf: "center",
+              paddingLeft: space.xxl,
+              width: "fit-content",
+            }}
+          >
             {PROJECTS.map((p, idx) => {
               const isActive = activeSlug && p.slug === activeSlug;
               const clickable = !!p.slug;
@@ -153,10 +158,33 @@ export default function Work() {
                 </button>
               );
             })}
+            <div
+              style={{
+                marginTop: space.lg,
+                paddingTop: space.md,
+                borderTop: `1px solid ${colors.text}`,
+                paddingBottom: space.sm,
+              }}
+            >
+              <Link
+                to="/"
+                style={{
+                  fontFamily: TIMES,
+                  fontSize: 14,
+                  fontWeight: 400,
+                  color: colors.text,
+                  textDecoration: "none",
+                  letterSpacing: 0,
+                  lineHeight: 1,
+                }}
+              >
+                ← Back to Home
+              </Link>
+            </div>
           </div>
 
-          {/* RIGHT: 3-thumb window stacked vertically */}
-          <ThumbWindow
+          {/* RIGHT: 3 thumbs scattered at fixed positions inside the right half */}
+          <ScatteredThumbs
             projects={PROJECTS}
             productionCases={productionCases}
             windowStart={windowStart}
@@ -203,29 +231,6 @@ export default function Work() {
         )}
       </div>
 
-      {/* Back to Home — small Times link between two lines (mirrors home page) */}
-      <div
-        style={{
-          padding: `${space.md}px ${space.xl}px ${space.md}px`,
-          borderTop: `1px solid ${colors.text}`,
-          borderBottom: `1px solid ${colors.text}`,
-          textAlign: "center",
-        }}
-      >
-        <Link
-          to="/"
-          style={{
-            fontFamily: TIMES,
-            fontSize: 18,
-            fontWeight: 400,
-            color: colors.text,
-            letterSpacing: 0,
-            lineHeight: 1,
-          }}
-        >
-          ← Back to Home
-        </Link>
-      </div>
     </div>
   );
 }
@@ -359,34 +364,33 @@ function WorkHero() {
   );
 }
 
-// Three thumb slots stacked vertically on the right. Each slot pulls from
-// projects[windowStart + slotIndex]. Number on top (matches the list's p.n),
-// image below if a productionCase with that slug exists, else blank placeholder.
-function ThumbWindow({ projects, productionCases, windowStart }) {
+// Three thumbs scattered at fixed positions inside the right half of the
+// viewport. Each slot pulls from projects[windowStart + slotIndex]. Number
+// on top (matches list p.n), image below if a productionCase exists else
+// blank placeholder.
+const SCATTER_SLOTS = [
+  { left: "8%",  top: "6%",  width: 220 },
+  { left: "52%", top: "38%", width: 200 },
+  { left: "18%", top: "62%", width: 240 },
+];
+
+function ScatteredThumbs({ projects, productionCases, windowStart }) {
   return (
-    <div
-      style={{
-        position: "relative",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-        paddingRight: space.xxl,
-        paddingLeft: space.xl,
-        paddingTop: space.xl,
-        paddingBottom: space.xl,
-      }}
-    >
+    <div style={{ position: "relative", height: "100%" }}>
       {[0, 1, 2].map(slot => {
         const p = projects[windowStart + slot];
         if (!p) return <div key={slot} />;
         const study = p.slug ? productionCases.find(s => s.slug === p.slug) : null;
         const heroImg = study?.heroImage;
+        const pos = SCATTER_SLOTS[slot];
         return (
           <div
             key={slot}
             style={{
-              maxWidth: 320,
+              position: "absolute",
+              left: pos.left,
+              top: pos.top,
+              width: pos.width,
               transition: "opacity 0.25s",
             }}
           >
@@ -394,7 +398,7 @@ function ThumbWindow({ projects, productionCases, windowStart }) {
               style={{
                 fontFamily: HEROS_FONT,
                 fontWeight: 900,
-                fontSize: 36,
+                fontSize: 32,
                 letterSpacing: "-0.04em",
                 marginBottom: space.sm,
                 color: colors.text,
