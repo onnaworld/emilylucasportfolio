@@ -159,24 +159,25 @@ export default function Landing() {
           Lucas
         </div>
 
-        {/* Bottom-center: Scroll Down */}
+        {/* Bottom-left: role list */}
         <div
           style={{
             position: "absolute",
             bottom: space.xl,
-            left: 0,
-            right: 0,
-            textAlign: "center",
+            left: space.xl,
             color: "#fff",
             fontFamily: "'Times New Roman', Times, serif",
             fontSize: 14,
             fontWeight: 400,
+            lineHeight: 1.5,
             letterSpacing: 0,
             zIndex: 5,
             pointerEvents: "none",
           }}
         >
-          Scroll Down
+          Executive Producer<br />
+          Cultural Consultant<br />
+          Visual Researcher
         </div>
       </section>
 
@@ -197,34 +198,16 @@ export default function Landing() {
             alignItems: "start",
           }}
         >
-          <div>
-            <div
-              style={{
-                fontFamily: HEROS,
-                fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: "-0.01em",
-                marginBottom: space.lg,
-                color: colors.text,
-              }}
-            >
-              ABOUT
-            </div>
-            <h2
-              style={{
-                fontFamily: "'Times New Roman', Times, serif",
-                fontSize: 14,
-                fontWeight: 400,
-                letterSpacing: 0,
-                lineHeight: 1.5,
-                margin: 0,
-                color: colors.text,
-              }}
-            >
-              Executive Producer<br />
-              Cultural Consultant<br />
-              Visual Researcher
-            </h2>
+          <div
+            style={{
+              fontFamily: HEROS,
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              color: colors.text,
+            }}
+          >
+            ABOUT
           </div>
           <div>
             <p
