@@ -278,7 +278,7 @@ export default function Landing() {
           >
             BRANDS &amp; COLLABORATORS
           </div>
-          <div
+          <p
             style={{
               fontFamily: HEROS,
               fontSize: 15,
@@ -286,30 +286,29 @@ export default function Landing() {
               lineHeight: 1.6,
               color: colors.text,
               maxWidth: 820,
+              margin: 0,
             }}
           >
-            <div style={{ marginBottom: space.sm }}>
-              Commercial:{" "}
-              <Brand>
-                Aman, Nike, MR PORTER, Jumeirah, Janu, Cipriani, Anantara, Emirates,
-                Siro Hotel, Charlotte Tilbury
-              </Brand>
-            </div>
-            <div style={{ marginBottom: space.sm }}>
-              Partnerships:{" "}
-              <Brand>
-                Louis Vuitton, Bvlgari, Hennessy, Loro Piana, Stone Island, Brunello
-                Cucinelli, Tiffany &amp; Co.
-              </Brand>
-            </div>
-            <div>
-              Editorial:{" "}
-              <Brand>
-                The Glass Magazine, Vogue Arabia, Trippin, MR PORTER The Journal, MR
-                PORTER The Post
-              </Brand>
-            </div>
-          </div>
+            Commercial:{" "}
+            <Brand>
+              Aman, Nike, MR PORTER, Jumeirah, Janu, Cipriani, Anantara, Emirates,
+              Siro Hotel, Charlotte Tillbury, Columbia Sportswear, Harvey Nichols,
+              Mastercard, J.Crew, GUESS, The Fold, Hamilton Watches, Puma
+            </Brand>
+            . Partnerships:{" "}
+            <Brand>
+              Louis Vuitton, Bvlgari, Hennessy, Loro Piana, Stone Island, Brunello
+              Cucinneli, Tiffany &amp; Co., The Frankie Shop, New Balance, Loewe,
+              Gucci, SMR Days, The Elder Statesman, Greg Lauren, INCOTEX, Gucci,
+              Burberry, Bogner
+            </Brand>
+            . Editorial:{" "}
+            <Brand>
+              The Glass Magazine, Vogue Arabia, Trippin, MR PORTER The Journal, MR
+              PORTER The Post
+            </Brand>
+            .
+          </p>
         </div>
       </section>
 
