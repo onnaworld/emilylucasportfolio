@@ -266,15 +266,16 @@ export default function Landing() {
         >
           Executive Producer specialising in luxury campaigns across fashion,
           beauty, hospitality and editorial. Tokyo-born, with Japanese-US-UK
-          heritage and fluency across the US, UK, GCC and Japan. After{" "}
-          <Brand>Net-a-Porter Group</Brand> — <Brand>MR PORTER</Brand>'s
-          'In America', tier 1 talent shoots, inaugural brand partnerships —
-          building client relationships with <Brand>Aman</Brand>,{" "}
-          <Brand>One&amp;Only</Brand> and <Brand>Condé Nast</Brand>, and
-          agency-side with <Brand>Omnicom</Brand>, <Brand>IMA</Brand>,{" "}
-          <Brand>Noe &amp; Associates</Brand> and <Brand>Free Practice</Brand>.
-          Integrating AI agents and tools across budget estimating, SOWs and
-          crew/vendor management.
+          heritage and fluency across the US, UK, GCC and Japan. After 5 years
+          at <Brand>Net-a-Porter Group</Brand> leading{" "}
+          <Brand>MR PORTER</Brand>'s 'In America', tier 1 talent shoots and
+          brand partnerships, I've built client relationships with{" "}
+          <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
+          <Brand>Condé Nast</Brand>, and agency-side relationships partnering
+          with agencies under <Brand>Omnicom</Brand>,{" "}
+          <Brand>Together Group</Brand> and <Brand>Smollan</Brand>. A forward
+          thinker — I integrate AI agentic tools across my workflow, from
+          budgeting and SOWs to supplier management.
         </p>
       </section>
 
