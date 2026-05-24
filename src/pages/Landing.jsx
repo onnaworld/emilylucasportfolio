@@ -261,20 +261,17 @@ export default function Landing() {
             color: colors.text,
           }}
         >
-          Executive Producer specialising in brand narratives and integrated
-          campaigns for global luxury houses across fashion, beauty, hospitality,
-          and editorial. Born in Tokyo with Japanese-US-UK heritage; fluent
-          across the US, UK, GCC, and Japanese markets. After{" "}
-          <Brand>Net-a-Porter Group</Brand>, delivering{" "}
-          <Brand>MR PORTER</Brand>'s 'In America', tier 1 talent shoots and
-          inaugural brand partnership campaigns, I went on to build client
-          relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand>{" "}
-          and <Brand>Condé Nast</Brand>, and agency-side with{" "}
-          <Brand>Omnicom</Brand>, <Brand>IMA</Brand>,{" "}
+          Executive Producer specialising in luxury campaigns across fashion,
+          beauty, hospitality and editorial. Tokyo-born, with Japanese-US-UK
+          heritage and fluency across the US, UK, GCC and Japan. After{" "}
+          <Brand>Net-a-Porter Group</Brand> — <Brand>MR PORTER</Brand>'s
+          'In America', tier 1 talent shoots, inaugural brand partnerships —
+          building client relationships with <Brand>Aman</Brand>,{" "}
+          <Brand>One&amp;Only</Brand> and <Brand>Condé Nast</Brand>, and
+          agency-side with <Brand>Omnicom</Brand>, <Brand>IMA</Brand>,{" "}
           <Brand>Noe &amp; Associates</Brand> and <Brand>Free Practice</Brand>.
-          Always looking for ways to improve efficiencies, I integrate AI agents
-          and tools across administrative workflows — from budget estimating
-          and SOWs to crew and vendor management.
+          Integrating AI agents and tools across budget estimating, SOWs and
+          crew/vendor management.
         </p>
       </section>
 
