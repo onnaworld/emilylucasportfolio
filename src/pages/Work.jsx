@@ -106,6 +106,19 @@ export default function Work() {
             }}
             onMouseLeave={() => setHoveredIdx(null)}
           >
+            <div
+              style={{
+                fontFamily: HEROS_FONT,
+                fontSize: 22,
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
+                lineHeight: 1,
+                color: colors.text,
+                marginBottom: space.md,
+              }}
+            >
+              Select Work
+            </div>
             {PROJECTS.map((p, idx) => {
               const isActive = activeSlug && p.slug === activeSlug;
               const clickable = !!p.slug;
@@ -123,7 +136,7 @@ export default function Work() {
                     background: "none",
                     border: "none",
                     cursor: clickable ? "pointer" : "default",
-                    padding: "5px 0",
+                    padding: "3px 0",
                     fontFamily: HEROS_FONT,
                     fontSize: 11,
                     fontWeight: 700,
