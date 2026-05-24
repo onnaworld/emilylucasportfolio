@@ -39,6 +39,7 @@ export default function Work() {
 
   return (
     <div style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
+      <WorkHero />
       <TopBar activeStudy={activeStudy} />
 
       <div
@@ -334,5 +335,148 @@ function CaseStudyView({ study }) {
         </div>
       )}
     </article>
+  );
+}
+
+const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
+
+function WorkHero() {
+  return (
+    <section
+      style={{
+        background: "#000",
+        color: "#fff",
+        height: "100vh",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <img
+        src="/work/2024_09_ONE%26ONLY_HR_%20(8).jpg"
+        alt=""
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+        }}
+      />
+
+      {/* Top-left: Portfolio 2026 + Selected */}
+      <div
+        style={{
+          position: "absolute",
+          top: space.xl,
+          left: space.xl,
+          color: "#fff",
+          zIndex: 5,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontSize: 14,
+            fontWeight: 400,
+            marginBottom: space.sm,
+            marginLeft: 2,
+            opacity: 0.95,
+          }}
+        >
+          Portfolio 2026
+        </div>
+        <div
+          style={{
+            fontFamily: HEROS_FONT,
+            fontSize: "clamp(44px, 7vw, 100px)",
+            fontWeight: 700,
+            lineHeight: 0.9,
+            letterSpacing: "-0.04em",
+          }}
+        >
+          Selected
+        </div>
+      </div>
+
+      {/* Top-right: + */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 24,
+          right: space.xl,
+          color: "#fff",
+          fontFamily: HEROS_FONT,
+          fontSize: 56,
+          fontWeight: 400,
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
+          zIndex: 5,
+        }}
+      >
+        +
+      </div>
+
+      {/* Bottom-right: Projects */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: space.xl,
+          right: space.xl,
+          color: "#fff",
+          fontFamily: "'Times New Roman', Times, serif",
+          fontSize: "clamp(44px, 7vw, 100px)",
+          fontStyle: "italic",
+          fontWeight: 400,
+          lineHeight: 0.9,
+          letterSpacing: "-0.02em",
+          zIndex: 5,
+        }}
+      >
+        Projects
+      </div>
+
+      {/* Bottom-left: role list */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: space.xl,
+          left: space.xl,
+          color: "#fff",
+          fontFamily: "'Times New Roman', Times, serif",
+          fontSize: 14,
+          fontWeight: 400,
+          lineHeight: 1.5,
+          zIndex: 5,
+          pointerEvents: "none",
+        }}
+      >
+        Executive Producer<br />
+        Cultural Consultant<br />
+        Visual Researcher
+      </div>
+
+      {/* Bottom-center: down arrow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: space.lg,
+          left: 0,
+          right: 0,
+          textAlign: "center",
+          color: "#fff",
+          fontFamily: HEROS_FONT,
+          fontSize: 18,
+          fontWeight: 400,
+          lineHeight: 1,
+          pointerEvents: "none",
+          zIndex: 4,
+        }}
+      >
+        ↓
+      </div>
+    </section>
   );
 }

@@ -308,6 +308,7 @@ export default function Landing() {
           gridTemplateColumns: "1fr 6fr",
           gap: space.xl,
           alignItems: "start",
+          borderBottom: `1px solid ${colors.text}`,
         }}
       >
         <div
@@ -352,6 +353,29 @@ export default function Landing() {
           <Brand>MR PORTER The Journal</Brand>, <Brand>MR PORTER The Post</Brand>.
         </p>
       </section>
+
+      {/* Contact — small Times link, centered between two lines (mirrors View All Work) */}
+      <div
+        style={{
+          padding: `${space.md}px ${space.xl}px ${space.md}px`,
+          borderBottom: `1px solid ${colors.text}`,
+          textAlign: "center",
+        }}
+      >
+        <Link
+          to="/contact"
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontSize: 18,
+            fontWeight: 400,
+            color: colors.text,
+            letterSpacing: 0,
+            lineHeight: 1,
+          }}
+        >
+          Contact →
+        </Link>
+      </div>
 
     </div>
   );
