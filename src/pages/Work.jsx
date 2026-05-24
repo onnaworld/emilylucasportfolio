@@ -40,8 +40,6 @@ const PROJECTS = [
 export default function Work() {
   const [activeSlug, setActiveSlug] = useState(null);
   const [windowStart, setWindowStart] = useState(0); // first project index in the 3-thumb window
-  const [scrollProgress, setScrollProgress] = useState(0); // 0..1 progress through the work section, used for loose parallax drift on the thumbs
-  const hoverPinned = useRef(false); // once user hovers, scroll-driven advance stops
   const sectionRef = useRef(null);
   const rightPanelRef = useRef(null);
 
@@ -53,29 +51,8 @@ export default function Work() {
     }
   }, []);
 
-  // Scroll progress drives both the 3-thumb window (until user hovers) and
-  // the loose parallax drift on the scattered thumbs (always).
-  useEffect(() => {
-    const maxStart = Math.max(0, PROJECTS.length - 3);
-    const onScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const sectionTop = window.scrollY + rect.top;
-      const scrollable = section.offsetHeight - window.innerHeight;
-      const progress = Math.max(0, Math.min(1, (window.scrollY - sectionTop) / scrollable));
-      setScrollProgress(progress);
-      if (!hoverPinned.current) {
-        setWindowStart(Math.round(progress * maxStart));
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const onHoverProject = (index) => {
     const maxStart = Math.max(0, PROJECTS.length - 3);
-    hoverPinned.current = true;
     setWindowStart(Math.min(index, maxStart));
   };
 
@@ -95,24 +72,25 @@ export default function Work() {
 
   return (
     <div style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
+      <style>{`
+        /* Page is intentionally non-scrollbar-driven on /work — list hover advances the thumbs */
+        html { scrollbar-width: none; }
+        html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+      `}</style>
       <WorkHero />
 
-      {/* Full-width work section. Section is taller than viewport so the
-          sticky inner container stays pinned while scroll advances the
-          3-thumb window on the right. */}
+      {/* Full-width work section — fits exactly one viewport now that the
+          thumbs advance from the list hover, not from page scroll. */}
       <div
         ref={sectionRef}
         style={{
           position: "relative",
           width: "100%",
-          // Enough scroll distance to cycle through all projects in the window
-          minHeight: `${100 + PROJECTS.length * 12}vh`,
+          height: "100vh",
         }}
       >
         <div
           style={{
-            position: "sticky",
-            top: 0,
             height: "100vh",
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -192,7 +170,6 @@ export default function Work() {
             projects={PROJECTS}
             productionCases={productionCases}
             windowStart={windowStart}
-            scrollProgress={scrollProgress}
           />
         </div>
 
@@ -370,16 +347,16 @@ function WorkHero() {
 }
 
 // Three thumbs scattered at fixed positions inside the right half of the
-// viewport. Each slot pulls from projects[windowStart + slotIndex]. Each
-// has a distinct parallax `drift` so they slide loosely as the user scrolls
-// the list — bounded translation, eased.
+// viewport. Each slot pulls from projects[windowStart + slotIndex]. Slight
+// per-slot animation delay gives a loose "drift through" feel as the user
+// hovers different list items.
 const SCATTER_SLOTS = [
-  { left: "8%",  top: "6%",  width: 220, drift: -90 },
-  { left: "52%", top: "38%", width: 200, drift: 60  },
-  { left: "18%", top: "62%", width: 240, drift: -45 },
+  { left: "8%",  top: "6%",  width: 220, delay: 0    },
+  { left: "52%", top: "38%", width: 200, delay: 0.08 },
+  { left: "18%", top: "62%", width: 240, delay: 0.16 },
 ];
 
-function ScatteredThumbs({ projects, productionCases, windowStart, scrollProgress }) {
+function ScatteredThumbs({ projects, productionCases, windowStart }) {
   return (
     <div style={{ position: "relative", height: "100%" }}>
       {[0, 1, 2].map(slot => {
@@ -388,20 +365,18 @@ function ScatteredThumbs({ projects, productionCases, windowStart, scrollProgres
         const study = p.slug ? productionCases.find(s => s.slug === p.slug) : null;
         const heroImg = study?.heroImage;
         const pos = SCATTER_SLOTS[slot];
-        // Loose drift: maps 0..1 scroll progress to a bounded vertical shift,
-        // centred so the thumb drifts both up and down across the scroll range.
-        const drift = (scrollProgress - 0.5) * pos.drift;
         return (
           <div
-            key={slot}
+            // Re-key on windowStart so each window-change replays the enter
+            // animation — drift-in from below.
+            key={`${windowStart}-${slot}`}
             style={{
               position: "absolute",
               left: pos.left,
               top: pos.top,
               width: pos.width,
-              transform: `translateY(${drift}px)`,
-              transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s",
-              willChange: "transform",
+              animation: `thumb-drift-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${pos.delay}s both`,
+              willChange: "transform, opacity",
             }}
           >
             <div
@@ -440,6 +415,12 @@ function ScatteredThumbs({ projects, productionCases, windowStart, scrollProgres
           </div>
         );
       })}
+      <style>{`
+        @keyframes thumb-drift-in {
+          from { opacity: 0; transform: translateY(28px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }
