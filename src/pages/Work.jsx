@@ -93,45 +93,37 @@ export default function Work() {
         ← Home
       </Link>
 
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          top: 24,
-          right: space.xl,
-          zIndex: 100,
-          color: "#fff",
-          mixBlendMode: "difference",
-          fontFamily: HEROS_FONT,
-          fontSize: 56,
-          fontWeight: 400,
-          letterSpacing: "-0.02em",
-          lineHeight: 1,
-          pointerEvents: "none",
-        }}
-      >
-        +
-      </div>
-
       <WorkHero />
 
+      {/* Full-width work section. Project list centred; scatter thumbs slide
+          past on either side as you scroll. */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(540px, 1fr) minmax(0, 1.2fr) minmax(360px, 1.2fr)",
-          gap: 0,
           position: "relative",
-          minHeight: "100vh",
-          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+          width: "100%",
+          minHeight: "320vh",
+          padding: `${space.xxl}px 0`,
         }}
       >
-        {/* ─── LEFT: numbered project list (sticky, natural — no loop) ─── */}
+        {/* Scatter thumbs — absolutely positioned across the full viewport */}
+        {productionCases.map((study, i) => (
+          <ScatterThumb
+            key={study.slug}
+            study={study}
+            index={i + 1}
+            scrollY={scrollY}
+            active={activeSlug === study.slug}
+            onClick={() => setActive(study.slug)}
+          />
+        ))}
+
+        {/* Centred project list — natural flow, horizontally centred */}
         <div
           style={{
-            position: "sticky",
-            top: 80,
-            alignSelf: "start",
-            height: "fit-content",
+            position: "relative",
+            width: "fit-content",
+            margin: "0 auto",
+            zIndex: 5,
           }}
         >
           {PROJECTS.map(p => {
@@ -171,29 +163,44 @@ export default function Work() {
           })}
         </div>
 
-        {/* ─── CENTER: scattered parallax thumbs (productionCases) ─── */}
-        <div style={{ position: "relative", minHeight: "240vh" }}>
-          {productionCases.map((study, i) => (
-            <ScatterThumb
-              key={study.slug}
-              study={study}
-              index={i + 1}
-              scrollY={scrollY}
-              active={activeSlug === study.slug}
-              onClick={() => setActive(study.slug)}
-            />
-          ))}
-        </div>
-
-        {/* ─── RIGHT: case study panel ─── */}
-        <div
-          ref={rightPanelRef}
-          style={{
-            paddingLeft: space.xl,
-          }}
-        >
-          {activeStudy ? <CaseStudyView study={activeStudy} /> : <EmptyState />}
-        </div>
+        {/* Case study panel — fixed overlay on the right when a project is active */}
+        {activeStudy && (
+          <div
+            ref={rightPanelRef}
+            style={{
+              position: "fixed",
+              top: 88,
+              right: space.xl,
+              width: "min(420px, 36vw)",
+              maxHeight: "calc(100vh - 120px)",
+              overflowY: "auto",
+              background: colors.bg,
+              border: `1px solid ${colors.border}`,
+              padding: space.lg,
+              zIndex: 60,
+            }}
+          >
+            <button
+              onClick={() => setActive(null)}
+              aria-label="Close"
+              style={{
+                position: "absolute",
+                top: space.sm,
+                right: space.sm,
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: HEROS_FONT,
+                fontSize: 22,
+                lineHeight: 1,
+                color: colors.text,
+              }}
+            >
+              ×
+            </button>
+            <CaseStudyView study={activeStudy} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -314,18 +321,19 @@ function WorkHero() {
 }
 
 function ScatterThumb({ study, index, scrollY, active, onClick }) {
+  // x-positions span the full viewport (avoiding the centred ~40-60% list area)
   const positions = [
-    { left: "8%",  top: 380,  width: 200, speed: 0.10 },
-    { left: "62%", top: 180,  width: 170, speed: 0.18 },
-    { left: "20%", top: 760,  width: 180, speed: 0.06 },
-    { left: "55%", top: 980,  width: 210, speed: 0.14 },
-    { left: "5%",  top: 1240, width: 160, speed: 0.20 },
-    { left: "50%", top: 1480, width: 190, speed: 0.08 },
-    { left: "15%", top: 1740, width: 220, speed: 0.16 },
-    { left: "60%", top: 1960, width: 170, speed: 0.10 },
-    { left: "10%", top: 2240, width: 190, speed: 0.18 },
-    { left: "55%", top: 2480, width: 200, speed: 0.07 },
-    { left: "25%", top: 2760, width: 175, speed: 0.13 },
+    { left: "4%",  top: 180,  width: 220, speed: 0.10 },
+    { left: "78%", top: 320,  width: 200, speed: 0.18 },
+    { left: "8%",  top: 760,  width: 200, speed: 0.06 },
+    { left: "80%", top: 920,  width: 230, speed: 0.14 },
+    { left: "3%",  top: 1240, width: 180, speed: 0.20 },
+    { left: "82%", top: 1440, width: 210, speed: 0.08 },
+    { left: "6%",  top: 1740, width: 240, speed: 0.16 },
+    { left: "78%", top: 1900, width: 190, speed: 0.10 },
+    { left: "5%",  top: 2240, width: 210, speed: 0.18 },
+    { left: "80%", top: 2440, width: 220, speed: 0.07 },
+    { left: "8%",  top: 2760, width: 195, speed: 0.13 },
   ];
   const p = positions[index - 1] || { left: "20%", top: index * 280, width: 180, speed: 0.1 };
   const glide = -scrollY * p.speed;
@@ -372,21 +380,6 @@ function ScatterThumb({ study, index, scrollY, active, onClick }) {
           />
         </div>
       )}
-    </div>
-  );
-}
-
-function EmptyState() {
-  return (
-    <div
-      style={{
-        padding: `${space.xl}px ${space.md}px`,
-        ...t("small"),
-        color: colors.textSubtle,
-        fontStyle: "italic",
-      }}
-    >
-      Select a project →
     </div>
   );
 }
