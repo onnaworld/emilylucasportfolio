@@ -30,15 +30,22 @@ const AVENIR = "'Avenir', 'Avenir Next', 'Helvetica Neue', sans-serif";
 const IMPACT = "'Impact', 'Helvetica Neue Condensed Bold', 'Arial Narrow', sans-serif";
 const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 
-// Slide-2 work imagery
-const CREDENTIAL_IMAGES = [
-  "/credentials/01.jpg",
-  "/credentials/02.jpg",
-  "/credentials/03.jpg",
-  "/credentials/04.jpg",
-  "/credentials/05.jpg",
-  "/credentials/06.jpg",
+// Per-section work imagery (URL-encoded spaces in folder names)
+const PRODUCTION_IMAGES = [
+  "/Production/01.jpg",
+  "/Production/02.jpg",
+  "/Production/03.jpg",
+  "/Production/04.jpg",
+  "/Production/05.jpg",
+  "/Production/06.jpg",
 ];
+const WRITING_IMAGES = [
+  "/Written%20Work/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",
+  "/Written%20Work/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",
+  "/Written%20Work/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",
+  "/Written%20Work/w1500_q80.jpg",
+];
+const VISUAL_RESEARCH_IMAGES = PRODUCTION_IMAGES; // placeholder until folder is filled
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -254,26 +261,23 @@ export default function Landing() {
         </p>
       </section>
 
-      <CategorySlide label="PRODUCTION" images={CREDENTIAL_IMAGES} />
-      <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={CREDENTIAL_IMAGES} />
-      <CategorySlide label="VISUAL RESEARCH" images={CREDENTIAL_IMAGES} last />
+      <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
+      <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={WRITING_IMAGES} />
+      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} />
 
-      {/* View all work — single Times link, sits directly under the final carousel */}
+      {/* View all work — small Times link, centered between two lines */}
       <div
         style={{
-          padding: `${space.md}px ${space.xl}px ${space.xl}px`,
+          padding: `${space.md}px ${space.xl}px ${space.md}px`,
           borderBottom: `1px solid ${colors.text}`,
-          display: "grid",
-          gridTemplateColumns: "200px 1fr",
-          gap: space.md,
+          textAlign: "center",
         }}
       >
-        <div />
         <Link
           to="/work"
           style={{
             fontFamily: "'Times New Roman', Times, serif",
-            fontSize: "clamp(28px, 3.4vw, 48px)",
+            fontSize: 18,
             fontWeight: 400,
             color: colors.text,
             letterSpacing: 0,
@@ -341,12 +345,12 @@ export default function Landing() {
   );
 }
 
-function CategorySlide({ label, images, last }) {
+function CategorySlide({ label, images }) {
   return (
     <section
       style={{
         padding: `${space.md}px ${space.xl}px ${space.md}px`,
-        borderBottom: last ? "none" : `1px solid ${colors.text}`,
+        borderBottom: `1px solid ${colors.text}`,
         display: "grid",
         gridTemplateColumns: "200px 1fr",
         gap: space.md,
