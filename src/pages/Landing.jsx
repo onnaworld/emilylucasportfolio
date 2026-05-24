@@ -271,18 +271,19 @@ function CategorySlide({ label, images, last }) {
         display: "grid",
         gridTemplateColumns: "1fr 2fr",
         gap: space.xl,
-        alignItems: "center",
+        alignItems: "end",
       }}
     >
-      <div>
+      <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
         <div
           style={{
-            fontFamily: HEROS,
-            fontSize: 12,
-            fontWeight: 700,
-            letterSpacing: "-0.01em",
-            marginBottom: space.xl,
+            fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
+            fontSize: "clamp(28px, 3.4vw, 48px)",
+            fontWeight: 400,
+            lineHeight: 1,
             color: colors.text,
+            marginBottom: space.sm,
           }}
         >
           {label}
