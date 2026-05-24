@@ -261,14 +261,20 @@ export default function Landing() {
             color: colors.text,
           }}
         >
-          Executive Producer specialising in photo and video production for luxury and
-          lifestyle brands across the US, UK, and GCC. Delivered campaigns for{" "}
-          <Brand>MR PORTER</Brand> (2.65M views on 'In America'),{" "}
-          <Brand>Aman</Brand>, <Brand>Nike</Brand> and{" "}
-          <Brand>Condé Nast</Brand>, with a $500k+ brand partnership framework built
-          inside the <Brand>Richemont Group</Brand>. Integrating AI workflows to
-          streamline output velocity across budget estimating, SOWs, and crew logistics
-          end-to-end.
+          Executive Producer specialising in brand narratives and integrated
+          campaigns for global luxury houses across fashion, beauty, hospitality,
+          and editorial. Born in Tokyo with Japanese-US-UK heritage; fluent
+          across the US, UK, GCC, and Japanese markets. After{" "}
+          <Brand>Net-a-Porter Group</Brand>, delivering{" "}
+          <Brand>MR PORTER</Brand>'s 'In America', tier 1 talent shoots and
+          inaugural brand partnership campaigns, I went on to build client
+          relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand>{" "}
+          and <Brand>Condé Nast</Brand>, and agency-side with{" "}
+          <Brand>Omnicom</Brand>, <Brand>IMA</Brand>,{" "}
+          <Brand>Noe &amp; Associates</Brand> and <Brand>Free Practice</Brand>.
+          Always looking for ways to improve efficiencies, I integrate AI agents
+          and tools across administrative workflows — from budget estimating
+          and SOWs to crew and vendor management.
         </p>
       </section>
 
