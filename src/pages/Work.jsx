@@ -351,9 +351,13 @@ function WorkHero() {
         overflow: "hidden",
       }}
     >
-      <img
-        src="/work/2024_09_ONE%26ONLY_HR_%20(8).jpg"
-        alt=""
+      <video
+        src="/showreel.mp4"
+        poster="/showreel-poster.jpg"
+        autoPlay
+        muted
+        loop
+        playsInline
         style={{
           position: "absolute",
           inset: 0,
@@ -364,7 +368,7 @@ function WorkHero() {
         }}
       />
 
-      {/* Top-left: Portfolio 2026 + Selected */}
+      {/* Top-left: ← Home + All Work */}
       <div
         style={{
           position: "absolute",
@@ -374,18 +378,21 @@ function WorkHero() {
           zIndex: 5,
         }}
       >
-        <div
+        <Link
+          to="/"
           style={{
+            display: "inline-block",
             fontFamily: "'Times New Roman', Times, serif",
             fontSize: 14,
             fontWeight: 400,
+            color: "#fff",
             marginBottom: space.sm,
             marginLeft: 2,
             opacity: 0.95,
           }}
         >
-          Portfolio 2026
-        </div>
+          ← Home
+        </Link>
         <div
           style={{
             fontFamily: HEROS_FONT,
@@ -395,7 +402,7 @@ function WorkHero() {
             letterSpacing: "-0.04em",
           }}
         >
-          Selected
+          All Work
         </div>
       </div>
 
@@ -416,45 +423,6 @@ function WorkHero() {
         }}
       >
         +
-      </div>
-
-      {/* Bottom-right: Projects */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: space.xl,
-          right: space.xl,
-          color: "#fff",
-          fontFamily: "'Times New Roman', Times, serif",
-          fontSize: "clamp(44px, 7vw, 100px)",
-          fontStyle: "italic",
-          fontWeight: 400,
-          lineHeight: 0.9,
-          letterSpacing: "-0.02em",
-          zIndex: 5,
-        }}
-      >
-        Projects
-      </div>
-
-      {/* Bottom-left: role list */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: space.xl,
-          left: space.xl,
-          color: "#fff",
-          fontFamily: "'Times New Roman', Times, serif",
-          fontSize: 14,
-          fontWeight: 400,
-          lineHeight: 1.5,
-          zIndex: 5,
-          pointerEvents: "none",
-        }}
-      >
-        Executive Producer<br />
-        Cultural Consultant<br />
-        Visual Researcher
       </div>
 
       {/* Bottom-center: down arrow */}
