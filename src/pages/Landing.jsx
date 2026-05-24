@@ -38,6 +38,7 @@ const PRODUCTION_IMAGES = [
   "/Production/5..mp4",
   "/Production/6..mp4.gif",
   "/Production/7.gif",
+  "/Production/ORDER-CONFIRMATION-834x519.jpg",
 ];
 const WRITING_IMAGES = [
   "/Written%20Work/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",
@@ -578,9 +579,7 @@ function Brand({ children }) {
 function CredentialsCarousel({ images, compact = false, landscape = false }) {
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
-  // Lead row: width auto so landscape gifs/videos stay landscape (no cropping).
-  // Compact rows: fixed width box (with cover) for a uniform thumbnail strip.
-  const fixedW = landscape ? 360 : compact ? 180 : null;
+  const w = landscape ? 360 : compact ? 180 : 320;
   return (
     <div style={{ overflow: "hidden", width: "100%" }}>
       <div
@@ -595,9 +594,9 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
           const isVideo = /\.(mp4|webm|mov)$/i.test(src);
           const sharedStyle = {
             height: h,
-            width: fixedW ?? "auto",
+            width: w,
             marginRight: 12,
-            objectFit: fixedW ? "cover" : "contain",
+            objectFit: "cover",
             display: "block",
             background: colors.surface,
             flexShrink: 0,
