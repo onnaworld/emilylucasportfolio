@@ -46,6 +46,7 @@ const WRITING_IMAGES = [
   "/Written%20Work/w1500_q80.jpg",
 ];
 const VISUAL_RESEARCH_IMAGES = PRODUCTION_IMAGES; // placeholder until folder is filled
+const SOCIAL_IMAGES = PRODUCTION_IMAGES; // placeholder until folder is filled
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -264,6 +265,7 @@ export default function Landing() {
       <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
       <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={WRITING_IMAGES} />
       <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} />
+      <CategorySlide label="SOCIAL MEDIA CREATIVE STRATEGY" images={SOCIAL_IMAGES} />
 
       {/* View all work — small Times link, centered between two lines */}
       <div
