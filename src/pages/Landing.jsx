@@ -258,6 +258,85 @@ export default function Landing() {
       <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={CREDENTIAL_IMAGES} />
       <CategorySlide label="VISUAL RESEARCH" images={CREDENTIAL_IMAGES} last />
 
+      {/* View all work — single Times link, sits directly under the final carousel */}
+      <div
+        style={{
+          padding: `${space.md}px ${space.xl}px ${space.xl}px`,
+          borderBottom: `1px solid ${colors.text}`,
+          display: "grid",
+          gridTemplateColumns: "200px 1fr",
+          gap: space.md,
+        }}
+      >
+        <div />
+        <Link
+          to="/work"
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontSize: "clamp(28px, 3.4vw, 48px)",
+            fontWeight: 400,
+            color: colors.text,
+            letterSpacing: 0,
+            lineHeight: 1,
+          }}
+        >
+          View All Work →
+        </Link>
+      </div>
+
+      {/* ───── BRANDS (formatted like ABOUT) ───── */}
+      <section
+        style={{
+          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+          display: "grid",
+          gridTemplateColumns: "1fr 6fr",
+          gap: space.xl,
+          alignItems: "start",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
+            fontSize: "clamp(28px, 3.4vw, 48px)",
+            fontWeight: 400,
+            color: colors.text,
+            lineHeight: 1,
+            paddingTop: 8,
+          }}
+        >
+          Brands
+        </div>
+        <p
+          style={{
+            fontFamily: HEROS,
+            fontSize: "clamp(20px, 2.6vw, 42px)",
+            fontWeight: 700,
+            lineHeight: 1.15,
+            letterSpacing: "-0.015em",
+            margin: 0,
+            color: colors.text,
+          }}
+        >
+          COMMERCIAL <Brand>Aman</Brand>, <Brand>Nike</Brand>,{" "}
+          <Brand>MR PORTER</Brand>, <Brand>Jumeirah</Brand>, <Brand>Janu</Brand>,{" "}
+          <Brand>Cipriani</Brand>, <Brand>Anantara</Brand>, <Brand>Emirates</Brand>,{" "}
+          <Brand>Siro Hotel</Brand>, <Brand>Charlotte Tilbury</Brand>,{" "}
+          <Brand>Columbia Sportswear</Brand>, <Brand>Harvey Nichols</Brand>,{" "}
+          <Brand>Mastercard</Brand>, <Brand>J.Crew</Brand>, <Brand>GUESS</Brand>,{" "}
+          <Brand>The Fold</Brand>, <Brand>Hamilton Watches</Brand>, <Brand>Puma</Brand>.{" "}
+          PARTNERSHIPS <Brand>Louis Vuitton</Brand>, <Brand>Bvlgari</Brand>,{" "}
+          <Brand>Hennessy</Brand>, <Brand>Loro Piana</Brand>, <Brand>Stone Island</Brand>,{" "}
+          <Brand>Brunello Cucinelli</Brand>, <Brand>Tiffany & Co.</Brand>,{" "}
+          <Brand>The Frankie Shop</Brand>, <Brand>New Balance</Brand>, <Brand>Loewe</Brand>,{" "}
+          <Brand>Gucci</Brand>, <Brand>SMR Days</Brand>, <Brand>The Elder Statesman</Brand>,{" "}
+          <Brand>Greg Lauren</Brand>, <Brand>INCOTEX</Brand>, <Brand>Burberry</Brand>,{" "}
+          <Brand>Bogner</Brand>. EDITORIAL <Brand>The Glass Magazine</Brand>,{" "}
+          <Brand>Vogue Arabia</Brand>, <Brand>Trippin</Brand>,{" "}
+          <Brand>MR PORTER The Journal</Brand>, <Brand>MR PORTER The Post</Brand>.
+        </p>
+      </section>
+
     </div>
   );
 }
@@ -284,23 +363,10 @@ function CategorySlide({ label, images, last }) {
             letterSpacing: "-0.01em",
             lineHeight: 1,
             color: colors.text,
-            marginBottom: space.sm,
           }}
         >
           {label}
         </div>
-        <Link
-          to="/work"
-          style={{
-            fontFamily: HEROS,
-            fontSize: 13,
-            fontWeight: 400,
-            color: colors.text,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          View More →
-        </Link>
       </div>
       <CredentialsCarousel images={images} />
     </section>
