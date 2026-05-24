@@ -361,7 +361,7 @@ function CategorySlide({ label, images, compact = false, landscape = false }) {
         padding: `${padV}px ${space.xl}px ${padV}px`,
         borderBottom: `1px solid ${colors.text}`,
         display: "grid",
-        gridTemplateColumns: compact ? "160px 1fr" : "200px 1fr",
+        gridTemplateColumns: "200px 1fr",
         gap: space.md,
         alignItems: "end",
       }}
