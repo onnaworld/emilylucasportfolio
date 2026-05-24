@@ -39,6 +39,7 @@ const PROJECTS = [
 
 export default function Work() {
   const [activeSlug, setActiveSlug] = useState(null);
+  const [scrollY, setScrollY] = useState(0);
   const rightPanelRef = useRef(null);
 
   // Restore selection from URL hash (so /work#aman deep-links)
@@ -47,6 +48,13 @@ export default function Work() {
     if (hash && productionCases.find(c => c.slug === hash)) {
       setActiveSlug(hash);
     }
+  }, []);
+
+  // Parallax glide on scroll for scatter thumbs
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const setActive = (slug) => {
@@ -110,14 +118,14 @@ export default function Work() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "minmax(0, 1.4fr) minmax(0, 1fr)",
-          gap: space.xl,
+          gridTemplateColumns: "minmax(540px, 1fr) minmax(0, 1.2fr) minmax(360px, 1.2fr)",
+          gap: 0,
           position: "relative",
           minHeight: "100vh",
           padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
         }}
       >
-        {/* ─── LEFT: list + aligned images, manual loop scroll ─── */}
+        {/* ─── LEFT: numbered project list (sticky, natural — no loop) ─── */}
         <div
           style={{
             position: "sticky",
@@ -126,12 +134,55 @@ export default function Work() {
             height: "fit-content",
           }}
         >
-          <ProjectLoopList
-            projects={PROJECTS}
-            productionCases={productionCases}
-            activeSlug={activeSlug}
-            setActive={setActive}
-          />
+          {PROJECTS.map(p => {
+            const isActive = activeSlug && p.slug === activeSlug;
+            const clickable = !!p.slug;
+            return (
+              <button
+                key={p.n}
+                onClick={() => clickable && setActive(isActive ? null : p.slug)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: clickable ? "pointer" : "default",
+                  padding: "2px 0",
+                  fontFamily: HEROS_FONT,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  lineHeight: 1,
+                  color: colors.text,
+                  opacity: isActive ? 1 : 0.85,
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: space.sm,
+                  textAlign: "left",
+                  whiteSpace: "nowrap",
+                  width: "100%",
+                }}
+              >
+                <span style={{ width: 28, flexShrink: 0 }}>
+                  {String(p.n).padStart(2, "0")}.
+                </span>
+                <span>{p.title}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* ─── CENTER: scattered parallax thumbs (productionCases) ─── */}
+        <div style={{ position: "relative", minHeight: "240vh" }}>
+          {productionCases.map((study, i) => (
+            <ScatterThumb
+              key={study.slug}
+              study={study}
+              index={i + 1}
+              scrollY={scrollY}
+              active={activeSlug === study.slug}
+              onClick={() => setActive(study.slug)}
+            />
+          ))}
         </div>
 
         {/* ─── RIGHT: case study panel ─── */}
@@ -262,164 +313,65 @@ function WorkHero() {
   );
 }
 
-// Manual scrollable list with scatter thumbs in a second sub-column. Both
-// share the same scroll container, so as the user scrolls the list, the
-// scatter thumbs scroll past too. Content is tripled and scroll position
-// wraps back to the middle copy at the boundaries — infinite loop feel.
-function ProjectLoopList({ projects, productionCases, activeSlug, setActive }) {
-  const ROW_HEIGHT = 44;
-  const VISIBLE = 14; // ~14 rows of list visible at once
-  const tripled = [...projects, ...projects, ...projects];
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = projects.length * ROW_HEIGHT;
-    }
-  }, [projects.length]);
-
-  const onScroll = (e) => {
-    const el = e.currentTarget;
-    const oneSet = projects.length * ROW_HEIGHT;
-    if (el.scrollTop < oneSet * 0.5) {
-      el.scrollTop += oneSet;
-    } else if (el.scrollTop > oneSet * 2.5) {
-      el.scrollTop -= oneSet;
-    }
-  };
-
-  // Scatter positions for the right-hand thumb column — recycled across rows
-  // so the thumbs feel "thrown" rather than gridded.
+function ScatterThumb({ study, index, scrollY, active, onClick }) {
   const positions = [
-    { left: "8%",  width: 200 },
-    { left: "55%", width: 170 },
-    { left: "18%", width: 180 },
-    { left: "62%", width: 210 },
-    { left: "5%",  width: 160 },
-    { left: "48%", width: 190 },
-    { left: "20%", width: 220 },
-    { left: "58%", width: 170 },
-    { left: "10%", width: 190 },
-    { left: "52%", width: 200 },
-    { left: "28%", width: 175 },
+    { left: "8%",  top: 380,  width: 200, speed: 0.10 },
+    { left: "62%", top: 180,  width: 170, speed: 0.18 },
+    { left: "20%", top: 760,  width: 180, speed: 0.06 },
+    { left: "55%", top: 980,  width: 210, speed: 0.14 },
+    { left: "5%",  top: 1240, width: 160, speed: 0.20 },
+    { left: "50%", top: 1480, width: 190, speed: 0.08 },
+    { left: "15%", top: 1740, width: 220, speed: 0.16 },
+    { left: "60%", top: 1960, width: 170, speed: 0.10 },
+    { left: "10%", top: 2240, width: 190, speed: 0.18 },
+    { left: "55%", top: 2480, width: 200, speed: 0.07 },
+    { left: "25%", top: 2760, width: 175, speed: 0.13 },
   ];
-
-  const totalHeight = tripled.length * ROW_HEIGHT;
+  const p = positions[index - 1] || { left: "20%", top: index * 280, width: 180, speed: 0.1 };
+  const glide = -scrollY * p.speed;
 
   return (
     <div
-      ref={scrollRef}
-      onScroll={onScroll}
+      onClick={onClick}
       style={{
-        height: ROW_HEIGHT * VISIBLE,
-        overflowY: "auto",
-        scrollbarWidth: "thin",
+        position: "absolute",
+        left: p.left,
+        top: p.top,
+        width: p.width,
+        cursor: "pointer",
+        transform: `translateY(${glide}px)`,
+        transition: "opacity 0.25s",
+        opacity: active ? 1 : 0.92,
+        willChange: "transform",
       }}
     >
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.2fr)",
-          gap: space.xl,
-          minHeight: totalHeight,
-          position: "relative",
+          fontFamily: HEROS_FONT,
+          fontWeight: 900,
+          fontSize: 36,
+          letterSpacing: "-0.04em",
+          marginBottom: space.sm,
+          color: colors.text,
         }}
       >
-        {/* LIST */}
-        <div>
-          {tripled.map((p, i) => {
-            const isActive = activeSlug && p.slug === activeSlug;
-            const clickable = !!p.slug;
-            return (
-              <button
-                key={i}
-                onClick={() => clickable && setActive(isActive ? null : p.slug)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: clickable ? "pointer" : "default",
-                  padding: 0,
-                  fontFamily: HEROS_FONT,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.01em",
-                  lineHeight: 1,
-                  color: colors.text,
-                  opacity: isActive ? 1 : 0.9,
-                  height: ROW_HEIGHT,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: space.md,
-                  textAlign: "left",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  width: "100%",
-                }}
-              >
-                <span style={{ width: 30, flexShrink: 0 }}>
-                  {String(p.n).padStart(2, "0")}.
-                </span>
-                <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
-                  {p.title}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* SCATTER THUMBS — absolutely positioned within this column */}
-        <div style={{ position: "relative" }}>
-          {tripled.map((p, i) => {
-            const study = p.slug ? productionCases.find(s => s.slug === p.slug) : null;
-            if (!study?.heroImage) return null;
-            const pos = positions[i % positions.length];
-            // Center the thumb roughly on the row it pairs with
-            const top = i * ROW_HEIGHT - (pos.width * 0.6);
-            const isActive = activeSlug === p.slug;
-            return (
-              <div
-                key={i}
-                onClick={() => setActive(isActive ? null : p.slug)}
-                style={{
-                  position: "absolute",
-                  top,
-                  left: pos.left,
-                  width: pos.width,
-                  cursor: "pointer",
-                  opacity: isActive ? 1 : 0.95,
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: HEROS_FONT,
-                    fontWeight: 900,
-                    fontSize: 28,
-                    letterSpacing: "-0.04em",
-                    marginBottom: space.xs,
-                    color: colors.text,
-                  }}
-                >
-                  {String(p.n).padStart(2, "0")}
-                </div>
-                <div style={{ background: "#eee", overflow: "hidden" }}>
-                  <img
-                    src={study.heroImage}
-                    alt=""
-                    loading="lazy"
-                    style={{
-                      width: "100%",
-                      aspectRatio: "4 / 3",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        {String(index).padStart(2, "0")}
       </div>
+      {study.heroImage && (
+        <div style={{ background: "#eee", overflow: "hidden" }}>
+          <img
+            src={study.heroImage}
+            alt=""
+            loading="lazy"
+            style={{
+              width: "100%",
+              aspectRatio: "4 / 3",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
