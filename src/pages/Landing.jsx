@@ -116,12 +116,12 @@ export default function Landing() {
         >
           <div
             style={{
-              fontFamily: HEROS,
-              fontSize: 13,
+              fontFamily: "'Times New Roman', Times, serif",
+              fontSize: 14,
               fontWeight: 400,
               letterSpacing: 0,
               marginBottom: space.sm,
-              marginLeft: 2, // optical alignment with Emily's left edge
+              marginLeft: 2,
               opacity: 0.95,
             }}
           >
@@ -141,26 +141,6 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* Top-right: italic nav (sits just to the left of the fixed "+") */}
-        <nav
-          style={{
-            position: "absolute",
-            top: space.xl,
-            right: 96, // leave room for the fixed "+"
-            display: "flex",
-            gap: space.lg,
-            color: "#fff",
-            fontFamily: "'Times New Roman', Times, serif",
-            fontStyle: "italic",
-            fontSize: 16,
-            zIndex: 5,
-          }}
-        >
-          <Link to="/work" style={{ color: "#fff" }}>Production</Link>
-          <Link to="/work" style={{ color: "#fff" }}>Cultural Commentary</Link>
-          <Link to="/work" style={{ color: "#fff" }}>Visual Research</Link>
-        </nav>
-
         {/* Bottom-right: Lucas */}
         <div
           style={{
@@ -179,7 +159,7 @@ export default function Landing() {
           Lucas
         </div>
 
-        {/* Bottom-center: SCROLL DOWN */}
+        {/* Bottom-center: Scroll Down */}
         <div
           style={{
             position: "absolute",
@@ -188,11 +168,10 @@ export default function Landing() {
             right: 0,
             textAlign: "center",
             color: "#fff",
-            fontFamily: IMPACT,
-            fontSize: 13,
+            fontFamily: "'Times New Roman', Times, serif",
+            fontSize: 14,
             fontWeight: 400,
-            letterSpacing: "-0.04em",
-            textTransform: "uppercase",
+            letterSpacing: 0,
             zIndex: 5,
             pointerEvents: "none",
           }}
@@ -273,7 +252,68 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ───── 3. PRODUCTION row: label + view-more LEFT, image strip RIGHT ───── */}
+      {/* ───── 3. BRANDS & COLLABORATORS ───── */}
+      <section
+        style={{
+          padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
+          borderBottom: `1px solid ${colors.text}`,
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 2fr",
+            gap: space.xl,
+            alignItems: "start",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: HEROS,
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              color: colors.text,
+            }}
+          >
+            BRANDS &amp; COLLABORATORS
+          </div>
+          <div
+            style={{
+              fontFamily: HEROS,
+              fontSize: 15,
+              fontWeight: 700,
+              lineHeight: 1.6,
+              color: colors.text,
+              maxWidth: 820,
+            }}
+          >
+            <div style={{ marginBottom: space.sm }}>
+              Commercial:{" "}
+              <Brand>
+                Aman, Nike, MR PORTER, Jumeirah, Janu, Cipriani, Anantara, Emirates,
+                Siro Hotel, Charlotte Tilbury
+              </Brand>
+            </div>
+            <div style={{ marginBottom: space.sm }}>
+              Partnerships:{" "}
+              <Brand>
+                Louis Vuitton, Bvlgari, Hennessy, Loro Piana, Stone Island, Brunello
+                Cucinelli, Tiffany &amp; Co.
+              </Brand>
+            </div>
+            <div>
+              Editorial:{" "}
+              <Brand>
+                The Glass Magazine, Vogue Arabia, Trippin, MR PORTER The Journal, MR
+                PORTER The Post
+              </Brand>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───── 4. PRODUCTION row: label + view-more LEFT, image strip RIGHT ───── */}
       <section
         style={{
           padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
