@@ -167,14 +167,16 @@ export default function Landing() {
             <h2
               style={{
                 fontFamily: SACKERS,
-                fontSize: "clamp(18px, 2vw, 26px)",
+                fontSize: 13,
                 fontWeight: 900,
-                lineHeight: 1.2,
+                lineHeight: 1.5,
                 margin: 0,
                 color: colors.text,
               }}
             >
-              EXECUTIVE PRODUCER<br />&amp; CULTURAL CONSULTANT
+              EXECUTIVE PRODUCER<br />
+              CULTURAL CONSULTANT<br />
+              VISUAL RESEARCHER
             </h2>
           </div>
           <div>
