@@ -277,10 +277,11 @@ function CategorySlide({ label, images, last }) {
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
         <div
           style={{
-            fontFamily: "'Times New Roman', Times, serif",
-            fontStyle: "italic",
-            fontSize: "clamp(28px, 3.4vw, 48px)",
-            fontWeight: 400,
+            fontFamily: HEROS,
+            fontSize: 12,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "-0.01em",
             lineHeight: 1,
             color: colors.text,
             marginBottom: space.sm,
