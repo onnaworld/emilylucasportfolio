@@ -125,7 +125,7 @@ export default function Work() {
           padding: `${space.xl}px ${space.xl}px ${space.xxl}px`,
         }}
       >
-        {/* ─── LEFT: project list (sticky) ─── */}
+        {/* ─── LEFT: project list (sticky, vertical loop after ~15 items) ─── */}
         <div
           style={{
             position: "sticky",
@@ -135,50 +135,7 @@ export default function Work() {
             paddingTop: space.xxl,
           }}
         >
-          {PROJECTS.map(p => {
-            const isActive = activeSlug && p.slug === activeSlug;
-            const clickable = !!p.slug;
-            return (
-              <div key={p.n} style={{ padding: "3px 0" }}>
-                <button
-                  onClick={() => clickable && setActive(isActive ? null : p.slug)}
-                  onMouseEnter={e => {
-                    if (clickable && !isActive) e.currentTarget.style.color = colors.text;
-                  }}
-                  onMouseLeave={e => {
-                    if (clickable && !isActive) e.currentTarget.style.color = colors.textMuted;
-                  }}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    cursor: clickable ? "pointer" : "default",
-                    padding: 0,
-                    fontFamily: HEROS_FONT,
-                    fontSize: 13,
-                    letterSpacing: 1.4,
-                    textTransform: "uppercase",
-                    color: isActive ? colors.text : colors.textMuted,
-                    fontWeight: isActive ? 700 : 500,
-                    display: "inline-flex",
-                    alignItems: "baseline",
-                    gap: space.md,
-                    transition: "color 0.15s",
-                    textAlign: "left",
-                  }}
-                >
-                  <span style={{ fontFamily: HEROS_FONT, fontSize: 11, fontWeight: 400, color: colors.textMuted, width: 26, flexShrink: 0 }}>
-                    {String(p.n).padStart(2, "0")}.
-                  </span>
-                  <span>{p.title}</span>
-                  {isActive && <span style={{ opacity: 1, fontSize: 9 }}>◀</span>}
-                </button>
-              </div>
-            );
-          })}
-
-          <div style={{ marginTop: space.xxl, ...t("body"), fontWeight: 700, fontSize: 14 }}>
-            Emily Lucas
-          </div>
+          <ProjectLoopList projects={PROJECTS} activeSlug={activeSlug} setActive={setActive} />
         </div>
 
         {/* ─── CENTER: scattered numbered thumbs (productionCases) ─── */}
@@ -321,6 +278,83 @@ function WorkHero() {
         ↓
       </div>
     </section>
+  );
+}
+
+// Vertical infinite-loop list of projects. Items use the same label treatment
+// as the home-page category rows (Heros Bold 12px uppercase, tight kerning, black).
+// Content is doubled and translated -50% so the loop is seamless. Pauses on hover.
+function ProjectLoopList({ projects, activeSlug, setActive }) {
+  const ITEM_HEIGHT = 22; // px per row (tight)
+  const VISIBLE = 15;
+  const doubled = [...projects, ...projects];
+
+  return (
+    <div
+      style={{
+        height: ITEM_HEIGHT * VISIBLE,
+        overflow: "hidden",
+        position: "relative",
+      }}
+      onMouseEnter={e => {
+        const inner = e.currentTarget.firstChild;
+        if (inner) inner.style.animationPlayState = "paused";
+      }}
+      onMouseLeave={e => {
+        const inner = e.currentTarget.firstChild;
+        if (inner) inner.style.animationPlayState = "running";
+      }}
+    >
+      <div
+        style={{
+          animation: `project-loop ${projects.length * 1.8}s linear infinite`,
+          willChange: "transform",
+        }}
+      >
+        {doubled.map((p, i) => {
+          const isActive = activeSlug && p.slug === activeSlug;
+          const clickable = !!p.slug;
+          return (
+            <button
+              key={i}
+              onClick={() => clickable && setActive(isActive ? null : p.slug)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: clickable ? "pointer" : "default",
+                padding: 0,
+                fontFamily: HEROS_FONT,
+                fontSize: 12,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "-0.01em",
+                lineHeight: 1,
+                color: colors.text,
+                opacity: isActive ? 1 : 0.85,
+                height: ITEM_HEIGHT,
+                display: "flex",
+                alignItems: "center",
+                gap: space.md,
+                textAlign: "left",
+                width: "100%",
+                transition: "opacity 0.15s",
+              }}
+            >
+              <span style={{ width: 26, flexShrink: 0, fontWeight: 400, color: colors.text, opacity: 0.5 }}>
+                {String(p.n).padStart(2, "0")}.
+              </span>
+              <span>{p.title}</span>
+            </button>
+          );
+        })}
+      </div>
+      <style>{`
+        @keyframes project-loop {
+          from { transform: translateY(0); }
+          to   { transform: translateY(-50%); }
+        }
+      `}</style>
+    </div>
   );
 }
 
