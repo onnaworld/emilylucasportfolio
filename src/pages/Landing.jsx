@@ -35,10 +35,11 @@ const PRODUCTION_IMAGES = [
   "/Production/01.jpg",
   "/Production/2..mov.gif",
   "/Production/3..webp",
+  "/Production/4.%20.jpg",
   "/Production/5..mp4",
+  "/Production/6..jpg",
   "/Production/6..mp4.gif",
   "/Production/7.gif",
-  "/Production/ORDER-CONFIRMATION-834x519.jpg",
 ];
 // Items can be a string OR { src, landscape? } so individual images can opt
 // into a wider crop without changing the rest of the row.
