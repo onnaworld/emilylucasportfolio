@@ -8,6 +8,14 @@ const TIMES = "'Times New Roman', Times, serif";
 
 // Numbered list. Items with a `slug` matching an existing productionCase open
 // the case study panel on the right; the rest are placeholders for now.
+// Category derived from the project's display number — used to swap the
+// 'Select Work' header to the discipline name on hover.
+function categoryFor(n) {
+  if (n <= 12) return "Production";
+  if (n <= 24) return "Cultural Strategy";
+  return "Visual Research";
+}
+
 const PROJECTS = [
   { n: 1, title: "Vogue Arabia", slug: "vogue-relaunch", thumb: "/work/all-work/01.jpg" },
   { n: 2, title: "Aman", slug: "aman", thumb: "/work/all-work/2..jpg" },
@@ -80,6 +88,22 @@ export default function Work() {
       `}</style>
       <WorkHero />
 
+      {/* Bottom fade so thumbs don't look harshly clipped at the page edge —
+          fades from transparent to page bg over ~30vh */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "30vh",
+          background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 90%)`,
+          pointerEvents: "none",
+          zIndex: 40,
+        }}
+      />
+
       {/* Full-width work section — fits exactly one viewport now that the
           thumbs advance from the list hover, not from page scroll. */}
       <div
@@ -115,9 +139,10 @@ export default function Work() {
                 lineHeight: 1,
                 color: colors.text,
                 marginBottom: space.md,
+                transition: "opacity 0.2s",
               }}
             >
-              Select Work
+              {hoveredIdx !== null ? categoryFor(PROJECTS[hoveredIdx].n) : "Select Work"}
             </div>
             {PROJECTS.map((p, idx) => {
               const isActive = activeSlug && p.slug === activeSlug;
@@ -191,6 +216,7 @@ export default function Work() {
             projects={PROJECTS}
             productionCases={productionCases}
             windowStart={windowStart}
+            hoveredIdx={hoveredIdx}
           />
         </div>
 
@@ -377,7 +403,7 @@ const SCATTER_SLOTS = [
   { leftPct: 18, topPct: 62, width: 240 },
 ];
 
-function ScatteredThumbs({ projects, productionCases, windowStart }) {
+function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx }) {
   return (
     <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
       {projects.map((p, i) => {
@@ -410,6 +436,12 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
         const thumbSrc = p.thumb || study?.heroImage;
         const isVideo = thumbSrc && /\.(mp4|webm|mov)$/i.test(thumbSrc);
 
+        // If user is hovering a list row, the hovered project is at slot 0;
+        // dim the other two visible thumbs so the hovered one stands out.
+        const isHoveredThumb = hoveredIdx !== null && i === hoveredIdx;
+        const isDimmedThumb = hoveredIdx !== null && visible && !isHoveredThumb;
+        const targetOpacity = visible ? (isDimmedThumb ? 0.2 : 1) : 0;
+
         return (
           <div
             key={p.n}
@@ -418,8 +450,8 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
               left: `${leftPct}%`,
               top: `${topPct}%`,
               width,
-              opacity: visible ? 1 : 0,
-              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.7s ease-out`,
+              opacity: targetOpacity,
+              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.35s ease-out`,
               pointerEvents: visible ? "auto" : "none",
               willChange: "top, left, opacity",
             }}
