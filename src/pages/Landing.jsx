@@ -211,7 +211,7 @@ export default function Landing() {
       {/* ───── 2. ABOUT (Studio Move-style giant intro paragraph) ───── */}
       <section
         style={{
-          padding: `${space.xxl}px ${space.xl}px ${space.lg}px`,
+          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
           display: "grid",
           gridTemplateColumns: "1fr 6fr",
           gap: space.xl,
@@ -266,7 +266,7 @@ function CategorySlide({ label, images, last }) {
   return (
     <section
       style={{
-        padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+        padding: `${space.md}px ${space.xl}px ${space.md}px`,
         borderBottom: last ? "none" : `1px solid ${colors.text}`,
         display: "grid",
         gridTemplateColumns: "1fr 2fr",
