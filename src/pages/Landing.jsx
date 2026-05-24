@@ -27,7 +27,7 @@ export default function Landing() {
 
   return (
     <div style={{ minHeight: "100vh", background: "#fff", color: colors.text }}>
-      {/* ───── 1. HERO: black, wordmark, showreel ───── */}
+      {/* ───── 1. HERO: showreel + marquee, together filling the viewport ───── */}
       <section
         style={{
           background: "#000",
@@ -39,7 +39,6 @@ export default function Landing() {
           overflow: "hidden",
         }}
       >
-        {/* Showreel */}
         <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
           <button
             onClick={() => setMenuOpen(o => !o)}
@@ -79,11 +78,10 @@ export default function Landing() {
           />
         </div>
 
+        <Marquee items={SERVICES} />
+
         {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
       </section>
-
-      {/* ───── 2. MARQUEE ───── */}
-      <Marquee items={SERVICES} />
 
       {/* ───── 3. SUMMARY ───── */}
       <section
