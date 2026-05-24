@@ -99,8 +99,8 @@ export default function Landing() {
             <h1
               style={{
                 fontFamily: SACKERS,
-                fontSize: "clamp(48px, 8.5vw, 100px)",
-                fontWeight: 300,
+                fontSize: "clamp(28px, 4.4vw, 58px)",
+                fontWeight: 400,
                 letterSpacing: "0.12em",
                 lineHeight: 1.05,
                 margin: 0,
@@ -112,18 +112,18 @@ export default function Landing() {
             <div
               style={{
                 fontFamily: SACKERS,
-                fontSize: "clamp(11px, 1.4vw, 20px)",
+                fontSize: "clamp(9px, 0.9vw, 13px)",
                 fontWeight: 400,
-                letterSpacing: "0.28em",
-                marginTop: space.lg,
-                paddingLeft: "0.28em",
+                letterSpacing: "0.26em",
+                marginTop: space.sm,
+                paddingLeft: "0.26em",
               }}
             >
               EXECUTIVE PRODUCER &amp; CULTURAL CONSULTANT
             </div>
           </div>
 
-          {/* Locations strip at bottom of hero (above the marquee) */}
+          {/* Locations strip at bottom of hero */}
           <div
             style={{
               position: "absolute",
@@ -132,15 +132,15 @@ export default function Landing() {
               right: 0,
               textAlign: "center",
               fontFamily: UNICA,
-              fontSize: "clamp(14px, 1.7vw, 25px)",
-              letterSpacing: "0.22em",
+              fontSize: "clamp(10px, 1vw, 14px)",
+              letterSpacing: "0.2em",
               color: "#fff",
               zIndex: 5,
               pointerEvents: "none",
-              paddingLeft: "0.22em",
+              paddingLeft: "0.2em",
             }}
           >
-            US&nbsp;&nbsp;·&nbsp;&nbsp;JAPAN&nbsp;&nbsp;·&nbsp;&nbsp;GCC&nbsp;&nbsp;·&nbsp;&nbsp;UK
+            US · JAPAN · GCC · UK
           </div>
         </div>
 
