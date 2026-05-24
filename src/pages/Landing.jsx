@@ -278,7 +278,7 @@ export default function Landing() {
       </section>
 
       <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
-      <CategorySlide label="CULTURAL STRATEGY" images={WRITING_IMAGES} compact />
+      <CategorySlide label="CULTURAL STRATEGY & COMMENTARY" images={WRITING_IMAGES} compact />
       <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape />
 
       {/* View all work — small Times link, centered between two lines */}
@@ -408,10 +408,23 @@ function CategorySlide({ label, images, compact = false, landscape = false }) {
             letterSpacing: "-0.01em",
             lineHeight: 1,
             color: colors.text,
+            marginBottom: space.sm,
           }}
         >
           {label}
         </div>
+        <Link
+          to="/work"
+          style={{
+            fontFamily: HEROS,
+            fontSize: 13,
+            fontWeight: 400,
+            color: colors.text,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          View More Work →
+        </Link>
       </div>
       <CredentialsCarousel images={images} compact={compact} landscape={landscape} />
     </section>
