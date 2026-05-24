@@ -33,11 +33,11 @@ const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 // Per-section work imagery (URL-encoded spaces in folder names)
 const PRODUCTION_IMAGES = [
   "/Production/01.jpg",
-  "/Production/2..mp4",
-  "/Production/03.jpg",
-  "/Production/04.jpg",
-  "/Production/05.jpg",
-  "/Production/06.jpg",
+  "/Production/2..mov.gif",
+  "/Production/3..webp",
+  "/Production/5..mp4",
+  "/Production/6..mp4.gif",
+  "/Production/7.gif",
 ];
 const WRITING_IMAGES = [
   "/Written%20Work/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",
@@ -578,7 +578,9 @@ function Brand({ children }) {
 function CredentialsCarousel({ images, compact = false, landscape = false }) {
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
-  const w = landscape ? 360 : compact ? 180 : 320;
+  // Lead row: width auto so landscape gifs/videos stay landscape (no cropping).
+  // Compact rows: fixed width box (with cover) for a uniform thumbnail strip.
+  const fixedW = landscape ? 360 : compact ? 180 : null;
   return (
     <div style={{ overflow: "hidden", width: "100%" }}>
       <div
@@ -593,9 +595,9 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
           const isVideo = /\.(mp4|webm|mov)$/i.test(src);
           const sharedStyle = {
             height: h,
-            width: w,
+            width: fixedW ?? "auto",
             marginRight: 12,
-            objectFit: "cover",
+            objectFit: fixedW ? "cover" : "contain",
             display: "block",
             background: colors.surface,
             flexShrink: 0,
