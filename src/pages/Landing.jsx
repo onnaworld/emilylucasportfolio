@@ -61,15 +61,15 @@ export default function Landing() {
         aria-label="Menu"
         style={{
           position: "fixed",
-          top: 36,
+          top: 24,
           right: space.xl,
           margin: 0,
           background: "none",
           border: "none",
           padding: 0,
           fontFamily: HEROS,
-          fontSize: "clamp(22px, 2.2vw, 28px)",
-          fontWeight: 700,
+          fontSize: 56,
+          fontWeight: 400,
           letterSpacing: "-0.02em",
           lineHeight: 1,
           color: "#fff",
@@ -90,15 +90,10 @@ export default function Landing() {
           overflow: "hidden",
         }}
       >
-        {/* Hero showreel */}
-        <video
-          src="/showreel.mp4"
-          poster="/showreel-poster.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
+        {/* Hero photo */}
+        <img
+          src="/hero.jpg"
+          alt=""
           style={{
             position: "absolute",
             inset: 0,
@@ -109,7 +104,7 @@ export default function Landing() {
           }}
         />
 
-        {/* Top-left: Emily + Portfolio 2026 */}
+        {/* Top-left: Portfolio 2026 (above) + Emily */}
         <div
           style={{
             position: "absolute",
@@ -121,6 +116,18 @@ export default function Landing() {
         >
           <div
             style={{
+              fontFamily: "'Times New Roman', Times, serif",
+              fontStyle: "italic",
+              fontSize: 16,
+              fontWeight: 400,
+              marginBottom: space.sm,
+              opacity: 0.95,
+            }}
+          >
+            Portfolio 2026
+          </div>
+          <div
+            style={{
               fontFamily: HEROS,
               fontSize: "clamp(56px, 9vw, 130px)",
               fontWeight: 700,
@@ -130,19 +137,6 @@ export default function Landing() {
             }}
           >
             Emily
-          </div>
-          <div
-            style={{
-              fontFamily: HEROS,
-              fontSize: 11,
-              fontWeight: 400,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              marginTop: space.md,
-              opacity: 0.9,
-            }}
-          >
-            Portfolio 2026
           </div>
         </div>
 
@@ -193,10 +187,10 @@ export default function Landing() {
             right: 0,
             textAlign: "center",
             color: "#fff",
-            fontFamily: HEROS,
-            fontSize: 10,
-            fontWeight: 700,
-            letterSpacing: "0.2em",
+            fontFamily: IMPACT,
+            fontSize: 13,
+            fontWeight: 400,
+            letterSpacing: "-0.04em",
             textTransform: "uppercase",
             zIndex: 5,
             pointerEvents: "none",
