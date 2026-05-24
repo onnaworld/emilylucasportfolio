@@ -24,12 +24,17 @@ const BRAND_LOGOS = [
 
 const ACCENT = "#ff5a2a"; // small "+" colour, like Aalto's
 
+// Hero typography — fallback stack until Sackers Gothic Std / Unica 77 are loaded.
+// To use the real fonts: place .woff2 files in public/fonts/ and add @font-face in index.html.
+const SACKERS = "'Sackers Gothic Std', 'Tenor Sans', 'Optima', 'Avenir Next', 'Helvetica Neue', sans-serif";
+const UNICA = "'Unica 77', 'Helvetica Neue', 'Inter', sans-serif";
+
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div style={{ minHeight: "100vh", background: "#fff", color: colors.text }}>
-      {/* ───── 1. HERO: showreel + marquee, together filling the viewport ───── */}
+      {/* ───── 1. HERO: cover image + typography + marquee, filling the viewport ───── */}
       <section
         style={{
           background: "#000",
@@ -42,6 +47,21 @@ export default function Landing() {
         }}
       >
         <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
+          {/* Hero photo */}
+          <img
+            src="/hero.jpg"
+            alt=""
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+
+          {/* + menu */}
           <button
             onClick={() => setMenuOpen(o => !o)}
             aria-label="Menu"
@@ -62,22 +82,69 @@ export default function Landing() {
           >
             {menuOpen ? "×" : "+"}
           </button>
-          <video
-            src="/showreel.mp4"
-            poster="/showreel-poster.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
+
+          {/* Centered wordmark + role */}
+          <div
             style={{
               position: "absolute",
               inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              color: "#fff",
+              padding: `0 ${space.xl}px`,
+              zIndex: 5,
+              pointerEvents: "none",
             }}
-          />
+          >
+            <h1
+              style={{
+                fontFamily: SACKERS,
+                fontSize: "clamp(48px, 8.5vw, 100px)",
+                fontWeight: 300,
+                letterSpacing: "0.12em",
+                lineHeight: 1.05,
+                margin: 0,
+                paddingLeft: "0.12em", // optical balance for letter-spacing
+              }}
+            >
+              EMILY LUCAS
+            </h1>
+            <div
+              style={{
+                fontFamily: SACKERS,
+                fontSize: "clamp(11px, 1.4vw, 20px)",
+                fontWeight: 400,
+                letterSpacing: "0.28em",
+                marginTop: space.lg,
+                paddingLeft: "0.28em",
+              }}
+            >
+              EXECUTIVE PRODUCER &amp; CULTURAL CONSULTANT
+            </div>
+          </div>
+
+          {/* Locations strip at bottom of hero (above the marquee) */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: space.xl,
+              left: 0,
+              right: 0,
+              textAlign: "center",
+              fontFamily: UNICA,
+              fontSize: "clamp(14px, 1.7vw, 25px)",
+              letterSpacing: "0.22em",
+              color: "#fff",
+              zIndex: 5,
+              pointerEvents: "none",
+              paddingLeft: "0.22em",
+            }}
+          >
+            US&nbsp;&nbsp;·&nbsp;&nbsp;JAPAN&nbsp;&nbsp;·&nbsp;&nbsp;GCC&nbsp;&nbsp;·&nbsp;&nbsp;UK
+          </div>
         </div>
 
         <Marquee items={SERVICES} />
@@ -116,7 +183,36 @@ export default function Landing() {
       {/* ───── 4. BRAND LOGO CAROUSEL ───── */}
       <LogoCarousel logos={BRAND_LOGOS} />
 
-      {/* ───── 5. SELECTED WORK GRID ───── */}
+      {/* ───── 5. SHOWREEL ───── */}
+      <section style={{ background: "#000", padding: 0 }}>
+        <div
+          style={{
+            textAlign: "center",
+            padding: `${space.lg}px ${space.xl}px`,
+            color: "#fff",
+            fontFamily: fonts.sans,
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: 2,
+          }}
+        >
+          SHOWREEL
+        </div>
+        <div style={{ width: "100%", aspectRatio: "16 / 9", background: "#000" }}>
+          <video
+            src="/showreel.mp4"
+            poster="/showreel-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        </div>
+      </section>
+
+      {/* ───── 6. SELECTED WORK GRID ───── */}
       <section>
         <div
           style={{
