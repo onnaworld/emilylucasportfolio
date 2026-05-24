@@ -25,6 +25,19 @@ const ACCENT = "#ff5a2a"; // small "+" colour, like Aalto's
 // Custom display fonts loaded via @font-face in index.html.
 const SACKERS = "'Sackers Gothic Std', 'Optima', sans-serif";
 const UNICA = "'Unica 77', 'Helvetica Neue', sans-serif";
+const AVENIR = "'Avenir', 'Avenir Next', 'Helvetica Neue', sans-serif";
+
+// Slide-2 work imagery (drop files into public/credentials/)
+const CREDENTIAL_IMAGES = [
+  "/credentials/01.jpg",
+  "/credentials/02.jpg",
+  "/credentials/03.jpg",
+  "/credentials/04.jpg",
+  "/credentials/05.jpg",
+  "/credentials/06.jpg",
+  "/credentials/07.jpg",
+  "/credentials/08.jpg",
+];
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -117,10 +130,11 @@ export default function Landing() {
               style={{
                 fontFamily: SACKERS,
                 fontSize: "clamp(20px, 2.8vw, 36px)",
-                fontWeight: 400,
+                fontWeight: 900,
                 letterSpacing: 0,
                 lineHeight: 1.05,
                 margin: 0,
+                WebkitTextStroke: "0.4px #fff",
               }}
             >
               EMILY LUCAS
@@ -143,36 +157,39 @@ export default function Landing() {
         {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
       </section>
 
-      {/* ───── 2. SUMMARY ───── */}
+      {/* ───── 2. SUMMARY + credentials carousel ───── */}
       <section
         style={{
           minHeight: "100vh",
           scrollSnapAlign: "start",
           scrollSnapStop: "always",
-          padding: `${space.xxl}px ${space.xl}px`,
           display: "flex",
-          alignItems: "center",
+          flexDirection: "column",
+          paddingTop: space.xxl,
         }}
       >
-        <p
-          style={{
-            fontFamily: fonts.sans,
-            fontSize: 15,
-            fontWeight: 400,
-            lineHeight: 1.6,
-            margin: 0,
-            color: colors.text,
-            maxWidth: 760,
-          }}
-        >
-          Executive Producer specialising in photo and video production for luxury and
-          lifestyle brands across the US, UK, and GCC. Delivered campaigns for MR PORTER
-          (2.65M views on 'In America'), Aman, Nike and Condé Nast, with a $500k+ brand
-          partnership framework built inside the Richemont Group. Run an 11-agent AI
-          production system that handles estimating, SOWs, and crew logistics end-to-end,
-          built to eliminate operational bottlenecks and increase output velocity. Production
-          fluency across in-house brand, agency, and editorial.
-        </p>
+        <div style={{ padding: `0 ${space.xl}px ${space.xl}px` }}>
+          <p
+            style={{
+              fontFamily: AVENIR,
+              fontSize: 15,
+              fontWeight: 400,
+              lineHeight: 1.6,
+              margin: 0,
+              color: colors.text,
+              maxWidth: 760,
+            }}
+          >
+            Executive Producer specialising in photo and video production for luxury and
+            lifestyle brands across the US, UK, and GCC. Delivered campaigns for MR PORTER
+            (2.65M views on 'In America'), Aman, Nike and Condé Nast, with a $500k+ brand
+            partnership framework built inside the Richemont Group. Run an 11-agent AI
+            production system that handles estimating, SOWs, and crew logistics end-to-end,
+            built to eliminate operational bottlenecks and increase output velocity.
+            Production fluency across in-house brand, agency, and editorial.
+          </p>
+        </div>
+        <CredentialsCarousel images={CREDENTIAL_IMAGES} />
       </section>
 
       {/* ───── 3. BRAND LOGO CAROUSEL ───── */}
@@ -404,6 +421,58 @@ function MenuOverlay({ onClose }) {
       <Link to="/work" style={linkStyle}>Work</Link>
       <Link to="/about" style={linkStyle}>About</Link>
       <Link to="/contact" style={linkStyle}>Contact</Link>
+    </div>
+  );
+}
+
+// Horizontal infinite carousel of credential images, with gaps between each.
+function CredentialsCarousel({ images }) {
+  const row = (
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 32, paddingRight: 32 }}>
+      {images.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt=""
+          loading="lazy"
+          style={{
+            height: "44vh",
+            width: "auto",
+            objectFit: "cover",
+            display: "block",
+            background: colors.surface,
+            flexShrink: 0,
+          }}
+        />
+      ))}
+    </div>
+  );
+  return (
+    <div
+      style={{
+        flex: 1,
+        display: "flex",
+        alignItems: "center",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-flex",
+          animation: "credentials-slide 70s linear infinite",
+          willChange: "transform",
+        }}
+      >
+        {row}
+        {row}
+      </div>
+      <style>{`
+        @keyframes credentials-slide {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   );
 }
