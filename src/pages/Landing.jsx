@@ -54,16 +54,15 @@ export default function Landing() {
         .landing-snap, .landing-snap * { cursor: none !important; }
       `}</style>
 
-      {/* EMILY LUCAS — fixed top-left, mix-blend inverts based on background */}
+      {/* Emily Lucas wordmark — fixed top-left, mix-blend inverts based on background */}
       <h1
         style={{
           position: "fixed",
           top: 36,
           left: space.xl,
           margin: 0,
-          fontFamily: IMPACT,
           fontSize: "clamp(22px, 2.2vw, 28px)",
-          fontWeight: 400,
+          fontWeight: 700,
           letterSpacing: "-0.02em",
           lineHeight: 1,
           color: "#fff",
@@ -72,7 +71,12 @@ export default function Landing() {
           pointerEvents: "none",
         }}
       >
-        EMILY LUCAS
+        <span style={{ fontFamily: "'TeX Gyre Heros', 'Helvetica Neue', sans-serif", fontWeight: 700 }}>
+          Emily
+        </span>{" "}
+        <span style={{ fontFamily: "'Times New Roman', Times, serif", fontWeight: 400 }}>
+          Lucas
+        </span>
       </h1>
 
       {/* ───── 1. HERO: cover image + EMILY LUCAS only ───── */}
