@@ -46,6 +46,10 @@ export default function Landing() {
     <div
       className="landing-snap"
       style={{
+        height: "100vh",
+        overflowY: "auto",
+        scrollSnapType: "y mandatory",
+        scrollBehavior: "smooth",
         background: "#fff",
         color: colors.text,
       }}
@@ -86,6 +90,8 @@ export default function Landing() {
           background: "#000",
           color: "#fff",
           height: "100vh",
+          scrollSnapAlign: "start",
+          scrollSnapStop: "always",
           position: "relative",
           overflow: "hidden",
         }}
@@ -179,17 +185,27 @@ export default function Landing() {
           Cultural Consultant<br />
           Visual Researcher
         </div>
+
+        <DownArrow color="#fff" />
       </section>
 
       {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
 
-      {/* ───── 2. ABOUT row: label + role list LEFT, summary RIGHT ───── */}
+      {/* ───── 2. ABOUT + BRANDS & COLLABORATORS (single slide) ───── */}
       <section
         style={{
-          padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
+          height: "100vh",
+          scrollSnapAlign: "start",
+          scrollSnapStop: "always",
+          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
           borderBottom: `1px solid ${colors.text}`,
+          position: "relative",
         }}
       >
+        {/* ABOUT row */}
         <div
           style={{
             display: "grid",
@@ -209,39 +225,31 @@ export default function Landing() {
           >
             ABOUT
           </div>
-          <div>
-            <p
-              style={{
-                fontFamily: HEROS,
-                fontSize: 15,
-                fontWeight: 700,
-                lineHeight: 1.5,
-                margin: 0,
-                color: colors.text,
-                maxWidth: 820,
-              }}
-            >
-              Executive Producer specialising in photo and video production for luxury and
-              lifestyle brands across the US, UK, and GCC. Delivered campaigns for{" "}
-              <Brand>MR PORTER</Brand> (2.65M views on 'In America'),{" "}
-              <Brand>Aman</Brand>, <Brand>Nike</Brand> and{" "}
-              <Brand>Condé Nast</Brand>, with a $500k+ brand partnership framework built
-              inside the <Brand>Richemont Group</Brand>. Run an 11-agent AI production
-              system that handles estimating, SOWs, and crew logistics end-to-end, built
-              to eliminate operational bottlenecks and increase output velocity. Production
-              fluency across in-house brand, agency, and editorial.
-            </p>
-          </div>
+          <p
+            style={{
+              fontFamily: HEROS,
+              fontSize: 15,
+              fontWeight: 700,
+              lineHeight: 1.5,
+              margin: 0,
+              color: colors.text,
+              maxWidth: 820,
+              textTransform: "uppercase",
+            }}
+          >
+            Executive Producer specialising in photo and video production for luxury and
+            lifestyle brands across the US, UK, and GCC. Delivered campaigns for{" "}
+            <Brand>MR PORTER</Brand> (2.65M views on 'In America'),{" "}
+            <Brand>Aman</Brand>, <Brand>Nike</Brand> and{" "}
+            <Brand>Condé Nast</Brand>, with a $500k+ brand partnership framework built
+            inside the <Brand>Richemont Group</Brand>. Run an 11-agent AI production
+            system that handles estimating, SOWs, and crew logistics end-to-end, built
+            to eliminate operational bottlenecks and increase output velocity. Production
+            fluency across in-house brand, agency, and editorial.
+          </p>
         </div>
-      </section>
 
-      {/* ───── 3. BRANDS & COLLABORATORS ───── */}
-      <section
-        style={{
-          padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
-          borderBottom: `1px solid ${colors.text}`,
-        }}
-      >
+        {/* BRANDS & COLLABORATORS row */}
         <div
           style={{
             display: "grid",
@@ -270,22 +278,23 @@ export default function Landing() {
               color: colors.text,
               maxWidth: 820,
               margin: 0,
+              textTransform: "uppercase",
             }}
           >
-            Commercial:{" "}
+            Commercial{" "}
             <Brand>
               Aman, Nike, MR PORTER, Jumeirah, Janu, Cipriani, Anantara, Emirates,
               Siro Hotel, Charlotte Tillbury, Columbia Sportswear, Harvey Nichols,
               Mastercard, J.Crew, GUESS, The Fold, Hamilton Watches, Puma
             </Brand>
-            . Partnerships:{" "}
+            . Partnerships{" "}
             <Brand>
               Louis Vuitton, Bvlgari, Hennessy, Loro Piana, Stone Island, Brunello
               Cucinneli, Tiffany &amp; Co., The Frankie Shop, New Balance, Loewe,
               Gucci, SMR Days, The Elder Statesman, Greg Lauren, INCOTEX, Gucci,
               Burberry, Bogner
             </Brand>
-            . Editorial:{" "}
+            . Editorial{" "}
             <Brand>
               The Glass Magazine, Vogue Arabia, Trippin, MR PORTER The Journal, MR
               PORTER The Post
@@ -293,128 +302,86 @@ export default function Landing() {
             .
           </p>
         </div>
+
+        <DownArrow color={colors.text} />
       </section>
 
-      {/* ───── 4. PRODUCTION row: label + view-more LEFT, image strip RIGHT ───── */}
-      <section
-        style={{
-          padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
-          borderBottom: `1px solid ${colors.text}`,
-          display: "grid",
-          gridTemplateColumns: "1fr 2fr",
-          gap: space.xl,
-          alignItems: "start",
-        }}
-      >
-        <div>
-          <div
-            style={{
-              fontFamily: HEROS,
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "-0.01em",
-              marginBottom: space.xl,
-              color: colors.text,
-            }}
-          >
-            PRODUCTION
-          </div>
-          <Link
-            to="/work"
-            style={{
-              fontFamily: HEROS,
-              fontSize: 13,
-              fontWeight: 400,
-              color: colors.text,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            View More →
-          </Link>
+      <CategorySlide label="PRODUCTION" images={CREDENTIAL_IMAGES} />
+      <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={CREDENTIAL_IMAGES} />
+      <CategorySlide label="VISUAL RESEARCH" images={CREDENTIAL_IMAGES} last />
+
+    </div>
+  );
+}
+
+function CategorySlide({ label, images, last }) {
+  return (
+    <section
+      style={{
+        height: "100vh",
+        scrollSnapAlign: "start",
+        scrollSnapStop: "always",
+        padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+        borderBottom: last ? "none" : `1px solid ${colors.text}`,
+        display: "grid",
+        gridTemplateColumns: "1fr 2fr",
+        gap: space.xl,
+        alignItems: "center",
+        position: "relative",
+      }}
+    >
+      <div>
+        <div
+          style={{
+            fontFamily: HEROS,
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: "-0.01em",
+            marginBottom: space.xl,
+            color: colors.text,
+          }}
+        >
+          {label}
         </div>
-        <CredentialsCarousel images={CREDENTIAL_IMAGES} />
-      </section>
+        <Link
+          to="/work"
+          style={{
+            fontFamily: HEROS,
+            fontSize: 13,
+            fontWeight: 400,
+            color: colors.text,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          View More →
+        </Link>
+      </div>
+      <CredentialsCarousel images={images} />
+      {!last && <DownArrow color={colors.text} />}
+    </section>
+  );
+}
 
-      {/* ───── 4. WRITING & CULTURAL COMMENTARY row ───── */}
-      <section
-        style={{
-          padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
-          borderBottom: `1px solid ${colors.text}`,
-          display: "grid",
-          gridTemplateColumns: "1fr 2fr",
-          gap: space.xl,
-          alignItems: "start",
-        }}
-      >
-        <div>
-          <div
-            style={{
-              fontFamily: HEROS,
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "-0.01em",
-              marginBottom: space.xl,
-              color: colors.text,
-            }}
-          >
-            WRITING &amp; CULTURAL COMMENTARY
-          </div>
-          <Link
-            to="/work"
-            style={{
-              fontFamily: HEROS,
-              fontSize: 13,
-              fontWeight: 400,
-              color: colors.text,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            View More →
-          </Link>
-        </div>
-        <CredentialsCarousel images={CREDENTIAL_IMAGES} />
-      </section>
-
-      {/* ───── 5. VISUAL RESEARCH row ───── */}
-      <section
-        style={{
-          padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
-          borderBottom: `1px solid ${colors.text}`,
-          display: "grid",
-          gridTemplateColumns: "1fr 2fr",
-          gap: space.xl,
-          alignItems: "start",
-        }}
-      >
-        <div>
-          <div
-            style={{
-              fontFamily: HEROS,
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "-0.01em",
-              marginBottom: space.xl,
-              color: colors.text,
-            }}
-          >
-            VISUAL RESEARCH
-          </div>
-          <Link
-            to="/work"
-            style={{
-              fontFamily: HEROS,
-              fontSize: 13,
-              fontWeight: 400,
-              color: colors.text,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            View More →
-          </Link>
-        </div>
-        <CredentialsCarousel images={CREDENTIAL_IMAGES} />
-      </section>
-
+function DownArrow({ color }) {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        bottom: space.lg,
+        left: 0,
+        right: 0,
+        textAlign: "center",
+        color,
+        fontFamily: HEROS,
+        fontSize: 18,
+        fontWeight: 400,
+        lineHeight: 1,
+        pointerEvents: "none",
+        zIndex: 4,
+      }}
+    >
+      ↓
     </div>
   );
 }
@@ -574,6 +541,7 @@ function Brand({ children }) {
         fontWeight: 400,
         fontSize: "1.12em",
         letterSpacing: 0,
+        textTransform: "none",
       }}
     >
       {children}
