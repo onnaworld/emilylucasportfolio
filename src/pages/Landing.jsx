@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
 
-const SERVICES = ["PRODUCTION", "VISUAL RESEARCH", "JOURNALISM", "STRATEGY"];
-
 const BRAND_LOGOS = [
   "TIFFANY & CO.",
   "AMAN",
@@ -24,10 +22,9 @@ const BRAND_LOGOS = [
 
 const ACCENT = "#ff5a2a"; // small "+" colour, like Aalto's
 
-// Hero typography — fallback stack until Sackers Gothic Std / Unica 77 are loaded.
-// To use the real fonts: place .woff2 files in public/fonts/ and add @font-face in index.html.
-const SACKERS = "'Sackers Gothic Std', 'Tenor Sans', 'Optima', 'Avenir Next', 'Helvetica Neue', sans-serif";
-const UNICA = "'Unica 77', 'Helvetica Neue', 'Inter', sans-serif";
+// Custom display fonts loaded via @font-face in index.html.
+const SACKERS = "'Sackers Gothic Std', 'Optima', sans-serif";
+const UNICA = "'Unica 77', 'Helvetica Neue', sans-serif";
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -146,8 +143,6 @@ export default function Landing() {
             US&nbsp;&nbsp;·&nbsp;&nbsp;JAPAN&nbsp;&nbsp;·&nbsp;&nbsp;GCC&nbsp;&nbsp;·&nbsp;&nbsp;UK
           </div>
         </div>
-
-        <Marquee items={SERVICES} />
 
         {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
       </section>
@@ -365,48 +360,6 @@ function GridTile({ study }) {
   );
 }
 
-function Marquee({ items }) {
-  const segment = items.join("   ·   ");
-  // Repeat enough segments to fill the screen + cushion for the slide
-  const copies = Array.from({ length: 8 }, (_, i) => (
-    <span key={i} style={{ paddingRight: 60 }}>
-      {segment}
-    </span>
-  ));
-  return (
-    <div
-      style={{
-        background: "#fff",
-        color: colors.text,
-        borderTop: `1px solid ${colors.text}`,
-        borderBottom: `1px solid ${colors.text}`,
-        padding: "16px 0",
-        overflow: "hidden",
-        whiteSpace: "nowrap",
-        position: "relative",
-      }}
-    >
-      <div
-        style={{
-          display: "inline-block",
-          animation: "marquee-slide 45s linear infinite",
-          fontFamily: fonts.sans,
-          fontSize: 15,
-          fontWeight: 700,
-          letterSpacing: 2.5,
-        }}
-      >
-        {copies}
-      </div>
-      <style>{`
-        @keyframes marquee-slide {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-      `}</style>
-    </div>
-  );
-}
 
 function MenuOverlay({ onClose }) {
   const linkStyle = {

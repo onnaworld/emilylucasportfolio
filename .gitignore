@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Bulky font source folders — committed copies live at public/fonts/*.woff2 / *.otf
+public/fonts/Sackers/
+public/fonts/Unica 77 LL/
+public/fonts/Avenir/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
