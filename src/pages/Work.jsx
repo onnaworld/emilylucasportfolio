@@ -326,19 +326,19 @@ function WorkHero() {
 }
 
 function ScatterThumb({ study, index, scrollY, active, onClick }) {
-  // x-positions span the full viewport (avoiding the centred ~40-60% list area)
+  // x-positions live in the right 50% of the viewport — list owns the left half
   const positions = [
-    { left: "4%",  top: 180,  width: 220, speed: 0.10 },
-    { left: "78%", top: 320,  width: 200, speed: 0.18 },
-    { left: "8%",  top: 760,  width: 200, speed: 0.06 },
-    { left: "80%", top: 920,  width: 230, speed: 0.14 },
-    { left: "3%",  top: 1240, width: 180, speed: 0.20 },
+    { left: "55%", top: 180,  width: 220, speed: 0.10 },
+    { left: "80%", top: 320,  width: 200, speed: 0.18 },
+    { left: "58%", top: 760,  width: 200, speed: 0.06 },
+    { left: "82%", top: 920,  width: 220, speed: 0.14 },
+    { left: "53%", top: 1240, width: 190, speed: 0.20 },
     { left: "82%", top: 1440, width: 210, speed: 0.08 },
-    { left: "6%",  top: 1740, width: 240, speed: 0.16 },
-    { left: "78%", top: 1900, width: 190, speed: 0.10 },
-    { left: "5%",  top: 2240, width: 210, speed: 0.18 },
+    { left: "57%", top: 1740, width: 230, speed: 0.16 },
+    { left: "80%", top: 1900, width: 190, speed: 0.10 },
+    { left: "55%", top: 2240, width: 210, speed: 0.18 },
     { left: "80%", top: 2440, width: 220, speed: 0.07 },
-    { left: "8%",  top: 2760, width: 195, speed: 0.13 },
+    { left: "58%", top: 2760, width: 195, speed: 0.13 },
   ];
   const p = positions[index - 1] || { left: "20%", top: index * 280, width: 180, speed: 0.1 };
   const glide = -scrollY * p.speed;
