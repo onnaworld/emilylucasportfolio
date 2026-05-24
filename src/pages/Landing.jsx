@@ -129,7 +129,7 @@ export default function Landing() {
           <div
             style={{
               fontFamily: HEROS,
-              fontSize: "clamp(56px, 9vw, 130px)",
+              fontSize: "clamp(44px, 7vw, 100px)",
               fontWeight: 700,
               lineHeight: 0.9,
               letterSpacing: "-0.04em",
@@ -168,7 +168,7 @@ export default function Landing() {
             right: space.xl,
             color: "#fff",
             fontFamily: "'Times New Roman', Times, serif",
-            fontSize: "clamp(56px, 9vw, 130px)",
+            fontSize: "clamp(44px, 7vw, 100px)",
             fontWeight: 400,
             lineHeight: 0.9,
             letterSpacing: "-0.02em",
@@ -232,19 +232,18 @@ export default function Landing() {
             </div>
             <h2
               style={{
-                fontFamily: HEROS,
-                fontSize: 16,
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.4,
+                fontFamily: "'Times New Roman', Times, serif",
+                fontSize: 13,
+                fontWeight: 400,
+                letterSpacing: 0,
+                lineHeight: 1.5,
                 margin: 0,
                 color: colors.text,
-                textTransform: "uppercase",
               }}
             >
-              EXECUTIVE PRODUCER<br />
-              CULTURAL CONSULTANT<br />
-              VISUAL RESEARCHER
+              Executive Producer<br />
+              Cultural Consultant<br />
+              Visual Researcher
             </h2>
           </div>
           <div>
@@ -252,7 +251,7 @@ export default function Landing() {
               style={{
                 fontFamily: HEROS,
                 fontSize: 16,
-                fontWeight: 400,
+                fontWeight: 700,
                 lineHeight: 1.6,
                 margin: 0,
                 color: colors.text,
@@ -260,12 +259,14 @@ export default function Landing() {
               }}
             >
               Executive Producer specialising in photo and video production for luxury and
-              lifestyle brands across the US, UK, and GCC. Delivered campaigns for MR PORTER
-              (2.65M views on 'In America'), Aman, Nike and Condé Nast, with a $500k+ brand
-              partnership framework built inside the Richemont Group. Run an 11-agent AI
-              production system that handles estimating, SOWs, and crew logistics end-to-end,
-              built to eliminate operational bottlenecks and increase output velocity.
-              Production fluency across in-house brand, agency, and editorial.
+              lifestyle brands across the US, UK, and GCC. Delivered campaigns for{" "}
+              <Brand>MR PORTER</Brand> (2.65M views on 'In America'),{" "}
+              <Brand>Aman</Brand>, <Brand>Nike</Brand> and{" "}
+              <Brand>Condé Nast</Brand>, with a $500k+ brand partnership framework built
+              inside the <Brand>Richemont Group</Brand>. Run an 11-agent AI production
+              system that handles estimating, SOWs, and crew logistics end-to-end, built
+              to eliminate operational bottlenecks and increase output velocity. Production
+              fluency across in-house brand, agency, and editorial.
             </p>
           </div>
         </div>
@@ -484,6 +485,23 @@ function MenuOverlay({ onClose }) {
       <Link to="/about" style={linkStyle}>About</Link>
       <Link to="/contact" style={linkStyle}>Contact</Link>
     </div>
+  );
+}
+
+// Inline brand-name treatment: italic Times, slightly larger so the names pop.
+function Brand({ children }) {
+  return (
+    <em
+      style={{
+        fontFamily: "'Times New Roman', Times, serif",
+        fontStyle: "italic",
+        fontWeight: 400,
+        fontSize: "1.12em",
+        letterSpacing: 0,
+      }}
+    >
+      {children}
+    </em>
   );
 }
 
