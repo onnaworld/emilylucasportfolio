@@ -40,6 +40,7 @@ const PROJECTS = [
 export default function Work() {
   const [activeSlug, setActiveSlug] = useState(null);
   const [windowStart, setWindowStart] = useState(0); // first project index in the 3-thumb window
+  const [hoveredIdx, setHoveredIdx] = useState(null); // for dimming non-hovered titles
   const sectionRef = useRef(null);
   const rightPanelRef = useRef(null);
 
@@ -103,20 +104,26 @@ export default function Work() {
               paddingLeft: space.xxl,
               width: "fit-content",
             }}
+            onMouseLeave={() => setHoveredIdx(null)}
           >
             {PROJECTS.map((p, idx) => {
               const isActive = activeSlug && p.slug === activeSlug;
               const clickable = !!p.slug;
+              const isHovered = hoveredIdx === idx;
+              const isDimmed = hoveredIdx !== null && !isHovered;
               return (
                 <button
                   key={p.n}
-                  onMouseEnter={() => onHoverProject(idx)}
+                  onMouseEnter={() => {
+                    setHoveredIdx(idx);
+                    onHoverProject(idx);
+                  }}
                   onClick={() => clickable && setActive(isActive ? null : p.slug)}
                   style={{
                     background: "none",
                     border: "none",
                     cursor: clickable ? "pointer" : "default",
-                    padding: "2px 0",
+                    padding: "5px 0",
                     fontFamily: HEROS_FONT,
                     fontSize: 11,
                     fontWeight: 700,
@@ -124,7 +131,8 @@ export default function Work() {
                     letterSpacing: "-0.01em",
                     lineHeight: 1,
                     color: colors.text,
-                    opacity: isActive ? 1 : 0.85,
+                    opacity: isDimmed ? 0.25 : isActive ? 1 : 0.9,
+                    transition: "opacity 0.25s ease-out",
                     display: "flex",
                     alignItems: "baseline",
                     gap: space.sm,
