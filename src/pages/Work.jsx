@@ -40,6 +40,7 @@ const PROJECTS = [
 export default function Work() {
   const [activeSlug, setActiveSlug] = useState(null);
   const [windowStart, setWindowStart] = useState(0); // first project index in the 3-thumb window
+  const [scrollProgress, setScrollProgress] = useState(0); // 0..1 progress through the work section, used for loose parallax drift on the thumbs
   const hoverPinned = useRef(false); // once user hovers, scroll-driven advance stops
   const sectionRef = useRef(null);
   const rightPanelRef = useRef(null);
@@ -52,18 +53,21 @@ export default function Work() {
     }
   }, []);
 
-  // Scroll-driven advance of the 3-thumb window (only until user hovers something)
+  // Scroll progress drives both the 3-thumb window (until user hovers) and
+  // the loose parallax drift on the scattered thumbs (always).
   useEffect(() => {
     const maxStart = Math.max(0, PROJECTS.length - 3);
     const onScroll = () => {
-      if (hoverPinned.current) return;
       const section = sectionRef.current;
       if (!section) return;
       const rect = section.getBoundingClientRect();
       const sectionTop = window.scrollY + rect.top;
       const scrollable = section.offsetHeight - window.innerHeight;
       const progress = Math.max(0, Math.min(1, (window.scrollY - sectionTop) / scrollable));
-      setWindowStart(Math.round(progress * maxStart));
+      setScrollProgress(progress);
+      if (!hoverPinned.current) {
+        setWindowStart(Math.round(progress * maxStart));
+      }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -188,6 +192,7 @@ export default function Work() {
             projects={PROJECTS}
             productionCases={productionCases}
             windowStart={windowStart}
+            scrollProgress={scrollProgress}
           />
         </div>
 
@@ -365,16 +370,16 @@ function WorkHero() {
 }
 
 // Three thumbs scattered at fixed positions inside the right half of the
-// viewport. Each slot pulls from projects[windowStart + slotIndex]. Number
-// on top (matches list p.n), image below if a productionCase exists else
-// blank placeholder.
+// viewport. Each slot pulls from projects[windowStart + slotIndex]. Each
+// has a distinct parallax `drift` so they slide loosely as the user scrolls
+// the list — bounded translation, eased.
 const SCATTER_SLOTS = [
-  { left: "8%",  top: "6%",  width: 220 },
-  { left: "52%", top: "38%", width: 200 },
-  { left: "18%", top: "62%", width: 240 },
+  { left: "8%",  top: "6%",  width: 220, drift: -90 },
+  { left: "52%", top: "38%", width: 200, drift: 60  },
+  { left: "18%", top: "62%", width: 240, drift: -45 },
 ];
 
-function ScatteredThumbs({ projects, productionCases, windowStart }) {
+function ScatteredThumbs({ projects, productionCases, windowStart, scrollProgress }) {
   return (
     <div style={{ position: "relative", height: "100%" }}>
       {[0, 1, 2].map(slot => {
@@ -383,6 +388,9 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
         const study = p.slug ? productionCases.find(s => s.slug === p.slug) : null;
         const heroImg = study?.heroImage;
         const pos = SCATTER_SLOTS[slot];
+        // Loose drift: maps 0..1 scroll progress to a bounded vertical shift,
+        // centred so the thumb drifts both up and down across the scroll range.
+        const drift = (scrollProgress - 0.5) * pos.drift;
         return (
           <div
             key={slot}
@@ -391,7 +399,9 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
               left: pos.left,
               top: pos.top,
               width: pos.width,
-              transition: "opacity 0.25s",
+              transform: `translateY(${drift}px)`,
+              transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s",
+              willChange: "transform",
             }}
           >
             <div
