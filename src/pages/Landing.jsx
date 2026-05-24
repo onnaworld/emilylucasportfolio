@@ -55,8 +55,6 @@ const VISUAL_RESEARCH_IMAGES = [
   "/Visual%20Research/w1500_q80%20(4).jpg",
   "/Visual%20Research/w1500_q80%20(5).jpg",
 ];
-// Social Media: 5 empty iPhone placeholders for now — drop a src in to fill one.
-const SOCIAL_PHONES = [{}, {}, {}, {}, {}];
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -276,9 +274,8 @@ export default function Landing() {
       </section>
 
       <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
-      <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={WRITING_IMAGES} compact />
+      <CategorySlide label="CULTURAL STRATEGY" images={WRITING_IMAGES} compact />
       <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape />
-      <CategorySlide label="SOCIAL MEDIA CREATIVE STRATEGY" items={SOCIAL_PHONES} phones />
 
       {/* View all work — small Times link, centered between two lines */}
       <div
@@ -360,8 +357,8 @@ export default function Landing() {
   );
 }
 
-function CategorySlide({ label, images, items, compact = false, landscape = false, phones = false }) {
-  const padV = phones || compact ? space.sm : space.md;
+function CategorySlide({ label, images, compact = false, landscape = false }) {
+  const padV = compact ? space.sm : space.md;
   return (
     <section
       style={{
@@ -388,9 +385,7 @@ function CategorySlide({ label, images, items, compact = false, landscape = fals
           {label}
         </div>
       </div>
-      {phones
-        ? <PhonesCarousel items={items} />
-        : <CredentialsCarousel images={images} compact={compact} landscape={landscape} />}
+      <CredentialsCarousel images={images} compact={compact} landscape={landscape} />
     </section>
   );
 }
@@ -638,93 +633,6 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
           to   { transform: translateX(-50%); }
         }
       `}</style>
-    </div>
-  );
-}
-
-// iPhone placeholder carousel — same marquee mechanics, but each "image" is
-// a phone-shaped frame. Items can be empty {} or { src } to drop a gif in.
-function PhonesCarousel({ items = [] }) {
-  const doubled = [...items, ...items];
-  const h = 320;
-  const w = 160;
-  return (
-    <div style={{ overflow: "hidden", width: "100%" }}>
-      <div
-        style={{
-          display: "flex",
-          width: "max-content",
-          animation: "credentials-slide 70s linear infinite",
-          willChange: "transform",
-        }}
-      >
-        {doubled.map((item, i) => (
-          <PhoneFrame key={i} width={w} height={h} src={item.src} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PhoneFrame({ width, height, src }) {
-  const isVideo = src && /\.(mp4|webm|mov)$/i.test(src);
-  return (
-    <div
-      style={{
-        width,
-        height,
-        marginRight: 16,
-        flexShrink: 0,
-        border: `2px solid ${colors.text}`,
-        borderRadius: 28,
-        background: "#f4f4f4",
-        padding: 6,
-        boxSizing: "border-box",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          top: 10,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 54,
-          height: 14,
-          borderRadius: 8,
-          background: colors.text,
-          zIndex: 2,
-        }}
-      />
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: 22,
-          background: "#eaeaea",
-          overflow: "hidden",
-        }}
-      >
-        {src && (isVideo ? (
-          <video
-            src={src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        ) : (
-          <img
-            src={src}
-            alt=""
-            loading="lazy"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        ))}
-      </div>
     </div>
   );
 }
