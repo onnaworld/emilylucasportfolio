@@ -40,8 +40,10 @@ const PRODUCTION_IMAGES = [
   "/Production/7.gif",
   "/Production/ORDER-CONFIRMATION-834x519.jpg",
 ];
+// Items can be a string OR { src, landscape? } so individual images can opt
+// into a wider crop without changing the rest of the row.
 const WRITING_IMAGES = [
-  "/Written%20Work/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",
+  { src: "/Written%20Work/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif", landscape: true },
   "/Written%20Work/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",
   "/Written%20Work/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",
   "/Written%20Work/w1500_q80.jpg",
@@ -53,7 +55,8 @@ const VISUAL_RESEARCH_IMAGES = [
   "/Visual%20Research/w1500_q80%20(4).jpg",
   "/Visual%20Research/w1500_q80%20(5).jpg",
 ];
-const SOCIAL_IMAGES = PRODUCTION_IMAGES; // placeholder until folder is filled
+// Social Media: 5 empty iPhone placeholders for now — drop a src in to fill one.
+const SOCIAL_PHONES = [{}, {}, {}, {}, {}];
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -272,7 +275,7 @@ export default function Landing() {
       <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
       <CategorySlide label="WRITING & CULTURAL COMMENTARY" images={WRITING_IMAGES} compact />
       <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape />
-      <CategorySlide label="SOCIAL MEDIA CREATIVE STRATEGY" images={SOCIAL_IMAGES} compact />
+      <CategorySlide label="SOCIAL MEDIA CREATIVE STRATEGY" items={SOCIAL_PHONES} phones />
 
       {/* View all work — small Times link, centered between two lines */}
       <div
@@ -354,8 +357,8 @@ export default function Landing() {
   );
 }
 
-function CategorySlide({ label, images, compact = false, landscape = false }) {
-  const padV = compact ? space.sm : space.md;
+function CategorySlide({ label, images, items, compact = false, landscape = false, phones = false }) {
+  const padV = phones || compact ? space.sm : space.md;
   return (
     <section
       style={{
@@ -382,7 +385,9 @@ function CategorySlide({ label, images, compact = false, landscape = false }) {
           {label}
         </div>
       </div>
-      <CredentialsCarousel images={images} compact={compact} landscape={landscape} />
+      {phones
+        ? <PhonesCarousel items={items} />
+        : <CredentialsCarousel images={images} compact={compact} landscape={landscape} />}
     </section>
   );
 }
@@ -579,7 +584,6 @@ function Brand({ children }) {
 function CredentialsCarousel({ images, compact = false, landscape = false }) {
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
-  const w = landscape ? 360 : compact ? 180 : 320;
   return (
     <div style={{ overflow: "hidden", width: "100%" }}>
       <div
@@ -590,7 +594,10 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
           willChange: "transform",
         }}
       >
-        {doubled.map((src, i) => {
+        {doubled.map((item, i) => {
+          const src = typeof item === "string" ? item : item.src;
+          const itemLandscape = typeof item === "string" ? landscape : (item.landscape ?? landscape);
+          const w = itemLandscape ? 360 : compact ? 180 : 320;
           const isVideo = /\.(mp4|webm|mov)$/i.test(src);
           const sharedStyle = {
             height: h,
@@ -628,6 +635,93 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
           to   { transform: translateX(-50%); }
         }
       `}</style>
+    </div>
+  );
+}
+
+// iPhone placeholder carousel — same marquee mechanics, but each "image" is
+// a phone-shaped frame. Items can be empty {} or { src } to drop a gif in.
+function PhonesCarousel({ items = [] }) {
+  const doubled = [...items, ...items];
+  const h = 320;
+  const w = 160;
+  return (
+    <div style={{ overflow: "hidden", width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          width: "max-content",
+          animation: "credentials-slide 70s linear infinite",
+          willChange: "transform",
+        }}
+      >
+        {doubled.map((item, i) => (
+          <PhoneFrame key={i} width={w} height={h} src={item.src} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PhoneFrame({ width, height, src }) {
+  const isVideo = src && /\.(mp4|webm|mov)$/i.test(src);
+  return (
+    <div
+      style={{
+        width,
+        height,
+        marginRight: 16,
+        flexShrink: 0,
+        border: `2px solid ${colors.text}`,
+        borderRadius: 28,
+        background: "#f4f4f4",
+        padding: 6,
+        boxSizing: "border-box",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 10,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 54,
+          height: 14,
+          borderRadius: 8,
+          background: colors.text,
+          zIndex: 2,
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: 22,
+          background: "#eaeaea",
+          overflow: "hidden",
+        }}
+      >
+        {src && (isVideo ? (
+          <video
+            src={src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        ) : (
+          <img
+            src={src}
+            alt=""
+            loading="lazy"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
