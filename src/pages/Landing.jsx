@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
@@ -30,13 +30,30 @@ export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#fff", color: colors.text }}>
-      {/* ───── 1. HERO: cover image + typography + marquee, filling the viewport ───── */}
+    <div
+      className="landing-snap"
+      style={{
+        height: "100vh",
+        overflowY: "auto",
+        scrollSnapType: "y mandatory",
+        scrollBehavior: "smooth",
+        background: "#fff",
+        color: colors.text,
+      }}
+    >
+      <CustomCursor />
+      <style>{`
+        .landing-snap, .landing-snap * { cursor: none !important; }
+      `}</style>
+
+      {/* ───── 1. HERO: cover image + typography ───── */}
       <section
         style={{
           background: "#000",
           color: "#fff",
           height: "100vh",
+          scrollSnapAlign: "start",
+          scrollSnapStop: "always",
           display: "flex",
           flexDirection: "column",
           position: "relative",
@@ -121,34 +138,20 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Locations strip at bottom of hero */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: space.xl,
-              left: 0,
-              right: 0,
-              textAlign: "center",
-              fontFamily: UNICA,
-              fontSize: "clamp(9px, 0.85vw, 12px)",
-              letterSpacing: 0,
-              color: "#fff",
-              zIndex: 5,
-              pointerEvents: "none",
-            }}
-          >
-            US · JAPAN · GCC · UK
-          </div>
         </div>
 
         {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
       </section>
 
-      {/* ───── 3. SUMMARY ───── */}
+      {/* ───── 2. SUMMARY ───── */}
       <section
         style={{
-          padding: `${space.xxl}px ${space.xl}px ${space.xl}px`,
-          maxWidth: 1100,
+          minHeight: "100vh",
+          scrollSnapAlign: "start",
+          scrollSnapStop: "always",
+          padding: `${space.xxl}px ${space.xl}px`,
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <p
@@ -172,11 +175,22 @@ export default function Landing() {
         </p>
       </section>
 
-      {/* ───── 4. BRAND LOGO CAROUSEL ───── */}
+      {/* ───── 3. BRAND LOGO CAROUSEL ───── */}
       <LogoCarousel logos={BRAND_LOGOS} />
 
-      {/* ───── 5. SHOWREEL ───── */}
-      <section style={{ background: "#000", padding: 0 }}>
+      {/* ───── 4. SHOWREEL ───── */}
+      <section
+        style={{
+          background: "#000",
+          padding: 0,
+          minHeight: "100vh",
+          scrollSnapAlign: "start",
+          scrollSnapStop: "always",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
         <div
           style={{
             textAlign: "center",
@@ -204,8 +218,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ───── 6. SELECTED WORK GRID ───── */}
-      <section>
+      {/* ───── 5. SELECTED WORK GRID ───── */}
+      <section style={{ scrollSnapAlign: "start" }}>
         <div
           style={{
             textAlign: "center",
@@ -271,7 +285,11 @@ function LogoCarousel({ logos }) {
     <section
       style={{
         background: "#fff",
-        padding: `${space.xxl}px 0`,
+        minHeight: "100vh",
+        scrollSnapAlign: "start",
+        scrollSnapStop: "always",
+        display: "flex",
+        alignItems: "center",
         overflow: "hidden",
         whiteSpace: "nowrap",
       }}
@@ -387,5 +405,44 @@ function MenuOverlay({ onClose }) {
       <Link to="/about" style={linkStyle}>About</Link>
       <Link to="/contact" style={linkStyle}>Contact</Link>
     </div>
+  );
+}
+
+// Small white dot that follows the cursor. mix-blend-mode: difference inverts
+// it automatically — appears black on white sections, white on dark ones.
+function CustomCursor() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    // Don't render a custom cursor on touch devices.
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const onMove = (e) => {
+      if (ref.current) {
+        ref.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+      }
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden="true"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: 12,
+        height: 12,
+        borderRadius: "50%",
+        background: "#fff",
+        mixBlendMode: "difference",
+        pointerEvents: "none",
+        zIndex: 9999,
+        transform: "translate(-100px, -100px)",
+      }}
+    />
   );
 }
