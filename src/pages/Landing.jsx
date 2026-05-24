@@ -89,13 +89,13 @@ export default function Landing() {
           <h1
             style={{
               position: "absolute",
-              top: space.lg,
+              top: 36,
               left: space.xl,
               margin: 0,
-              fontFamily: SACKERS,
+              fontFamily: UNICA,
               fontSize: "clamp(18px, 2.4vw, 30px)",
-              fontWeight: 900,
-              letterSpacing: 0,
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
               lineHeight: 1,
               color: "#fff",
               zIndex: 10,
