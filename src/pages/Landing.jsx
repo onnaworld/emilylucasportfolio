@@ -269,8 +269,8 @@ function CategorySlide({ label, images, last }) {
         padding: `${space.md}px ${space.xl}px ${space.md}px`,
         borderBottom: last ? "none" : `1px solid ${colors.text}`,
         display: "grid",
-        gridTemplateColumns: "1fr 2fr",
-        gap: space.xl,
+        gridTemplateColumns: "200px 1fr",
+        gap: space.md,
         alignItems: "end",
       }}
     >
@@ -494,44 +494,37 @@ function Brand({ children }) {
   );
 }
 
-// Horizontal infinite carousel of credential images, with gaps between each.
+// Horizontal infinite carousel — fixed-width images, marginRight pattern
+// so translateX(-50%) lands exactly on the duplicate boundary (no overlap).
 function CredentialsCarousel({ images }) {
-  const row = (
-    <div style={{ display: "inline-flex", alignItems: "center", gap: 16, paddingRight: 16 }}>
-      {images.map((src, i) => (
-        <img
-          key={i}
-          src={src}
-          alt=""
-          loading="lazy"
-          style={{
-            height: 420,
-            width: "auto",
-            objectFit: "cover",
-            display: "block",
-            background: colors.surface,
-            flexShrink: 0,
-          }}
-        />
-      ))}
-    </div>
-  );
+  const doubled = [...images, ...images];
   return (
-    <div
-      style={{
-        overflow: "hidden",
-        whiteSpace: "nowrap",
-      }}
-    >
+    <div style={{ overflow: "hidden", width: "100%" }}>
       <div
         style={{
-          display: "inline-flex",
+          display: "flex",
+          width: "max-content",
           animation: "credentials-slide 70s linear infinite",
           willChange: "transform",
         }}
       >
-        {row}
-        {row}
+        {doubled.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            loading="lazy"
+            style={{
+              height: 420,
+              width: 320,
+              marginRight: 12,
+              objectFit: "cover",
+              display: "block",
+              background: colors.surface,
+              flexShrink: 0,
+            }}
+          />
+        ))}
       </div>
       <style>{`
         @keyframes credentials-slide {
