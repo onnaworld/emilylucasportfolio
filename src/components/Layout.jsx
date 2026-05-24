@@ -1,0 +1,92 @@
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { colors, fonts, space, t } from "../theme";
+
+const NAV_ITEMS = [
+  { to: "/", label: "Index" },
+  { to: "/work", label: "Work" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
+];
+
+export default function Layout({ children }) {
+  const location = useLocation();
+  const isLanding = location.pathname === "/";
+
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: colors.bg, color: colors.text }}>
+      <Header isLanding={isLanding} />
+      <main style={{ flex: 1, width: "100%" }}>{children}</main>
+      <Footer />
+    </div>
+  );
+}
+
+function Header({ isLanding }) {
+  return (
+    <header
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 50,
+        background: isLanding ? "transparent" : colors.bg,
+        borderBottom: isLanding ? "none" : `1px solid ${colors.border}`,
+        padding: `${space.lg}px ${space.xl}px`,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backdropFilter: isLanding ? "none" : "blur(8px)",
+      }}
+    >
+      <Link to="/" style={{ ...t("h3"), fontFamily: fonts.sans, textTransform: "uppercase", letterSpacing: 2 }}>
+        Emily Lucas
+      </Link>
+      <nav style={{ display: "flex", gap: space.xl }}>
+        {NAV_ITEMS.map(item => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.to === "/"}
+            style={({ isActive }) => ({
+              ...t("small"),
+              textTransform: "uppercase",
+              color: isActive ? colors.text : colors.textMuted,
+              borderBottom: isActive ? `1px solid ${colors.text}` : "1px solid transparent",
+              paddingBottom: 2,
+              transition: "color 0.15s, border-color 0.15s",
+            })}
+          >
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer
+      style={{
+        padding: `${space.xl}px ${space.xl}px ${space.lg}px ${space.xl}px`,
+        borderTop: `1px solid ${colors.border}`,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: space.md,
+      }}
+    >
+      <div style={{ ...t("small"), color: colors.textMuted }}>
+        © {new Date().getFullYear()} Emily Lucas
+      </div>
+      <div style={{ display: "flex", gap: space.lg }}>
+        <a href="mailto:emilyelucas@gmail.com" style={{ ...t("small"), color: colors.textMuted }}>
+          emilyelucas@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/emilylucas" target="_blank" rel="noopener noreferrer" style={{ ...t("small"), color: colors.textMuted }}>
+          LinkedIn
+        </a>
+      </div>
+    </footer>
+  );
+}
