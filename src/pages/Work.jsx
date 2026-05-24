@@ -73,26 +73,6 @@ export default function Work() {
 
   return (
     <div style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
-      {/* Fixed nav — color-flips across dark hero and light content */}
-      <Link
-        to="/"
-        style={{
-          position: "fixed",
-          top: space.xl,
-          left: space.xl,
-          zIndex: 100,
-          color: "#fff",
-          mixBlendMode: "difference",
-          fontFamily: TIMES,
-          fontSize: 14,
-          fontWeight: 400,
-          opacity: 0.95,
-          textDecoration: "none",
-        }}
-      >
-        ← Home
-      </Link>
-
       <WorkHero />
 
       {/* Full-width work section. Project list centred; scatter thumbs slide
@@ -117,12 +97,13 @@ export default function Work() {
           />
         ))}
 
-        {/* Centred project list — natural flow, horizontally centred */}
+        {/* Project list — left-aligned, sticky-dropped to vertical middle */}
         <div
           style={{
-            position: "relative",
+            position: "sticky",
+            top: "calc(50vh - 230px)",
             width: "fit-content",
-            margin: "0 auto",
+            paddingLeft: space.xxl,
             zIndex: 5,
           }}
         >
@@ -163,7 +144,7 @@ export default function Work() {
           })}
         </div>
 
-        {/* Case study panel — fixed overlay on the right when a project is active */}
+        {/* Case study panel — fixed overlay on the right when active */}
         {activeStudy && (
           <div
             ref={rightPanelRef}
@@ -201,6 +182,30 @@ export default function Work() {
             <CaseStudyView study={activeStudy} />
           </div>
         )}
+      </div>
+
+      {/* Back to Home — small Times link between two lines (mirrors home page) */}
+      <div
+        style={{
+          padding: `${space.md}px ${space.xl}px ${space.md}px`,
+          borderTop: `1px solid ${colors.text}`,
+          borderBottom: `1px solid ${colors.text}`,
+          textAlign: "center",
+        }}
+      >
+        <Link
+          to="/"
+          style={{
+            fontFamily: TIMES,
+            fontSize: 18,
+            fontWeight: 400,
+            color: colors.text,
+            letterSpacing: 0,
+            lineHeight: 1,
+          }}
+        >
+          ← Back to Home
+        </Link>
       </div>
     </div>
   );
