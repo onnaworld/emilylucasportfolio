@@ -99,12 +99,11 @@ export default function Landing() {
             <h1
               style={{
                 fontFamily: SACKERS,
-                fontSize: "clamp(28px, 4.4vw, 58px)",
+                fontSize: "clamp(20px, 2.8vw, 36px)",
                 fontWeight: 400,
-                letterSpacing: "0.12em",
+                letterSpacing: 0,
                 lineHeight: 1.05,
                 margin: 0,
-                paddingLeft: "0.12em", // optical balance for letter-spacing
               }}
             >
               EMILY LUCAS
@@ -112,11 +111,10 @@ export default function Landing() {
             <div
               style={{
                 fontFamily: SACKERS,
-                fontSize: "clamp(9px, 0.9vw, 13px)",
+                fontSize: "clamp(8px, 0.7vw, 11px)",
                 fontWeight: 400,
-                letterSpacing: "0.26em",
+                letterSpacing: 0,
                 marginTop: space.sm,
-                paddingLeft: "0.26em",
               }}
             >
               EXECUTIVE PRODUCER &amp; CULTURAL CONSULTANT
@@ -132,12 +130,11 @@ export default function Landing() {
               right: 0,
               textAlign: "center",
               fontFamily: UNICA,
-              fontSize: "clamp(10px, 1vw, 14px)",
-              letterSpacing: "0.2em",
+              fontSize: "clamp(9px, 0.85vw, 12px)",
+              letterSpacing: 0,
               color: "#fff",
               zIndex: 5,
               pointerEvents: "none",
-              paddingLeft: "0.2em",
             }}
           >
             US · JAPAN · GCC · UK
