@@ -60,11 +60,11 @@ export default function Landing() {
   // Heavy/bouncy smooth scroll — long duration + gentle easing.
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.8,
+      duration: 1.1,
       easing: (t) => 1 - Math.pow(1 - t, 4),
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.4,
+      wheelMultiplier: 1.3,
+      touchMultiplier: 1.6,
     });
     let rafId;
     const raf = (time) => {
