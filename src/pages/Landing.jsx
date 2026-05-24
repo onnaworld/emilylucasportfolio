@@ -55,28 +55,7 @@ export default function Landing() {
         .landing-snap, .landing-snap * { cursor: none !important; }
       `}</style>
 
-      {/* EMILY LUCAS wordmark — fixed top-left, mix-blend inverts based on background */}
-      <h1
-        style={{
-          position: "fixed",
-          top: 36,
-          left: space.xl,
-          margin: 0,
-          fontFamily: "'TeX Gyre Heros', 'Helvetica Neue', sans-serif",
-          fontSize: "clamp(22px, 2.2vw, 28px)",
-          fontWeight: 700,
-          letterSpacing: "-0.02em",
-          lineHeight: 1,
-          color: "#fff",
-          mixBlendMode: "difference",
-          zIndex: 100,
-          pointerEvents: "none",
-        }}
-      >
-        EMILY LUCAS
-      </h1>
-
-      {/* + menu — fixed top-right, mirrors the wordmark style */}
+      {/* + menu — fixed top-right, color-flips across all sections */}
       <button
         onClick={() => setMenuOpen(o => !o)}
         aria-label="Menu"
@@ -88,7 +67,7 @@ export default function Landing() {
           background: "none",
           border: "none",
           padding: 0,
-          fontFamily: "'TeX Gyre Heros', 'Helvetica Neue', sans-serif",
+          fontFamily: HEROS,
           fontSize: "clamp(22px, 2.2vw, 28px)",
           fontWeight: 700,
           letterSpacing: "-0.02em",
@@ -101,38 +80,129 @@ export default function Landing() {
         {menuOpen ? "×" : "+"}
       </button>
 
-      {/* ───── 1. HERO: cover image + EMILY LUCAS only ───── */}
+      {/* ───── 1. HERO: showreel with editorial cover-spread overlay ───── */}
       <section
         style={{
           background: "#000",
           color: "#fff",
           height: "100vh",
-          display: "flex",
-          flexDirection: "column",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
-          {/* Hero showreel */}
-          <video
-            src="/showreel.mp4"
-            poster="/showreel-poster.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
+        {/* Hero showreel */}
+        <video
+          src="/showreel.mp4"
+          poster="/showreel-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
 
+        {/* Top-left: Emily + Portfolio 2026 */}
+        <div
+          style={{
+            position: "absolute",
+            top: space.xl,
+            left: space.xl,
+            color: "#fff",
+            zIndex: 5,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: HEROS,
+              fontSize: "clamp(56px, 9vw, 130px)",
+              fontWeight: 700,
+              lineHeight: 0.9,
+              letterSpacing: "-0.04em",
+              margin: 0,
+            }}
+          >
+            Emily
+          </div>
+          <div
+            style={{
+              fontFamily: HEROS,
+              fontSize: 11,
+              fontWeight: 400,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              marginTop: space.md,
+              opacity: 0.9,
+            }}
+          >
+            Portfolio 2026
+          </div>
+        </div>
+
+        {/* Top-right: italic nav (sits just to the left of the fixed "+") */}
+        <nav
+          style={{
+            position: "absolute",
+            top: space.xl,
+            right: 96, // leave room for the fixed "+"
+            display: "flex",
+            gap: space.lg,
+            color: "#fff",
+            fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
+            fontSize: 16,
+            zIndex: 5,
+          }}
+        >
+          <Link to="/work" style={{ color: "#fff" }}>Production</Link>
+          <Link to="/work" style={{ color: "#fff" }}>Cultural Commentary</Link>
+          <Link to="/work" style={{ color: "#fff" }}>Visual Research</Link>
+        </nav>
+
+        {/* Bottom-right: Lucas */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: space.xl,
+            right: space.xl,
+            color: "#fff",
+            fontFamily: "'Times New Roman', Times, serif",
+            fontSize: "clamp(56px, 9vw, 130px)",
+            fontWeight: 400,
+            lineHeight: 0.9,
+            letterSpacing: "-0.02em",
+            zIndex: 5,
+          }}
+        >
+          Lucas
+        </div>
+
+        {/* Bottom-center: SCROLL DOWN */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: space.xl,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            color: "#fff",
+            fontFamily: HEROS,
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            zIndex: 5,
+            pointerEvents: "none",
+          }}
+        >
+          Scroll Down
         </div>
       </section>
 
