@@ -313,10 +313,87 @@ export default function Landing() {
         <CredentialsCarousel images={CREDENTIAL_IMAGES} />
       </section>
 
-      {/* ───── 4. BRAND LOGO CAROUSEL ───── */}
-      <LogoCarousel logos={BRAND_LOGOS} />
+      {/* ───── 4. WRITING & CULTURAL COMMENTARY row ───── */}
+      <section
+        style={{
+          padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
+          borderBottom: `1px solid ${colors.text}`,
+          display: "grid",
+          gridTemplateColumns: "1fr 2fr",
+          gap: space.xl,
+          alignItems: "start",
+        }}
+      >
+        <div>
+          <div
+            style={{
+              fontFamily: HEROS,
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              marginBottom: space.xl,
+              color: colors.text,
+            }}
+          >
+            WRITING &amp; CULTURAL COMMENTARY
+          </div>
+          <Link
+            to="/work"
+            style={{
+              fontFamily: HEROS,
+              fontSize: 13,
+              fontWeight: 400,
+              color: colors.text,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            View More →
+          </Link>
+        </div>
+        <CredentialsCarousel images={CREDENTIAL_IMAGES} />
+      </section>
 
-      {/* ───── 5. SELECTED WORK GRID ───── */}
+      {/* ───── 5. VISUAL RESEARCH row ───── */}
+      <section
+        style={{
+          padding: `${space.xl}px ${space.xl}px ${space.xl}px`,
+          borderBottom: `1px solid ${colors.text}`,
+          display: "grid",
+          gridTemplateColumns: "1fr 2fr",
+          gap: space.xl,
+          alignItems: "start",
+        }}
+      >
+        <div>
+          <div
+            style={{
+              fontFamily: HEROS,
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              marginBottom: space.xl,
+              color: colors.text,
+            }}
+          >
+            VISUAL RESEARCH
+          </div>
+          <Link
+            to="/work"
+            style={{
+              fontFamily: HEROS,
+              fontSize: 13,
+              fontWeight: 400,
+              color: colors.text,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            View More →
+          </Link>
+        </div>
+        <CredentialsCarousel images={CREDENTIAL_IMAGES} />
+      </section>
+
+      {/* ───── 6. SELECTED WORK GRID ───── */}
       <section>
         <div
           style={{
