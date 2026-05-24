@@ -39,7 +39,9 @@ const PROJECTS = [
 
 export default function Work() {
   const [activeSlug, setActiveSlug] = useState(null);
-  const [scrollY, setScrollY] = useState(0);
+  const [windowStart, setWindowStart] = useState(0); // first project index in the 3-thumb window
+  const hoverPinned = useRef(false); // once user hovers, scroll-driven advance stops
+  const sectionRef = useRef(null);
   const rightPanelRef = useRef(null);
 
   // Restore selection from URL hash (so /work#aman deep-links)
@@ -50,12 +52,28 @@ export default function Work() {
     }
   }, []);
 
-  // Parallax glide on scroll for scatter thumbs
+  // Scroll-driven advance of the 3-thumb window (only until user hovers something)
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    const maxStart = Math.max(0, PROJECTS.length - 3);
+    const onScroll = () => {
+      if (hoverPinned.current) return;
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const sectionTop = window.scrollY + rect.top;
+      const scrollable = section.offsetHeight - window.innerHeight;
+      const progress = Math.max(0, Math.min(1, (window.scrollY - sectionTop) / scrollable));
+      setWindowStart(Math.round(progress * maxStart));
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const onHoverProject = (index) => {
+    const maxStart = Math.max(0, PROJECTS.length - 3);
+    hoverPinned.current = true;
+    setWindowStart(Math.min(index, maxStart));
+  };
 
   const setActive = (slug) => {
     setActiveSlug(slug);
@@ -75,73 +93,74 @@ export default function Work() {
     <div style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
       <WorkHero />
 
-      {/* Full-width work section. Project list centred; scatter thumbs slide
-          past on either side as you scroll. */}
+      {/* Full-width work section. Section is taller than viewport so the
+          sticky inner container stays pinned while scroll advances the
+          3-thumb window on the right. */}
       <div
+        ref={sectionRef}
         style={{
           position: "relative",
           width: "100%",
-          minHeight: "320vh",
-          padding: `${space.xxl}px 0`,
+          // Enough scroll distance to cycle through all projects in the window
+          minHeight: `${100 + PROJECTS.length * 12}vh`,
         }}
       >
-        {/* Scatter thumbs — absolutely positioned across the full viewport */}
-        {productionCases.map((study, i) => (
-          <ScatterThumb
-            key={study.slug}
-            study={study}
-            index={i + 1}
-            scrollY={scrollY}
-            active={activeSlug === study.slug}
-            onClick={() => setActive(study.slug)}
-          />
-        ))}
-
-        {/* Project list — left-aligned, sticky-dropped to vertical middle */}
         <div
           style={{
             position: "sticky",
-            top: "calc(50vh - 230px)",
-            width: "fit-content",
-            paddingLeft: space.xxl,
-            zIndex: 5,
+            top: 0,
+            height: "100vh",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            alignItems: "center",
           }}
         >
-          {PROJECTS.map(p => {
-            const isActive = activeSlug && p.slug === activeSlug;
-            const clickable = !!p.slug;
-            return (
-              <button
-                key={p.n}
-                onClick={() => clickable && setActive(isActive ? null : p.slug)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: clickable ? "pointer" : "default",
-                  padding: "2px 0",
-                  fontFamily: HEROS_FONT,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.01em",
-                  lineHeight: 1,
-                  color: colors.text,
-                  opacity: isActive ? 1 : 0.85,
-                  display: "flex",
-                  alignItems: "baseline",
-                  gap: space.sm,
-                  textAlign: "left",
-                  whiteSpace: "nowrap",
-                  width: "100%",
-                }}
-              >
-                <span style={{ width: 28, flexShrink: 0 }}>
-                  {String(p.n).padStart(2, "0")}.
-                </span>
-                <span>{p.title}</span>
-              </button>
-            );
-          })}
+          {/* LEFT: project list */}
+          <div style={{ paddingLeft: space.xxl }}>
+            {PROJECTS.map((p, idx) => {
+              const isActive = activeSlug && p.slug === activeSlug;
+              const clickable = !!p.slug;
+              return (
+                <button
+                  key={p.n}
+                  onMouseEnter={() => onHoverProject(idx)}
+                  onClick={() => clickable && setActive(isActive ? null : p.slug)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: clickable ? "pointer" : "default",
+                    padding: "2px 0",
+                    fontFamily: HEROS_FONT,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1,
+                    color: colors.text,
+                    opacity: isActive ? 1 : 0.85,
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: space.sm,
+                    textAlign: "left",
+                    whiteSpace: "nowrap",
+                    width: "100%",
+                  }}
+                >
+                  <span style={{ width: 28, flexShrink: 0 }}>
+                    {String(p.n).padStart(2, "0")}.
+                  </span>
+                  <span>{p.title}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* RIGHT: 3-thumb window stacked vertically */}
+          <ThumbWindow
+            projects={PROJECTS}
+            productionCases={productionCases}
+            windowStart={windowStart}
+          />
         </div>
 
         {/* Case study panel — fixed overlay on the right when active */}
@@ -239,7 +258,7 @@ function WorkHero() {
         }}
       />
 
-      {/* Top-left: Selected */}
+      {/* Top-left: ← Home + Selected */}
       <div
         style={{
           position: "absolute",
@@ -247,9 +266,24 @@ function WorkHero() {
           left: space.xl,
           color: "#fff",
           zIndex: 5,
-          paddingTop: 32,
         }}
       >
+        <Link
+          to="/"
+          style={{
+            display: "inline-block",
+            fontFamily: TIMES,
+            fontSize: 14,
+            fontWeight: 400,
+            color: "#fff",
+            marginBottom: space.sm,
+            marginLeft: 2,
+            opacity: 0.95,
+            textDecoration: "none",
+          }}
+        >
+          ← Home
+        </Link>
         <div
           style={{
             fontFamily: HEROS_FONT,
@@ -325,66 +359,73 @@ function WorkHero() {
   );
 }
 
-function ScatterThumb({ study, index, scrollY, active, onClick }) {
-  // x-positions live in the right 50% of the viewport — list owns the left half
-  const positions = [
-    { left: "55%", top: 180,  width: 220, speed: 0.10 },
-    { left: "80%", top: 320,  width: 200, speed: 0.18 },
-    { left: "58%", top: 760,  width: 200, speed: 0.06 },
-    { left: "82%", top: 920,  width: 220, speed: 0.14 },
-    { left: "53%", top: 1240, width: 190, speed: 0.20 },
-    { left: "82%", top: 1440, width: 210, speed: 0.08 },
-    { left: "57%", top: 1740, width: 230, speed: 0.16 },
-    { left: "80%", top: 1900, width: 190, speed: 0.10 },
-    { left: "55%", top: 2240, width: 210, speed: 0.18 },
-    { left: "80%", top: 2440, width: 220, speed: 0.07 },
-    { left: "58%", top: 2760, width: 195, speed: 0.13 },
-  ];
-  const p = positions[index - 1] || { left: "20%", top: index * 280, width: 180, speed: 0.1 };
-  const glide = -scrollY * p.speed;
-
+// Three thumb slots stacked vertically on the right. Each slot pulls from
+// projects[windowStart + slotIndex]. Number on top (matches the list's p.n),
+// image below if a productionCase with that slug exists, else blank placeholder.
+function ThumbWindow({ projects, productionCases, windowStart }) {
   return (
     <div
-      onClick={onClick}
       style={{
-        position: "absolute",
-        left: p.left,
-        top: p.top,
-        width: p.width,
-        cursor: "pointer",
-        transform: `translateY(${glide}px)`,
-        transition: "opacity 0.25s",
-        opacity: active ? 1 : 0.92,
-        willChange: "transform",
+        position: "relative",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        paddingRight: space.xxl,
+        paddingLeft: space.xl,
+        paddingTop: space.xl,
+        paddingBottom: space.xl,
       }}
     >
-      <div
-        style={{
-          fontFamily: HEROS_FONT,
-          fontWeight: 900,
-          fontSize: 36,
-          letterSpacing: "-0.04em",
-          marginBottom: space.sm,
-          color: colors.text,
-        }}
-      >
-        {String(index).padStart(2, "0")}
-      </div>
-      {study.heroImage && (
-        <div style={{ background: "#eee", overflow: "hidden" }}>
-          <img
-            src={study.heroImage}
-            alt=""
-            loading="lazy"
+      {[0, 1, 2].map(slot => {
+        const p = projects[windowStart + slot];
+        if (!p) return <div key={slot} />;
+        const study = p.slug ? productionCases.find(s => s.slug === p.slug) : null;
+        const heroImg = study?.heroImage;
+        return (
+          <div
+            key={slot}
             style={{
-              width: "100%",
-              aspectRatio: "4 / 3",
-              objectFit: "cover",
-              display: "block",
+              maxWidth: 320,
+              transition: "opacity 0.25s",
             }}
-          />
-        </div>
-      )}
+          >
+            <div
+              style={{
+                fontFamily: HEROS_FONT,
+                fontWeight: 900,
+                fontSize: 36,
+                letterSpacing: "-0.04em",
+                marginBottom: space.sm,
+                color: colors.text,
+              }}
+            >
+              {String(p.n).padStart(2, "0")}
+            </div>
+            <div
+              style={{
+                background: heroImg ? "transparent" : "#f2f2f2",
+                aspectRatio: "4 / 3",
+                overflow: "hidden",
+              }}
+            >
+              {heroImg && (
+                <img
+                  src={heroImg}
+                  alt=""
+                  loading="lazy"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
