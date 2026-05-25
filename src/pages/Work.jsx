@@ -592,7 +592,52 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
   );
 }
 
+// Brand / publication / talent names that should always render in italic
+// Times — matches the About/Brands paragraph convention on Landing.
+// Longest-first so 'British Vogue' is matched before 'Vogue', etc.
+const BRAND_NAMES = [
+  "Net-a-Porter Group", "National Museum of Qatar", "Noë & Associates",
+  "Charlotte Tilbury", "Louis Vuitton", "The Glass Magazine",
+  "Columbia Sportswear", "Willson Project", "Moonlight Basin",
+  "British Vogue", "Vogue Arabia", "Condé Nast", "Mr. C", "Mr C",
+  "MR PORTER", "Net-a-Porter", "Burj Khalifa", "Kite Beach",
+  "Imaan Hammam", "Achraf Hakimi", "Halima Aden", "Balqees Fathi",
+  "Luc Braquet", "Txema Yeste", "Paul Hempstead", "Will Beach",
+  "Yasmin Mansour", "Luis Figo", "Abraham Moon",
+  "One&Only", "Charlotte", "Mastercard", "Cipriani", "Jumeirah",
+  "Bvlgari", "Columbia", "J.Crew", "LVMH", "Aman", "Nike", "Vomero",
+  "SailGP", "Octagon", "Maison", "Vogue", "Trippin",
+].sort((a, b) => b.length - a.length);
+
+const BRAND_REGEX = new RegExp(
+  `(${BRAND_NAMES.map((b) => b.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
+  "g"
+);
+
+function withBrands(text) {
+  const parts = text.split(BRAND_REGEX);
+  return parts.map((p, i) =>
+    BRAND_NAMES.includes(p)
+      ? <em key={i} style={{ fontFamily: TIMES, fontStyle: "italic", fontWeight: 400 }}>{p}</em>
+      : p
+  );
+}
+
 function CaseStudyPopup({ study, panelRef, onClose }) {
+  const [atBottom, setAtBottom] = useState(false);
+  const innerRef = useRef(null);
+
+  const setRefs = (el) => {
+    innerRef.current = el;
+    if (typeof panelRef === "function") panelRef(el);
+    else if (panelRef) panelRef.current = el;
+  };
+
+  const onScroll = (e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    setAtBottom(scrollTop + clientHeight >= scrollHeight - 16);
+  };
+
   return (
     // Outer wrapper covers the right-half scattered area but doesn't block
     // pointer events outside the card itself. Flex-centers the popup inside.
@@ -610,164 +655,197 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
         pointerEvents: "none",
       }}
     >
-      <div
-        ref={panelRef}
-        className="case-popup m-case-popup"
-        style={{
-          width: "min(420px, calc(100% - 32px))",
-          aspectRatio: "4 / 5",
-          overflowY: "auto",
-          background: "#fff",
-          border: `1px solid ${colors.text}`,
-          borderRadius: 18,
-          boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
-          pointerEvents: "auto",
-          animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
-          transformOrigin: "center",
-          padding: `${space.md}px ${space.lg}px ${space.lg}px`,
-          position: "relative",
-        }}
-      >
+      {/* Relative wrapper so the scroll-cue arrow can sit just outside the card */}
+      <div style={{ position: "relative", width: "min(420px, calc(100% - 32px))" }}>
+        <div
+          ref={setRefs}
+          onScroll={onScroll}
+          className="case-popup m-case-popup"
+          style={{
+            width: "100%",
+            // Match the list height feel — caps at viewport with breathing room.
+            height: "min(640px, calc(100vh - 120px))",
+            overflowY: "auto",
+            background: "#fff",
+            border: `1px solid ${colors.text}`,
+            borderRadius: 18,
+            pointerEvents: "auto",
+            animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+            transformOrigin: "center",
+            padding: `${space.md}px ${space.lg}px ${space.lg}px`,
+            position: "relative",
+          }}
+        >
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            style={{
+              position: "absolute",
+              top: 10,
+              right: 10,
+              width: 26,
+              height: 26,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              fontFamily: HEROS_FONT,
+              fontSize: 20,
+              lineHeight: 1,
+              color: colors.text,
+              zIndex: 3,
+            }}
+          >
+            ×
+          </button>
+
+          {/* Title row — italic Times client, HEROS project, on one line */}
+          <div
+            style={{
+              marginTop: space.sm,
+              marginBottom: 4,
+              lineHeight: 1.2,
+              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: TIMES,
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: 18,
+                color: colors.text,
+              }}
+            >
+              {study.client}
+            </span>
+            <span
+              style={{
+                fontFamily: HEROS_FONT,
+                fontWeight: 700,
+                fontSize: 16,
+                letterSpacing: "-0.02em",
+                color: colors.text,
+              }}
+            >
+              {" – "}{study.project}
+            </span>
+          </div>
+
+          {/* Date underneath */}
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontSize: 10,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+              color: colors.textMuted,
+              marginBottom: space.md,
+              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
+            }}
+          >
+            {study.year}
+          </div>
+
+          <div
+            style={{
+              marginBottom: space.md,
+              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: HEROS_FONT,
+                fontSize: 9,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "-0.01em",
+                color: colors.text,
+                marginBottom: 6,
+              }}
+            >
+              The Task
+            </div>
+            <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+              {withBrands(study.task)}
+            </p>
+          </div>
+
+          <div
+            style={{
+              marginBottom: space.md,
+              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: HEROS_FONT,
+                fontSize: 9,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "-0.01em",
+                color: colors.text,
+                marginBottom: 6,
+              }}
+            >
+              The Outcome
+            </div>
+            <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+              {withBrands(study.outcome)}
+            </p>
+          </div>
+
+          {study.images && study.images.length > 0 && (
+            <div style={{ animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both" }}>
+              <ImageCarousel images={study.images} project={study.project} />
+            </div>
+          )}
+        </div>
+
+        {/* Editorial scroll cue — sits just outside the bottom border, swings
+            gently, fades out when scroll reaches the bottom. */}
         <button
-          onClick={onClose}
-          aria-label="Close"
+          onClick={() => innerRef.current?.scrollBy({ top: innerRef.current.clientHeight * 0.7, behavior: "smooth" })}
+          aria-label="Scroll for more"
+          className="case-scroll-cue"
           style={{
             position: "absolute",
-            top: 10,
-            right: 10,
-            width: 26,
-            height: 26,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            left: "50%",
+            bottom: -34,
+            transform: "translateX(-50%)",
             background: "none",
             border: "none",
             cursor: "pointer",
             fontFamily: HEROS_FONT,
-            fontSize: 20,
+            fontSize: 18,
             lineHeight: 1,
             color: colors.text,
-            zIndex: 3,
+            opacity: atBottom ? 0 : 1,
+            transition: "opacity 0.35s ease",
+            pointerEvents: atBottom ? "none" : "auto",
+            padding: 4,
           }}
         >
-          ×
+          <span style={{ display: "inline-block", animation: "arrow-swing 1.6s ease-in-out infinite" }}>↓</span>
         </button>
-
-        <div
-          style={{
-            fontFamily: HEROS_FONT,
-            fontSize: 9,
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "-0.01em",
-            color: colors.textMuted,
-            marginBottom: 4,
-            marginTop: space.sm,
-            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
-          }}
-        >
-          {study.year} · {study.client}
-        </div>
-
-        <div
-          style={{
-            fontFamily: HEROS_FONT,
-            fontSize: 16,
-            fontWeight: 700,
-            letterSpacing: "-0.02em",
-            lineHeight: 1.1,
-            color: colors.text,
-            marginBottom: 4,
-            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
-          }}
-        >
-          {study.project}
-        </div>
-
-        <p
-          style={{
-            fontFamily: TIMES,
-            fontStyle: "italic",
-            fontSize: 15,
-            lineHeight: 1.25,
-            color: colors.text,
-            marginTop: 0,
-            marginBottom: space.md,
-            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both",
-          }}
-        >
-          {study.title}
-        </p>
-
-        <div
-          style={{
-            marginBottom: space.md,
-            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: HEROS_FONT,
-              fontSize: 9,
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "-0.01em",
-              color: colors.text,
-              marginBottom: 4,
-            }}
-          >
-            The Task
-          </div>
-          <p style={{ fontFamily: TIMES, fontSize: 12, lineHeight: 1.5, color: colors.text, margin: 0 }}>
-            {study.task}
-          </p>
-        </div>
-
-        <div
-          style={{
-            marginBottom: space.md,
-            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: HEROS_FONT,
-              fontSize: 9,
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "-0.01em",
-              color: colors.text,
-              marginBottom: 4,
-            }}
-          >
-            The Outcome
-          </div>
-          <p style={{ fontFamily: TIMES, fontSize: 12, lineHeight: 1.5, color: colors.text, margin: 0 }}>
-            {study.outcome}
-          </p>
-        </div>
-
-        {study.images && study.images.length > 0 && (
-          <div style={{ animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.54s both" }}>
-            <ImageCarousel images={study.images} project={study.project} />
-          </div>
-        )}
 
         <style>{`
           @keyframes case-popup-in {
             from { opacity: 0; transform: scale(0.94); }
             to   { opacity: 1; transform: scale(1); }
           }
+          @keyframes arrow-swing {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(6px); }
+          }
           .case-popup {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(0,0,0,0.25) transparent;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
           }
-          .case-popup::-webkit-scrollbar { width: 5px; }
-          .case-popup::-webkit-scrollbar-track { background: transparent; }
-          .case-popup::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.25);
-            border-radius: 3px;
-          }
+          .case-popup::-webkit-scrollbar { display: none; width: 0; }
         `}</style>
       </div>
     </div>
