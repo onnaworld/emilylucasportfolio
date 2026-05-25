@@ -88,22 +88,6 @@ export default function Work() {
       `}</style>
       <WorkHero />
 
-      {/* Bottom fade — only covers the right half (the scattered thumb area).
-          Short, sharper ramp so it reads as a defined fade, not a haze. */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: "50%",
-          right: 0,
-          height: "12vh",
-          background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
-          pointerEvents: "none",
-          zIndex: 40,
-        }}
-      />
-
       {/* Full-width work section — fits exactly one viewport now that the
           thumbs advance from the list hover, not from page scroll. */}
       <div
