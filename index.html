@@ -123,12 +123,12 @@
           min-height: 280px !important;
         }
 
-        /* Hero corner labels */
+        /* Hero corner labels — bottom-row baseline-aligned to the title */
         .m-hero-tl { top: 16px !important; left: 16px !important; }
-        .m-hero-br { bottom: 12px !important; right: 16px !important; }
-        .m-hero-bl { bottom: 40px !important; left: 16px !important; }
-        .m-hero-title { font-size: 44px !important; }
-        .m-hero-roles { font-size: 11px !important; line-height: 1.4 !important; }
+        .m-hero-br { bottom: 16px !important; right: 16px !important; }
+        .m-hero-bl { bottom: 16px !important; left: 16px !important; }
+        .m-hero-title { font-size: 36px !important; }
+        .m-hero-roles { font-size: 10px !important; line-height: 1.4 !important; }
         .m-portfolio-label { font-size: 11px !important; margin-bottom: 4px !important; }
 
         /* About / Brands two-column sections */
@@ -147,9 +147,12 @@
           gap: 8px !important;
         }
 
-        /* Credentials carousel — shrink the wrappers (img inside is 100%/cover) */
-        .m-carousel > div > div { height: 140px !important; width: 200px !important; }
-        .m-carousel.m-carousel-landscape > div > div { height: 120px !important; width: 180px !important; }
+        /* Credentials carousel — keep portrait-default carousels portrait,
+           keep the landscape category landscape. Per-item landscape overrides
+           within a portrait carousel use the portrait size on mobile (acceptable
+           simplification — keeps thumbs visually consistent). */
+        .m-carousel > div > div { height: 220px !important; width: 165px !important; }
+        .m-carousel.m-carousel-landscape > div > div { height: 150px !important; width: 220px !important; }
 
         /* View More / Contact buttons row */
         .m-link-row { padding: 14px 16px !important; }

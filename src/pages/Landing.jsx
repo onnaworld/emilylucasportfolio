@@ -1012,6 +1012,7 @@ function FadeInMedia({ src, width, height, objectFit = "cover" }) {
           preload="metadata"
           onLoadedData={() => setLoaded(true)}
           style={mediaStyle}
+          draggable={false}
         />
       ) : (
         <img
@@ -1021,6 +1022,7 @@ function FadeInMedia({ src, width, height, objectFit = "cover" }) {
           decoding="async"
           onLoad={() => setLoaded(true)}
           style={mediaStyle}
+          draggable={false}
         />
       )}
     </div>
@@ -1067,14 +1069,89 @@ function LoadingDots() {
 function CredentialsCarousel({ images, compact = false, landscape = false }) {
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
+  const trackRef = useRef(null);
+  const offsetRef = useRef(0);
+  const halfWidthRef = useRef(0);
+  const draggingRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, offset: 0 });
+
+  // JS-driven auto-drift + drag. rAF runs continuously; when draggingRef is
+  // true, the loop skips the auto-decrement so user pointer motion fully
+  // controls offset. Wraps in [-halfWidth, 0] so duplicate halves stitch
+  // seamlessly.
+  useEffect(() => {
+    if (!trackRef.current) return;
+    const measure = () => {
+      if (trackRef.current) halfWidthRef.current = trackRef.current.scrollWidth / 2;
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    // Re-measure after images decode (initial scrollWidth often comes back short)
+    const re1 = setTimeout(measure, 500);
+    const re2 = setTimeout(measure, 1500);
+
+    let rafId;
+    let lastTime = performance.now();
+    const tick = (time) => {
+      const dt = (time - lastTime) / 1000;
+      lastTime = time;
+      const hw = halfWidthRef.current;
+      if (!draggingRef.current && hw > 0) {
+        const pxPerSec = hw / 70; // matches the previous 70s loop
+        offsetRef.current -= pxPerSec * dt;
+      }
+      if (hw > 0) {
+        while (offsetRef.current <= -hw) offsetRef.current += hw;
+        while (offsetRef.current > 0) offsetRef.current -= hw;
+      }
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", measure);
+      clearTimeout(re1);
+      clearTimeout(re2);
+    };
+  }, []);
+
+  const onPointerDown = (e) => {
+    draggingRef.current = true;
+    dragStartRef.current = { x: e.clientX, offset: offsetRef.current };
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e) => {
+    if (!draggingRef.current) return;
+    const delta = e.clientX - dragStartRef.current.x;
+    offsetRef.current = dragStartRef.current.offset + delta;
+  };
+  const onPointerUp = (e) => {
+    if (!draggingRef.current) return;
+    draggingRef.current = false;
+    e.currentTarget?.releasePointerCapture?.(e.pointerId);
+  };
+
   return (
-    <div className={`m-carousel${landscape ? " m-carousel-landscape" : ""}`} style={{ overflow: "hidden", width: "100%" }}>
+    <div
+      className={`m-carousel${landscape ? " m-carousel-landscape" : ""}`}
+      style={{ overflow: "hidden", width: "100%", touchAction: "pan-y" }}
+    >
       <div
+        ref={trackRef}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
         style={{
           display: "flex",
           width: "max-content",
-          animation: "credentials-slide 70s linear infinite",
           willChange: "transform",
+          cursor: "grab",
+          userSelect: "none",
+          touchAction: "pan-y",
         }}
       >
         {doubled.map((item, i) => {
@@ -1092,12 +1169,6 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
           );
         })}
       </div>
-      <style>{`
-        @keyframes credentials-slide {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-      `}</style>
     </div>
   );
 }
