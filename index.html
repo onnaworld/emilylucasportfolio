@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Emily Lucas — Executive Producer specializing in luxury campaigns across fashion, beauty, hospitality and editorial. Clients include MR PORTER, Aman, Condé Nast, One&Only, Charlotte Tilbury, Vogue Arabia, Nike, Mastercard." />
-    <meta property="og:title" content="Emily Lucas — Executive Producer" />
+    <meta name="description" content="Emily Lucas, Executive Producer specializing in luxury campaigns across fashion, beauty, hospitality and editorial. Clients include MR PORTER, Aman, Condé Nast, One&Only, Charlotte Tilbury, Vogue Arabia, Nike, Mastercard." />
+    <meta property="og:title" content="Emily Lucas, Executive Producer" />
     <meta property="og:description" content="Executive Producer specializing in luxury campaigns across fashion, beauty, hospitality and editorial. Clients include MR PORTER, Aman, Condé Nast, One&Only, Charlotte Tilbury, Vogue Arabia, Nike, Mastercard." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://emilyelucas.com" />
@@ -15,7 +15,7 @@
     <link rel="preload" as="image" href="/menu-bg.jpg" />
     <link rel="preload" as="image" href="/contact-bg.jpg" />
     <link rel="prefetch" as="image" href="/hero.jpg" />
-    <title>Emily Lucas — Executive Producer</title>
+    <title>Emily Lucas, Executive Producer</title>
     <style>
       @font-face {
         font-family: 'Sackers Gothic Std';
@@ -97,13 +97,13 @@
       html, body { margin: 0; padding: 0; }
       * { box-sizing: border-box; }
 
-      /* Snap scroll between WorkHero and the work section — toggled per page
+      /* Snap scroll between WorkHero and the work section, toggled per page
          via Work.jsx (added to <html> on mount, removed on unmount). */
       .work-snap-html { scroll-snap-type: y mandatory; }
       .work-snap-section { scroll-snap-align: start; scroll-snap-stop: always; }
 
       /* ─────────────────────────────────────────────────────────────
-         Mobile overrides — ≤768px. Inline styles use !important to
+         Mobile overrides, ≤768px. Inline styles use !important to
          beat the JS-applied desktop defaults. Class-name conventions:
            .m-pad-x   = page horizontal padding
            .m-hero-tl/br/bl = hero corner labels
@@ -113,12 +113,12 @@
            .m-work-grid    = Work page sticky grid
          ───────────────────────────────────────────────────────────── */
       @media (max-width: 768px) {
-        /* Disable custom cursor on touch — pointer is OS-driven */
+        /* Disable custom cursor on touch, pointer is OS-driven */
         .landing-snap, .landing-snap *, .work-page, .work-page * {
           cursor: auto !important;
         }
 
-        /* + button — closer to edge, smaller */
+        /* + button, closer to edge, smaller */
         .m-plus { top: 14px !important; right: 16px !important; font-size: 44px !important; }
 
         /* Hero section: landscape banner on mobile (image's native ~4:3),
@@ -129,7 +129,7 @@
           min-height: 280px !important;
         }
 
-        /* Hero corner labels — bottom-row baseline-aligned to the title */
+        /* Hero corner labels, bottom-row baseline-aligned to the title */
         .m-hero-tl { top: 16px !important; left: 16px !important; }
         .m-hero-br { bottom: 16px !important; right: 16px !important; }
         .m-hero-bl { bottom: 16px !important; left: 16px !important; }
@@ -146,17 +146,17 @@
         .m-section-title { font-size: 22px !important; padding-top: 0 !important; }
         .m-section-body { font-size: 16px !important; line-height: 1.35 !important; }
 
-        /* CategorySlide — stack label above carousel */
+        /* CategorySlide, stack label above carousel */
         .m-category-slide {
           grid-template-columns: 1fr !important;
           padding: 14px 16px !important;
           gap: 8px !important;
         }
 
-        /* Credentials carousel — keep portrait-default carousels portrait,
+        /* Credentials carousel, keep portrait-default carousels portrait,
            keep the landscape category landscape. Per-item landscape overrides
            within a portrait carousel use the portrait size on mobile (acceptable
-           simplification — keeps thumbs visually consistent). */
+           simplification, keeps thumbs visually consistent). */
         .m-carousel > div > div { height: 220px !important; width: 165px !important; }
         .m-carousel.m-carousel-landscape > div > div { height: 150px !important; width: 220px !important; }
 
@@ -164,7 +164,7 @@
         .m-link-row { padding: 14px 16px !important; }
         .m-link-row a, .m-link-row button { font-size: 16px !important; }
 
-        /* Corner modals (Menu + Contact) — anchor with 12px gutters,
+        /* Corner modals (Menu + Contact), anchor with 12px gutters,
            and let height grow to content so text doesn't overflow */
         .m-corner-modal {
           width: calc(100vw - 24px) !important;
@@ -194,7 +194,7 @@
           width: auto !important; right: 12px !important; left: 12px !important;
           max-height: calc(100vh - 24px) !important;
         }
-        /* Mobile case popup keeps the bubble framing — full border + rounded
+        /* Mobile case popup keeps the bubble framing, full border + rounded
            corners (desktop uses just top/bottom hairlines for an editorial frame). */
         .m-case-popup {
           border: 1px solid #1a1a1a !important;

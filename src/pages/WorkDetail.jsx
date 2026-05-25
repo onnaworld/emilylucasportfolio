@@ -10,7 +10,7 @@ export default function WorkDetail() {
 
   return (
     <article style={{ width: "100%" }}>
-      {/* Hero — full-bleed video or image */}
+      {/* Hero, full-bleed video or image */}
       <div
         style={{
           width: "100%",

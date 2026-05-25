@@ -1,4 +1,4 @@
-// Design tokens — keep all styling decisions in one file so we can iterate
+// Design tokens, keep all styling decisions in one file so we can iterate
 // aesthetic quickly without hunting through components.
 
 export const colors = {

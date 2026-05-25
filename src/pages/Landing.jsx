@@ -66,7 +66,7 @@ export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
 
-  // Heavy/bouncy smooth scroll — long duration + gentle easing.
+  // Heavy/bouncy smooth scroll, long duration + gentle easing.
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.1,
@@ -101,7 +101,7 @@ export default function Landing() {
         .landing-snap, .landing-snap * { cursor: none !important; }
       `}</style>
 
-      {/* + menu — fixed top-right, color-flips across all sections */}
+      {/* + menu, fixed top-right, color-flips across all sections */}
       <button
         onClick={() => setMenuOpen(o => !o)}
         aria-label="Menu"
@@ -307,7 +307,7 @@ export default function Landing() {
       <CategorySlide label="CULTURAL STRATEGY & COMMENTARY" images={WRITING_IMAGES} compact />
       <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape />
 
-      {/* View all work — small Times link, centered between two lines */}
+      {/* View all work, small Times link, centered between two lines */}
       <div
         className="m-link-row"
         style={{
@@ -388,7 +388,7 @@ export default function Landing() {
         </p>
       </section>
 
-      {/* Contact — small Times link, centered between two lines. Opens the
+      {/* Contact, small Times link, centered between two lines. Opens the
           Get-in-Touch modal instead of routing to a dedicated page. */}
       <div
         className="m-link-row"
@@ -963,14 +963,14 @@ function MenuOverlay({ onClose, onContact }) {
         </div>
       </div>
       <style>{`
-        /* Container scales in only — no opacity — so the row stagger fade
+        /* Container scales in only, no opacity, so the row stagger fade
            below is fully visible instead of being multiplied by the
            container's opacity ramp. */
         @keyframes menu-modal-pop {
           from { transform: scale(0.85); }
           to   { transform: scale(1); }
         }
-        /* Local copy of the contact-row-in keyframe — without it, the menu
+        /* Local copy of the contact-row-in keyframe, without it, the menu
            items reference an animation name that only exists when the
            ContactModal is also mounted, so they don't fade in. */
         @keyframes contact-row-in {
@@ -1000,7 +1000,7 @@ function Brand({ children }) {
   );
 }
 
-// Horizontal infinite carousel — fixed-width images, marginRight pattern
+// Horizontal infinite carousel, fixed-width images, marginRight pattern
 // so translateX(-50%) lands exactly on the duplicate boundary (no overlap).
 // Shared media element that fades in from opacity 0 once the file is decoded.
 // While !loaded, three editorial pulsing dots sit centred in the slot.
@@ -1052,7 +1052,7 @@ function FadeInMedia({ src, width, height, objectFit = "cover" }) {
   );
 }
 
-// Three pulsing dots, staggered — minimal editorial loader.
+// Three pulsing dots, staggered, minimal editorial loader.
 function LoadingDots() {
   return (
     <div
@@ -1197,4 +1197,4 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
 }
 
 // Small white dot that follows the cursor. mix-blend-mode: difference inverts
-// it automatically — appears black on white sections, white on dark ones.
+// it automatically, appears black on white sections, white on dark ones.

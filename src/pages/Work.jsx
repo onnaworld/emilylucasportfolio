@@ -10,7 +10,7 @@ const TIMES = "'Times New Roman', Times, serif";
 
 // Numbered list. Items with a `slug` matching an existing productionCase open
 // the case study panel on the right; the rest are placeholders for now.
-// Category derived from the project's display number — used to swap the
+// Category derived from the project's display number, used to swap the
 // 'Select Work' header to the discipline name on hover.
 function categoryFor(n) {
   if (n <= 17) return "Production";
@@ -22,7 +22,7 @@ function categoryFor(n) {
 // - client is rendered bold, title regular (split by " - ")
 // - slug opens the in-page case study panel
 // - link opens the published article in a new tab
-// Every project has a slug — used both for case-study popups (when a slug
+// Every project has a slug, used both for case-study popups (when a slug
 // matches an entry in productionCases) and for stable deep-link URLs like
 // /work#mr-porter-finneas regardless of whether a case study exists yet.
 const PROJECTS = [
@@ -99,7 +99,7 @@ export default function Work() {
     }
   }, []);
 
-  // Snap-scroll between hero and work section — toggled on <html> for the
+  // Snap-scroll between hero and work section, toggled on <html> for the
   // duration of this page only, removed on unmount.
   useEffect(() => {
     if (isMobile) return;
@@ -112,7 +112,7 @@ export default function Work() {
     setWindowStart(Math.min(index, maxStart));
   };
 
-  // Wheel inside the work section is locked to scatter advance — page
+  // Wheel inside the work section is locked to scatter advance, page
   // scroll is blocked, so the only way back to the hero is the ↑ button.
   // Uses a native non-passive listener so preventDefault() actually works.
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function Work() {
     if (!el) return;
     const handler = (e) => {
       // If the wheel event originated inside the open popup, let it scroll
-      // the popup natively — no preventDefault, no carousel advance.
+      // the popup natively, no preventDefault, no carousel advance.
       if (rightPanelRef.current && rightPanelRef.current.contains(e.target)) return;
       e.preventDefault();
       if (activeStudy) return;
@@ -156,7 +156,7 @@ export default function Work() {
   return (
     <div className="work-page" style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
       <style>{`
-        /* Page is intentionally non-scrollbar-driven on /work — list hover advances the thumbs */
+        /* Page is intentionally non-scrollbar-driven on /work, list hover advances the thumbs */
         html { scrollbar-width: none; }
         html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
         .work-page, .work-page * { cursor: none !important; }
@@ -164,7 +164,7 @@ export default function Work() {
       <CustomCursor enlargeOnHover />
       <WorkHero />
 
-      {/* Full-width work section — fits exactly one viewport now that the
+      {/* Full-width work section, fits exactly one viewport now that the
           thumbs advance from the list hover, not from page scroll. */}
       <div
         ref={sectionRef}
@@ -176,7 +176,7 @@ export default function Work() {
           overflow: "hidden",
         }}
       >
-        {/* Desktop editorial frame — top + bottom hairlines, with the
+        {/* Desktop editorial frame, top + bottom hairlines, with the
             ← Back to Home / ↑ on the top bar and © / ↓ on the bottom bar.
             Mobile keeps the legacy in-list back-to-home + bubble popup. */}
         {!isMobile && (
@@ -221,10 +221,10 @@ export default function Work() {
             >
               ↑
             </button>
-            {/* Top hairline — split into left + right with a gap for the ↑ arrow */}
+            {/* Top hairline, split into left + right with a gap for the ↑ arrow */}
             <div aria-hidden="true" style={{ position: "absolute", top: 64, left: space.xxl, right: "calc(50% + 30px)", borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
             <div aria-hidden="true" style={{ position: "absolute", top: 64, left: "calc(50% + 30px)", right: space.xxl, borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
-            {/* Bottom hairline — same split, gap aligns visually with the ↑ arrow above */}
+            {/* Bottom hairline, same split, gap aligns visually with the ↑ arrow above */}
             <div aria-hidden="true" style={{ position: "absolute", bottom: 64, left: space.xxl, right: "calc(50% + 30px)", borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
             <div aria-hidden="true" style={{ position: "absolute", bottom: 64, left: "calc(50% + 30px)", right: space.xxl, borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
             <div
@@ -245,7 +245,7 @@ export default function Work() {
           </>
         )}
 
-        {/* Mobile-only ↑ — pinned at top of section */}
+        {/* Mobile-only ↑, pinned at top of section */}
         {isMobile && (
           <button
             onClick={scrollToHero}
@@ -406,7 +406,7 @@ export default function Work() {
 
           {/* RIGHT: 3 thumbs scattered at fixed positions inside the right half.
               paddingRight gutter matches the left list's paddingLeft for symmetry.
-              Skipped on mobile — touch can't drive the hover-carousel.
+              Skipped on mobile, touch can't drive the hover-carousel.
               Fades out when a case study popup is active. */}
           {!isMobile && (
             <div
@@ -437,7 +437,7 @@ export default function Work() {
           )}
         </div>
 
-        {/* Case study popup — same visual identity as Menu / Contact
+        {/* Case study popup, same visual identity as Menu / Contact
             (rounded card, 1px border, spring pop). Scrolls internally,
             no leading image, gallery rendered as a < > carousel at the bottom. */}
         {activeStudy && (
@@ -450,7 +450,7 @@ export default function Work() {
           />
         )}
 
-        {/* Soft top fade — mirror of the bottom one, anchored inside the
+        {/* Soft top fade, mirror of the bottom one, anchored inside the
             section so it stays in place while the section is in view.
             Right gutter matches the list paddingLeft for symmetry. */}
         <div
@@ -468,7 +468,7 @@ export default function Work() {
           }}
         />
 
-        {/* Soft bottom fade — anchored inside the section, scrolls with it. */}
+        {/* Soft bottom fade, anchored inside the section, scrolls with it. */}
         <div
           aria-hidden="true"
           className="m-work-fade-bottom"
@@ -627,7 +627,7 @@ function WorkHero() {
   );
 }
 
-// All projects rendered as a fluid carousel — each project slides through
+// All projects rendered as a fluid carousel, each project slides through
 // the three scattered slot positions as windowStart advances. Per-project
 // transition duration varies so thumbs travel at slightly different speeds,
 // crossing and bumping into each other as they transit between slots.
@@ -637,7 +637,7 @@ const SCATTER_SLOTS = [
   { leftPct: 18, topPct: 62, width: 240 },
 ];
 
-// Inline fade-in wrapper for thumb media — opacity 0 until the file decodes,
+// Inline fade-in wrapper for thumb media, opacity 0 until the file decodes,
 // editorial pulsing dots placeholder while loading.
 function FadeInMedia({ src, isVideo }) {
   const [loaded, setLoaded] = useState(false);
@@ -716,12 +716,12 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
         if (visible) {
           ({ leftPct, topPct, width } = SCATTER_SLOTS[slot]);
         } else if (slot < 0) {
-          // Slide above the viewport — overflow:hidden on the parent clips
+          // Slide above the viewport, overflow:hidden on the parent clips
           leftPct = SCATTER_SLOTS[0].leftPct;
           topPct = -70 + slot * 8;
           width = SCATTER_SLOTS[0].width;
         } else {
-          // Slide below the viewport — overflow:hidden on the parent clips
+          // Slide below the viewport, overflow:hidden on the parent clips
           leftPct = SCATTER_SLOTS[2].leftPct;
           topPct = 130 + (slot - SCATTER_SLOTS.length) * 8;
           width = SCATTER_SLOTS[2].width;
@@ -734,7 +734,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
           scale = i === hoveredIdx ? 1.12 : 0.9;
         }
 
-        // Per-project duration variation — slow drift with a touch of weight,
+        // Per-project duration variation, slow drift with a touch of weight,
         // but lighter than before so the carousel feels responsive.
         const dur = 5 + ((i * 37) % 100) / 30; // 5s..8.3s, deterministic per project
         const ease = "cubic-bezier(0.22, 1, 0.36, 1)"; // soft decel, no overshoot
@@ -797,7 +797,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
 }
 
 // Brand / publication / talent names that should always render in italic
-// Times — matches the About/Brands paragraph convention on Landing.
+// Times, matches the About/Brands paragraph convention on Landing.
 // Longest-first so 'British Vogue' is matched before 'Vogue', etc.
 const BRAND_NAMES = [
   "Net-a-Porter Group", "National Museum of Qatar", "Noë & Associates",
@@ -871,7 +871,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           position: "relative",
           width: "100%",
           // Fixed height on both desktop + mobile so every popup is the same
-          // size regardless of content length — the inner div scrolls for
+          // size regardless of content length, the inner div scrolls for
           // longer cases (Trippin features, MR PORTER essays, etc).
           height: isMobile ? "min(640px, calc(100vh - 80px))" : "min(540px, calc(100vh - 240px))",
           background: "#fff",
@@ -880,7 +880,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           transformOrigin: "center",
         }}
       >
-        {/* Top fade — same colour as the scattered area fades */}
+        {/* Top fade, same colour as the scattered area fades */}
         <div aria-hidden="true" style={{
           position: "absolute", top: 0, left: 0, right: 0, height: 32,
           background: `linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0) 100%)`,
@@ -893,7 +893,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           pointerEvents: "none", zIndex: 3,
         }} />
 
-        {/* Close × — sits on the outer (non-scrolling) container so it
+        {/* Close ×, sits on the outer (non-scrolling) container so it
             stays visible no matter how far you scroll the popup body. */}
         <button
           onClick={onClose}
@@ -933,7 +933,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           }}
         >
 
-          {/* Project name — HEROS bold, lead line. Matches the 'Select Work'
+          {/* Project name, HEROS bold, lead line. Matches the 'Select Work'
               header font size on the left side. */}
           <div
             style={{
@@ -1131,7 +1131,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           .case-popup-scroll::-webkit-scrollbar { display: none; width: 0; }
         `}</style>
       </div>
-      {/* End-of-scroll ↓ — sits in the white space just below the popup card
+      {/* End-of-scroll ↓, sits in the white space just below the popup card
           so it never overlaps content but is always visible. */}
       <div
         aria-hidden="true"
@@ -1155,7 +1155,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
   );
 }
 
-// Horizontal scrolling strip — same vibe as the home-page sliding carousel.
+// Horizontal scrolling strip, same vibe as the home-page sliding carousel.
 // Multiple images visible at once at a fixed compact height; < > arrows step
 // the strip by roughly one image width.
 function ImageCarousel({ images, project }) {
@@ -1168,7 +1168,7 @@ function ImageCarousel({ images, project }) {
   };
   const mediaH = isMobile ? 160 : 200;
   return (
-    // No internal padding — image strip aligns flush with the text above.
+    // No internal padding, image strip aligns flush with the text above.
     // Arrows sit outside the strip in the popup's left/right padding gutter.
     <div style={{ position: "relative" }}>
       <div
@@ -1221,7 +1221,7 @@ function ImageCarousel({ images, project }) {
       </div>
       {images.length > 1 && (
         <>
-          {/* Arrows sit in the popup's side gutter — outside the image
+          {/* Arrows sit in the popup's side gutter, outside the image
               strip but inside the popup itself so they're still visible. */}
           <button
             onClick={() => step(-1)}

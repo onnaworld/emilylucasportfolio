@@ -9,7 +9,7 @@ const NAV_ITEMS = [
 export default function Layout({ children }) {
   const location = useLocation();
   const noHeader = location.pathname === "/" || location.pathname === "/work";
-  // Footer hidden on /work — copyright sits inside the work list under Back to Home
+  // Footer hidden on /work, copyright sits inside the work list under Back to Home
   const noFooter = location.pathname === "/work";
 
   return (
