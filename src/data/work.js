@@ -542,7 +542,7 @@ export const productionCases = [
     project: "MR PORTER In America",
     year: "2023",
     heroImage: "/work/mr-porter-in-america/01.jpg",
-    task: "Lead US production for 'MR PORTER In America': a 360° multi-brand integrated campaign spanning LA, New York, and Miami, coordinating A-list talent shoots under tight editorial deadlines across photography, film, and digital.",
+    task: "Lead US production for 'MR PORTER In America': a 360° multi-brand integrated campaign spanning LA, New York, and Miami, coordinating shoots with brand partnerships for Hennessy, editorial partnerships with The Elder Statesman, Polite Worldwide, and Greg Lauren, across photography, film, and digital.",
     outcome: "Generated 2.65M views and a 75% engagement uplift. Built and managed the on-the-ground US production framework for one of MR PORTER's flagship annual campaigns.",
     images: [
       "/work/mr-porter-in-america/01.jpg",
