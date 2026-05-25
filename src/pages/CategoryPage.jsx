@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
@@ -196,7 +197,9 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
       )}
 
       {showcases.map((s, i) => (
-        <Showcase key={i} {...s} />
+        // Vary drift per item so neighbours float at different speeds and
+        // never feel mechanically synchronised.
+        <Showcase key={i} {...s} driftFactor={40 + ((i * 23) % 60)} />
       ))}
     </div>
   );
@@ -219,12 +222,50 @@ function Media({ src, style }) {
   );
 }
 
-// One project block in the Club10/Charlie-Surbey vein: a media container
-// (single image/video, or a side-by-side pair when `media` is an array),
-// with the client name in HEROS bold + italic Times project title overlaid
-// in the middle of the frame.
-function Showcase({ client, title, media }) {
+// Hook: returns a Y translate (px) based on how the element sits inside the
+// viewport. Used to give each showcase a subtle floating drift as the page
+// scrolls. Per-element factor lets neighbours drift at slightly different
+// rates so they never lock-step with each other.
+function useScrollDrift(factor) {
+  const ref = useRef(null);
+  const [offset, setOffset] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const compute = () => {
+      const el = ref.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const elCenter = rect.top + rect.height / 2;
+      // Distance from element centre to viewport centre, normalised so 1 ≈
+      // one viewport away. Multiplying by factor gives the parallax shift.
+      const distance = (elCenter - viewportCenter) / window.innerHeight;
+      setOffset(distance * factor);
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(compute);
+    };
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", compute);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", compute);
+    };
+  }, [factor]);
+  return [ref, offset];
+}
+
+// One project block: a single asset (single media OR a flush pair grouped as
+// one) centred in the page, drifting subtly on scroll. Hover fades the asset
+// down and reveals the client + title overlay; no overlay by default since
+// most assets already carry the brand mark on the image itself.
+function Showcase({ client, title, media, driftFactor = 60 }) {
   const items = Array.isArray(media) ? media : [media];
+  const [ref, offset] = useScrollDrift(driftFactor);
+  const [hovered, setHovered] = useState(false);
   return (
     <section
       style={{
@@ -237,38 +278,54 @@ function Showcase({ client, title, media }) {
       }}
     >
       <div
+        ref={ref}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         style={{
           position: "relative",
-          width: "100%",
-          maxWidth: 1400,
-          display: "grid",
-          gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
-          gap: items.length > 1 ? 12 : 0,
+          width: "min(720px, 90vw)",
+          transform: `translate3d(0, ${offset}px, 0)`,
+          transition: "transform 0.05s linear",
+          willChange: "transform",
+          cursor: "pointer",
         }}
       >
-        {items.map((src, i) => (
-          <div
-            key={i}
-            style={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: items.length > 1 ? "3 / 4" : "16 / 9",
-              overflow: "hidden",
-              background: "#000",
-            }}
-          >
-            <Media
-              src={src}
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            display: "grid",
+            // Pair sits flush — no gap — so the two assets read as one piece.
+            gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
+            gap: 0,
+            opacity: hovered ? 0.25 : 1,
+            transition: "opacity 0.4s ease",
+          }}
+        >
+          {items.map((src, i) => (
+            <div
+              key={i}
               style={{
+                position: "relative",
                 width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
+                aspectRatio: items.length > 1 ? "3 / 4" : "16 / 9",
+                overflow: "hidden",
+                background: "#000",
               }}
-            />
-          </div>
-        ))}
-        {/* Overlay name + title, centered across the whole container */}
+            >
+              <Media
+                src={src}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        {/* Hover-only title overlay. Sits over the dimmed asset, centre-stage. */}
         <div
           style={{
             position: "absolute",
@@ -279,17 +336,19 @@ function Showcase({ client, title, media }) {
             justifyContent: "center",
             pointerEvents: "none",
             textAlign: "center",
-            mixBlendMode: "difference",
-            color: "#fff",
+            color: colors.text,
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "translateY(0)" : "translateY(6px)",
+            transition: "opacity 0.35s ease, transform 0.35s ease",
           }}
         >
           <div
             style={{
               fontFamily: HEROS_FONT,
               fontWeight: 700,
-              fontSize: "clamp(28px, 5vw, 80px)",
+              fontSize: "clamp(20px, 3.4vw, 48px)",
               letterSpacing: "-0.02em",
-              lineHeight: 0.95,
+              lineHeight: 1,
               textTransform: "uppercase",
             }}
           >
@@ -301,7 +360,7 @@ function Showcase({ client, title, media }) {
                 marginTop: 6,
                 fontFamily: TIMES,
                 fontStyle: "italic",
-                fontSize: "clamp(16px, 2vw, 28px)",
+                fontSize: "clamp(15px, 1.6vw, 22px)",
                 fontWeight: 400,
                 lineHeight: 1.1,
               }}
