@@ -303,6 +303,23 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
       )}
 
       {showcases.length > 0 && <AutoCycleHero showcases={showcases} />}
+
+      {/* Page footer — sits below the showcase as a separate row so the
+          page extends slightly past the last full-bleed section. */}
+      <footer
+        className="m-category-footer"
+        style={{
+          padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
+          borderTop: `1px solid ${colors.border}`,
+          background: colors.bg,
+          fontFamily: TIMES,
+          fontSize: 14,
+          fontWeight: 400,
+          color: colors.textMuted,
+        }}
+      >
+        © {new Date().getFullYear()} Emily Lucas
+      </footer>
     </div>
   );
 }

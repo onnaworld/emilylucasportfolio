@@ -104,16 +104,15 @@
       .work-snap-html { scroll-snap-type: y mandatory; }
       .work-snap-section { scroll-snap-align: start; scroll-snap-stop: always; }
 
-      /* Snap scroll between Category page sections (hero / about / showcase),
-         toggled via CategoryPage.jsx. scroll-padding-top: 0 ensures sections
-         land flush at the top of the viewport. */
+      /* Snap scroll between Category page sections (hero / about / showcase).
+         Use proximity (not mandatory) so the user can scroll past the last
+         snap target to reach the page footer beneath. */
       .category-snap-html {
-        scroll-snap-type: y mandatory;
+        scroll-snap-type: y proximity;
         scroll-padding-top: 0;
       }
       .category-snap-section {
         scroll-snap-align: start;
-        scroll-snap-stop: always;
       }
 
       /* ─────────────────────────────────────────────────────────────
@@ -260,6 +259,12 @@
           /* Restrict outer modal scroll to vertical so horizontal swipes
              on the inner carousel reach it without being captured here. */
           touch-action: pan-y !important;
+        }
+
+        /* Category page footer — slimmer on mobile */
+        .m-category-footer {
+          padding: 18px 16px 14px !important;
+          font-size: 13px !important;
         }
 
         /* Showcase overlay overflow fix: the 260px reserved width on
