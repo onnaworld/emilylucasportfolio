@@ -52,7 +52,7 @@ const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",                      client: "TRIPPIN",   title: "A History of Tattooing in Japan" },
   { src: "/Cultural%20Strategy/w1500_q80.jpg",                                                                client: "MR PORTER", title: "Calling All Women" },
   { src: "/Cultural%20Strategy/w1500_q80.jpeg",                                                               client: "MR PORTER", title: "Tee Store", landscape: true },
-  { src: "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",                                         client: "MR PORTER", title: "Black History Month UK" },
+  { src: "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",                                         client: "MR PORTER", title: "Black British Writers" },
   { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Pride" },
 ];
 const VISUAL_RESEARCH_IMAGES = [
