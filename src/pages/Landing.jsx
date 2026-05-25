@@ -418,7 +418,7 @@ function ContactModal({ onClose }) {
     { label: "EMAIL",    value: "emilyelucas@gmail.com",       href: "mailto:emilyelucas@gmail.com" },
     { label: "PHONE",    value: "+1 (917) 735-8545",           href: "tel:+19177358545" },
     { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas", href: "https://www.linkedin.com/in/emilyelucas/", external: true },
-    { label: "RESUME",   value: "Download",                    href: "/resume.pdf", download: true },
+    { label: "RESUME",   value: "Download",                    href: "/Resume/Resume_Emily%20Lucas.pdf", download: true },
   ];
 
   return (
@@ -539,11 +539,11 @@ function ContactModal({ onClose }) {
               <div
                 style={{
                   fontFamily: HEROS,
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "-0.01em",
-                  marginBottom: 2,
+                  marginBottom: 3,
                 }}
               >
                 {row.label}
@@ -552,7 +552,7 @@ function ContactModal({ onClose }) {
                 style={{
                   fontFamily: "'Times New Roman', Times, serif",
                   fontStyle: "italic",
-                  fontSize: 14,
+                  fontSize: 17,
                   fontWeight: 400,
                   lineHeight: 1.1,
                 }}
@@ -765,6 +765,12 @@ function GridTile({ study }) {
 
 
 function MenuOverlay({ onClose, onContact }) {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   const items = [
     { label: "All Work",          to: "/work" },
     { label: "Production",        to: "/work" },
@@ -778,7 +784,7 @@ function MenuOverlay({ onClose, onContact }) {
         position: "fixed",
         inset: 0,
         background: "transparent",
-        zIndex: 90,
+        zIndex: 200,
       }}
     >
       <div
@@ -787,15 +793,21 @@ function MenuOverlay({ onClose, onContact }) {
           position: "absolute",
           top: space.xl,
           right: space.xl,
-          background: "rgba(255, 255, 255, 0.72)",
-          backdropFilter: "blur(18px) saturate(140%)",
-          WebkitBackdropFilter: "blur(18px) saturate(140%)",
-          color: colors.text,
-          width: "min(360px, calc(100vw - 48px))",
-          padding: space.xl,
-          border: `1px solid ${colors.text}`,
+          width: "min(340px, calc(100vw - 48px))",
+          aspectRatio: "4 / 5",
+          color: "#fff",
+          padding: `${space.md}px ${space.lg}px`,
           borderRadius: 18,
-          boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
+          border: `1px solid ${colors.text}`,
+          overflow: "hidden",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.32)",
+          backgroundImage: "url(/daniel-benson_MrC_Dubai_024.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          textAlign: "center",
           transformOrigin: "top right",
           animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         }}
@@ -818,24 +830,28 @@ function MenuOverlay({ onClose, onContact }) {
             fontFamily: HEROS,
             fontSize: 22,
             lineHeight: 1,
-            color: colors.text,
+            color: "#fff",
+            zIndex: 2,
           }}
         >
           ×
         </button>
+
         <div
           style={{
             fontFamily: "'Times New Roman', Times, serif",
             fontStyle: "italic",
-            fontSize: "clamp(22px, 2.4vw, 32px)",
+            fontSize: "clamp(22px, 2.4vw, 28px)",
             fontWeight: 400,
+            color: "#fff",
             lineHeight: 1,
-            marginBottom: space.md,
+            marginBottom: space.lg,
           }}
         >
           Menu
         </div>
-        <div style={{ borderTop: `1px solid ${colors.text}` }}>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: space.md }}>
           {items.map((item, i) => (
             <Link
               key={item.label}
@@ -843,16 +859,14 @@ function MenuOverlay({ onClose, onContact }) {
               onClick={onClose}
               style={{
                 display: "block",
-                padding: `${space.md}px 0`,
-                borderBottom: `1px solid ${colors.text}`,
+                color: "#fff",
+                textDecoration: "none",
                 fontFamily: HEROS,
                 fontSize: 13,
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "-0.01em",
-                color: colors.text,
-                textDecoration: "none",
-                animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.18 + i * 0.08}s both`,
+                animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.1}s both`,
               }}
             >
               {item.label}
@@ -863,17 +877,18 @@ function MenuOverlay({ onClose, onContact }) {
             style={{
               display: "block",
               width: "100%",
-              textAlign: "left",
+              textAlign: "center",
               background: "none",
               border: "none",
-              padding: `${space.md}px 0`,
+              padding: 0,
+              marginTop: space.sm,
               fontFamily: "'Times New Roman', Times, serif",
               fontStyle: "italic",
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: 400,
-              color: colors.text,
+              color: "#fff",
               cursor: "pointer",
-              animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.18 + items.length * 0.08}s both`,
+              animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + items.length * 0.1}s both`,
             }}
           >
             Contact →
