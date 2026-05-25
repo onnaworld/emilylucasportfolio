@@ -37,3 +37,6 @@ public/work/POP UP FILES*/
 *.njsproj
 *.sln
 *.sw?
+
+# Oversized source gifs in cultural strategy folder (we ship the .mp4 conversions)
+public/Cultural Strategy/:cultural strategy/*.gif
