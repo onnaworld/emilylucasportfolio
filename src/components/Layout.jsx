@@ -69,23 +69,17 @@ function Footer() {
       style={{
         padding: `${space.xl}px ${space.xl}px ${space.lg}px ${space.xl}px`,
         borderTop: `1px solid ${colors.border}`,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexWrap: "wrap",
-        gap: space.md,
       }}
     >
-      <div style={{ ...t("small"), color: colors.textMuted }}>
+      <div
+        style={{
+          fontFamily: "'Times New Roman', Times, serif",
+          fontSize: 14,
+          fontWeight: 400,
+          color: colors.textMuted,
+        }}
+      >
         © {new Date().getFullYear()} Emily Lucas
-      </div>
-      <div style={{ display: "flex", gap: space.lg }}>
-        <a href="mailto:emilyelucas@gmail.com" style={{ ...t("small"), color: colors.textMuted }}>
-          emilyelucas@gmail.com
-        </a>
-        <a href="https://linkedin.com/in/emilylucas" target="_blank" rel="noopener noreferrer" style={{ ...t("small"), color: colors.textMuted }}>
-          LinkedIn
-        </a>
       </div>
     </footer>
   );
