@@ -13,37 +13,40 @@ const TIMES = "'Times New Roman', Times, serif";
 // 'Select Work' header to the discipline name on hover.
 function categoryFor(n) {
   if (n <= 12) return "Production";
-  if (n <= 24) return "Cultural Strategy";
+  if (n <= 22) return "Cultural Strategy";
   return "Visual Research";
 }
 
+// Each entry: { n, client?, title, slug?, thumb? }
+// - client is rendered bold, title is rendered regular (split by " - ")
+// - entries without `client` render `title` alone in bold (legacy editorial titles)
 const PROJECTS = [
-  { n: 1, title: "Vogue Arabia", slug: "vogue-relaunch", thumb: "/work/all-work/01.jpg" },
-  { n: 2, title: "Aman", slug: "aman", thumb: "/work/all-work/2..jpg" },
-  { n: 3, title: "MR PORTER", slug: "mr-porter-in-america", thumb: "/work/all-work/3..webp" },
-  { n: 4, title: "One&Only", thumb: "/work/all-work/4..mp4.mp4" },
-  { n: 5, title: "Cipriani", slug: "mr-c-residences", thumb: "/work/all-work/5..jpg" },
-  { n: 6, title: "Columbia Sportswear", thumb: "/work/all-work/6..jpg" },
-  { n: 7, title: "Mastercard", slug: "mastercard-sailgp" },
-  { n: 8, title: "Nike", slug: "nike-vomero" },
-  { n: 10, title: "J.Crew" },
-  { n: 11, title: "Charlotte Tilbury" },
-  { n: 12, title: "Louis Vuitton x The Glass Magazine", slug: "glass-magazine" },
-  { n: 13, title: "Trippin: Through the Lens" },
-  { n: 14, title: "An Exploration of Mexico Through the Lens of Graciela Iturbide" },
-  { n: 15, title: "A History of Tattooing in Japan" },
-  { n: 16, title: "MR PORTER: The Stylish Gent's Guide To 2022's Freshest Menswear Trends" },
-  { n: 17, title: "Why You Should Shop (For Yourself) On MR PORTER" },
-  { n: 18, title: "15 Ways To Improve Your Life, Japanese Style" },
-  { n: 19, title: "Meet The Next Generation Of Black British Writers Telling Stories With Style" },
-  { n: 20, title: "Feels On Wheels: Why Roller-Skating Is Like Therapy" },
-  { n: 21, title: "MR PORTER Social Pride Takeover" },
-  { n: 24, title: "MR PORTER Helping Hands" },
-  { n: 25, title: "Ask MR PORTER" },
-  { n: 26, title: "Eight Striking Images Of New York City Through The Decades" },
-  { n: 27, title: "Five Ways To Freshen Up Your Work Wardrobe In 2020" },
-  { n: 28, title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe" },
-  { n: 29, title: "What To Read, Watch And Do This Black History Month UK" },
+  { n: 1,  client: "CONDÉ NAST",         title: "Vogue Arabia Relaunch",        slug: "vogue-relaunch",       thumb: "/work/all-work/01.jpg" },
+  { n: 2,  client: "AMAN",               title: "Saudi Arabia & Dubai",         slug: "aman",                 thumb: "/work/all-work/2..jpg" },
+  { n: 3,  client: "MR PORTER",          title: "N America",                    slug: "mr-porter-in-america", thumb: "/work/all-work/3..webp" },
+  { n: 4,  client: "ONE&ONLY",           title: "Moonlight Basin",              slug: "moonlight-basin",      thumb: "/work/all-work/4..mp4.mp4" },
+  { n: 5,  client: "CIPRIANI",           title: "MR C Residence Dubai",         slug: "mr-c-residences",      thumb: "/work/all-work/5..jpg" },
+  { n: 6,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign",            thumb: "/work/all-work/6..jpg" },
+  { n: 7,  client: "MASTERCARD",         title: "Sail Grand Prix x Luís Figo",  slug: "mastercard-sailgp" },
+  { n: 8,  client: "NIKE",               title: "Global Vomero 18 Activation",  slug: "nike-vomero" },
+  { n: 9,  client: "J.CREW",             title: "Abraham Moon",                 slug: "abraham-moon" },
+  { n: 10, client: "CHARLOTTE TILBURY",  title: "Disney 100 Campaign",          thumb: "/work/all-work/10.mp4" },
+  { n: 11, client: "LOUIS VUITTON",      title: "The Glass Magazine",           slug: "glass-magazine",       thumb: "/work/all-work/11..jpg" },
+  { n: 12, client: "TRIPPIN",            title: "6 Photographers on What Ethical Photography Means to Them", thumb: "/work/all-work/12.avif" },
+  { n: 13, title: "An Exploration of Mexico Through the Lens of Graciela Iturbide", thumb: "/work/all-work/13.jpg" },
+  { n: 14, title: "A History of Tattooing in Japan",                                thumb: "/work/all-work/14.webp" },
+  { n: 15, title: "MR PORTER: The Stylish Gent's Guide To 2022's Freshest Menswear Trends", thumb: "/work/all-work/15.jpg" },
+  { n: 16, title: "Why You Should Shop (For Yourself) On MR PORTER",               thumb: "/work/all-work/16.jpg" },
+  { n: 17, title: "15 Ways To Improve Your Life, Japanese Style" },
+  { n: 18, title: "Meet The Next Generation Of Black British Writers Telling Stories With Style" },
+  { n: 19, title: "Feels On Wheels: Why Roller-Skating Is Like Therapy" },
+  { n: 20, title: "MR PORTER Social Pride Takeover" },
+  { n: 21, title: "MR PORTER Helping Hands" },
+  { n: 22, title: "Ask MR PORTER" },
+  { n: 23, title: "Eight Striking Images Of New York City Through The Decades" },
+  { n: 24, title: "Five Ways To Freshen Up Your Work Wardrobe In 2020" },
+  { n: 25, title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe" },
+  { n: 26, title: "What To Read, Watch And Do This Black History Month UK" },
 ];
 
 export default function Work() {
@@ -169,7 +172,16 @@ export default function Work() {
                   <span style={{ width: 28, flexShrink: 0 }}>
                     {String(p.n).padStart(2, "0")}.
                   </span>
-                  <span>{p.title}</span>
+                  <span>
+                    {p.client ? (
+                      <>
+                        <span style={{ fontWeight: 700 }}>{p.client}</span>
+                        <span style={{ fontWeight: 400 }}> — {p.title}</span>
+                      </>
+                    ) : (
+                      <span style={{ fontWeight: 700 }}>{p.title}</span>
+                    )}
+                  </span>
                 </button>
               );
             })}
@@ -405,6 +417,36 @@ const SCATTER_SLOTS = [
   { leftPct: 18, topPct: 62, width: 240 },
 ];
 
+// Inline fade-in wrapper for thumb media — opacity 0 until the file decodes.
+function FadeInMedia({ src, isVideo }) {
+  const [loaded, setLoaded] = useState(false);
+  const style = {
+    width: "100%",
+    height: "auto",
+    display: "block",
+    opacity: loaded ? 1 : 0,
+    transition: "opacity 0.5s ease-out",
+  };
+  return isVideo ? (
+    <video
+      src={src}
+      autoPlay muted loop playsInline
+      preload="metadata"
+      onLoadedData={() => setLoaded(true)}
+      style={style}
+    />
+  ) : (
+    <img
+      src={src}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      onLoad={() => setLoaded(true)}
+      style={style}
+    />
+  );
+}
+
 function ScatteredThumbs({ projects, productionCases, windowStart }) {
   return (
     <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
@@ -465,20 +507,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
               {String(p.n).padStart(2, "0")}
             </div>
             {thumbSrc ? (
-              isVideo ? (
-                <video
-                  src={thumbSrc}
-                  autoPlay muted loop playsInline
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                />
-              ) : (
-                <img
-                  src={thumbSrc}
-                  alt=""
-                  loading="lazy"
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                />
-              )
+              <FadeInMedia src={thumbSrc} isVideo={isVideo} />
             ) : (
               <div style={{ background: "#f2f2f2", aspectRatio: "4 / 3" }} />
             )}

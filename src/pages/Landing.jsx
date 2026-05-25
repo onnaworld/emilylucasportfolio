@@ -437,10 +437,11 @@ function ContactModal({ onClose }) {
           background: "#fff",
           color: colors.text,
           width: "min(520px, 100%)",
-          padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
+          padding: space.xl,
           position: "relative",
           border: `1px solid ${colors.text}`,
-          animation: "contact-modal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+          borderRadius: 6,
+          animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         }}
       >
         <button
@@ -545,8 +546,8 @@ function ContactModal({ onClose }) {
           to   { opacity: 1; }
         }
         @keyframes contact-modal-in {
-          from { opacity: 0; transform: translateY(20px) scale(0.97); }
-          to   { opacity: 1; transform: translateY(0) scale(1); }
+          from { opacity: 0; transform: scale(0.82); }
+          to   { opacity: 1; transform: scale(1); }
         }
         @keyframes contact-row-in {
           from { opacity: 0; transform: translateY(12px); }
@@ -796,6 +797,45 @@ function Brand({ children }) {
 
 // Horizontal infinite carousel — fixed-width images, marginRight pattern
 // so translateX(-50%) lands exactly on the duplicate boundary (no overlap).
+// Shared media element that fades in from opacity 0 once the file is decoded —
+// turns the slow loading lag into an intentional reveal.
+function FadeInMedia({ src, width, height, objectFit = "cover" }) {
+  const [loaded, setLoaded] = useState(false);
+  const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+  const style = {
+    height,
+    width,
+    marginRight: 12,
+    objectFit,
+    display: "block",
+    background: colors.surface,
+    flexShrink: 0,
+    opacity: loaded ? 1 : 0,
+    transition: "opacity 0.5s ease-out",
+  };
+  return isVideo ? (
+    <video
+      src={src}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      onLoadedData={() => setLoaded(true)}
+      style={style}
+    />
+  ) : (
+    <img
+      src={src}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      onLoad={() => setLoaded(true)}
+      style={style}
+    />
+  );
+}
+
 function CredentialsCarousel({ images, compact = false, landscape = false }) {
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
@@ -813,33 +853,13 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
           const src = typeof item === "string" ? item : item.src;
           const itemLandscape = typeof item === "string" ? landscape : (item.landscape ?? landscape);
           const w = itemLandscape ? 360 : compact ? 180 : 320;
-          const isVideo = /\.(mp4|webm|mov)$/i.test(src);
-          const sharedStyle = {
-            height: h,
-            width: w,
-            marginRight: 12,
-            objectFit: "cover",
-            display: "block",
-            background: colors.surface,
-            flexShrink: 0,
-          };
-          return isVideo ? (
-            <video
+          return (
+            <FadeInMedia
               key={i}
               src={src}
-              autoPlay
-              muted
-              loop
-              playsInline
-              style={sharedStyle}
-            />
-          ) : (
-            <img
-              key={i}
-              src={src}
-              alt=""
-              loading="lazy"
-              style={sharedStyle}
+              width={w}
+              height={h}
+              objectFit="cover"
             />
           );
         })}
