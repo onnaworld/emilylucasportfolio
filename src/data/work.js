@@ -264,8 +264,8 @@ export const productionCases = [
     client: "MR PORTER",
     project: "Calling All Women: Why You Should Shop (For Yourself) On MR PORTER",
     year: "2023",
-    task: "Selected by the MR PORTER editorial team as one of three staffers profiled in this editorial on women shopping menswear. Brief: contribute personal style commentary and pose for an editorial fashion shoot styling menswear pieces from the site for myself.",
-    outcome: "Featured in the November 2023 editorial alongside MR PORTER's Fashion Editor and Senior Editor, photographed by Suleika Mueller, styled by Charlie Schneider-Jacobson. Spoke on personal approach to mixing menswear and womenswear, the influence of growing up in Japan on style sensibility, and a preference for KAPITAL and Sacai. The editorial sat as part of MR PORTER's broader conversation on dissolving menswear/womenswear distinctions, a thread the brand has been building publicly over several years.",
+    task: "Selected by the MR PORTER editorial team as one of three staffers profiled in this editorial on women shopping menswear. Contributed personal style commentary and posed for an editorial fashion shoot styling menswear pieces from the site.",
+    outcome: "Featured in the November 2023 editorial alongside MR PORTER's Fashion Editor and Senior Editor, photographed by Suleika Mueller and styled by Charlie Schneider-Jacobson. Brought a Tokyo-raised perspective to the piece, speaking on the influence of Japanese design philosophy on personal style by highlighting brands including KAPITAL and Sacai. Intentionally bringing attention to the cultural orientation toward capsule wardrobes built from timeless, well-crafted pieces designed to last. The editorial sat as part of MR PORTER's broader conversation on dissolving menswear/womenswear distinctions, a thread the brand has been building publicly over several years.",
     viewProjectLink: "https://www.mrporter.com/en-dk/journal/fashion/women-shopping-buying-wearing-menswear-style-24622422",
     images: [
       "/work/mr-porter-women-shopping-menswear/01.jpg",
