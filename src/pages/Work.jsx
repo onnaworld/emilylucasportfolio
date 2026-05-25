@@ -236,11 +236,11 @@ export default function Work() {
           )}
         </div>
 
-        {/* Inline case study — expands into the right-half area, replacing
-            the scattered thumbs. No border, scrolls within itself, top + bottom
-            white fades from the section sit above it so the scroll edge softens. */}
+        {/* Case study popup — same visual identity as Menu / Contact
+            (rounded card, 1px border, spring pop). Scrolls internally,
+            no leading image, gallery rendered as a < > carousel at the bottom. */}
         {activeStudy && (
-          <InlineCaseStudy
+          <CaseStudyPopup
             study={activeStudy}
             panelRef={rightPanelRef}
             onClose={() => setActive(null)}
@@ -298,13 +298,9 @@ function WorkHero() {
         overflow: "hidden",
       }}
     >
-      <video
-        src="/showreel.mp4"
-        poster="/showreel-poster.jpg"
-        autoPlay
-        muted
-        loop
-        playsInline
+      <img
+        src="/work/aman/hero.jpg"
+        alt=""
         style={{
           position: "absolute",
           inset: 0,
@@ -585,22 +581,25 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
   );
 }
 
-function InlineCaseStudy({ study, panelRef, onClose }) {
+function CaseStudyPopup({ study, panelRef, onClose }) {
   return (
     <div
       ref={panelRef}
-      className="case-inline"
+      className="case-popup"
       style={{
         position: "absolute",
-        top: 0,
-        left: "50%",
-        right: space.xxl,
-        bottom: 0,
+        top: space.lg,
+        left: `calc(50% + ${space.lg}px)`,
+        right: space.xxl + space.lg,
+        bottom: space.lg,
         overflowY: "auto",
-        background: colors.bg,
+        background: "#fff",
+        border: `1px solid ${colors.text}`,
+        borderRadius: 18,
+        boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
         zIndex: 5,
-        animation: "case-expand 0.8s cubic-bezier(0.22, 1, 0.36, 1) both",
-        transformOrigin: "top left",
+        animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+        transformOrigin: "center",
       }}
     >
       <button
@@ -610,13 +609,11 @@ function InlineCaseStudy({ study, panelRef, onClose }) {
           position: "sticky",
           top: 12,
           marginLeft: "auto",
-          marginRight: 16,
+          marginRight: 12,
           display: "block",
-          width: 32,
-          height: 32,
-          borderRadius: "50%",
-          background: "rgba(255,255,255,0.85)",
-          backdropFilter: "blur(4px)",
+          width: 28,
+          height: 28,
+          background: "none",
           border: "none",
           cursor: "pointer",
           fontFamily: HEROS_FONT,
@@ -630,25 +627,7 @@ function InlineCaseStudy({ study, panelRef, onClose }) {
         ×
       </button>
 
-      {/* Hero — full-width media, native aspect */}
-      {study.heroVideo ? (
-        <video
-          src={study.heroVideo}
-          poster={study.heroImage}
-          autoPlay muted loop playsInline
-          style={{ width: "100%", display: "block" }}
-        />
-      ) : study.heroImage ? (
-        <img src={study.heroImage} alt={study.project} style={{ width: "100%", display: "block" }} />
-      ) : null}
-
-      <div
-        className="case-text"
-        style={{
-          padding: `${space.lg}px ${space.xl}px ${space.xxl}px`,
-          animation: "case-text-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both",
-        }}
-      >
+      <div style={{ padding: `${space.lg}px ${space.xl}px ${space.xl}px` }}>
         <div
           style={{
             fontFamily: HEROS_FONT,
@@ -658,6 +637,7 @@ function InlineCaseStudy({ study, panelRef, onClose }) {
             letterSpacing: "-0.01em",
             color: colors.textMuted,
             marginBottom: space.sm,
+            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
           }}
         >
           {study.year} · {study.client}
@@ -666,12 +646,13 @@ function InlineCaseStudy({ study, panelRef, onClose }) {
         <div
           style={{
             fontFamily: HEROS_FONT,
-            fontSize: 22,
+            fontSize: 24,
             fontWeight: 700,
             letterSpacing: "-0.02em",
             lineHeight: 1.1,
             color: colors.text,
             marginBottom: space.sm,
+            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
           }}
         >
           {study.project}
@@ -686,12 +667,18 @@ function InlineCaseStudy({ study, panelRef, onClose }) {
             color: colors.text,
             marginTop: 0,
             marginBottom: space.xl,
+            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both",
           }}
         >
           {study.title}
         </p>
 
-        <div style={{ marginBottom: space.lg }}>
+        <div
+          style={{
+            marginBottom: space.lg,
+            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both",
+          }}
+        >
           <div
             style={{
               fontFamily: HEROS_FONT,
@@ -710,7 +697,12 @@ function InlineCaseStudy({ study, panelRef, onClose }) {
           </p>
         </div>
 
-        <div style={{ marginBottom: space.xl }}>
+        <div
+          style={{
+            marginBottom: space.xl,
+            animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both",
+          }}
+        >
           <div
             style={{
               fontFamily: HEROS_FONT,
@@ -730,41 +722,110 @@ function InlineCaseStudy({ study, panelRef, onClose }) {
         </div>
 
         {study.images && study.images.length > 0 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: space.md }}>
-            {study.images.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`${study.project} – ${i + 1}`}
-                loading="lazy"
-                style={{ width: "100%", display: "block", background: colors.surface }}
-              />
-            ))}
+          <div style={{ animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.54s both" }}>
+            <ImageCarousel images={study.images} project={study.project} />
           </div>
         )}
       </div>
 
       <style>{`
-        @keyframes case-expand {
-          from { transform: scale(0.55) translate(-12%, -22%); opacity: 0; }
-          to   { transform: scale(1) translate(0, 0); opacity: 1; }
-        }
-        @keyframes case-text-in {
-          from { opacity: 0; transform: translateY(18px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .case-inline {
+        .case-popup {
           scrollbar-width: thin;
           scrollbar-color: rgba(0,0,0,0.25) transparent;
         }
-        .case-inline::-webkit-scrollbar { width: 6px; }
-        .case-inline::-webkit-scrollbar-track { background: transparent; }
-        .case-inline::-webkit-scrollbar-thumb {
+        .case-popup::-webkit-scrollbar { width: 6px; }
+        .case-popup::-webkit-scrollbar-track { background: transparent; }
+        .case-popup::-webkit-scrollbar-thumb {
           background: rgba(0,0,0,0.25);
           border-radius: 3px;
         }
-        .case-inline::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
       `}</style>
+    </div>
+  );
+}
+
+function ImageCarousel({ images, project }) {
+  const [idx, setIdx] = useState(0);
+  const prev = () => setIdx((i) => (i - 1 + images.length) % images.length);
+  const next = () => setIdx((i) => (i + 1) % images.length);
+  return (
+    <div>
+      <div style={{ position: "relative", background: colors.surface, borderRadius: 8, overflow: "hidden" }}>
+        <img
+          src={images[idx]}
+          alt={`${project} – ${idx + 1}`}
+          style={{ width: "100%", height: "auto", display: "block" }}
+        />
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              aria-label="Previous image"
+              style={{
+                position: "absolute",
+                left: 12,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.85)",
+                border: `1px solid ${colors.text}`,
+                cursor: "pointer",
+                fontFamily: TIMES,
+                fontSize: 20,
+                lineHeight: 1,
+                color: colors.text,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              ‹
+            </button>
+            <button
+              onClick={next}
+              aria-label="Next image"
+              style={{
+                position: "absolute",
+                right: 12,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.85)",
+                border: `1px solid ${colors.text}`,
+                cursor: "pointer",
+                fontFamily: TIMES,
+                fontSize: 20,
+                lineHeight: 1,
+                color: colors.text,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              ›
+            </button>
+          </>
+        )}
+      </div>
+      {images.length > 1 && (
+        <div
+          style={{
+            marginTop: space.sm,
+            textAlign: "center",
+            fontFamily: HEROS_FONT,
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: "-0.01em",
+            color: colors.textMuted,
+          }}
+        >
+          {idx + 1} / {images.length}
+        </div>
+      )}
     </div>
   );
 }

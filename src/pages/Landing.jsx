@@ -141,10 +141,14 @@ export default function Landing() {
           overflow: "hidden",
         }}
       >
-        {/* Hero photo */}
-        <img
-          src="/hero.jpg"
-          alt=""
+        {/* Hero showreel video */}
+        <video
+          src="/showreel.mp4"
+          poster="/showreel-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
           style={{
             position: "absolute",
             inset: 0,
