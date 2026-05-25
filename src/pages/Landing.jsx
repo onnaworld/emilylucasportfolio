@@ -56,10 +56,10 @@ const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Pride" },
 ];
 const VISUAL_RESEARCH_IMAGES = [
-  { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Menswear Trends 2022" },
-  { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "Eight Striking Images of NYC" },
-  { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "Five Ways To Freshen Your Work Wardrobe" },
-  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Black History Month UK" },
+  { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Eight Striking Images Of New York City Through The Decades" },
+  { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends" },
+  { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "What To Read, Watch And Do This Black History Month UK" },
+  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe" },
 ];
 
 export default function Landing() {
