@@ -24,17 +24,15 @@ function B({ children }) {
 // Asset folder is /public/Production/:production/ — the colon is part of
 // the directory name (Emily's own filing convention) and works fine as a
 // URL path segment.
-// Cultural-strategy showcase entries — media intentionally null while
-// Emily uploads the actual assets; the showcase renders a placeholder
-// gradient in their place.
 const CULTURAL_STRATEGY_SHOWCASES = [
-  { slug: "mr-porter-championing-subcultures", client: "MR PORTER", title: "Championing Subcultures",            media: null },
-  { slug: "mr-porter-social-media",             client: "MR PORTER", title: "Social Media Strategy",              media: null },
-  { slug: "trippin-ethical-photography",        client: "Trippin",   title: "Ethical Photography",                media: null },
-  { slug: "trippin-graciela-iturbide",          client: "Trippin",   title: "Mexico through Graciela Iturbide",   media: null },
-  { slug: "trippin-tattooing-japan",            client: "Trippin",   title: "A History of Tattooing",             media: null },
-  { slug: "mr-porter-menswear-trends-2022",     client: "MR PORTER", title: "2022 Menswear Trends",               media: null },
-  { slug: "mr-porter-japanese-style",           client: "MR PORTER", title: "Improve Your Life",                  media: null },
+  { slug: "mr-porter-championing-subcultures", client: "MR PORTER", title: "Championing Subcultures",          media: "/Cultural%20Strategy/:cultural%20strategy/01.mp4" },
+  { slug: "mr-porter-social-media",             client: "MR PORTER", title: "Social Media Strategy",            media: "/Cultural%20Strategy/:cultural%20strategy/02.mp4" },
+  { slug: "trippin-ethical-photography",        client: "Trippin",   title: "Ethical Photography",              media: "/Cultural%20Strategy/:cultural%20strategy/03.avif" },
+  { slug: "trippin-graciela-iturbide",          client: "Trippin",   title: "Mexico through Graciela Iturbide", media: "/Cultural%20Strategy/:cultural%20strategy/04.avif" },
+  { slug: "trippin-tattooing-japan",            client: "Trippin",   title: "A History of Tattooing",           media: "/Cultural%20Strategy/:cultural%20strategy/05.avif" },
+  { slug: "mr-porter-menswear-trends-2022",     client: "MR PORTER", title: "2022 Menswear Trends",             media: "/Cultural%20Strategy/:cultural%20strategy/06.jpg" },
+  { slug: "mr-porter-japanese-style",           client: "MR PORTER", title: "Improve Your Life",                media: "/Cultural%20Strategy/:cultural%20strategy/07.jpg" },
+  { slug: "mr-porter-women-shopping-menswear",  client: "MR PORTER", title: "Shop For Yourself",                media: "/Cultural%20Strategy/:cultural%20strategy/08.jpg" },
 ];
 
 const PRODUCTION_SHOWCASES = [

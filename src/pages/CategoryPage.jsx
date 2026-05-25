@@ -60,6 +60,16 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
     document.documentElement.classList.add("category-snap-html");
     return () => document.documentElement.classList.remove("category-snap-html");
   }, []);
+
+  // Once the hero has scrolled mostly out of view, show a fixed ← Home
+  // top-left so the user always has a way back.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.6);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
     <div className="category-page" style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
       <style>{`
@@ -67,6 +77,29 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
       `}</style>
       <CustomCursor enlargeOnHover />
       <PlusMenu />
+
+      {/* Fixed ← Home, appears once you scroll past the hero. mix-blend
+          difference keeps it legible on both dark and light sections. */}
+      <Link
+        to="/"
+        style={{
+          position: "fixed",
+          top: 24,
+          left: space.xl,
+          fontFamily: TIMES,
+          fontSize: 14,
+          fontWeight: 400,
+          color: "#fff",
+          mixBlendMode: "difference",
+          textDecoration: "none",
+          zIndex: 100,
+          opacity: scrolled ? 1 : 0,
+          pointerEvents: scrolled ? "auto" : "none",
+          transition: "opacity 0.3s ease",
+        }}
+      >
+        ← Home
+      </Link>
 
       <section
         className="m-hero-section category-snap-section"
