@@ -971,25 +971,39 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
             >
               {study.client}
             </div>
-            {study.viewProjectLink && (
-              <a
-                href={study.viewProjectLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontFamily: TIMES,
-                  fontSize: 14,
-                  fontWeight: 400,
-                  color: colors.text,
-                  textDecoration: "none",
-                  letterSpacing: 0,
-                  whiteSpace: "nowrap",
-                  flexShrink: 0,
-                }}
-              >
-                View Project →
-              </a>
-            )}
+            {study.viewProjectLink && (() => {
+              // viewProjectLink can be a single string OR an array of either
+              // strings or { label, url } pairs. Multiple links stack vertically.
+              const linksRaw = Array.isArray(study.viewProjectLink)
+                ? study.viewProjectLink
+                : [study.viewProjectLink];
+              const links = linksRaw.map((l) =>
+                typeof l === "string" ? { label: "View Project →", url: l } : l
+              );
+              return (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
+                  {links.map((l) => (
+                    <a
+                      key={l.url}
+                      href={l.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontFamily: TIMES,
+                        fontSize: 14,
+                        fontWeight: 400,
+                        color: colors.text,
+                        textDecoration: "none",
+                        letterSpacing: 0,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
 
           {/* Date underneath */}
