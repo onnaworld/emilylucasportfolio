@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
 import CustomCursor from "../components/CustomCursor";
@@ -268,16 +268,27 @@ function Media({ src, style, position }) {
 function AutoCycleHero({ showcases }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [whoosh, setWhoosh] = useState(null); // index being whooshed-into-case-study
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (paused || showcases.length < 2) return;
+    if (paused || whoosh !== null || showcases.length < 2) return;
     const id = setInterval(() => {
       setIndex(i => (i + 1) % showcases.length);
     }, 4500);
     return () => clearInterval(id);
-  }, [paused, showcases.length]);
+  }, [paused, whoosh, showcases.length]);
 
   const active = showcases[index];
+
+  // Whoosh-and-navigate: scale the active media up + fade, then go to /work/:slug
+  const openCaseStudy = (i) => {
+    const slug = showcases[i]?.slug;
+    if (!slug || whoosh !== null) return;
+    setIndex(i);
+    setWhoosh(i);
+    setTimeout(() => navigate(`/work/${slug}`), 620);
+  };
 
   return (
     <section
@@ -295,6 +306,7 @@ function AutoCycleHero({ showcases }) {
         {showcases.map((s, i) => {
           const items = Array.isArray(s.media) ? s.media : [s.media];
           const isActive = i === index;
+          const isWhooshing = whoosh === i;
           return (
             <div
               key={i}
@@ -305,8 +317,12 @@ function AutoCycleHero({ showcases }) {
                 display: "grid",
                 gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
                 gap: 0,
-                opacity: isActive ? 1 : 0,
-                transition: "opacity 0.7s ease",
+                opacity: isWhooshing ? 0 : isActive ? 1 : 0,
+                transform: isWhooshing ? "scale(1.5)" : "scale(1)",
+                transformOrigin: "center",
+                transition: isWhooshing
+                  ? "opacity 0.55s cubic-bezier(0.6, 0, 0.2, 1), transform 0.6s cubic-bezier(0.6, 0, 0.2, 1)"
+                  : "opacity 0.7s ease",
                 pointerEvents: "none",
               }}
             >
@@ -327,6 +343,35 @@ function AutoCycleHero({ showcases }) {
             </div>
           );
         })}
+
+        {/* Click-through layer over the media — opens the case study */}
+        <button
+          onClick={() => openCaseStudy(index)}
+          aria-label={`Open ${active.client} case study`}
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "transparent",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+            zIndex: 2,
+          }}
+        />
+
+        {/* White-flash overlay during whoosh — sells the "toward you" feel */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "#fff",
+            opacity: whoosh !== null ? 0.4 : 0,
+            transition: "opacity 0.55s cubic-bezier(0.6, 0, 0.2, 1)",
+            pointerEvents: "none",
+            zIndex: 5,
+          }}
+        />
 
         {/* Bottom row: tight number cluster (left) + client/title (right),
             baseline-aligned at the bottom of the digits. */}
@@ -370,7 +415,8 @@ function AutoCycleHero({ showcases }) {
                     setIndex(i);
                   }}
                   onBlur={() => setPaused(false)}
-                  aria-label={`Show project ${i + 1}`}
+                  onClick={(e) => { e.stopPropagation(); openCaseStudy(i); }}
+                  aria-label={`Open project ${i + 1}: ${showcases[i].client}`}
                   style={{
                     background: "none",
                     border: "none",

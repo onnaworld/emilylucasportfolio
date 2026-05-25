@@ -152,9 +152,11 @@
         /* About / Brands two-column sections.
            height: auto !important so the body text can flow naturally on
            narrow screens (Landing/Category pages set inline height: 100vh
-           for desktop snap, which crops content on mobile). */
+           for desktop snap, which crops content on mobile).
+           padding-bottom leaves room for the absolute down-arrow so it
+           doesn't overlap the last line of body copy. */
         .m-section {
-          padding: 32px 16px !important;
+          padding: 32px 16px 72px !important;
           grid-template-columns: 1fr !important;
           gap: 12px !important;
           height: auto !important;
@@ -223,7 +225,13 @@
         .m-workdetail-body h1 { font-size: 18px !important; }
         .m-workdetail-body h2 { font-size: 28px !important; }
 
-        /* Category showcase (AutoCycleHero) — tighter spacing on mobile. */
+        /* Category showcase (AutoCycleHero) — landscape banner on mobile
+           (instead of full 100vh portrait), tighter overlay/numbers. */
+        .m-showcase-section {
+          height: auto !important;
+          aspect-ratio: 4 / 3 !important;
+          min-height: 240px !important;
+        }
         .m-showcase-bottom {
           bottom: 12px !important;
           padding: 0 14px !important;
@@ -233,11 +241,6 @@
         .m-showcase-numbers button { font-size: 16px !important; }
         .m-showcase-overlay > div:first-child { font-size: 16px !important; }
         .m-showcase-overlay > div:nth-child(2) { font-size: 10px !important; }
-        .m-showcase-footer {
-          padding: 10px 14px !important;
-          font-size: 11px !important;
-          gap: 12px !important;
-        }
 
         /* Mobile scroll-snap is heavy/buggy in some browsers; relax to
            proximity so the user keeps fluid touch-scroll. */

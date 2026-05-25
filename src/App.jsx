@@ -25,14 +25,14 @@ function B({ children }) {
 // the directory name (Emily's own filing convention) and works fine as a
 // URL path segment.
 const PRODUCTION_SHOWCASES = [
-  { client: "Aman",       title: "Saudi Arabia",                    media: "/Production/:production/1.mp4" },
-  { client: "Condé Nast", title: "Vogue Arabia Relaunch",           media: ["/Production/:production/2a.jpg", "/Production/:production/2b.JPG"], position: "center top" },
-  { client: "Nike",       title: "Global Vomero 18 Activation",     media: "/Production/:production/3.mp4" },
-  { client: "One&Only",   title: "Moonlight Basin",                 media: "/Production/:production/4.mp4" },
-  { client: "MR PORTER",  title: "Finneas",                         media: "/Production/:production/5.jpg" },
-  { client: "J.Crew",     title: "Abraham Moon",                    media: "/Production/:production/6.mp4" },
-  { client: "Cipriani",   title: "Mr C Residence Dubai",            media: "/Production/:production/7.mp4" },
-  { client: "Mastercard", title: "Sail Grand Prix x Luís Figo",     media: "/Production/:production/8.mp4" },
+  { slug: "aman",              client: "Aman",       title: "Saudi Arabia",                    media: "/Production/:production/1.mp4" },
+  { slug: "vogue-relaunch",    client: "Condé Nast", title: "Vogue Arabia Relaunch",           media: ["/Production/:production/2a.jpg", "/Production/:production/2b.JPG"], position: "center top" },
+  { slug: "nike-vomero",       client: "Nike",       title: "Global Vomero 18 Activation",     media: "/Production/:production/3.mp4" },
+  { slug: "moonlight-basin",   client: "One&Only",   title: "Moonlight Basin",                 media: "/Production/:production/4.mp4" },
+  { slug: "mr-porter-finneas", client: "MR PORTER",  title: "Finneas",                         media: "/Production/:production/5.jpg" },
+  { slug: "abraham-moon",      client: "J.Crew",     title: "Abraham Moon",                    media: "/Production/:production/6.mp4" },
+  { slug: "mr-c-residences",   client: "Cipriani",   title: "Mr C Residence Dubai",            media: "/Production/:production/7.mp4" },
+  { slug: "mastercard-sailgp", client: "Mastercard", title: "Sail Grand Prix x Luís Figo",     media: "/Production/:production/8.mp4" },
 ];
 
 const PRODUCTION_BODY = (
