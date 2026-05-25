@@ -19,17 +19,6 @@ function B({ children }) {
   );
 }
 
-const PRODUCTION_FEATURED = [
-  "vogue-relaunch",
-  "aman",
-  "mr-porter-in-america",
-  "moonlight-basin",
-  "mastercard-sailgp",
-  "nike-vomero",
-  "abraham-moon",
-  "charlotte-tilbury-disney",
-];
-
 const PRODUCTION_BODY = (
   <>
     End-to-end executive production for luxury and lifestyle brands across
@@ -93,7 +82,7 @@ export default function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<WorkDetail />} />
-            <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} projects={PRODUCTION_FEATURED} />} />
+            <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} />} />
             <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} />} />
             <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" body={VISUAL_RESEARCH_BODY} />} />
             <Route path="*" element={<Landing />} />
