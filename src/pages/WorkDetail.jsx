@@ -1,149 +1,376 @@
-import { useParams, Link, Navigate } from "react-router-dom";
-import { colors, fonts, space, t } from "../theme";
+import { useEffect, useRef, useState } from "react";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
+import { colors, space } from "../theme";
 import { productionCases } from "../data/work";
+
+const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
+const TIMES = "'Times New Roman', Times, serif";
+
+// Brand-name italic Times treatment for inline mentions in body copy.
+// Same set of names treated in the Work popup so the two surfaces match.
+const BRAND_TERMS = [
+  "MR PORTER", "MR PORTER's", "Vogue", "Vogue Arabia", "Condé Nast", "British Vogue",
+  "Aman", "One&Only", "Cipriani", "Mr C", "Charlotte Tilbury", "J.Crew",
+  "Nike", "Mastercard", "Trippin", "Columbia Sportswear", "Harvey Nichols",
+  "Hamilton", "Jumeirah", "Marsa Al Arab", "Louis Vuitton", "Imaan Hammam",
+  "Achraf Hakimi", "Halima Aden", "Balqees Fathi", "Luc Braquet", "Txema Yeste",
+  "Willson Project", "Finneas", "Abraham Moon", "GUESS", "SIRO", "Wilson Project",
+  "IMA MENA", "Tyla", "Alessandro Michele", "Luís Figo",
+];
+
+function withBrands(text) {
+  if (!text) return null;
+  // Sort longest first so multi-word brands (Vogue Arabia) match before Vogue.
+  const sorted = [...BRAND_TERMS].sort((a, b) => b.length - a.length);
+  const escaped = sorted.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const re = new RegExp(`(${escaped.join("|")})`, "g");
+  return text.split(re).map((part, i) =>
+    BRAND_TERMS.includes(part) ? (
+      <em key={i} style={{ fontFamily: TIMES, fontStyle: "italic", fontWeight: 400 }}>{part}</em>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
 
 export default function WorkDetail() {
   const { slug } = useParams();
-  const study = productionCases.find(c => c.slug === slug);
+  const navigate = useNavigate();
+  const study = productionCases.find((c) => c.slug === slug);
+
+  // Esc closes
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") navigate(-1); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [navigate]);
 
   if (!study) return <Navigate to="/work" replace />;
 
   return (
-    <article style={{ width: "100%" }}>
-      {/* Hero, full-bleed video or image */}
-      <div
+    <div
+      className="m-case-fullbleed"
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        background: "#fff",
+        color: colors.text,
+        animation: "case-fullbleed-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+      }}
+    >
+      {/* × close — returns to whichever page the user came from */}
+      <button
+        onClick={() => navigate(-1)}
+        aria-label="Close"
         style={{
-          width: "100%",
-          background: "#000",
-          position: "relative",
-          aspectRatio: study.heroVideo ? "16 / 9" : "16 / 10",
-          overflow: "hidden",
+          position: "fixed",
+          top: 20,
+          right: 24,
+          width: 36,
+          height: 36,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          fontFamily: HEROS_FONT,
+          fontSize: 28,
+          lineHeight: 1,
+          color: colors.text,
+          zIndex: 50,
         }}
       >
-        {study.heroVideo ? (
-          <video
-            src={study.heroVideo}
-            poster={study.heroImage}
-            autoPlay
-            muted
-            loop
-            playsInline
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        ) : study.heroImage ? (
-          <img
-            src={study.heroImage}
-            alt={study.project}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        ) : null}
-      </div>
+        ×
+      </button>
 
-      {/* Body */}
       <div
-        className="m-workdetail-body"
+        className="m-case-fullbleed-body"
         style={{
-          maxWidth: 900,
+          maxWidth: 720,
           margin: "0 auto",
-          padding: `${space.xl}px ${space.xl}px ${space.xxl}px`,
+          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
         }}
       >
-        {/* Back link */}
-        <Link to="/work" style={{ ...t("label"), color: colors.textMuted, display: "inline-block", marginBottom: space.lg }}>
-          ← Back to Work
-        </Link>
-
-        {/* Meta */}
-        <div style={{ ...t("label"), color: colors.textMuted, marginBottom: space.sm }}>
-          {study.year} · {study.client}
-        </div>
-
         {/* Project name */}
-        <h1 style={{ ...t("h2"), fontSize: 24, fontWeight: 400, color: colors.textMuted, marginBottom: space.sm, letterSpacing: 0.3 }}>
+        <div
+          style={{
+            fontFamily: HEROS_FONT,
+            fontWeight: 700,
+            fontSize: "clamp(28px, 3.4vw, 44px)",
+            letterSpacing: "-0.02em",
+            lineHeight: 1.05,
+            color: colors.text,
+            marginBottom: 8,
+          }}
+        >
           {study.project}
-        </h1>
-
-        {/* Title (the lede) */}
-        <h2 style={{ ...t("h1"), fontFamily: fonts.serif, fontSize: 40, lineHeight: 1.15, marginBottom: space.xl }}>
-          {study.title}
-        </h2>
-
-        {/* Task / Outcome */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: space.xl, marginBottom: space.xxl }}>
-          <Block label="The Task" body={study.task} />
-          <Block label="The Outcome" body={study.outcome} />
         </div>
 
-        {/* Image gallery */}
-        {study.images && study.images.length > 0 && (
+        {/* Client (italic Times) + optional View Project link */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "space-between",
+            gap: space.md,
+            marginBottom: 8,
+          }}
+        >
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-              gap: space.md,
-              marginBottom: space.xxl,
+              fontFamily: TIMES,
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "clamp(18px, 1.6vw, 22px)",
+              lineHeight: 1.2,
+              color: colors.text,
             }}
           >
-            {study.images.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`${study.project} – ${i + 1}`}
-                loading="lazy"
-                style={{ width: "100%", height: "auto", display: "block", background: colors.surface }}
-              />
+            {study.client}
+          </div>
+          {study.viewProjectLink && (() => {
+            const linksRaw = Array.isArray(study.viewProjectLink) ? study.viewProjectLink : [study.viewProjectLink];
+            const links = linksRaw.map((l) => typeof l === "string" ? { label: "View Project →", url: l } : l);
+            return (
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
+                {links.map((l) => (
+                  <a
+                    key={l.url}
+                    href={l.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ fontFamily: TIMES, fontSize: 14, fontWeight: 400, color: colors.text, textDecoration: "none", whiteSpace: "nowrap" }}
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            );
+          })()}
+        </div>
+
+        {/* Year */}
+        <div
+          style={{
+            fontFamily: HEROS_FONT,
+            fontSize: 11,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "-0.01em",
+            color: colors.textMuted,
+            marginBottom: space.xl,
+          }}
+        >
+          {study.year}
+        </div>
+
+        {study.task && (
+          <div style={{ marginBottom: space.lg }}>
+            <div
+              style={{
+                fontFamily: HEROS_FONT,
+                fontSize: 10,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "-0.01em",
+                color: colors.text,
+                marginBottom: 8,
+              }}
+            >
+              The Task
+            </div>
+            <p style={{ fontFamily: HEROS_FONT, fontSize: 15, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+              {withBrands(study.task)}
+            </p>
+          </div>
+        )}
+
+        {study.outcome && (
+          <div style={{ marginBottom: space.xl }}>
+            <div
+              style={{
+                fontFamily: HEROS_FONT,
+                fontSize: 10,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "-0.01em",
+                color: colors.text,
+                marginBottom: 8,
+              }}
+            >
+              The Outcome
+            </div>
+            <p style={{ fontFamily: HEROS_FONT, fontSize: 15, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+              {withBrands(study.outcome)}
+            </p>
+          </div>
+        )}
+
+        {study.images && study.images.length > 0 && (
+          <FullBleedCarousel images={study.images} project={study.project} />
+        )}
+
+        {study.tags && study.tags.length > 0 && (
+          <div style={{ marginTop: space.lg, display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {study.tags.map((tag) => (
+              <span
+                key={tag}
+                style={{
+                  display: "inline-block",
+                  padding: "5px 11px",
+                  borderRadius: 999,
+                  background: "#ececec",
+                  color: colors.textMuted,
+                  fontFamily: HEROS_FONT,
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: "0.02em",
+                  textTransform: "uppercase",
+                  lineHeight: 1,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {tag}
+              </span>
             ))}
           </div>
         )}
 
-        {/* Next/back navigation */}
-        <NextPrev currentSlug={study.slug} />
+        <Link
+          to="/work"
+          style={{
+            display: "inline-block",
+            marginTop: space.xxl,
+            fontFamily: TIMES,
+            fontStyle: "italic",
+            fontSize: 15,
+            color: colors.text,
+            textDecoration: "none",
+            borderBottom: `1px solid ${colors.text}`,
+            paddingBottom: 1,
+          }}
+        >
+          ← Back to all work
+        </Link>
       </div>
-    </article>
-  );
-}
 
-function Block({ label, body }) {
-  return (
-    <div>
-      <div style={{ ...t("label"), color: colors.text, marginBottom: space.md }}>{label}</div>
-      <p style={{ ...t("body"), fontSize: 17, lineHeight: 1.65, color: colors.text }}>{body}</p>
+      <style>{`
+        @keyframes case-fullbleed-in {
+          from { opacity: 0; transform: scale(0.985); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
     </div>
   );
 }
 
-function NextPrev({ currentSlug }) {
-  const idx = productionCases.findIndex(c => c.slug === currentSlug);
-  if (idx === -1) return null;
-  const prev = idx > 0 ? productionCases[idx - 1] : null;
-  const next = idx < productionCases.length - 1 ? productionCases[idx + 1] : null;
+function isVideoSrc(src) {
+  return src && /\.(mp4|webm|mov)$/i.test(src);
+}
+
+function FullBleedCarousel({ images, project }) {
+  const trackRef = useRef(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const updateArrows = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 4);
+    setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  useEffect(() => {
+    updateArrows();
+    const el = trackRef.current;
+    if (!el) return;
+    const onScroll = () => updateArrows();
+    el.addEventListener("scroll", onScroll);
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const step = (dir) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const itemW = el.clientWidth * 0.7;
+    el.scrollBy({ left: dir * itemW, behavior: "smooth" });
+  };
 
   return (
-    <div
+    <div style={{ position: "relative" }}>
+      <div
+        ref={trackRef}
+        style={{
+          display: "flex",
+          gap: 12,
+          overflowX: "auto",
+          scrollSnapType: "x mandatory",
+          paddingBottom: 8,
+          scrollbarWidth: "none",
+        }}
+      >
+        {images.map((src, i) => (
+          <div
+            key={i}
+            style={{
+              flex: "0 0 auto",
+              width: "min(560px, 78%)",
+              height: 360,
+              background: colors.surface || "#f3f3f3",
+              overflow: "hidden",
+              scrollSnapAlign: "start",
+            }}
+          >
+            {isVideoSrc(src) ? (
+              <video
+                src={src}
+                autoPlay muted loop playsInline
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            ) : (
+              <img
+                src={src}
+                alt={`${project} – ${i + 1}`}
+                loading="lazy"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {canPrev && <CarouselArrow dir="prev" onClick={() => step(-1)} />}
+      {canNext && <CarouselArrow dir="next" onClick={() => step(1)} />}
+    </div>
+  );
+}
+
+function CarouselArrow({ dir, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label={dir === "prev" ? "Previous" : "Next"}
       style={{
+        position: "absolute",
+        top: "50%",
+        [dir === "prev" ? "left" : "right"]: -8,
+        transform: "translateY(-50%)",
+        width: 40,
+        height: 40,
+        borderRadius: 999,
+        background: "rgba(255,255,255,0.9)",
+        border: `1px solid ${colors.border || "#d8d8d8"}`,
+        cursor: "pointer",
+        fontFamily: HEROS_FONT,
+        fontSize: 18,
+        color: colors.text,
         display: "flex",
-        justifyContent: "space-between",
-        borderTop: `1px solid ${colors.border}`,
-        paddingTop: space.lg,
-        gap: space.lg,
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <div style={{ flex: 1 }}>
-        {prev && (
-          <Link to={`/work/${prev.slug}`} style={{ display: "block" }}>
-            <div style={{ ...t("label"), color: colors.textMuted, marginBottom: space.xs }}>← Previous</div>
-            <div style={{ ...t("h3"), fontSize: 16 }}>{prev.project}</div>
-          </Link>
-        )}
-      </div>
-      <div style={{ flex: 1, textAlign: "right" }}>
-        {next && (
-          <Link to={`/work/${next.slug}`} style={{ display: "block" }}>
-            <div style={{ ...t("label"), color: colors.textMuted, marginBottom: space.xs }}>Next →</div>
-            <div style={{ ...t("h3"), fontSize: 16 }}>{next.project}</div>
-          </Link>
-        )}
-      </div>
-    </div>
+      {dir === "prev" ? "‹" : "›"}
+    </button>
   );
 }

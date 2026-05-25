@@ -9,9 +9,11 @@ const NAV_ITEMS = [
 export default function Layout({ children }) {
   const location = useLocation();
   const noChromePaths = ["/", "/work", "/production", "/cultural-strategy", "/visual-research"];
-  const noHeader = noChromePaths.includes(location.pathname);
-  // Footer hidden on the same set, copyright handled by the page itself
-  const noFooter = noChromePaths.includes(location.pathname);
+  // Case study detail routes (/work/:slug) also render full-bleed,
+  // so suppress chrome there too.
+  const noChrome = noChromePaths.includes(location.pathname) || location.pathname.startsWith("/work/");
+  const noHeader = noChrome;
+  const noFooter = noChrome;
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: colors.bg, color: colors.text }}>
