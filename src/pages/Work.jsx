@@ -869,8 +869,10 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
         style={{
           position: "relative",
           width: "100%",
-          height: isMobile ? "auto" : "min(540px, calc(100vh - 240px))",
-          maxHeight: isMobile ? "calc(100vh - 48px)" : undefined,
+          // Fixed height on both desktop + mobile so every popup is the same
+          // size regardless of content length — the inner div scrolls for
+          // longer cases (Trippin features, MR PORTER essays, etc).
+          height: isMobile ? "min(640px, calc(100vh - 80px))" : "min(540px, calc(100vh - 240px))",
           background: "#fff",
           overflow: "hidden",
           animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
