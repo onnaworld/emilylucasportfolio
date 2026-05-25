@@ -422,22 +422,27 @@ function ContactModal({ onClose }) {
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.45)",
+        background: "rgba(0,0,0,0.25)",
         zIndex: 200,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         padding: space.xl,
+        animation: "contact-backdrop-in 0.5s ease-out both",
       }}
     >
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: "#fff",
+          background: "rgba(255, 255, 255, 0.88)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
           color: colors.text,
-          width: "min(880px, 100%)",
-          padding: `${space.xxl}px ${space.xxl}px ${space.xl}px`,
+          width: "min(520px, 100%)",
+          padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
           position: "relative",
+          border: `3px solid ${colors.text}`,
+          animation: "contact-modal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
         }}
       >
         <button
@@ -445,13 +450,13 @@ function ContactModal({ onClose }) {
           aria-label="Close"
           style={{
             position: "absolute",
-            top: space.lg,
-            right: space.lg,
+            top: space.md,
+            right: space.md,
             background: "none",
             border: "none",
             cursor: "pointer",
             fontFamily: HEROS,
-            fontSize: 28,
+            fontSize: 24,
             lineHeight: 1,
             color: colors.text,
           }}
@@ -463,11 +468,11 @@ function ContactModal({ onClose }) {
           style={{
             fontFamily: "'Times New Roman', Times, serif",
             fontStyle: "italic",
-            fontSize: "clamp(28px, 3.4vw, 48px)",
+            fontSize: "clamp(24px, 2.8vw, 36px)",
             fontWeight: 400,
             color: colors.text,
             lineHeight: 1,
-            marginBottom: space.md,
+            marginBottom: space.sm,
           }}
         >
           Get in touch
@@ -475,20 +480,21 @@ function ContactModal({ onClose }) {
         <p
           style={{
             fontFamily: HEROS,
-            fontSize: 16,
-            fontWeight: 400,
+            fontSize: 12,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "-0.01em",
             lineHeight: 1.4,
             color: colors.text,
             margin: 0,
-            marginBottom: space.xxl,
-            maxWidth: 560,
+            marginBottom: space.lg,
           }}
         >
           Available for editorial production, branded content, and consulting engagements.
         </p>
 
         <div style={{ borderTop: `1px solid ${colors.text}` }}>
-          {rows.map(row => (
+          {rows.map((row, i) => (
             <a
               key={row.label}
               href={row.href}
@@ -496,12 +502,13 @@ function ContactModal({ onClose }) {
               rel={row.label === "LINKEDIN" ? "noopener noreferrer" : undefined}
               style={{
                 display: "grid",
-                gridTemplateColumns: "120px 1fr",
+                gridTemplateColumns: "90px 1fr",
                 alignItems: "baseline",
-                padding: `${space.lg}px 0`,
+                padding: `${space.md}px 0`,
                 borderBottom: `1px solid ${colors.text}`,
                 color: colors.text,
                 textDecoration: "none",
+                animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.12}s both`,
               }}
             >
               <span
@@ -518,11 +525,13 @@ function ContactModal({ onClose }) {
               </span>
               <span
                 style={{
-                  fontFamily: HEROS,
-                  fontSize: 18,
+                  fontFamily: "'Times New Roman', Times, serif",
+                  fontStyle: "italic",
+                  fontSize: 22,
                   fontWeight: 400,
                   textAlign: "right",
                   color: colors.text,
+                  letterSpacing: 0,
                 }}
               >
                 {row.value}
@@ -531,6 +540,20 @@ function ContactModal({ onClose }) {
           ))}
         </div>
       </div>
+      <style>{`
+        @keyframes contact-backdrop-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes contact-modal-in {
+          from { opacity: 0; transform: translateY(20px) scale(0.97); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes contact-row-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }
