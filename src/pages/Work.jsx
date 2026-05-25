@@ -222,9 +222,10 @@ export default function Work() {
           </div>
 
           {/* RIGHT: 3 thumbs scattered at fixed positions inside the right half.
+              paddingRight gutter matches the left list's paddingLeft for symmetry.
               Skipped on mobile — touch can't drive the hover-carousel. */}
           {!isMobile && (
-            <div className="m-scattered" style={{ height: "100%" }}>
+            <div className="m-scattered" style={{ height: "100%", paddingRight: space.xxl, boxSizing: "border-box" }}>
               <ScatteredThumbs
                 projects={PROJECTS}
                 productionCases={productionCases}
@@ -248,7 +249,7 @@ export default function Work() {
 
         {/* Soft top fade — mirror of the bottom one, anchored inside the
             section so it stays in place while the section is in view.
-            Only covers the right half (the scattered thumb area). */}
+            Right gutter matches the list paddingLeft for symmetry. */}
         <div
           aria-hidden="true"
           className="m-work-fade-top"
@@ -256,7 +257,7 @@ export default function Work() {
             position: "absolute",
             top: 0,
             left: "50%",
-            right: 0,
+            right: space.xxl,
             height: "12vh",
             background: `linear-gradient(to top, transparent 0%, ${colors.bg} 55%)`,
             pointerEvents: "none",
@@ -264,8 +265,7 @@ export default function Work() {
           }}
         />
 
-        {/* Soft bottom fade — anchored inside the section, scrolls with it.
-            Only covers the right half (the scattered thumb area). */}
+        {/* Soft bottom fade — anchored inside the section, scrolls with it. */}
         <div
           aria-hidden="true"
           className="m-work-fade-bottom"
@@ -273,7 +273,7 @@ export default function Work() {
             position: "absolute",
             bottom: 0,
             left: "50%",
-            right: 0,
+            right: space.xxl,
             height: "12vh",
             background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
             pointerEvents: "none",
@@ -289,6 +289,7 @@ export default function Work() {
 function WorkHero() {
   return (
     <section
+      className="m-hero-section"
       style={{
         background: "#000",
         color: "#fff",
@@ -397,7 +398,12 @@ function WorkHero() {
 
       {/* Bottom-center: down arrow */}
       <button
-        onClick={() => window.scrollBy({ top: window.innerHeight, behavior: "smooth" })}
+        onClick={(e) => {
+          const section = e.currentTarget.closest("section");
+          const next = section?.nextElementSibling;
+          if (next) next.scrollIntoView({ behavior: "smooth", block: "start" });
+          else window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+        }}
         aria-label="Scroll to next section"
         style={{
           position: "absolute",
@@ -588,7 +594,7 @@ function InlineCaseStudy({ study, panelRef, onClose }) {
         position: "absolute",
         top: 0,
         left: "50%",
-        right: 0,
+        right: space.xxl,
         bottom: 0,
         overflowY: "auto",
         background: colors.bg,

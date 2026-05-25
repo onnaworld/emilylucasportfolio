@@ -115,13 +115,21 @@
         /* + button — closer to edge, smaller */
         .m-plus { top: 14px !important; right: 16px !important; font-size: 44px !important; }
 
+        /* Hero section: landscape banner on mobile (image's native ~4:3),
+           not a portrait full-bleed crop. */
+        .m-hero-section {
+          height: auto !important;
+          aspect-ratio: 4 / 3 !important;
+          min-height: 280px !important;
+        }
+
         /* Hero corner labels */
         .m-hero-tl { top: 16px !important; left: 16px !important; }
-        .m-hero-br { bottom: 20px !important; right: 16px !important; }
-        .m-hero-bl { bottom: 56px !important; left: 16px !important; }
-        .m-hero-title { font-size: 56px !important; }
-        .m-hero-roles { font-size: 12px !important; }
-        .m-portfolio-label { font-size: 12px !important; margin-bottom: 4px !important; }
+        .m-hero-br { bottom: 12px !important; right: 16px !important; }
+        .m-hero-bl { bottom: 40px !important; left: 16px !important; }
+        .m-hero-title { font-size: 44px !important; }
+        .m-hero-roles { font-size: 11px !important; line-height: 1.4 !important; }
+        .m-portfolio-label { font-size: 11px !important; margin-bottom: 4px !important; }
 
         /* About / Brands two-column sections */
         .m-section {

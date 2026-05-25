@@ -132,6 +132,7 @@ export default function Landing() {
 
       {/* ───── 1. HERO: showreel with editorial cover-spread overlay ───── */}
       <section
+        className="m-hero-section"
         style={{
           background: "#000",
           color: "#fff",
@@ -430,7 +431,10 @@ function ContactModal({ onClose }) {
 
   const rows = [
     { label: "EMAIL",    value: "emilyelucas@gmail.com",       href: "mailto:emilyelucas@gmail.com" },
-    { label: "PHONE",    value: "+1 (917) 735-8545",           href: "tel:+19177358545" },
+    { label: "PHONE",    phones: [
+      { prefix: "UK", value: "+44 7766 546348",  href: "tel:+447766546348" },
+      { prefix: "US", value: "+1 (917) 735-8545", href: "tel:+19177358545" },
+    ]},
     { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas", href: "https://www.linkedin.com/in/emilyelucas/", external: true },
     { label: "RESUME",   value: "Download",                    href: "/Resume/Resume_Emily%20Lucas.pdf", download: true },
   ];
@@ -530,7 +534,47 @@ function ContactModal({ onClose }) {
         </p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: space.sm }}>
-          {rows.map((row, i) => (
+          {rows.map((row, i) => {
+            const animation = `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.1}s both`;
+            const label = (
+              <div
+                style={{
+                  fontFamily: HEROS,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  marginBottom: 3,
+                }}
+              >
+                {row.label}
+              </div>
+            );
+            const valueStyle = {
+              fontFamily: "'Times New Roman', Times, serif",
+              fontStyle: "italic",
+              fontSize: 17,
+              fontWeight: 400,
+              lineHeight: 1.15,
+            };
+            if (row.phones) {
+              return (
+                <div key={row.label} style={{ animation }}>
+                  {label}
+                  {row.phones.map((p) => (
+                    <a
+                      key={p.prefix}
+                      href={p.href}
+                      onClick={() => { window.location.href = p.href; }}
+                      style={{ display: "block", color: "#fff", textDecoration: "none", ...valueStyle }}
+                    >
+                      {p.prefix} - {p.value}
+                    </a>
+                  ))}
+                </div>
+              );
+            }
+            return (
             <a
               key={row.label}
               href={row.href}
@@ -548,34 +592,16 @@ function ContactModal({ onClose }) {
                 display: "block",
                 color: "#fff",
                 textDecoration: "none",
-                animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.1}s both`,
+                animation,
               }}
             >
-              <div
-                style={{
-                  fontFamily: HEROS,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.01em",
-                  marginBottom: 3,
-                }}
-              >
-                {row.label}
-              </div>
-              <div
-                style={{
-                  fontFamily: "'Times New Roman', Times, serif",
-                  fontStyle: "italic",
-                  fontSize: 17,
-                  fontWeight: 400,
-                  lineHeight: 1.1,
-                }}
-              >
+              {label}
+              <div style={valueStyle}>
                 {row.value}
               </div>
             </a>
-          ))}
+            );
+          })}
         </div>
       </div>
       <style>{`
@@ -644,9 +670,15 @@ function CategorySlide({ label, images, compact = false, landscape = false }) {
 }
 
 function DownArrow({ color }) {
+  const onClick = (e) => {
+    const section = e.currentTarget.closest("section");
+    const next = section?.nextElementSibling;
+    if (next) next.scrollIntoView({ behavior: "smooth", block: "start" });
+    else window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+  };
   return (
     <button
-      onClick={() => window.scrollBy({ top: window.innerHeight, behavior: "smooth" })}
+      onClick={onClick}
       aria-label="Scroll to next section"
       style={{
         position: "absolute",
@@ -829,7 +861,7 @@ function MenuOverlay({ onClose, onContact }) {
           justifyContent: "center",
           textAlign: "left",
           transformOrigin: "top right",
-          animation: "menu-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both",
+          animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         }}
       >
         <button

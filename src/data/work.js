@@ -48,11 +48,11 @@ export const productionCases = [
     client: "Vogue Arabia (Condé Nast)",
     project: "The Relaunch",
     year: "2024–2025",
-    heroImage: "/work/vogue-relaunch/hero.jpg",
+    // heroImage matches the scatter thumb so the cover image expands seamlessly
+    heroImage: "/work/all-work/01.jpg",
     task: "Support the critical transition of Vogue Arabia returning to Condé Nast's internal management — working alongside the British Vogue team across the first three relaunch issues under a new global framework, navigating strict editorial budgets and extreme timelines while elevating visual output to meet global standards.",
     outcome: "Delivered the first three flagship relaunch issues, managing the creative workflow of Luc Braquet and Txema Yeste alongside tier-1 talent Imaan Hammam, Achraf Hakimi, Halima Aden, and Balqees Fathi. Bridged tight fiscal parameters with high-fashion requirements to produce a series of world-class covers and editorials that re-established the title's authority within the global Vogue ecosystem.",
     images: [
-      "/work/vogue-relaunch/hero.jpg",
       "/work/vogue-relaunch/1.jpg",
       "/work/vogue-relaunch/2.jpg",
       "/work/vogue-relaunch/3.jpg",
