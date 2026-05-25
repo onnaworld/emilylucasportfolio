@@ -231,12 +231,17 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
           className="m-section category-snap-section"
           style={{
             position: "relative",
-            padding: `${space.xxl}px ${space.xl}px ${space.xxl + 40}px`,
+            // Extra bottom padding (~96px) reserves a clean strip for the
+            // absolute down-arrow so it never overlaps the last line of
+            // the body copy — even on dense paragraphs like cultural
+            // strategy. minHeight (not height) lets the section grow if
+            // the copy + padding exceed 100vh on narrow viewports.
+            padding: `${space.xxl}px ${space.xl}px ${space.xxl + 96}px`,
             display: "grid",
             gridTemplateColumns: "1fr 6fr",
             gap: space.xl,
             alignItems: "start",
-            height: "100vh",
+            minHeight: "100vh",
           }}
         >
           <div
@@ -321,12 +326,15 @@ function Media({ src, style, position }) {
     );
   }
   const merged = position ? { ...style, objectPosition: position } : style;
+  // Soft gradient as the underlying background so a video that hasn't
+  // loaded its first frame yet doesn't flash pure black.
+  const videoBg = "linear-gradient(135deg, #2a2a2a 0%, #525252 50%, #2a2a2a 100%)";
   return isVideoSrc(src) ? (
     <video
       src={src}
       autoPlay muted loop playsInline
-      preload="metadata"
-      style={merged}
+      preload="auto"
+      style={{ ...merged, background: videoBg }}
     />
   ) : (
     <img src={src} alt="" loading="lazy" style={merged} />

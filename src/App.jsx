@@ -35,6 +35,16 @@ const CULTURAL_STRATEGY_SHOWCASES = [
   { slug: "mr-porter-women-shopping-menswear",  client: "MR PORTER", title: "Shop For Yourself",                media: "/Cultural%20Strategy/:cultural%20strategy/08.jpg" },
 ];
 
+// Visual-research showcase — media intentionally null until Emily picks
+// the hero asset for each entry. Media component renders a soft gradient
+// placeholder in the meantime.
+const VISUAL_RESEARCH_SHOWCASES = [
+  { slug: "mr-porter-new-york-street",       client: "MR PORTER", title: "New York through the Decades", media: null },
+  { slug: "mr-porter-summertime-movies",     client: "MR PORTER", title: "Summertime Movies",            media: null },
+  { slug: "mr-porter-work-wardrobe-2020",    client: "MR PORTER", title: "Freshen up your Wardrobe",     media: null },
+  { slug: "mr-porter-black-history-month-uk", client: "MR PORTER", title: "Black History Month",          media: null },
+];
+
 const PRODUCTION_SHOWCASES = [
   { slug: "aman",              client: "Aman",       title: "Saudi Arabia",                    media: "/Production/:production/1.mp4" },
   { slug: "vogue-relaunch",    client: "Condé Nast", title: "Vogue Arabia Relaunch",           media: ["/Production/:production/2a.jpg", "/Production/:production/2b.JPG"], position: "center top" },
@@ -111,7 +121,7 @@ export default function App() {
             <Route path="/work/:slug" element={<WorkDetail />} />
             <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} showcases={PRODUCTION_SHOWCASES} />} />
             <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} showcases={CULTURAL_STRATEGY_SHOWCASES} />} />
-            <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" body={VISUAL_RESEARCH_BODY} />} />
+            <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" body={VISUAL_RESEARCH_BODY} showcases={VISUAL_RESEARCH_SHOWCASES} />} />
             <Route path="*" element={<Landing />} />
           </Routes>
         </Suspense>

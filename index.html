@@ -11,10 +11,12 @@
     <meta property="og:url" content="https://emilyelucas.com" />
     <meta property="og:image" content="https://emilyelucas.com/hero.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preload" as="video" href="/showreel.mp4" fetchpriority="high" />
+    <!-- menu/contact bgs are tiny (~16–24KB) and used everywhere; keep
+         the preload. Showreel (11MB) and hero.jpg are landing-page-only
+         assets — loading them on /work and other routes blocked mobile
+         first paint badly, so they're left to lazy-load from the component. -->
     <link rel="preload" as="image" href="/menu-bg.jpg" />
     <link rel="preload" as="image" href="/contact-bg.jpg" />
-    <link rel="prefetch" as="image" href="/hero.jpg" />
     <title>Emily Lucas, Executive Producer</title>
     <style>
       @font-face {
