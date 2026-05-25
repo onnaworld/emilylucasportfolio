@@ -83,7 +83,7 @@ export default function App() {
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<WorkDetail />} />
             <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} />} />
-            <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/work/trippin-ethical-photography/06.avif" body={CULTURAL_STRATEGY_BODY} />} />
+            <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} />} />
             <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={VISUAL_RESEARCH_BODY} />} />
             <Route path="*" element={<Landing />} />
           </Routes>
