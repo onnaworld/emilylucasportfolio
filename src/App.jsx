@@ -34,6 +34,18 @@ const PRODUCTION_BODY = (
   </>
 );
 
+const VISUAL_RESEARCH_BODY = (
+  <>
+    Image sourcing, photography curation, and rights licensing for editorial
+    features at <B>MR PORTER Journal</B>, <B>Trippin</B>, and <B>Vogue</B>
+    {" "}(<B>Condé Nast</B>). Work spans fine art photography (estates,
+    foundations, galleries), entertainment IP (film stills, studio rights),
+    runway and fashion calendar imagery (IMAXtree and beyond), and
+    multi-discipline publishing rights from broadcast, publisher, gallery,
+    theatre, and archive.
+  </>
+);
+
 const CULTURAL_STRATEGY_BODY = (
   <>
     Cultural work across writing, production, and strategy, bound by a
@@ -72,7 +84,7 @@ export default function App() {
             <Route path="/work/:slug" element={<WorkDetail />} />
             <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} />} />
             <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/work/trippin-ethical-photography/06.avif" body={CULTURAL_STRATEGY_BODY} />} />
-            <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" />} />
+            <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={VISUAL_RESEARCH_BODY} />} />
             <Route path="*" element={<Landing />} />
           </Routes>
         </Suspense>
