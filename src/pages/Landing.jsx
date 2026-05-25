@@ -376,13 +376,12 @@ export default function Landing() {
           <Brand>Columbia Sportswear</Brand>, <Brand>Harvey Nichols</Brand>,{" "}
           <Brand>Mastercard</Brand>, <Brand>J.Crew</Brand>, <Brand>GUESS</Brand>,{" "}
           <Brand>The Fold</Brand>, <Brand>Hamilton Watches</Brand>, <Brand>Puma</Brand>.{" "}
-          PARTNERSHIPS <Brand>Louis Vuitton</Brand>, <Brand>Bvlgari</Brand>,{" "}
+          BRAND PARTNERSHIPS <Brand>Louis Vuitton</Brand>, <Brand>Bvlgari</Brand>,{" "}
           <Brand>Hennessy</Brand>, <Brand>Loro Piana</Brand>, <Brand>Stone Island</Brand>,{" "}
           <Brand>Brunello Cucinelli</Brand>, <Brand>Tiffany & Co.</Brand>,{" "}
           <Brand>The Frankie Shop</Brand>, <Brand>New Balance</Brand>, <Brand>Loewe</Brand>,{" "}
           <Brand>Gucci</Brand>, <Brand>SMR Days</Brand>, <Brand>The Elder Statesman</Brand>,{" "}
-          <Brand>Greg Lauren</Brand>, <Brand>INCOTEX</Brand>, <Brand>Burberry</Brand>,{" "}
-          <Brand>Bogner</Brand>. EDITORIAL <Brand>The Glass Magazine</Brand>,{" "}
+          <Brand>Greg Lauren</Brand>, <Brand>Burberry</Brand>, <Brand>Bogner</Brand>. EDITORIAL <Brand>The Glass Magazine</Brand>,{" "}
           <Brand>Vogue Arabia</Brand>, <Brand>Trippin</Brand>,{" "}
           <Brand>MR PORTER The Journal</Brand>, <Brand>MR PORTER The Post</Brand>.
         </p>
