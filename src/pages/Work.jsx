@@ -93,6 +93,9 @@ export default function Work() {
     const el = sectionRef.current;
     if (!el) return;
     const handler = (e) => {
+      // If the wheel event originated inside the open popup, let it scroll
+      // the popup natively — no preventDefault, no carousel advance.
+      if (rightPanelRef.current && rightPanelRef.current.contains(e.target)) return;
       e.preventDefault();
       if (activeStudy) return;
       const now = Date.now();
@@ -748,7 +751,7 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
       }}
     >
       {/* Relative wrapper so the scroll-cue arrow can sit just outside the card */}
-      <div style={{ position: "relative", width: "min(540px, calc(100% - 32px))" }}>
+      <div style={{ position: "relative", width: "min(500px, calc(100% - 32px))" }}>
         <div
           ref={setRefs}
           onScroll={onScroll}
@@ -760,8 +763,11 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
             height: "min(540px, calc(100vh - 200px))",
             overflowY: "auto",
             background: "#fff",
-            border: `1px solid ${colors.text}`,
-            borderRadius: 18,
+            // Editorial framing: hairlines top + bottom only, no left/right
+            // border, no rounded corners. Matches the line under the
+            // project list on the left.
+            borderTop: `1px solid ${colors.text}`,
+            borderBottom: `1px solid ${colors.text}`,
             pointerEvents: "auto",
             animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
             transformOrigin: "center",
@@ -945,88 +951,106 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
   );
 }
 
+// Horizontal scrolling strip — same vibe as the home-page sliding carousel.
+// Multiple images visible at once at a fixed compact height; < > arrows step
+// the strip by roughly one image width.
 function ImageCarousel({ images, project }) {
-  const [idx, setIdx] = useState(0);
-  const prev = () => setIdx((i) => (i - 1 + images.length) % images.length);
-  const next = () => setIdx((i) => (i + 1) % images.length);
+  const trackRef = useRef(null);
+  const step = (dir) => {
+    if (!trackRef.current) return;
+    const w = trackRef.current.clientWidth * 0.7;
+    trackRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
+  };
   return (
-    <div>
-      <div style={{ position: "relative", background: colors.surface, borderRadius: 8, overflow: "hidden" }}>
-        <img
-          src={images[idx]}
-          alt={`${project} – ${idx + 1}`}
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
-        {images.length > 1 && (
-          <>
-            <button
-              onClick={prev}
-              aria-label="Previous image"
-              style={{
-                position: "absolute",
-                left: 12,
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: 36,
-                height: 36,
-                borderRadius: "50%",
-                background: "rgba(255,255,255,0.85)",
-                border: `1px solid ${colors.text}`,
-                cursor: "pointer",
-                fontFamily: TIMES,
-                fontSize: 20,
-                lineHeight: 1,
-                color: colors.text,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              ‹
-            </button>
-            <button
-              onClick={next}
-              aria-label="Next image"
-              style={{
-                position: "absolute",
-                right: 12,
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: 36,
-                height: 36,
-                borderRadius: "50%",
-                background: "rgba(255,255,255,0.85)",
-                border: `1px solid ${colors.text}`,
-                cursor: "pointer",
-                fontFamily: TIMES,
-                fontSize: 20,
-                lineHeight: 1,
-                color: colors.text,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              ›
-            </button>
-          </>
-        )}
+    <div style={{ position: "relative" }}>
+      <div
+        ref={trackRef}
+        className="case-image-strip"
+        style={{
+          display: "flex",
+          gap: 8,
+          overflowX: "auto",
+          scrollSnapType: "x mandatory",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          paddingBottom: 2,
+        }}
+      >
+        {images.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt={`${project} – ${i + 1}`}
+            loading="lazy"
+            draggable={false}
+            style={{
+              height: 200,
+              width: "auto",
+              flexShrink: 0,
+              display: "block",
+              background: colors.surface,
+              scrollSnapAlign: "start",
+            }}
+          />
+        ))}
       </div>
       {images.length > 1 && (
-        <div
-          style={{
-            marginTop: space.sm,
-            textAlign: "center",
-            fontFamily: HEROS_FONT,
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: "-0.01em",
-            color: colors.textMuted,
-          }}
-        >
-          {idx + 1} / {images.length}
-        </div>
+        <>
+          <button
+            onClick={() => step(-1)}
+            aria-label="Previous images"
+            style={{
+              position: "absolute",
+              left: -4,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.92)",
+              border: `1px solid ${colors.text}`,
+              cursor: "pointer",
+              fontFamily: TIMES,
+              fontSize: 16,
+              lineHeight: 1,
+              color: colors.text,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ‹
+          </button>
+          <button
+            onClick={() => step(1)}
+            aria-label="Next images"
+            style={{
+              position: "absolute",
+              right: -4,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.92)",
+              border: `1px solid ${colors.text}`,
+              cursor: "pointer",
+              fontFamily: TIMES,
+              fontSize: 16,
+              lineHeight: 1,
+              color: colors.text,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ›
+          </button>
+        </>
       )}
+      <style>{`
+        .case-image-strip::-webkit-scrollbar { display: none; height: 0; }
+      `}</style>
     </div>
   );
 }
