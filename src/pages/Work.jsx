@@ -217,28 +217,6 @@ export default function Work() {
             >
               © {new Date().getFullYear()} Emily Lucas
             </div>
-            <button
-              onClick={() => rightPanelRef.current?.scrollBy({ top: rightPanelRef.current.clientHeight * 0.7, behavior: "smooth" })}
-              aria-label="Scroll for more"
-              style={{
-                position: "absolute",
-                top: "50%",
-                right: space.xl,
-                transform: "translateY(-50%)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                color: colors.text,
-                fontFamily: HEROS_FONT,
-                fontSize: 18,
-                fontWeight: 400,
-                lineHeight: 1,
-                padding: 8,
-                zIndex: 20,
-              }}
-            >
-              ↕
-            </button>
           </>
         )}
 
@@ -1024,6 +1002,23 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
               <ImageCarousel images={study.images} project={study.project} />
             </div>
           )}
+
+          {/* End-of-scroll ↓ — sits in the white space at the bottom of the
+              popup content as a subtle reading cue. */}
+          <div
+            aria-hidden="true"
+            style={{
+              textAlign: "center",
+              marginTop: space.xl,
+              fontFamily: HEROS_FONT,
+              fontSize: 16,
+              fontWeight: 400,
+              lineHeight: 1,
+              color: colors.textMuted,
+            }}
+          >
+            ↓
+          </div>
         </div>
 
         <style>{`
