@@ -94,7 +94,7 @@ export default function Work() {
         html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
         .work-page, .work-page * { cursor: none !important; }
       `}</style>
-      <CustomCursor />
+      <CustomCursor enlargeOnHover />
       <WorkHero />
 
       {/* Full-width work section — fits exactly one viewport now that the
@@ -223,9 +223,20 @@ export default function Work() {
 
           {/* RIGHT: 3 thumbs scattered at fixed positions inside the right half.
               paddingRight gutter matches the left list's paddingLeft for symmetry.
-              Skipped on mobile — touch can't drive the hover-carousel. */}
+              Skipped on mobile — touch can't drive the hover-carousel.
+              Fades out when a case study popup is active. */}
           {!isMobile && (
-            <div className="m-scattered" style={{ height: "100%", paddingRight: space.xxl, boxSizing: "border-box" }}>
+            <div
+              className="m-scattered"
+              style={{
+                height: "100%",
+                paddingRight: space.xxl,
+                boxSizing: "border-box",
+                opacity: activeStudy ? 0 : 1,
+                pointerEvents: activeStudy ? "none" : "auto",
+                transition: "opacity 0.4s ease",
+              }}
+            >
               <ScatteredThumbs
                 projects={PROJECTS}
                 productionCases={productionCases}
@@ -603,7 +614,7 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
         ref={panelRef}
         className="case-popup m-case-popup"
         style={{
-          width: "min(340px, calc(100% - 32px))",
+          width: "min(420px, calc(100% - 32px))",
           aspectRatio: "4 / 5",
           overflowY: "auto",
           background: "#fff",
@@ -611,7 +622,7 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
           borderRadius: 18,
           boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
           pointerEvents: "auto",
-          animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+          animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
           transformOrigin: "center",
           padding: `${space.md}px ${space.lg}px ${space.lg}px`,
           position: "relative",
@@ -743,6 +754,10 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
         )}
 
         <style>{`
+          @keyframes case-popup-in {
+            from { opacity: 0; transform: scale(0.94); }
+            to   { opacity: 1; transform: scale(1); }
+          }
           .case-popup {
             scrollbar-width: thin;
             scrollbar-color: rgba(0,0,0,0.25) transparent;
