@@ -4,8 +4,6 @@ import { colors, fonts, space, t } from "../theme";
 const NAV_ITEMS = [
   { to: "/", label: "Index" },
   { to: "/work", label: "Work" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
 ];
 
 export default function Layout({ children }) {

@@ -744,7 +744,6 @@ function MenuOverlay({ onClose, onContact }) {
       }}
     >
       <Link to="/work" style={linkStyle}>Work</Link>
-      <Link to="/about" style={linkStyle}>About</Link>
       <button
         onClick={(e) => { e.stopPropagation(); onContact(); }}
         style={{ ...linkStyle, background: "none", border: "none", cursor: "pointer" }}
