@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
+import CustomCursor from "../components/CustomCursor";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
@@ -80,29 +81,15 @@ export default function Work() {
   const activeStudy = productionCases.find(c => c.slug === activeSlug);
 
   return (
-    <div style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
+    <div className="work-page" style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
       <style>{`
         /* Page is intentionally non-scrollbar-driven on /work — list hover advances the thumbs */
         html { scrollbar-width: none; }
         html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+        .work-page, .work-page * { cursor: none !important; }
       `}</style>
+      <CustomCursor />
       <WorkHero />
-
-      {/* Bottom fade — only covers the right half (the scattered thumb area).
-          Short, sharper ramp so it reads as a defined fade, not a haze. */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: "50%",
-          right: 0,
-          height: "12vh",
-          background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
-          pointerEvents: "none",
-          zIndex: 40,
-        }}
-      />
 
       {/* Full-width work section — fits exactly one viewport now that the
           thumbs advance from the list hover, not from page scroll. */}
@@ -257,6 +244,22 @@ export default function Work() {
             <CaseStudyView study={activeStudy} />
           </div>
         )}
+
+        {/* Soft bottom fade — anchored inside the section, scrolls with it.
+            Only covers the right half (the scattered thumb area). */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: "50%",
+            right: 0,
+            height: "12vh",
+            background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
+            pointerEvents: "none",
+            zIndex: 4,
+          }}
+        />
       </div>
 
     </div>
@@ -426,7 +429,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
 
         // Per-project duration variation — slow, gentle glide. Wide spread
         // so thumbs arrive at visibly different times and bump as they transit.
-        const dur = 2.2 + ((i * 37) % 100) / 100; // 2.2s..3.2s, deterministic per project
+        const dur = 3.5 + ((i * 37) % 100) / 60; // 3.5s..5.2s, deterministic per project
         const ease = "cubic-bezier(0.34, 1.56, 0.64, 1)"; // soft overshoot/bounce
 
         // Use the project's own thumb if defined; fall back to a matching
