@@ -159,7 +159,7 @@ export default function Work() {
               style={{
                 position: "absolute",
                 top: 28,
-                left: space.xxl,
+                left: space.lg,
                 fontFamily: TIMES,
                 fontSize: 14,
                 fontWeight: 400,
@@ -879,6 +879,33 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           pointerEvents: "none", zIndex: 3,
         }} />
 
+        {/* Close × — sits on the outer (non-scrolling) container so it
+            stays visible no matter how far you scroll the popup body. */}
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            width: 26,
+            height: 26,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: HEROS_FONT,
+            fontSize: 20,
+            lineHeight: 1,
+            color: colors.text,
+            zIndex: 5,
+          }}
+        >
+          ×
+        </button>
+
         <div
           ref={setRefs}
           onScroll={onScroll}
@@ -891,30 +918,6 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
             position: "relative",
           }}
         >
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            style={{
-              position: "absolute",
-              top: 10,
-              right: 10,
-              width: 26,
-              height: 26,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: HEROS_FONT,
-              fontSize: 20,
-              lineHeight: 1,
-              color: colors.text,
-              zIndex: 3,
-            }}
-          >
-            ×
-          </button>
 
           {/* Project name — HEROS bold, lead line. Matches the 'Select Work'
               header font size on the left side. */}
