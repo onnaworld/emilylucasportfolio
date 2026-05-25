@@ -242,7 +242,7 @@ export default function Work() {
                 zIndex: 20,
               }}
             >
-              © {new Date().getFullYear()} Emily Lucas
+              Site designed and built by Emily Lucas © {new Date().getFullYear()}
             </div>
           </>
         )}
@@ -400,7 +400,7 @@ export default function Work() {
                     lineHeight: 1,
                   }}
                 >
-                  © {new Date().getFullYear()} Emily Lucas
+                  Site designed and built by Emily Lucas © {new Date().getFullYear()}
                 </div>
               </div>
             )}

@@ -353,9 +353,11 @@ function AutoCycleHero({ showcases }) {
           <div
             className="m-showcase-numbers"
             style={{
+              flex: 1,
               display: "flex",
-              gap: 18,
+              justifyContent: "space-between",
               alignItems: "flex-end",
+              gap: 12,
             }}
           >
             {showcases.map((_, i) => {
@@ -456,7 +458,7 @@ function AutoCycleHero({ showcases }) {
           borderTop: "1px solid rgba(0,0,0,0.08)",
         }}
       >
-        <div>© {new Date().getFullYear()} Emily Lucas</div>
+        <div>Site designed and built by Emily Lucas © {new Date().getFullYear()}</div>
         <Link
           to="/work"
           style={{
