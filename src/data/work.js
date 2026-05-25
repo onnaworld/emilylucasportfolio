@@ -69,7 +69,7 @@ export const productionCases = [
     client: "MR PORTER",
     project: "Finneas",
     year: "2024",
-    task: "Lead production on a tier-1 talent shoot with Finneas for MR PORTER in Los Angeles. One-day shoot, built set, working in partnership with a local LA production crew. Brief: deliver an editorial-quality feature with an A-list music talent on a contained schedule, without compromising the MR PORTER editorial standard.",
+    task: "Lead production on a tier-1 talent shoot with Finneas for MR PORTER in Los Angeles. Working in partnership with a local LA production crew and partner Wilson Project to deliver an editorial-quality feature with an A-list music talent on a contained schedule, without compromising the MR PORTER editorial standard.",
     outcome: "Delivered a set-built editorial shoot in a single day, coordinating between MR PORTER's editorial direction and on-the-ground LA production. Final feature ran across MR PORTER's Journal as a Q&A spanning Finneas's work on Barbie, the Bond franchise, and his Grammy wins, paired with the editorial imagery from the shoot.",
     images: [
       "/work/mr-porter-finneas/01.jpg",
@@ -473,7 +473,7 @@ export const productionCases = [
     year: "2025",
     heroVideo: "/work/mr-c-residences/hero.mp4",
     heroImage: "/work/mr-c-residences/01.jpg",
-    task: "Facilitate the visual launch of Mr. C Residences Downtown in partnership with London-based agency Noë & Associates, using the brand's existing Jumeirah residences to create content for a new development, acting as on-the-ground production lead between London's creative direction and Dubai's logistical realities.",
+    task: "Facilitate the visual launch of Mr. C Residences Downtown in partnership with London-based agency Noë & Associates, using the brand's existing jumeirah residences to create content for a new development, acting as on-the-ground production lead between London's creative direction and Dubai's logistical realities.",
     outcome: "Provided the regional expertise necessary to navigate a sensitive, live residential environment with discretion. Delivered a suite of assets that maintained Cipriani's Italian heritage while speaking to the Dubai luxury market.",
     images: [
       "/work/mr-c-residences/07.mp4",

@@ -33,33 +33,33 @@ const IMPACT = "'Impact', 'Helvetica Neue Condensed Bold', 'Arial Narrow', sans-
 const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 
 // Per-section work imagery (URL-encoded spaces in folder names)
+// Items can be a string OR { src, landscape?, client?, title? }. When client/title
+// are set, a dark gradient + label fades in over the image on hover.
 const PRODUCTION_IMAGES = [
-  "/Production/01.jpg",
-  "/Production/2..mov.mp4",
-  "/Production/3..webp",
-  "/Production/4.%20.jpg",
-  "/Production/5..mp4",
-  "/Production/6..jpg",
-  "/Production/6..mp4.mp4",
-  "/Production/7.mp4",
+  { src: "/Production/01.jpg",        client: "CONDÉ NAST",          title: "Vogue Arabia Relaunch" },
+  { src: "/Production/2..mov.mp4",    client: "NIKE",                title: "Vomero 18 Activation" },
+  { src: "/Production/3..webp",       client: "MR PORTER",           title: "Finneas" },
+  { src: "/Production/4.%20.jpg",     client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign" },
+  { src: "/Production/5..mp4",        client: "ONE&ONLY",            title: "Moonlight Basin" },
+  { src: "/Production/6..jpg",        client: "AMAN",                title: "Saudi Arabia & Dubai" },
+  { src: "/Production/6..mp4.mp4",    client: "MASTERCARD",          title: "Sail Grand Prix x Luís Figo" },
+  { src: "/Production/7.mp4",         client: "J.CREW",              title: "Abraham Moon" },
 ];
-// Items can be a string OR { src, landscape? } so individual images can opt
-// into a wider crop without changing the rest of the row.
 const WRITING_IMAGES = [
-  "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",
-  { src: "/Cultural%20Strategy/w1500_q80%20(1).jpg", landscape: true },
-  "/Cultural%20Strategy/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",
-  "/Cultural%20Strategy/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",
-  "/Cultural%20Strategy/w1500_q80.jpg",
-  { src: "/Cultural%20Strategy/w1500_q80.jpeg", landscape: true },
-  "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",
-  "/Cultural%20Strategy/Group_Shot.jpg",
+  { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",                     client: "TRIPPIN",   title: "6 Photographers on Ethical Photography" },
+  { src: "/Cultural%20Strategy/w1500_q80%20(1).jpg",                                                          client: "MR PORTER", title: "15 Ways To Improve Your Life, Japanese Style", landscape: true },
+  { src: "/Cultural%20Strategy/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",                      client: "TRIPPIN",   title: "An Exploration of Mexico Through Graciela Iturbide" },
+  { src: "/Cultural%20Strategy/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",                      client: "TRIPPIN",   title: "A History of Tattooing in Japan" },
+  { src: "/Cultural%20Strategy/w1500_q80.jpg",                                                                client: "MR PORTER", title: "Calling All Women" },
+  { src: "/Cultural%20Strategy/w1500_q80.jpeg",                                                               client: "MR PORTER", title: "Championing Subcultures", landscape: true },
+  { src: "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",                                         client: "MR PORTER", title: "Black History Month UK" },
+  { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Championing Subcultures" },
 ];
 const VISUAL_RESEARCH_IMAGES = [
-  "/Visual%20Research/w1500_q80%20(2).jpg",
-  "/Visual%20Research/w1500_q80%20(3).jpg",
-  "/Visual%20Research/w1500_q80%20(4).jpg",
-  "/Visual%20Research/w1500_q80%20(5).jpg",
+  { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Menswear Trends 2022" },
+  { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "Eight Striking Images of NYC" },
+  { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "Five Ways To Freshen Your Work Wardrobe" },
+  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Black History Month UK" },
 ];
 
 export default function Landing() {
@@ -1004,8 +1004,9 @@ function Brand({ children }) {
 // so translateX(-50%) lands exactly on the duplicate boundary (no overlap).
 // Shared media element that fades in from opacity 0 once the file is decoded.
 // While !loaded, three editorial pulsing dots sit centred in the slot.
-function FadeInMedia({ src, width, height, objectFit = "cover" }) {
+function FadeInMedia({ src, width, height, objectFit = "cover", client, title }) {
   const [loaded, setLoaded] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const isVideo = /\.(mp4|webm|mov)$/i.test(src);
   const mediaStyle = {
     width: "100%",
@@ -1015,8 +1016,11 @@ function FadeInMedia({ src, width, height, objectFit = "cover" }) {
     opacity: loaded ? 1 : 0,
     transition: "opacity 0.5s ease-out",
   };
+  const hasLabel = !!(client || title);
   return (
     <div
+      onMouseEnter={() => hasLabel && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
         position: "relative",
         height,
@@ -1047,6 +1051,65 @@ function FadeInMedia({ src, width, height, objectFit = "cover" }) {
           style={mediaStyle}
           draggable={false}
         />
+      )}
+      {hasLabel && (
+        <>
+          {/* Dark gradient overlay, fades in on hover */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 100%)",
+              opacity: hovered ? 1 : 0,
+              transition: "opacity 0.35s ease",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Brand + title block, bottom-left */}
+          <div
+            style={{
+              position: "absolute",
+              left: 12,
+              bottom: 10,
+              color: "#fff",
+              opacity: hovered ? 1 : 0,
+              transform: hovered ? "translateY(0)" : "translateY(6px)",
+              transition: "opacity 0.35s ease, transform 0.35s ease",
+              pointerEvents: "none",
+              maxWidth: "calc(100% - 24px)",
+            }}
+          >
+            {client && (
+              <div
+                style={{
+                  fontFamily: HEROS,
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                  lineHeight: 1.2,
+                  marginBottom: 2,
+                }}
+              >
+                {client}
+              </div>
+            )}
+            {title && (
+              <div
+                style={{
+                  fontFamily: "'Times New Roman', Times, serif",
+                  fontStyle: "italic",
+                  fontSize: 13,
+                  fontWeight: 400,
+                  lineHeight: 1.25,
+                }}
+              >
+                {title}
+              </div>
+            )}
+          </div>
+        </>
       )}
     </div>
   );
@@ -1178,8 +1241,9 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
         }}
       >
         {doubled.map((item, i) => {
-          const src = typeof item === "string" ? item : item.src;
-          const itemLandscape = typeof item === "string" ? landscape : (item.landscape ?? landscape);
+          const isObj = typeof item !== "string";
+          const src = isObj ? item.src : item;
+          const itemLandscape = isObj ? (item.landscape ?? landscape) : landscape;
           const w = itemLandscape ? 360 : compact ? 180 : 320;
           return (
             <FadeInMedia
@@ -1188,6 +1252,8 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
               width={w}
               height={h}
               objectFit="cover"
+              client={isObj ? item.client : undefined}
+              title={isObj ? item.title : undefined}
             />
           );
         })}
