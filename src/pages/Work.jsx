@@ -441,6 +441,7 @@ export default function Work() {
             no leading image, gallery rendered as a < > carousel at the bottom. */}
         {activeStudy && (
           <CaseStudyPopup
+            key={activeStudy.slug}
             study={activeStudy}
             panelRef={rightPanelRef}
             onClose={() => setActive(null)}
@@ -841,35 +842,34 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
   };
 
   return (
-    // Outer wrapper covers the right-half scattered area but doesn't block
-    // pointer events outside the card itself. Flex-centers the popup inside.
+    // On desktop: centred inside the right hairline area.
+    // On mobile: fixed full-screen overlay so the popup spans the whole viewport.
     <div
       style={{
-        position: "absolute",
+        position: isMobile ? "fixed" : "absolute",
         top: isMobile ? 0 : 64,
         bottom: isMobile ? 0 : 64,
-        // Wrapper spans the same horizontal range as the right hairline,
-        // so the flex-centred popup sits visually centred between the
-        // hairline endpoints — same margin on left and right.
-        left: isMobile ? "50%" : `calc(50% + 30px)`,
+        left: isMobile ? 0 : `calc(50% + 30px)`,
         right: isMobile ? 0 : space.lg,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 5,
+        zIndex: isMobile ? 1000 : 5,
         pointerEvents: "none",
+        background: isMobile ? "rgba(255,255,255,0.92)" : "transparent",
+        padding: isMobile ? 12 : 0,
       }}
     >
       {/* Wrapper holds the popup card + the end-of-scroll ↓ that sits just
           below the popup's bottom edge (clipped if placed inside the card
           itself, since the card has overflow: hidden). */}
-      <div style={{ position: "relative", width: "min(560px, calc(100% - 32px))", pointerEvents: "auto" }}>
+      <div style={{ position: "relative", width: isMobile ? "100%" : "min(560px, calc(100% - 32px))", maxWidth: isMobile ? 560 : undefined, pointerEvents: "auto" }}>
       <div
         className="case-popup m-case-popup"
         style={{
           position: "relative",
           width: "100%",
-          height: "min(540px, calc(100vh - 240px))",
+          height: isMobile ? "calc(100vh - 24px)" : "min(540px, calc(100vh - 240px))",
           background: "#fff",
           overflow: "hidden",
           animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
@@ -947,20 +947,49 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
             {study.project}
           </div>
 
-          {/* Client — italic Times, secondary */}
+          {/* Client (italic Times) on the left, View Project → on the far right
+              of the same row when an external link exists. */}
           <div
             style={{
-              fontFamily: TIMES,
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: 15,
-              lineHeight: 1.2,
-              color: colors.text,
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              gap: space.md,
               marginBottom: 4,
               animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
             }}
           >
-            {study.client}
+            <div
+              style={{
+                fontFamily: TIMES,
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: 15,
+                lineHeight: 1.2,
+                color: colors.text,
+              }}
+            >
+              {study.client}
+            </div>
+            {study.viewProjectLink && (
+              <a
+                href={study.viewProjectLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: TIMES,
+                  fontSize: 14,
+                  fontWeight: 400,
+                  color: colors.text,
+                  textDecoration: "none",
+                  letterSpacing: 0,
+                  whiteSpace: "nowrap",
+                  flexShrink: 0,
+                }}
+              >
+                View Project →
+              </a>
+            )}
           </div>
 
           {/* Date underneath */}
@@ -1034,31 +1063,6 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           {study.images && study.images.length > 0 && (
             <div style={{ animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both" }}>
               <ImageCarousel images={study.images} project={study.project} />
-            </div>
-          )}
-
-          {study.viewProjectLink && (
-            <div
-              style={{
-                marginTop: space.lg,
-                animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both",
-              }}
-            >
-              <a
-                href={study.viewProjectLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontFamily: TIMES,
-                  fontSize: 15,
-                  fontWeight: 400,
-                  color: colors.text,
-                  textDecoration: "none",
-                  letterSpacing: 0,
-                }}
-              >
-                View Project →
-              </a>
             </div>
           )}
 
@@ -1160,23 +1164,35 @@ function ImageCarousel({ images, project }) {
           paddingBottom: 2,
         }}
       >
-        {images.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt={`${project} – ${i + 1}`}
-            loading="lazy"
-            draggable={false}
-            style={{
-              height: 200,
-              width: "auto",
-              flexShrink: 0,
-              display: "block",
-              background: colors.surface,
-              scrollSnapAlign: "start",
-            }}
-          />
-        ))}
+        {images.map((src, i) => {
+          const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+          const mediaStyle = {
+            height: 200,
+            width: "auto",
+            flexShrink: 0,
+            display: "block",
+            background: colors.surface,
+            scrollSnapAlign: "start",
+          };
+          return isVideo ? (
+            <video
+              key={i}
+              src={src}
+              autoPlay muted loop playsInline
+              preload="metadata"
+              style={mediaStyle}
+            />
+          ) : (
+            <img
+              key={i}
+              src={src}
+              alt={`${project} – ${i + 1}`}
+              loading="lazy"
+              draggable={false}
+              style={mediaStyle}
+            />
+          );
+        })}
       </div>
       {images.length > 1 && (
         <>
