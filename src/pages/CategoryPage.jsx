@@ -439,7 +439,11 @@ function AutoCycleHero({ showcases }) {
                     lineHeight: 1,
                     color: "#fff",
                     opacity: isActive ? 1 : 0.35,
-                    transition: "opacity 0.3s ease",
+                    // Slight enlarge on active/hover. transform doesn't
+                    // affect layout, so neighbours don't shift.
+                    transform: isActive ? "scale(1.18)" : "scale(1)",
+                    transformOrigin: "center bottom",
+                    transition: "opacity 0.3s ease, transform 0.25s ease",
                     textShadow: "0 1px 12px rgba(0,0,0,0.35)",
                   }}
                 >
@@ -452,11 +456,15 @@ function AutoCycleHero({ showcases }) {
           <div
             className="m-showcase-overlay"
             style={{
+              // Fixed reserve so changing-length client/title doesn't
+              // redistribute the flex:1 numbers row (was causing them to
+              // drift left/right when hover changed the active project).
+              flex: "0 0 260px",
+              maxWidth: 260,
               textAlign: "right",
               color: "#fff",
               textShadow: "0 1px 16px rgba(0,0,0,0.45)",
               pointerEvents: "none",
-              maxWidth: "60vw",
               lineHeight: 1,
             }}
           >
@@ -501,15 +509,26 @@ function AutoCycleHero({ showcases }) {
 // showcase image is behind it. Slight translucency so the image bleeds
 // through. Hidden scrollbar.
 function CaseStudyModal({ study, onClose }) {
+  const [closing, setClosing] = useState(false);
+
+  // One animated close path for ×, backdrop click, and Esc — keeps the
+  // reverse scale/fade in sync.
+  const handleClose = () => {
+    if (closing) return;
+    setClosing(true);
+    setTimeout(() => onClose(), 260);
+  };
+
   useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e) => { if (e.key === "Escape") handleClose(); };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
       style={{
         position: "fixed",
         inset: 0,
@@ -517,24 +536,30 @@ function CaseStudyModal({ study, onClose }) {
         alignItems: "center",
         justifyContent: "center",
         padding: 20,
-        background: "transparent",
+        background: "rgba(0, 0, 0, 0.20)",
         zIndex: 50,
         pointerEvents: "auto",
+        animation: closing
+          ? "cs-backdrop-out 0.26s ease-in forwards"
+          : "cs-backdrop-in 0.3s ease-out both",
       }}
     >
       <div
         className="cs-modal-card"
         style={{
           position: "relative",
-          width: "min(620px, 100%)",
-          height: "min(560px, calc(100vh - 80px))",
-          background: "rgba(255, 255, 255, 0.93)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
+          width: "min(740px, 100%)",
+          height: "min(580px, calc(100vh - 80px))",
+          background: "rgba(255, 255, 255, 0.88)",
+          backdropFilter: "blur(14px) saturate(1.1)",
+          WebkitBackdropFilter: "blur(14px) saturate(1.1)",
           borderRadius: 14,
           overflow: "hidden",
-          boxShadow: "0 24px 60px rgba(0,0,0,0.35)",
-          animation: "cs-modal-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+          // Layered shadow: tight inner + soft outer halo for a gentle lift
+          boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 24px 60px rgba(0,0,0,0.22), 0 6px 18px rgba(0,0,0,0.10)",
+          animation: closing
+            ? "cs-modal-out 0.26s ease-in forwards"
+            : "cs-modal-in 0.3s ease-out both",
         }}
       >
         {/* Top + bottom fades, matching /work popup */}
@@ -550,7 +575,7 @@ function CaseStudyModal({ study, onClose }) {
         }} />
 
         <button
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Close"
           style={{
             position: "absolute",
@@ -576,10 +601,24 @@ function CaseStudyModal({ study, onClose }) {
 
         <div
           className="cs-modal-scroll"
+          // Overscroll dismiss: at the top of the scrollable area, an
+          // upward wheel tick or a downward finger drag closes the modal.
+          onWheel={(e) => {
+            if (e.currentTarget.scrollTop <= 0 && e.deltaY < 0) handleClose();
+          }}
+          onTouchStart={(e) => {
+            e.currentTarget._touchY = e.touches[0].clientY;
+          }}
+          onTouchMove={(e) => {
+            const startY = e.currentTarget._touchY ?? 0;
+            const dy = e.touches[0].clientY - startY;
+            if (e.currentTarget.scrollTop <= 0 && dy > 40) handleClose();
+          }}
           style={{
             width: "100%",
             height: "100%",
             overflowY: "auto",
+            overscrollBehavior: "contain",
             padding: `${space.md}px ${space.lg}px ${space.lg}px`,
           }}
         >
@@ -710,8 +749,20 @@ function CaseStudyModal({ study, onClose }) {
 
       <style>{`
         @keyframes cs-modal-in {
-          from { opacity: 0; transform: scale(0.94); }
+          from { opacity: 0; transform: scale(0.95); }
           to   { opacity: 1; transform: scale(1); }
+        }
+        @keyframes cs-modal-out {
+          from { opacity: 1; transform: scale(1); }
+          to   { opacity: 0; transform: scale(0.95); }
+        }
+        @keyframes cs-backdrop-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes cs-backdrop-out {
+          from { opacity: 1; }
+          to   { opacity: 0; }
         }
         .cs-modal-scroll { scrollbar-width: none; -ms-overflow-style: none; }
         .cs-modal-scroll::-webkit-scrollbar { display: none; width: 0; }
@@ -728,7 +779,7 @@ function ModalCarousel({ images, project }) {
     el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
   };
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", paddingLeft: 22, paddingRight: 22 }}>
       <div
         ref={trackRef}
         className="cs-modal-scroll"
@@ -765,20 +816,18 @@ function ModalCarousel({ images, project }) {
         onClick={() => step(-1)}
         aria-label="Previous"
         style={{
-          position: "absolute", top: "50%", left: -6, transform: "translateY(-50%)",
-          width: 30, height: 30, borderRadius: 999, background: "rgba(255,255,255,0.95)",
-          border: "1px solid rgba(0,0,0,0.1)", cursor: "pointer", fontFamily: HEROS_FONT,
-          fontSize: 14, color: colors.text, display: "flex", alignItems: "center", justifyContent: "center",
+          position: "absolute", top: "50%", left: 0, transform: "translateY(-50%)",
+          background: "none", border: "none", padding: 4, cursor: "pointer",
+          fontFamily: HEROS_FONT, fontSize: 22, fontWeight: 400, lineHeight: 1, color: colors.text,
         }}
       >‹</button>
       <button
         onClick={() => step(1)}
         aria-label="Next"
         style={{
-          position: "absolute", top: "50%", right: -6, transform: "translateY(-50%)",
-          width: 30, height: 30, borderRadius: 999, background: "rgba(255,255,255,0.95)",
-          border: "1px solid rgba(0,0,0,0.1)", cursor: "pointer", fontFamily: HEROS_FONT,
-          fontSize: 14, color: colors.text, display: "flex", alignItems: "center", justifyContent: "center",
+          position: "absolute", top: "50%", right: 0, transform: "translateY(-50%)",
+          background: "none", border: "none", padding: 4, cursor: "pointer",
+          fontFamily: HEROS_FONT, fontSize: 22, fontWeight: 400, lineHeight: 1, color: colors.text,
         }}
       >›</button>
     </div>
