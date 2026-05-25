@@ -833,24 +833,41 @@ function CaseStudyModal({ study, onClose }) {
 
 function ModalCarousel({ images, project }) {
   const trackRef = useRef(null);
+  const touchRef = useRef({ x: 0, y: 0, t: 0 });
   const step = (dir) => {
     const el = trackRef.current;
     if (!el) return;
     el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
   };
+  // Explicit swipe handler — some mobile browsers don't act on
+  // overflow-x scrolling for nested scrollers inside a modal; this
+  // guarantees a left/right swipe always advances the carousel.
+  const onTouchStart = (e) => {
+    const t = e.touches[0];
+    touchRef.current = { x: t.clientX, y: t.clientY, t: Date.now() };
+  };
+  const onTouchEnd = (e) => {
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchRef.current.x;
+    const dy = t.clientY - touchRef.current.y;
+    const dt = Date.now() - touchRef.current.t;
+    // Horizontal-dominant, fast-enough swipe, beyond a minimum threshold
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4 && dt < 700) {
+      step(dx < 0 ? 1 : -1);
+    }
+  };
   return (
     <div style={{ position: "relative", paddingLeft: 22, paddingRight: 22 }}>
       <div
         ref={trackRef}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         className="cs-modal-scroll cs-modal-carousel"
         style={{
           display: "flex",
           gap: 8,
           overflowX: "auto",
           scrollSnapType: "x mandatory",
-          // Restrict touch gestures here to horizontal so the browser
-          // routes finger swipes to this scroller (not the parent
-          // vertical scroll), and add iOS momentum.
           touchAction: "pan-x",
           WebkitOverflowScrolling: "touch",
           paddingBottom: 4,
