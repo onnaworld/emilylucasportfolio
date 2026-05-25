@@ -95,7 +95,7 @@ export default function Landing() {
         scrollBehavior: "smooth",
       }}
     >
-      <CustomCursor />
+      <CustomCursor enlargeOnHover />
       <style>{`
         .landing-snap, .landing-snap * { cursor: none !important; }
       `}</style>
