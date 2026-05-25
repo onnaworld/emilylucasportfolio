@@ -328,7 +328,7 @@ export const productionCases = [
     client: "MR PORTER",
     project: "Five Ways To Freshen Up Your Work Wardrobe In 2020",
     year: "2020",
-    task: "Visual research and runway image sourcing for a MR PORTER Journal feature reading the AW20 menswear shows as a work wardrobe forecast, published February 2020, within weeks of the Milan and Paris men's shows. Brief: source and license runway imagery from the shows immediately after they ran, working to a tight editorial turnaround.",
+    task: "Visual research and runway image sourcing for a MR PORTER Journal feature reading the AW20 menswear shows as a work wardrobe forecast, published February 2020, within weeks of the Milan and Paris men's shows. Working to a tight editorial turnaround to license runway imagery from the shows immediately after they ran.",
     outcome: "Sourced and licensed runway stills across fifteen shows from the AW20 men's calendar (Berluti, Bode, Casablanca, Dior, Dries Van Noten, Fendi, Givenchy, Gucci, JW Anderson, Louis Vuitton, Off-White, Prada, Raf Simons, Vetements, and 1017 ALYX 9SM), working through IMAXtree, the primary runway photo agency, and individual photographer credits including Salvatore Dragone, Alessandro Lucioni, Daniele Oberrauch, Isidore Montag, and Armando Grillo. Demonstrates runway image licensing as a distinct visual research discipline: fast-turnaround, agency-led, time-bound to the editorial cycle of the fashion calendar.",
     viewProjectLink: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428",
     images: [
