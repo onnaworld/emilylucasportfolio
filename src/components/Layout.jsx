@@ -10,13 +10,13 @@ const NAV_ITEMS = [
 
 export default function Layout({ children }) {
   const location = useLocation();
-  const noChrome = location.pathname === "/" || location.pathname === "/work";
+  const noHeader = location.pathname === "/" || location.pathname === "/work";
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: colors.bg, color: colors.text }}>
-      {!noChrome && <Header isLanding={false} />}
+      {!noHeader && <Header isLanding={false} />}
       <main style={{ flex: 1, width: "100%" }}>{children}</main>
-      {!noChrome && <Footer />}
+      <Footer />
     </div>
   );
 }
