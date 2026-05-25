@@ -85,6 +85,8 @@ export const productionCases = [
     client: "Charlotte Tilbury",
     project: "Disney 100 Campaign",
     year: "2023",
+    task: "Production support on Charlotte Tilbury's $1M+ global activation for the Disney 100 anniversary. Brief required coordinating tier-1 content creators alongside the Charlotte Tilbury pro artist team and stylist Nathan Klein, across a high-profile activation with global brand standards.",
+    outcome: "Delivered on-set logistics, vendor management, and creator coordination for Monet McMichael, Victor Kunda, and Danielle Marcan. The campaign rolled out globally as one of Charlotte Tilbury's flagship cultural moments of the year, marking a high-water mark for beauty x entertainment IP activations.",
     images: [
       "/work/charlotte-tilbury-disney/01.jpg",
       "/work/charlotte-tilbury-disney/02.jpg",
@@ -103,6 +105,12 @@ export const productionCases = [
     images: [
       "/work/harvey-nichols-festive-beauty/01.mp4",
       "/work/harvey-nichols-festive-beauty/02.mp4",
+      "/work/harvey-nichols-festive-beauty/03.mp4",
+      "/work/harvey-nichols-festive-beauty/04.jpg",
+      "/work/harvey-nichols-festive-beauty/05.jpg",
+      "/work/harvey-nichols-festive-beauty/06.jpg",
+      "/work/harvey-nichols-festive-beauty/07.jpg",
+      "/work/harvey-nichols-festive-beauty/08.jpg",
     ],
     tags: ["Motion Production", "Stills Production", "Art Direction"],
   },
