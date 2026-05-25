@@ -426,24 +426,20 @@ function ContactModal({ onClose }) {
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.25)",
+        background: "transparent",
         zIndex: 200,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: space.xl,
-        animation: "contact-backdrop-in 0.4s ease-out both",
       }}
     >
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          position: "relative",
-          width: "min(540px, 100%)",
+          position: "absolute",
+          bottom: space.xl,
+          right: space.xl,
+          width: "min(340px, calc(100vw - 48px))",
           aspectRatio: "4 / 5",
-          maxHeight: "calc(100vh - 48px)",
           color: "#fff",
-          padding: `${space.xxl}px ${space.xl}px`,
+          padding: `${space.lg}px ${space.lg}px`,
           borderRadius: 18,
           overflow: "hidden",
           boxShadow: "0 24px 60px rgba(0,0,0,0.32)",
@@ -454,7 +450,7 @@ function ContactModal({ onClose }) {
           flexDirection: "column",
           justifyContent: "center",
           textAlign: "center",
-          transformOrigin: "center",
+          transformOrigin: "bottom right",
           animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         }}
       >
