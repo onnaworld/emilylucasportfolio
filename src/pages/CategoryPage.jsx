@@ -1,8 +1,34 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
 import CustomCursor from "../components/CustomCursor";
+import { productionCases } from "../data/work";
+
+// Inline italic-Times treatment for known brand names inside Task/Outcome
+// body copy, kept in sync with the /work popup so the two surfaces match.
+const BRAND_TERMS = [
+  "MR PORTER", "MR PORTER's", "Vogue", "Vogue Arabia", "Condé Nast", "British Vogue",
+  "Aman", "One&Only", "Cipriani", "Mr C", "Charlotte Tilbury", "J.Crew",
+  "Nike", "Mastercard", "Trippin", "Columbia Sportswear", "Harvey Nichols",
+  "Hamilton", "Jumeirah", "Marsa Al Arab", "Louis Vuitton", "Imaan Hammam",
+  "Achraf Hakimi", "Halima Aden", "Balqees Fathi", "Luc Braquet", "Txema Yeste",
+  "Willson Project", "Finneas", "Abraham Moon", "GUESS", "SIRO",
+  "IMA MENA", "Tyla", "Alessandro Michele", "Luís Figo",
+];
+function withBrands(text) {
+  if (!text) return null;
+  const sorted = [...BRAND_TERMS].sort((a, b) => b.length - a.length);
+  const escaped = sorted.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const re = new RegExp(`(${escaped.join("|")})`, "g");
+  return text.split(re).map((part, i) =>
+    BRAND_TERMS.includes(part) ? (
+      <em key={i} style={{ fontFamily: TIMES, fontStyle: "italic", fontWeight: 400 }}>{part}</em>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
@@ -268,29 +294,35 @@ function Media({ src, style, position }) {
 function AutoCycleHero({ showcases }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [whoosh, setWhoosh] = useState(null); // index being whooshed-into-case-study
-  const navigate = useNavigate();
+  const [whoosh, setWhoosh] = useState(null); // index being whooshed
+  const [activeStudy, setActiveStudy] = useState(null);
 
   useEffect(() => {
-    if (paused || whoosh !== null || showcases.length < 2) return;
+    if (paused || whoosh !== null || activeStudy || showcases.length < 2) return;
     const id = setInterval(() => {
       setIndex(i => (i + 1) % showcases.length);
     }, 4500);
     return () => clearInterval(id);
-  }, [paused, whoosh, showcases.length]);
+  }, [paused, whoosh, activeStudy, showcases.length]);
 
   const active = showcases[index];
 
-  // Whoosh-and-navigate: scale the active media + fade fully to white,
-  // then route to /work/:slug. Timed so the page change happens at peak
-  // white so there's no visible cross-fade between routes.
+  // Whoosh sequence: white flash ramps up, popup mounts at peak, white
+  // fades away to reveal popup over the still-visible showcase image.
   const openCaseStudy = (i) => {
     const slug = showcases[i]?.slug;
     if (!slug || whoosh !== null) return;
+    const study = productionCases.find((c) => c.slug === slug);
+    if (!study) return;
     setIndex(i);
     setWhoosh(i);
-    setTimeout(() => navigate(`/work/${slug}`), 520);
+    // Mount the popup just before peak white so it's already visible
+    // when the flash fades away.
+    setTimeout(() => setActiveStudy(study), 260);
+    setTimeout(() => setWhoosh(null), 720);
   };
+
+  const closeStudy = () => setActiveStudy(null);
 
   return (
     <section
@@ -361,8 +393,7 @@ function AutoCycleHero({ showcases }) {
           }}
         />
 
-        {/* Full white-out flash during whoosh — full-screen so the page
-            change underneath isn't visible. */}
+        {/* White flash that ramps up then fades, revealing the popup over the image */}
         {whoosh !== null && (
           <div
             aria-hidden="true"
@@ -370,8 +401,7 @@ function AutoCycleHero({ showcases }) {
               position: "fixed",
               inset: 0,
               background: "#fff",
-              opacity: 1,
-              animation: "whoosh-flash 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards",
+              animation: "whoosh-flash 0.72s cubic-bezier(0.4, 0, 0.2, 1) forwards",
               pointerEvents: "none",
               zIndex: 9998,
             }}
@@ -380,8 +410,8 @@ function AutoCycleHero({ showcases }) {
         <style>{`
           @keyframes whoosh-flash {
             0%   { opacity: 0; }
-            55%  { opacity: 1; }
-            100% { opacity: 1; }
+            36%  { opacity: 1; }
+            100% { opacity: 0; }
           }
         `}</style>
 
@@ -491,7 +521,299 @@ function AutoCycleHero({ showcases }) {
             )}
           </div>
         </div>
+
+      {/* Case-study popup — overlays the showcase image, not a route change */}
+      {activeStudy && <CaseStudyModal study={activeStudy} onClose={closeStudy} />}
     </section>
+  );
+}
+
+// Popup that mirrors the /work CaseStudyPopup exactly (same fonts, sizes,
+// internal structure) but renders as a centered modal over whatever
+// showcase image is behind it. Slight translucency so the image bleeds
+// through. Hidden scrollbar.
+function CaseStudyModal({ study, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+        background: "transparent",
+        zIndex: 50,
+        pointerEvents: "auto",
+      }}
+    >
+      <div
+        className="cs-modal-card"
+        style={{
+          position: "relative",
+          width: "min(620px, 100%)",
+          height: "min(560px, calc(100vh - 80px))",
+          background: "rgba(255, 255, 255, 0.93)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderRadius: 14,
+          overflow: "hidden",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.35)",
+          animation: "cs-modal-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+        }}
+      >
+        {/* Top + bottom fades, matching /work popup */}
+        <div aria-hidden="true" style={{
+          position: "absolute", top: 0, left: 0, right: 0, height: 32,
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%)",
+          pointerEvents: "none", zIndex: 3,
+        }} />
+        <div aria-hidden="true" style={{
+          position: "absolute", bottom: 0, left: 0, right: 0, height: 32,
+          background: "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%)",
+          pointerEvents: "none", zIndex: 3,
+        }} />
+
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            width: 26,
+            height: 26,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: HEROS_FONT,
+            fontSize: 20,
+            lineHeight: 1,
+            color: colors.text,
+            zIndex: 5,
+          }}
+        >
+          ×
+        </button>
+
+        <div
+          className="cs-modal-scroll"
+          style={{
+            width: "100%",
+            height: "100%",
+            overflowY: "auto",
+            padding: `${space.md}px ${space.lg}px ${space.lg}px`,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontWeight: 700,
+              fontSize: 22,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
+              color: colors.text,
+              marginTop: space.sm,
+              marginBottom: 4,
+            }}
+          >
+            {study.project}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              gap: space.md,
+              marginBottom: 4,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: TIMES,
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: 15,
+                lineHeight: 1.2,
+                color: colors.text,
+              }}
+            >
+              {study.client}
+            </div>
+            {study.viewProjectLink && (() => {
+              const linksRaw = Array.isArray(study.viewProjectLink) ? study.viewProjectLink : [study.viewProjectLink];
+              const links = linksRaw.map((l) => typeof l === "string" ? { label: "View Project →", url: l } : l);
+              return (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
+                  {links.map((l) => (
+                    <a
+                      key={l.url}
+                      href={l.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ fontFamily: TIMES, fontSize: 14, fontWeight: 400, color: colors.text, textDecoration: "none", whiteSpace: "nowrap" }}
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+                </div>
+              );
+            })()}
+          </div>
+
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontSize: 10,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+              color: colors.textMuted,
+              marginBottom: space.md,
+            }}
+          >
+            {study.year}
+          </div>
+
+          {study.task && (
+            <div style={{ marginBottom: space.md }}>
+              <div style={{ fontFamily: HEROS_FONT, fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.text, marginBottom: 6 }}>
+                The Task
+              </div>
+              <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+                {withBrands(study.task)}
+              </p>
+            </div>
+          )}
+
+          {study.outcome && (
+            <div style={{ marginBottom: space.md }}>
+              <div style={{ fontFamily: HEROS_FONT, fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.text, marginBottom: 6 }}>
+                The Outcome
+              </div>
+              <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+                {withBrands(study.outcome)}
+              </p>
+            </div>
+          )}
+
+          {study.images && study.images.length > 0 && (
+            <ModalCarousel images={study.images} project={study.project} />
+          )}
+
+          {study.tags && study.tags.length > 0 && (
+            <div style={{ marginTop: space.lg, display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {study.tags.map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    display: "inline-block",
+                    padding: "5px 11px",
+                    borderRadius: 999,
+                    background: "rgba(0,0,0,0.06)",
+                    color: colors.textMuted,
+                    fontFamily: HEROS_FONT,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: "0.02em",
+                    textTransform: "uppercase",
+                    lineHeight: 1,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes cs-modal-in {
+          from { opacity: 0; transform: scale(0.94); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+        .cs-modal-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+        .cs-modal-scroll::-webkit-scrollbar { display: none; width: 0; }
+      `}</style>
+    </div>
+  );
+}
+
+function ModalCarousel({ images, project }) {
+  const trackRef = useRef(null);
+  const step = (dir) => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
+  };
+  return (
+    <div style={{ position: "relative" }}>
+      <div
+        ref={trackRef}
+        className="cs-modal-scroll"
+        style={{
+          display: "flex",
+          gap: 8,
+          overflowX: "auto",
+          scrollSnapType: "x mandatory",
+          paddingBottom: 4,
+        }}
+      >
+        {images.map((src, i) => (
+          <div
+            key={i}
+            style={{
+              flex: "0 0 auto",
+              width: "min(280px, 75%)",
+              height: 180,
+              background: "rgba(0,0,0,0.05)",
+              overflow: "hidden",
+              scrollSnapAlign: "start",
+              borderRadius: 4,
+            }}
+          >
+            {/\.(mp4|webm|mov)$/i.test(src) ? (
+              <video src={src} autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+            ) : (
+              <img src={src} alt={`${project} – ${i + 1}`} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+            )}
+          </div>
+        ))}
+      </div>
+      <button
+        onClick={() => step(-1)}
+        aria-label="Previous"
+        style={{
+          position: "absolute", top: "50%", left: -6, transform: "translateY(-50%)",
+          width: 30, height: 30, borderRadius: 999, background: "rgba(255,255,255,0.95)",
+          border: "1px solid rgba(0,0,0,0.1)", cursor: "pointer", fontFamily: HEROS_FONT,
+          fontSize: 14, color: colors.text, display: "flex", alignItems: "center", justifyContent: "center",
+        }}
+      >‹</button>
+      <button
+        onClick={() => step(1)}
+        aria-label="Next"
+        style={{
+          position: "absolute", top: "50%", right: -6, transform: "translateY(-50%)",
+          width: 30, height: 30, borderRadius: 999, background: "rgba(255,255,255,0.95)",
+          border: "1px solid rgba(0,0,0,0.1)", cursor: "pointer", fontFamily: HEROS_FONT,
+          fontSize: 14, color: colors.text, display: "flex", alignItems: "center", justifyContent: "center",
+        }}
+      >›</button>
+    </div>
   );
 }
 
