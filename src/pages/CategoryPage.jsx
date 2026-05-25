@@ -24,7 +24,7 @@ function Brand({ children }) {
 // Hero landing page for a single discipline (Production, Cultural Strategy,
 // Visual Research). Same hero as /work, optionally followed by an About-style
 // paragraph block when `body` is provided.
-export default function CategoryPage({ label, heroImage = "/hero.jpg", body }) {
+export default function CategoryPage({ label, heroImage = "/hero.jpg", body, showcases = [] }) {
   return (
     <div style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
       <PlusMenu />
@@ -194,7 +194,124 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body }) {
           </p>
         </section>
       )}
+
+      {showcases.map((s, i) => (
+        <Showcase key={i} {...s} />
+      ))}
     </div>
+  );
+}
+
+function isVideoSrc(src) {
+  return src && /\.(mp4|webm|mov)$/i.test(src);
+}
+
+function Media({ src, style }) {
+  return isVideoSrc(src) ? (
+    <video
+      src={src}
+      autoPlay muted loop playsInline
+      preload="metadata"
+      style={style}
+    />
+  ) : (
+    <img src={src} alt="" loading="lazy" style={style} />
+  );
+}
+
+// One project block in the Club10/Charlie-Surbey vein: a media container
+// (single image/video, or a side-by-side pair when `media` is an array),
+// with the client name in HEROS bold + italic Times project title overlaid
+// in the middle of the frame.
+function Showcase({ client, title, media }) {
+  const items = Array.isArray(media) ? media : [media];
+  return (
+    <section
+      style={{
+        width: "100%",
+        padding: `${space.xxl}px ${space.xl}px`,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        background: colors.bg,
+      }}
+    >
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          maxWidth: 1400,
+          display: "grid",
+          gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
+          gap: items.length > 1 ? 12 : 0,
+        }}
+      >
+        {items.map((src, i) => (
+          <div
+            key={i}
+            style={{
+              position: "relative",
+              width: "100%",
+              aspectRatio: items.length > 1 ? "3 / 4" : "16 / 9",
+              overflow: "hidden",
+              background: "#000",
+            }}
+          >
+            <Media
+              src={src}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          </div>
+        ))}
+        {/* Overlay name + title, centered across the whole container */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            pointerEvents: "none",
+            textAlign: "center",
+            mixBlendMode: "difference",
+            color: "#fff",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontWeight: 700,
+              fontSize: "clamp(28px, 5vw, 80px)",
+              letterSpacing: "-0.02em",
+              lineHeight: 0.95,
+              textTransform: "uppercase",
+            }}
+          >
+            {client}
+          </div>
+          {title && (
+            <div
+              style={{
+                marginTop: 6,
+                fontFamily: TIMES,
+                fontStyle: "italic",
+                fontSize: "clamp(16px, 2vw, 28px)",
+                fontWeight: 400,
+                lineHeight: 1.1,
+              }}
+            >
+              {title}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
 

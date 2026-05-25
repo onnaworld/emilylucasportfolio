@@ -19,6 +19,22 @@ function B({ children }) {
   );
 }
 
+// Hero showcases shown below the Production about block. Vogue uses a pair
+// (1a + 1b covers side by side); the rest are single hero clips/stills.
+// Asset folder is /public/Production/:production/ — the colon is part of
+// the directory name (Emily's own filing convention) and works fine as a
+// URL path segment.
+const PRODUCTION_SHOWCASES = [
+  { client: "Vogue Arabia", title: "The Relaunch",                media: ["/Production/:production/1a.jpg", "/Production/:production/1b.JPG"] },
+  { client: "Aman",          title: "Saudi Arabia & Dubai",        media: "/Production/:production/2.mp4" },
+  { client: "MR PORTER",     title: "In America",                  media: "/Production/:production/3.mp4" },
+  { client: "One&Only",      title: "Moonlight Basin",             media: "/Production/:production/4.mp4" },
+  { client: "Mastercard",    title: "Sail Grand Prix x Luís Figo", media: "/Production/:production/5.mp4" },
+  { client: "Nike",          title: "Vomero 18 Activation",        media: "/Production/:production/6.mp4" },
+  { client: "J.Crew",        title: "Abraham Moon",                media: "/Production/:production/7.jpg" },
+  { client: "Charlotte Tilbury", title: "Disney 100 Campaign",     media: "/Production/:production/3.jpg" },
+];
+
 const PRODUCTION_BODY = (
   <>
     End-to-end executive production for luxury and lifestyle brands across
@@ -82,7 +98,7 @@ export default function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<WorkDetail />} />
-            <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} />} />
+            <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} showcases={PRODUCTION_SHOWCASES} />} />
             <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} />} />
             <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" body={VISUAL_RESEARCH_BODY} />} />
             <Route path="*" element={<Landing />} />
