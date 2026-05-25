@@ -146,37 +146,151 @@ export default function Work() {
           position: "relative",
           width: "100%",
           height: "100vh",
+          overflow: "hidden",
         }}
       >
-        {/* Back-to-top arrow — wheel inside this section is locked to scatter
-            advance, so this is the only way back up to the showreel hero. */}
-        <button
-          onClick={scrollToHero}
-          aria-label="Back to top"
-          style={{
-            position: "absolute",
-            top: space.lg,
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: colors.text,
-            fontFamily: HEROS_FONT,
-            fontSize: 18,
-            fontWeight: 400,
-            lineHeight: 1,
-            padding: 8,
-            zIndex: 20,
-          }}
-        >
-          ↑
-        </button>
+        {/* Desktop editorial frame — top + bottom hairlines, with the
+            ← Back to Home / ↑ on the top bar and © / ↓ on the bottom bar.
+            Mobile keeps the legacy in-list back-to-home + bubble popup. */}
+        {!isMobile && (
+          <>
+            <Link
+              to="/"
+              style={{
+                position: "absolute",
+                top: 28,
+                left: space.xxl,
+                fontFamily: TIMES,
+                fontSize: 14,
+                fontWeight: 400,
+                color: colors.text,
+                textDecoration: "none",
+                letterSpacing: 0,
+                lineHeight: 1,
+                zIndex: 20,
+              }}
+            >
+              ← Back to Home
+            </Link>
+            <button
+              onClick={scrollToHero}
+              aria-label="Back to top"
+              style={{
+                position: "absolute",
+                top: 22,
+                left: "75%",
+                transform: "translateX(-50%)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: colors.text,
+                fontFamily: HEROS_FONT,
+                fontSize: 18,
+                fontWeight: 400,
+                lineHeight: 1,
+                padding: 8,
+                zIndex: 20,
+              }}
+            >
+              ↑
+            </button>
+            <div
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                top: 64,
+                left: space.xxl,
+                right: space.xxl,
+                borderTop: `1px solid ${colors.text}`,
+                zIndex: 15,
+                pointerEvents: "none",
+              }}
+            />
+            <div
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                bottom: 64,
+                left: space.xxl,
+                right: space.xxl,
+                borderTop: `1px solid ${colors.text}`,
+                zIndex: 15,
+                pointerEvents: "none",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: 28,
+                left: space.xxl,
+                fontFamily: TIMES,
+                fontSize: 13,
+                fontWeight: 400,
+                color: colors.textMuted,
+                lineHeight: 1,
+                zIndex: 20,
+              }}
+            >
+              © {new Date().getFullYear()} Emily Lucas
+            </div>
+            <button
+              onClick={() => rightPanelRef.current?.scrollBy({ top: rightPanelRef.current.clientHeight * 0.7, behavior: "smooth" })}
+              aria-label="Scroll for more"
+              style={{
+                position: "absolute",
+                bottom: 22,
+                left: "75%",
+                transform: "translateX(-50%)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: colors.text,
+                fontFamily: HEROS_FONT,
+                fontSize: 18,
+                fontWeight: 400,
+                lineHeight: 1,
+                padding: 8,
+                zIndex: 20,
+              }}
+            >
+              ↓
+            </button>
+          </>
+        )}
+
+        {/* Mobile-only ↑ — pinned at top of section */}
+        {isMobile && (
+          <button
+            onClick={scrollToHero}
+            aria-label="Back to top"
+            style={{
+              position: "absolute",
+              top: space.md,
+              left: "50%",
+              transform: "translateX(-50%)",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: colors.text,
+              fontFamily: HEROS_FONT,
+              fontSize: 18,
+              padding: 8,
+              zIndex: 20,
+            }}
+          >
+            ↑
+          </button>
+        )}
 
         <div
           className="m-work-grid"
           style={{
-            height: "100vh",
+            position: isMobile ? "relative" : "absolute",
+            top: isMobile ? undefined : 64,
+            left: isMobile ? undefined : 0,
+            right: isMobile ? undefined : 0,
+            bottom: isMobile ? undefined : 64,
+            height: isMobile ? "auto" : undefined,
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
           }}
@@ -261,41 +375,43 @@ export default function Work() {
                 </button>
               );
             })}
-            <div
-              style={{
-                marginTop: space.lg,
-                paddingTop: space.md,
-                borderTop: `1px solid ${colors.text}`,
-                paddingBottom: space.sm,
-              }}
-            >
-              <Link
-                to="/"
-                style={{
-                  fontFamily: TIMES,
-                  fontSize: 14,
-                  fontWeight: 400,
-                  color: colors.text,
-                  textDecoration: "none",
-                  letterSpacing: 0,
-                  lineHeight: 1,
-                }}
-              >
-                ← Back to Home
-              </Link>
+            {isMobile && (
               <div
                 style={{
-                  marginTop: space.sm,
-                  fontFamily: TIMES,
-                  fontSize: 13,
-                  fontWeight: 400,
-                  color: colors.textMuted,
-                  lineHeight: 1,
+                  marginTop: space.lg,
+                  paddingTop: space.md,
+                  borderTop: `1px solid ${colors.text}`,
+                  paddingBottom: space.sm,
                 }}
               >
-                © {new Date().getFullYear()} Emily Lucas
+                <Link
+                  to="/"
+                  style={{
+                    fontFamily: TIMES,
+                    fontSize: 14,
+                    fontWeight: 400,
+                    color: colors.text,
+                    textDecoration: "none",
+                    letterSpacing: 0,
+                    lineHeight: 1,
+                  }}
+                >
+                  ← Back to Home
+                </Link>
+                <div
+                  style={{
+                    marginTop: space.sm,
+                    fontFamily: TIMES,
+                    fontSize: 13,
+                    fontWeight: 400,
+                    color: colors.textMuted,
+                    lineHeight: 1,
+                  }}
+                >
+                  © {new Date().getFullYear()} Emily Lucas
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* RIGHT: 3 thumbs scattered at fixed positions inside the right half.
@@ -338,6 +454,7 @@ export default function Work() {
             study={activeStudy}
             panelRef={rightPanelRef}
             onClose={() => setActive(null)}
+            isMobile={isMobile}
           />
         )}
 
@@ -349,10 +466,10 @@ export default function Work() {
           className="m-work-fade-top"
           style={{
             position: "absolute",
-            top: 0,
+            top: isMobile ? 0 : 64,
             left: "50%",
             right: space.xxl,
-            height: "12vh",
+            height: "10vh",
             background: `linear-gradient(to top, transparent 0%, ${colors.bg} 55%)`,
             pointerEvents: "none",
             zIndex: 10,
@@ -365,10 +482,10 @@ export default function Work() {
           className="m-work-fade-bottom"
           style={{
             position: "absolute",
-            bottom: 0,
+            bottom: isMobile ? 0 : 64,
             left: "50%",
             right: space.xxl,
-            height: "12vh",
+            height: "10vh",
             background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
             pointerEvents: "none",
             zIndex: 10,
@@ -718,7 +835,7 @@ function withBrands(text) {
   );
 }
 
-function CaseStudyPopup({ study, panelRef, onClose }) {
+function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
   const [atBottom, setAtBottom] = useState(false);
   const innerRef = useRef(null);
 
@@ -739,8 +856,8 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
     <div
       style={{
         position: "absolute",
-        top: 0,
-        bottom: 0,
+        top: isMobile ? 0 : 64,
+        bottom: isMobile ? 0 : 64,
         left: "50%",
         right: space.xxl,
         display: "flex",
@@ -759,13 +876,14 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
           style={{
             width: "100%",
             // Same height as the list so top + bottom align when both are
-            // vertically centred in the 100vh section.
-            height: "min(540px, calc(100vh - 200px))",
+            // vertically centred in the framed section.
+            height: "min(540px, calc(100vh - 240px))",
             overflowY: "auto",
             background: "#fff",
-            // Editorial framing: hairlines top + bottom only, no left/right
-            // border, no rounded corners. Matches the line under the
-            // project list on the left.
+            // Desktop: hairlines top + bottom only, no left/right border, no
+            // rounded corners — matches the framed list on the left.
+            // Mobile: revert to full bubble (overrides via .m-case-popup
+            // media query below).
             borderTop: `1px solid ${colors.text}`,
             borderBottom: `1px solid ${colors.text}`,
             pointerEvents: "auto",

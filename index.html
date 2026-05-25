@@ -194,6 +194,12 @@
           width: auto !important; right: 12px !important; left: 12px !important;
           max-height: calc(100vh - 24px) !important;
         }
+        /* Mobile case popup keeps the bubble framing — full border + rounded
+           corners (desktop uses just top/bottom hairlines for an editorial frame). */
+        .m-case-popup {
+          border: 1px solid #1a1a1a !important;
+          border-radius: 18px !important;
+        }
 
         /* WorkDetail body */
         .m-workdetail-body { padding: 24px 16px 48px !important; }
