@@ -115,29 +115,14 @@ export default function WorkDetail() {
           overflowY: "auto",
         }}
       >
-        {/* Project name */}
-        <div
-          style={{
-            fontFamily: HEROS_FONT,
-            fontWeight: 700,
-            fontSize: "clamp(28px, 3.4vw, 44px)",
-            letterSpacing: "-0.02em",
-            lineHeight: 1.05,
-            color: colors.text,
-            marginBottom: 8,
-          }}
-        >
-          {study.project}
-        </div>
-
-        {/* Client (italic Times) + optional View Project link */}
+        {/* Client (italic Times, big lead) + optional View Project link */}
         <div
           style={{
             display: "flex",
             alignItems: "baseline",
             justifyContent: "space-between",
             gap: space.md,
-            marginBottom: 8,
+            marginBottom: 4,
           }}
         >
           <div
@@ -145,8 +130,9 @@ export default function WorkDetail() {
               fontFamily: TIMES,
               fontStyle: "italic",
               fontWeight: 400,
-              fontSize: "clamp(18px, 1.6vw, 22px)",
-              lineHeight: 1.2,
+              fontSize: "clamp(28px, 3vw, 40px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.01em",
               color: colors.text,
             }}
           >
@@ -171,6 +157,22 @@ export default function WorkDetail() {
               </div>
             );
           })()}
+        </div>
+
+        {/* Project name (smaller subheading under client) */}
+        <div
+          style={{
+            fontFamily: HEROS_FONT,
+            fontWeight: 700,
+            fontSize: 14,
+            textTransform: "uppercase",
+            letterSpacing: "-0.01em",
+            lineHeight: 1.1,
+            color: colors.text,
+            marginBottom: 12,
+          }}
+        >
+          {study.project}
         </div>
 
         {/* Year */}

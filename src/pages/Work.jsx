@@ -913,34 +913,17 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           }}
         >
 
-          {/* Project name, HEROS bold, lead line. Matches the 'Select Work'
-              header font size on the left side. */}
-          <div
-            style={{
-              fontFamily: HEROS_FONT,
-              fontWeight: 700,
-              fontSize: 22,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-              color: colors.text,
-              marginTop: space.sm,
-              marginBottom: 4,
-              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
-            }}
-          >
-            {study.project}
-          </div>
-
-          {/* Client (italic Times) on the left, View Project → on the far right
-              of the same row when an external link exists. */}
+          {/* Client (italic Times, lead line) on top + optional View Project link
+              on the far right of the same row. */}
           <div
             style={{
               display: "flex",
               alignItems: "baseline",
               justifyContent: "space-between",
               gap: space.md,
-              marginBottom: 4,
-              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
+              marginTop: space.sm,
+              marginBottom: 2,
+              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
             }}
           >
             <div
@@ -948,8 +931,9 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
                 fontFamily: TIMES,
                 fontStyle: "italic",
                 fontWeight: 400,
-                fontSize: 15,
-                lineHeight: 1.2,
+                fontSize: 26,
+                lineHeight: 1.1,
+                letterSpacing: "-0.01em",
                 color: colors.text,
               }}
             >
@@ -988,6 +972,23 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
                 </div>
               );
             })()}
+          </div>
+
+          {/* Project name (smaller subheading under client) */}
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontWeight: 700,
+              fontSize: 12,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.1,
+              color: colors.text,
+              marginBottom: 8,
+              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
+            }}
+          >
+            {study.project}
           </div>
 
           {/* Date underneath */}

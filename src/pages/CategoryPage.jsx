@@ -624,26 +624,12 @@ function CaseStudyModal({ study, onClose }) {
         >
           <div
             style={{
-              fontFamily: HEROS_FONT,
-              fontWeight: 700,
-              fontSize: 22,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-              color: colors.text,
-              marginTop: space.sm,
-              marginBottom: 4,
-            }}
-          >
-            {study.project}
-          </div>
-
-          <div
-            style={{
               display: "flex",
               alignItems: "baseline",
               justifyContent: "space-between",
               gap: space.md,
-              marginBottom: 4,
+              marginTop: space.sm,
+              marginBottom: 2,
             }}
           >
             <div
@@ -651,8 +637,9 @@ function CaseStudyModal({ study, onClose }) {
                 fontFamily: TIMES,
                 fontStyle: "italic",
                 fontWeight: 400,
-                fontSize: 15,
-                lineHeight: 1.2,
+                fontSize: 28,
+                lineHeight: 1.1,
+                letterSpacing: "-0.01em",
                 color: colors.text,
               }}
             >
@@ -677,6 +664,22 @@ function CaseStudyModal({ study, onClose }) {
                 </div>
               );
             })()}
+          </div>
+
+          {/* Project name (smaller subheading underneath client) */}
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontWeight: 700,
+              fontSize: 13,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.1,
+              color: colors.text,
+              marginBottom: 10,
+            }}
+          >
+            {study.project}
           </div>
 
           <div

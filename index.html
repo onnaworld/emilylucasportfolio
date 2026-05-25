@@ -246,16 +246,25 @@
            proximity so the user keeps fluid touch-scroll. */
         .category-snap-html { scroll-snap-type: y proximity !important; }
 
-        /* Case-study popup modal — fit the phone screen with small gutters. */
+        /* Case-study popup modal — matches the /work popup mobile size
+           (height capped, not auto-grow, so the popup stays compact). */
         .cs-modal-card {
-          width: calc(100vw - 16px) !important;
-          height: auto !important;
-          max-height: calc(100vh - 24px) !important;
-          border-radius: 10px !important;
+          width: calc(100vw - 24px) !important;
+          height: min(640px, calc(100vh - 80px)) !important;
+          border-radius: 12px !important;
         }
         .cs-modal-card .cs-modal-scroll {
           padding: 14px 16px 16px !important;
         }
+
+        /* Showcase overlay overflow fix: the 260px reserved width on
+           desktop was clipping the client/title on narrow mobile screens.
+           Allow it to shrink and wrap naturally on mobile. */
+        .m-showcase-overlay {
+          flex: 0 1 auto !important;
+          max-width: 50% !important;
+        }
+        .m-showcase-bottom { padding: 0 10px !important; }
       }
     </style>
   </head>
