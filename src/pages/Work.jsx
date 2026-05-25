@@ -229,21 +229,6 @@ export default function Work() {
             {/* Bottom hairline, same split, gap aligns visually with the ↑ arrow above */}
             <div aria-hidden="true" style={{ position: "absolute", bottom: 64, left: space.xxl, right: "calc(50% + 30px)", borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
             <div aria-hidden="true" style={{ position: "absolute", bottom: 64, left: "calc(50% + 30px)", right: space.xxl, borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
-            <div
-              style={{
-                position: "absolute",
-                bottom: 28,
-                left: space.xxl,
-                fontFamily: TIMES,
-                fontSize: 13,
-                fontWeight: 400,
-                color: colors.textMuted,
-                lineHeight: 1,
-                zIndex: 20,
-              }}
-            >
-              © {new Date().getFullYear()} Emily Lucas
-            </div>
           </>
         )}
 
@@ -366,18 +351,6 @@ export default function Work() {
                 >
                   ← Back to Home
                 </Link>
-                <div
-                  style={{
-                    marginTop: space.sm,
-                    fontFamily: TIMES,
-                    fontSize: 13,
-                    fontWeight: 400,
-                    color: colors.textMuted,
-                    lineHeight: 1,
-                  }}
-                >
-                  © {new Date().getFullYear()} Emily Lucas
-                </div>
               </div>
             )}
           </div>
@@ -462,6 +435,22 @@ export default function Work() {
           }}
         />
       </div>
+
+      <footer
+        className="m-category-footer"
+        style={{
+          padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
+          borderTop: `1px solid ${colors.border}`,
+          background: colors.bg,
+          fontFamily: TIMES,
+          fontSize: 14,
+          fontWeight: 400,
+          color: colors.textMuted,
+          textAlign: "left",
+        }}
+      >
+        © {new Date().getFullYear()} Emily Lucas
+      </footer>
 
     </div>
   );

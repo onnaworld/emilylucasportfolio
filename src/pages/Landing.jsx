@@ -193,6 +193,8 @@ export default function Landing() {
               lineHeight: 0.9,
               letterSpacing: "-0.04em",
               margin: 0,
+              color: "#fff",
+              mixBlendMode: "difference",
             }}
           >
             Emily
@@ -207,6 +209,7 @@ export default function Landing() {
             bottom: space.xl,
             right: space.xl,
             color: "#fff",
+            mixBlendMode: "difference",
             fontFamily: "'Times New Roman', Times, serif",
             fontStyle: "italic",
             fontSize: "clamp(44px, 7vw, 100px)",
