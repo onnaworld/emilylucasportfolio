@@ -604,9 +604,12 @@ function CaseStudyModal({ study, onClose }) {
           position: "relative",
           width: "min(740px, 100%)",
           height: "min(580px, calc(100vh - 80px))",
-          background: "rgba(255, 255, 255, 0.88)",
-          backdropFilter: "blur(14px) saturate(1.1)",
-          WebkitBackdropFilter: "blur(14px) saturate(1.1)",
+          // High-opacity white so text/images read crisp; backdrop blur
+          // still picks up a subtle warm tint from the image behind, but
+          // the body content isn't washed out.
+          background: "rgba(255, 255, 255, 0.96)",
+          backdropFilter: "blur(18px) saturate(1.1)",
+          WebkitBackdropFilter: "blur(18px) saturate(1.1)",
           borderRadius: 14,
           overflow: "hidden",
           // Layered shadow: tight inner + soft outer halo for a gentle lift
@@ -655,19 +658,6 @@ function CaseStudyModal({ study, onClose }) {
 
         <div
           className="cs-modal-scroll"
-          // Overscroll dismiss: at the top of the scrollable area, an
-          // upward wheel tick or a downward finger drag closes the modal.
-          onWheel={(e) => {
-            if (e.currentTarget.scrollTop <= 0 && e.deltaY < 0) handleClose();
-          }}
-          onTouchStart={(e) => {
-            e.currentTarget._touchY = e.touches[0].clientY;
-          }}
-          onTouchMove={(e) => {
-            const startY = e.currentTarget._touchY ?? 0;
-            const dy = e.touches[0].clientY - startY;
-            if (e.currentTarget.scrollTop <= 0 && dy > 40) handleClose();
-          }}
           style={{
             width: "100%",
             height: "100%",
