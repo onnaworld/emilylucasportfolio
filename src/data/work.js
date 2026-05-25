@@ -225,6 +225,8 @@ export const productionCases = [
     client: "Trippin",
     project: "A History of Tattooing in Japan",
     year: "2022",
+    task: "Long-form authored feature for Trippin tracing the cultural and legal history of tattooing in Japan. Brief: write a piece for the tattooed traveller that took the subject seriously — not as a guide, but as a study of how tattooing moved across millennia from Ainu spiritual practice through Edo-period criminal branding, Yakuza appropriation, Meiji-era erasure, and into the contemporary legal grey area Japan still occupies.",
+    outcome: "Built the piece across three structural arcs: the deep history (Jōmon-era origins, Ainu ritual practice, the Edo-period shift to criminal branding by region), the technical and aesthetic tradition (Irezumi, Tebori, the Horishi artists, ukiyo-e influence on motifs), and the modern reality (the 2020 Supreme Court ruling, the 56% of Japanese establishments still refusing tattooed visitors per the Japan Tourism Agency, the ongoing Yakuza association). Visual research surfaced four photographers' work on Japanese tattoo culture — Michael Magers, Horace Bristol, Ronin de Goede, and Chloé Jafé, whose series I Give You My Life documenting Yakuza women anchored the piece's strongest visual chapter. The feature read tattooing as a discipline shaped by 1,000 years of cultural politics, not a style choice.",
     viewProjectLink: "https://trippin.world/feature/a-history-of-tattooing-in-japan",
     images: [
       "/work/trippin-tattooing-japan/01.avif",

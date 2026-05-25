@@ -869,7 +869,8 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
         style={{
           position: "relative",
           width: "100%",
-          height: isMobile ? "calc(100vh - 24px)" : "min(540px, calc(100vh - 240px))",
+          height: isMobile ? "auto" : "min(540px, calc(100vh - 240px))",
+          maxHeight: isMobile ? "calc(100vh - 48px)" : undefined,
           background: "#fff",
           overflow: "hidden",
           animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
@@ -1156,11 +1157,13 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
 // the strip by roughly one image width.
 function ImageCarousel({ images, project }) {
   const trackRef = useRef(null);
+  const isMobile = useIsMobile();
   const step = (dir) => {
     if (!trackRef.current) return;
     const w = trackRef.current.clientWidth * 0.7;
     trackRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
   };
+  const mediaH = isMobile ? 160 : 200;
   return (
     // No internal padding — image strip aligns flush with the text above.
     // Arrows sit outside the strip in the popup's left/right padding gutter.
@@ -1181,7 +1184,10 @@ function ImageCarousel({ images, project }) {
         {images.map((src, i) => {
           const isVideo = /\.(mp4|webm|mov)$/i.test(src);
           const mediaStyle = {
-            height: 200,
+            height: mediaH,
+            // Keep a stable placeholder box while the file is loading so the
+            // strip doesn't jump from "?" icon-sized boxes to real media.
+            minWidth: Math.round(mediaH * 0.75),
             width: "auto",
             flexShrink: 0,
             display: "block",
@@ -1193,15 +1199,17 @@ function ImageCarousel({ images, project }) {
               key={i}
               src={src}
               autoPlay muted loop playsInline
-              preload="metadata"
+              preload={i < 2 ? "auto" : "metadata"}
               style={mediaStyle}
             />
           ) : (
             <img
               key={i}
               src={src}
-              alt={`${project} – ${i + 1}`}
-              loading="lazy"
+              alt=""
+              loading={i < 2 ? "eager" : "lazy"}
+              fetchpriority={i === 0 ? "high" : "auto"}
+              decoding="async"
               draggable={false}
               style={mediaStyle}
             />
