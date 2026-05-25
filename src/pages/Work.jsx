@@ -221,7 +221,7 @@ export default function Work() {
               style={{
                 position: "absolute",
                 top: "50%",
-                right: space.lg,
+                right: space.xl,
                 transform: "translateY(-50%)",
                 background: "none",
                 border: "none",
@@ -235,7 +235,7 @@ export default function Work() {
                 zIndex: 20,
               }}
             >
-              ↓
+              ↕
             </button>
           </>
         )}
@@ -857,7 +857,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
         className="case-popup m-case-popup"
         style={{
           position: "relative",
-          width: "min(500px, calc(100% - 32px))",
+          width: "min(560px, calc(100% - 32px))",
           height: "min(540px, calc(100vh - 240px))",
           background: "#fff",
           overflow: "hidden",
