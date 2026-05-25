@@ -455,7 +455,7 @@ export default function Work() {
             height: "10vh",
             background: `linear-gradient(to top, transparent 0%, ${colors.bg} 55%)`,
             pointerEvents: "none",
-            zIndex: 10,
+            zIndex: 4,
           }}
         />
 
@@ -471,7 +471,7 @@ export default function Work() {
             height: "10vh",
             background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
             pointerEvents: "none",
-            zIndex: 10,
+            zIndex: 4,
           }}
         />
       </div>
@@ -1023,6 +1023,39 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           {study.images && study.images.length > 0 && (
             <div style={{ animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both" }}>
               <ImageCarousel images={study.images} project={study.project} />
+            </div>
+          )}
+
+          {study.tags && study.tags.length > 0 && (
+            <div
+              style={{
+                marginTop: space.lg,
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 6,
+                animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.54s both",
+              }}
+            >
+              {study.tags.map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    display: "inline-block",
+                    padding: "5px 11px",
+                    borderRadius: 999,
+                    background: "#ececec",
+                    color: colors.textMuted,
+                    fontFamily: HEROS_FONT,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           )}
         </div>

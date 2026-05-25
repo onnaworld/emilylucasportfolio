@@ -24,6 +24,7 @@ export const productionCases = [
       "/work/aman/5.jpg",
       "/work/aman/6.jpg",
     ],
+    tags: ["Stills Production", "Motion Production", "Casting", "Art Direction"],
   },
   {
     slug: "nike-vomero",
@@ -41,6 +42,19 @@ export const productionCases = [
       "/work/nike-vomero/3.jpg",
       "/work/nike-vomero/4.jpg",
     ],
+    tags: ["Stills Production", "Motion Production"],
+  },
+  {
+    slug: "columbia-ramadan",
+    title: "Ramadan as lived practice, not marketing moment",
+    client: "Columbia Sportswear",
+    project: "Ramadan Campaign",
+    year: "2024",
+    heroImage: "/work/all-work/7.jpg",
+    task: "Ramadan is a way of life, not a marketing moment. For Columbia, support production of an activation that honoured the cultural calendar — translating brand presence into an experience that respected the rhythm of fasting and community spirit rather than borrowed iconography.",
+    outcome: "Delivered a pre-dawn hike timed to suhoor, iftar arranged at the summit, and catering that respected the fast — anchoring the activation in community and lived cultural practice. A campaign that felt authentic to the people it was made for, not the calendar it was made around.",
+    images: [],
+    tags: ["Stills Production", "Motion Production", "Art Direction", "Cultural Strategy"],
   },
   {
     slug: "vogue-relaunch",
@@ -58,6 +72,7 @@ export const productionCases = [
       "/work/vogue-relaunch/3.jpg",
       "/work/vogue-relaunch/4.jpg",
     ],
+    tags: ["Stills Production", "Motion Production", "Casting", "Art Direction", "Visual Research"],
   },
   {
     slug: "abraham-moon",
@@ -73,6 +88,7 @@ export const productionCases = [
       "/work/abraham-moon/1.jpg",
       "/work/abraham-moon/2.jpg",
     ],
+    tags: ["Stills Production", "Motion Production", "Casting", "Art Direction"],
   },
   {
     slug: "mastercard-sailgp",
@@ -85,6 +101,7 @@ export const productionCases = [
     task: "Commissioned by global agency Octagon to deliver Mastercard's inaugural partnership with SailGP — capturing the 6th Sailor Experience featuring Luis Figo and the New Zealand Black Foils within a restricted timeline and against the uncompromising standards of three distinct global institutions.",
     outcome: "Activated a specialized network of sports creatives, deploying a three-camera unit for comprehensive coverage and executing a 48-hour live-edit turnaround for first-round approval across three institutional stakeholders. The final delivery exceeded budget expectations, earning personal commendation from Octagon and a commitment to long-term collaboration across GCC projects.",
     images: [],
+    tags: ["Motion Production", "Stills Production", "Live Edit"],
   },
   {
     slug: "moonlight-basin",
@@ -102,6 +119,7 @@ export const productionCases = [
       "/work/moonlight-basin/3.jpg",
       "/work/moonlight-basin/4.jpg",
     ],
+    tags: ["Stills Production", "Motion Production", "Art Direction"],
   },
   {
     slug: "mr-c-residences",
@@ -121,6 +139,7 @@ export const productionCases = [
       "/work/mr-c-residences/5.jpg",
       "/work/mr-c-residences/6.jpg",
     ],
+    tags: ["Stills Production", "Motion Production", "Art Direction"],
   },
   {
     slug: "yasmin-mansour",
@@ -135,6 +154,7 @@ export const productionCases = [
       "/work/yasmin-mansour/2.jpg",
       "/work/yasmin-mansour/3.jpg",
     ],
+    tags: ["Stills Production", "Casting", "Art Direction"],
   },
   {
     slug: "vogue-bvlgari",
@@ -151,6 +171,7 @@ export const productionCases = [
       "/work/vogue-bvlgari/3.jpg",
       "/work/vogue-bvlgari/4.jpg",
     ],
+    tags: ["Stills Production", "Casting", "Art Direction"],
   },
   {
     slug: "glass-magazine",
@@ -165,6 +186,7 @@ export const productionCases = [
       "/work/glass-magazine/1.jpg",
       "/work/glass-magazine/2.jpg",
     ],
+    tags: ["Stills Production", "Casting"],
   },
   {
     slug: "mr-porter-in-america",
@@ -176,6 +198,7 @@ export const productionCases = [
     task: "Lead US production for 'MR PORTER In America' — a 360° multi-brand integrated campaign spanning LA, New York, and Miami, coordinating A-list talent shoots under tight editorial deadlines across photography, film, and digital.",
     outcome: "Generated 2.65M views and a 75% engagement uplift. Built and managed the on-the-ground US production framework for one of MR PORTER's flagship annual campaigns.",
     images: [],
+    tags: ["Stills Production", "Motion Production", "Casting", "Art Direction"],
   },
 ];
 

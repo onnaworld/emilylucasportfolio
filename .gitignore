@@ -22,6 +22,11 @@ public/fonts/Avenir/
 # easily exceed GitHub's 100 MB file limit.
 public/ALL WORK/
 
+# Same situation for POP UP FILES — Emily's per-project source folder used
+# for organising case study assets before they get moved into /work/<slug>/.
+# Raw GIFs in here have exceeded GitHub's 100MB hard limit.
+public/work/POP UP FILES*/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
