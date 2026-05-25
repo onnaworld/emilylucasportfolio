@@ -153,6 +153,8 @@ export const productionCases = [
     client: "Hamilton Watches",
     project: "Brand Campaign",
     year: "2024",
+    task: "Freelance production support on a Hamilton Watches campaign in London, working with director Paul Hempstead. Brief covered stills and video for the brand, with production responsibilities across casting and location scouting.",
+    outcome: "Delivered casting and location scouting for the London shoot, working within the Paul Hempstead creative direction. Adds watches to the production portfolio across an additional luxury category.",
     images: [
       "/work/hamilton-watches/01.jpg",
       "/work/hamilton-watches/02.jpg",
