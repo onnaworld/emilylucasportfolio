@@ -294,32 +294,26 @@ function Media({ src, style, position }) {
 function AutoCycleHero({ showcases }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [whoosh, setWhoosh] = useState(null); // index being whooshed
   const [activeStudy, setActiveStudy] = useState(null);
 
   useEffect(() => {
-    if (paused || whoosh !== null || activeStudy || showcases.length < 2) return;
+    if (paused || activeStudy || showcases.length < 2) return;
     const id = setInterval(() => {
       setIndex(i => (i + 1) % showcases.length);
     }, 4500);
     return () => clearInterval(id);
-  }, [paused, whoosh, activeStudy, showcases.length]);
+  }, [paused, activeStudy, showcases.length]);
 
   const active = showcases[index];
 
-  // Whoosh sequence: white flash ramps up, popup mounts at peak, white
-  // fades away to reveal popup over the still-visible showcase image.
+  // Open the case-study popup directly over the showcase image.
   const openCaseStudy = (i) => {
     const slug = showcases[i]?.slug;
-    if (!slug || whoosh !== null) return;
+    if (!slug) return;
     const study = productionCases.find((c) => c.slug === slug);
     if (!study) return;
     setIndex(i);
-    setWhoosh(i);
-    // Mount the popup just before peak white so it's already visible
-    // when the flash fades away.
-    setTimeout(() => setActiveStudy(study), 260);
-    setTimeout(() => setWhoosh(null), 720);
+    setActiveStudy(study);
   };
 
   const closeStudy = () => setActiveStudy(null);
@@ -340,7 +334,6 @@ function AutoCycleHero({ showcases }) {
         {showcases.map((s, i) => {
           const items = Array.isArray(s.media) ? s.media : [s.media];
           const isActive = i === index;
-          const isWhooshing = whoosh === i;
           return (
             <div
               key={i}
@@ -351,12 +344,8 @@ function AutoCycleHero({ showcases }) {
                 display: "grid",
                 gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
                 gap: 0,
-                opacity: isWhooshing ? 0 : isActive ? 1 : 0,
-                transform: isWhooshing ? "scale(1.5)" : "scale(1)",
-                transformOrigin: "center",
-                transition: isWhooshing
-                  ? "opacity 0.55s cubic-bezier(0.6, 0, 0.2, 1), transform 0.6s cubic-bezier(0.6, 0, 0.2, 1)"
-                  : "opacity 0.7s ease",
+                opacity: isActive ? 1 : 0,
+                transition: "opacity 0.7s ease",
                 pointerEvents: "none",
               }}
             >
@@ -393,27 +382,6 @@ function AutoCycleHero({ showcases }) {
           }}
         />
 
-        {/* White flash that ramps up then fades, revealing the popup over the image */}
-        {whoosh !== null && (
-          <div
-            aria-hidden="true"
-            style={{
-              position: "fixed",
-              inset: 0,
-              background: "#fff",
-              animation: "whoosh-flash 0.72s cubic-bezier(0.4, 0, 0.2, 1) forwards",
-              pointerEvents: "none",
-              zIndex: 9998,
-            }}
-          />
-        )}
-        <style>{`
-          @keyframes whoosh-flash {
-            0%   { opacity: 0; }
-            36%  { opacity: 1; }
-            100% { opacity: 0; }
-          }
-        `}</style>
 
         {/* Bottom row: tight number cluster (left) + client/title (right),
             baseline-aligned at the bottom of the digits. */}
@@ -772,26 +740,26 @@ function ModalCarousel({ images, project }) {
           paddingBottom: 4,
         }}
       >
-        {images.map((src, i) => (
-          <div
-            key={i}
-            style={{
-              flex: "0 0 auto",
-              width: "min(280px, 75%)",
-              height: 180,
-              background: "rgba(0,0,0,0.05)",
-              overflow: "hidden",
-              scrollSnapAlign: "start",
-              borderRadius: 4,
-            }}
-          >
-            {/\.(mp4|webm|mov)$/i.test(src) ? (
-              <video src={src} autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-            ) : (
-              <img src={src} alt={`${project} – ${i + 1}`} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-            )}
-          </div>
-        ))}
+        {images.map((src, i) => {
+          // Fixed height, width follows the asset's native aspect ratio so
+          // portrait images stay portrait and landscape stay landscape.
+          const common = {
+            flex: "0 0 auto",
+            height: 220,
+            width: "auto",
+            maxWidth: "85%",
+            display: "block",
+            scrollSnapAlign: "start",
+            borderRadius: 4,
+            background: "rgba(0,0,0,0.05)",
+            objectFit: "cover",
+          };
+          return /\.(mp4|webm|mov)$/i.test(src) ? (
+            <video key={i} src={src} autoPlay muted loop playsInline style={common} />
+          ) : (
+            <img key={i} src={src} alt={`${project} – ${i + 1}`} loading="lazy" style={common} />
+          );
+        })}
       </div>
       <button
         onClick={() => step(-1)}

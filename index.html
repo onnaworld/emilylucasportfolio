@@ -245,6 +245,17 @@
         /* Mobile scroll-snap is heavy/buggy in some browsers; relax to
            proximity so the user keeps fluid touch-scroll. */
         .category-snap-html { scroll-snap-type: y proximity !important; }
+
+        /* Case-study popup modal — fit the phone screen with small gutters. */
+        .cs-modal-card {
+          width: calc(100vw - 16px) !important;
+          height: auto !important;
+          max-height: calc(100vh - 24px) !important;
+          border-radius: 10px !important;
+        }
+        .cs-modal-card .cs-modal-scroll {
+          padding: 14px 16px 16px !important;
+        }
       }
     </style>
   </head>
