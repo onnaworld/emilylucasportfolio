@@ -207,7 +207,7 @@ export const productionCases = [
     client: "Trippin",
     project: "An Exploration of Mexico Through the Lens of Graciela Iturbide",
     year: "2022",
-    task: "Long-form authored feature for Trippin on Mexican photographer Graciela Iturbide, timed to her nomination for Outstanding Contribution to Photography at the 2021 Sony World Photography Awards. Brief: build a critical piece that read Iturbide's work seriously, not as travel content, but as a study of Indigenous identity, female empowerment, and the ethics of the photographer's gaze.",
+    task: "Long-form authored feature for Trippin on Mexican photographer Graciela Iturbide, timed to her nomination for Outstanding Contribution to Photography at the 2021 Sony World Photography Awards. Wrote a critical piece that read Iturbide's work seriously, not as travel content, but as a study of Indigenous identity, female empowerment, and the ethics of the photographer's gaze.",
     outcome: "Wrote a feature that anchored on two of Iturbide's most significant series: her decade-long work in Juchitán de Zaragoza documenting matriarchal Zapotec community structures, and her 1980 commission with the National Indigenous Institute photographing the Seri people of Punta Chueca. The piece read Iturbide's practice through the lens of complicity rather than observation, drawing on her own statement that photography is \"a regard within a regard\". Visual research surfaced the work alongside academic context on Mexican Indigenous politics, gender hierarchy in Juchitán, and the reception history of Iturbide's most iconic image, Nuestra Señora de las Iguanas.",
     viewProjectLink: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide",
     images: [
