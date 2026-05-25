@@ -255,8 +255,11 @@
           height: min(540px, calc(100vh - 120px)) !important;
           border-radius: 12px !important;
         }
-        .cs-modal-card .cs-modal-scroll {
+        .cs-modal-card > .cs-modal-scroll {
           padding: 14px 16px 16px !important;
+          /* Restrict outer modal scroll to vertical so horizontal swipes
+             on the inner carousel reach it without being captured here. */
+          touch-action: pan-y !important;
         }
 
         /* Showcase overlay overflow fix: the 260px reserved width on

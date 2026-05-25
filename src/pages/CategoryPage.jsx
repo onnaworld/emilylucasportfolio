@@ -829,12 +829,17 @@ function ModalCarousel({ images, project }) {
     <div style={{ position: "relative", paddingLeft: 22, paddingRight: 22 }}>
       <div
         ref={trackRef}
-        className="cs-modal-scroll"
+        className="cs-modal-scroll cs-modal-carousel"
         style={{
           display: "flex",
           gap: 8,
           overflowX: "auto",
           scrollSnapType: "x mandatory",
+          // Restrict touch gestures here to horizontal so the browser
+          // routes finger swipes to this scroller (not the parent
+          // vertical scroll), and add iOS momentum.
+          touchAction: "pan-x",
+          WebkitOverflowScrolling: "touch",
           paddingBottom: 4,
         }}
       >
