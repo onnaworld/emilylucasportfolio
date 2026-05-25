@@ -801,7 +801,7 @@ function MenuOverlay({ onClose, onContact }) {
           border: `1px solid ${colors.text}`,
           overflow: "hidden",
           boxShadow: "0 24px 60px rgba(0,0,0,0.32)",
-          backgroundImage: "url(/daniel-benson_MrC_Dubai_024.jpg)",
+          backgroundImage: "url(/menu-bg.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           display: "flex",
