@@ -81,17 +81,30 @@ export default function Work() {
     setWindowStart(Math.min(index, maxStart));
   };
 
-  // Wheel-driven scatter advance — when hovering the right-side scatter
-  // area, wheel ticks step the windowStart up/down. Throttled so a single
-  // trackpad gesture moves a sensible amount.
-  const onScatterWheel = (e) => {
-    if (activeStudy) return; // popup open, don't advance
-    const now = Date.now();
-    if (now - wheelTsRef.current < 180) return;
-    wheelTsRef.current = now;
-    const maxStart = Math.max(0, PROJECTS.length - 3);
-    if (e.deltaY > 0) setWindowStart((s) => Math.min(s + 1, maxStart));
-    else if (e.deltaY < 0) setWindowStart((s) => Math.max(s - 1, 0));
+  // Wheel inside the work section is locked to scatter advance — page
+  // scroll is blocked, so the only way back to the hero is the ↑ button.
+  // Uses a native non-passive listener so preventDefault() actually works.
+  useEffect(() => {
+    if (isMobile) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const handler = (e) => {
+      e.preventDefault();
+      if (activeStudy) return;
+      const now = Date.now();
+      if (now - wheelTsRef.current < 180) return;
+      wheelTsRef.current = now;
+      const maxStart = Math.max(0, PROJECTS.length - 3);
+      if (e.deltaY > 0) setWindowStart((s) => Math.min(s + 1, maxStart));
+      else if (e.deltaY < 0) setWindowStart((s) => Math.max(s - 1, 0));
+    };
+    el.addEventListener("wheel", handler, { passive: false });
+    return () => el.removeEventListener("wheel", handler);
+  }, [isMobile, activeStudy]);
+
+  const scrollToHero = () => {
+    const prev = sectionRef.current?.previousElementSibling;
+    prev?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const setActive = (slug) => {
@@ -130,6 +143,31 @@ export default function Work() {
           height: "100vh",
         }}
       >
+        {/* Back-to-top arrow — wheel inside this section is locked to scatter
+            advance, so this is the only way back up to the showreel hero. */}
+        <button
+          onClick={scrollToHero}
+          aria-label="Back to top"
+          style={{
+            position: "absolute",
+            top: space.lg,
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: colors.text,
+            fontFamily: HEROS_FONT,
+            fontSize: 18,
+            fontWeight: 400,
+            lineHeight: 1,
+            padding: 8,
+            zIndex: 20,
+          }}
+        >
+          ↑
+        </button>
+
         <div
           className="m-work-grid"
           style={{
@@ -262,7 +300,6 @@ export default function Work() {
           {!isMobile && (
             <div
               className="m-scattered"
-              onWheel={onScatterWheel}
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
                 height: "100%",
@@ -716,9 +753,9 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
           className="case-popup m-case-popup"
           style={{
             width: "100%",
-            // Tall enough that the top aligns with the 'Select Work' header
-            // on the left when both are vertically centred.
-            height: "min(620px, calc(100vh - 140px))",
+            // Same height as the list so top + bottom align when both are
+            // vertically centred in the 100vh section.
+            height: "min(540px, calc(100vh - 200px))",
             overflowY: "auto",
             background: "#fff",
             border: `1px solid ${colors.text}`,
