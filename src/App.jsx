@@ -35,14 +35,11 @@ const CULTURAL_STRATEGY_SHOWCASES = [
   { slug: "mr-porter-women-shopping-menswear",  client: "MR PORTER", title: "Shop For Yourself",                media: "/Cultural%20Strategy/:cultural%20strategy/08.jpg" },
 ];
 
-// Visual-research showcase — media intentionally null until Emily picks
-// the hero asset for each entry. Media component renders a soft gradient
-// placeholder in the meantime.
 const VISUAL_RESEARCH_SHOWCASES = [
-  { slug: "mr-porter-new-york-street",       client: "MR PORTER", title: "New York through the Decades", media: null },
-  { slug: "mr-porter-summertime-movies",     client: "MR PORTER", title: "Summertime Movies",            media: null },
-  { slug: "mr-porter-work-wardrobe-2020",    client: "MR PORTER", title: "Freshen up your Wardrobe",     media: null },
-  { slug: "mr-porter-black-history-month-uk", client: "MR PORTER", title: "Black History Month",          media: null },
+  { slug: "mr-porter-new-york-street",        client: "MR PORTER", title: "New York through the Decades", media: "/Visual%20Research/:visual%20research/01.jpg" },
+  { slug: "mr-porter-summertime-movies",      client: "MR PORTER", title: "Summertime Movies",            media: "/Visual%20Research/:visual%20research/2.jpg" },
+  { slug: "mr-porter-work-wardrobe-2020",     client: "MR PORTER", title: "Freshen up your Wardrobe",     media: "/Visual%20Research/:visual%20research/03.jpg" },
+  { slug: "mr-porter-black-history-month-uk", client: "MR PORTER", title: "Black History Month",          media: "/Visual%20Research/:visual%20research/04.jpg" },
 ];
 
 const PRODUCTION_SHOWCASES = [

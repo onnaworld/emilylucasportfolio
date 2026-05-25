@@ -248,11 +248,11 @@
            proximity so the user keeps fluid touch-scroll. */
         .category-snap-html { scroll-snap-type: y proximity !important; }
 
-        /* Case-study popup modal — matches the /work popup mobile size
-           (height capped, not auto-grow, so the popup stays compact). */
+        /* Case-study popup modal — slightly shorter on mobile so the
+           card doesn't dominate the viewport. */
         .cs-modal-card {
           width: calc(100vw - 24px) !important;
-          height: min(640px, calc(100vh - 80px)) !important;
+          height: min(540px, calc(100vh - 120px)) !important;
           border-radius: 12px !important;
         }
         .cs-modal-card .cs-modal-scroll {

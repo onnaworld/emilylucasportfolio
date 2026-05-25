@@ -18,10 +18,6 @@ export const productionCases = [
     outcome: "Delivered a comprehensive library of cinematic assets that established the emotional foundation for the destinations through atmospheric, localised storytelling, enabling the brand to initiate market presence and residential sales with a visual language that felt established, authentic, and uncompromisingly Aman.",
     images: [
       "/work/aman/05.mp4",
-      "/work/aman/01.jpg",
-      "/work/aman/02.jpg",
-      "/work/aman/03.jpg",
-      "/work/aman/04.jpg",
     ],
     tags: ["Stills Production", "Video Production", "Location Scouting", "Cultural Strategy"],
   },
