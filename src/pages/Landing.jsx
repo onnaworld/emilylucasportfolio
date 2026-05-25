@@ -228,6 +228,7 @@ export default function Landing() {
             left: space.xl,
             color: "#fff",
             fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
             fontSize: 14,
             fontWeight: 400,
             lineHeight: 1.5,
