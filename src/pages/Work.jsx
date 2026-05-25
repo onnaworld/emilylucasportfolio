@@ -57,6 +57,7 @@ export default function Work() {
   const [hoveredIdx, setHoveredIdx] = useState(null); // for dimming non-hovered titles
   const sectionRef = useRef(null);
   const rightPanelRef = useRef(null);
+  const wheelTsRef = useRef(0);
   const isMobile = useIsMobile();
 
   // Restore selection from URL hash (so /work#aman deep-links)
@@ -67,9 +68,30 @@ export default function Work() {
     }
   }, []);
 
+  // Snap-scroll between hero and work section — toggled on <html> for the
+  // duration of this page only, removed on unmount.
+  useEffect(() => {
+    if (isMobile) return;
+    document.documentElement.classList.add("work-snap-html");
+    return () => document.documentElement.classList.remove("work-snap-html");
+  }, [isMobile]);
+
   const onHoverProject = (index) => {
     const maxStart = Math.max(0, PROJECTS.length - 3);
     setWindowStart(Math.min(index, maxStart));
+  };
+
+  // Wheel-driven scatter advance — when hovering the right-side scatter
+  // area, wheel ticks step the windowStart up/down. Throttled so a single
+  // trackpad gesture moves a sensible amount.
+  const onScatterWheel = (e) => {
+    if (activeStudy) return; // popup open, don't advance
+    const now = Date.now();
+    if (now - wheelTsRef.current < 180) return;
+    wheelTsRef.current = now;
+    const maxStart = Math.max(0, PROJECTS.length - 3);
+    if (e.deltaY > 0) setWindowStart((s) => Math.min(s + 1, maxStart));
+    else if (e.deltaY < 0) setWindowStart((s) => Math.max(s - 1, 0));
   };
 
   const setActive = (slug) => {
@@ -101,7 +123,7 @@ export default function Work() {
           thumbs advance from the list hover, not from page scroll. */}
       <div
         ref={sectionRef}
-        className="m-work-section"
+        className="m-work-section work-snap-section"
         style={{
           position: "relative",
           width: "100%",
@@ -218,6 +240,18 @@ export default function Work() {
               >
                 ← Back to Home
               </Link>
+              <div
+                style={{
+                  marginTop: space.sm,
+                  fontFamily: TIMES,
+                  fontSize: 13,
+                  fontWeight: 400,
+                  color: colors.textMuted,
+                  lineHeight: 1,
+                }}
+              >
+                © {new Date().getFullYear()} Emily Lucas
+              </div>
             </div>
           </div>
 
@@ -228,6 +262,8 @@ export default function Work() {
           {!isMobile && (
             <div
               className="m-scattered"
+              onWheel={onScatterWheel}
+              onMouseLeave={() => setHoveredIdx(null)}
               style={{
                 height: "100%",
                 paddingRight: space.xxl,
@@ -242,6 +278,11 @@ export default function Work() {
                 productionCases={productionCases}
                 windowStart={windowStart}
                 hoveredIdx={hoveredIdx}
+                onProjectHover={(idx) => setHoveredIdx(idx)}
+                onProjectClick={(p) => {
+                  if (p.slug) setActive(p.slug);
+                  else if (p.link) window.open(p.link, "_blank", "noopener,noreferrer");
+                }}
               />
             </div>
           )}
@@ -300,7 +341,7 @@ export default function Work() {
 function WorkHero() {
   return (
     <section
-      className="m-hero-section"
+      className="m-hero-section work-snap-section"
       style={{
         background: "#000",
         color: "#fff",
@@ -513,7 +554,7 @@ function FadeInMedia({ src, isVideo }) {
   );
 }
 
-function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx }) {
+function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, onProjectHover, onProjectClick }) {
   return (
     <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
       {projects.map((p, i) => {
@@ -553,9 +594,20 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
         const thumbSrc = p.thumb || study?.heroImage;
         const isVideo = thumbSrc && /\.(mp4|webm|mov)$/i.test(thumbSrc);
 
+        const clickable = visible && (!!p.slug || !!p.link);
         return (
           <div
             key={p.n}
+            role={clickable ? "button" : undefined}
+            tabIndex={clickable ? 0 : undefined}
+            onMouseEnter={() => visible && onProjectHover?.(i)}
+            onClick={() => clickable && onProjectClick?.(p)}
+            onKeyDown={(e) => {
+              if (clickable && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                onProjectClick?.(p);
+              }
+            }}
             style={{
               position: "absolute",
               left: `${leftPct}%`,
@@ -566,6 +618,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
               transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`,
               pointerEvents: visible ? "auto" : "none",
               willChange: "top, left, transform",
+              cursor: clickable ? "pointer" : "default",
             }}
           >
             <div

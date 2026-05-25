@@ -9,12 +9,14 @@ const NAV_ITEMS = [
 export default function Layout({ children }) {
   const location = useLocation();
   const noHeader = location.pathname === "/" || location.pathname === "/work";
+  // Footer hidden on /work — copyright sits inside the work list under Back to Home
+  const noFooter = location.pathname === "/work";
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: colors.bg, color: colors.text }}>
       {!noHeader && <Header isLanding={false} />}
       <main style={{ flex: 1, width: "100%" }}>{children}</main>
-      <Footer />
+      {!noFooter && <Footer />}
     </div>
   );
 }

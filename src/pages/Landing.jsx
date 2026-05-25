@@ -289,16 +289,17 @@ export default function Landing() {
             color: colors.text,
           }}
         >
-          Executive Producer specializing in luxury campaigns across fashion,
-          beauty, hospitality and editorial. Tokyo-born, with Japanese-US-UK
-          heritage and fluency across the US, UK, GCC and Japan. Brand-side at{" "}
+          Multidisciplinary creative specializing in production, strategy and
+          visual research for luxury brands across fashion, beauty, hospitality
+          and editorial. Tokyo-born, with Japanese-US-UK heritage and fluency
+          across the US, UK, GCC and Japan. Brand-side at{" "}
           <Brand>Net-a-Porter Group</Brand>, producing <Brand>MR PORTER</Brand>'s
-          'In America', commercial and brand partnerships. Direct-to-client
-          with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
+          editorial, commercial and brand partnerships. Direct-to-client
+          relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
           <Brand>Condé Nast</Brand>; production partner to agencies for{" "}
           <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
-          <Brand>Nike</Brand>. Specialist in integrating AI agentic tools
-          across budgeting, SOWs and vendor management.
+          <Brand>Nike</Brand>. End-to-end Executive Producer integrating AI
+          agentic tools across budgeting, SOWs, casting and vendor management.
         </p>
       </section>
 
@@ -873,7 +874,7 @@ function MenuOverlay({ onClose, onContact }) {
           justifyContent: "center",
           textAlign: "left",
           transformOrigin: "top right",
-          animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+          animation: "menu-modal-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         }}
       >
         <button
@@ -962,9 +963,12 @@ function MenuOverlay({ onClose, onContact }) {
         </div>
       </div>
       <style>{`
-        @keyframes menu-fade-in {
-          from { opacity: 0; }
-          to   { opacity: 1; }
+        /* Container scales in only — no opacity — so the row stagger fade
+           below is fully visible instead of being multiplied by the
+           container's opacity ramp. */
+        @keyframes menu-modal-pop {
+          from { transform: scale(0.85); }
+          to   { transform: scale(1); }
         }
       `}</style>
     </div>

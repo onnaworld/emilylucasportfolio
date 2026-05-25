@@ -12,9 +12,9 @@
     <meta property="og:image" content="https://emilyelucas.com/hero.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preload" as="video" href="/showreel.mp4" fetchpriority="high" />
+    <link rel="preload" as="image" href="/menu-bg.jpg" />
+    <link rel="preload" as="image" href="/contact-bg.jpg" />
     <link rel="prefetch" as="image" href="/hero.jpg" />
-    <link rel="prefetch" as="image" href="/menu-bg.jpg" />
-    <link rel="prefetch" as="image" href="/contact-bg.jpg" />
     <title>Emily Lucas — Executive Producer</title>
     <style>
       @font-face {
@@ -96,6 +96,11 @@
       }
       html, body { margin: 0; padding: 0; }
       * { box-sizing: border-box; }
+
+      /* Snap scroll between WorkHero and the work section — toggled per page
+         via Work.jsx (added to <html> on mount, removed on unmount). */
+      .work-snap-html { scroll-snap-type: y mandatory; }
+      .work-snap-section { scroll-snap-align: start; scroll-snap-stop: always; }
 
       /* ─────────────────────────────────────────────────────────────
          Mobile overrides — ≤768px. Inline styles use !important to
