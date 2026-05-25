@@ -415,9 +415,10 @@ function ContactModal({ onClose }) {
   }, [onClose]);
 
   const rows = [
-    { label: "EMAIL",    value: "emilyelucas@gmail.com",          href: "mailto:emilyelucas@gmail.com" },
-    { label: "PHONE",    value: "+1 (917) 735-8545",              href: "tel:+19177358545" },
-    { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas",    href: "https://www.linkedin.com/in/emilyelucas/" },
+    { label: "EMAIL",    value: "emilyelucas@gmail.com",       href: "mailto:emilyelucas@gmail.com" },
+    { label: "PHONE",    value: "+1 (917) 735-8545",           href: "tel:+19177358545" },
+    { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas", href: "https://www.linkedin.com/in/emilyelucas/", external: true },
+    { label: "RESUME",   value: "Download",                    href: "/resume.pdf", download: true },
   ];
 
   return (
@@ -439,8 +440,9 @@ function ContactModal({ onClose }) {
           width: "min(340px, calc(100vw - 48px))",
           aspectRatio: "4 / 5",
           color: "#fff",
-          padding: `${space.lg}px ${space.lg}px`,
+          padding: `${space.md}px ${space.lg}px`,
           borderRadius: 18,
+          border: `1px solid ${colors.text}`,
           overflow: "hidden",
           boxShadow: "0 24px 60px rgba(0,0,0,0.32)",
           backgroundImage: "url(/contact-bg.jpg)",
@@ -483,11 +485,11 @@ function ContactModal({ onClose }) {
           style={{
             fontFamily: "'Times New Roman', Times, serif",
             fontStyle: "italic",
-            fontSize: "clamp(28px, 3.4vw, 42px)",
+            fontSize: "clamp(22px, 2.4vw, 28px)",
             fontWeight: 400,
             color: "#fff",
             lineHeight: 1,
-            marginBottom: space.lg,
+            marginBottom: space.sm,
           }}
         >
           Get in touch
@@ -495,15 +497,15 @@ function ContactModal({ onClose }) {
         <p
           style={{
             fontFamily: HEROS,
-            fontSize: 12,
+            fontSize: 9,
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "-0.01em",
-            lineHeight: 1.5,
+            lineHeight: 1.4,
             color: "#fff",
             margin: 0,
-            marginBottom: space.xxl,
-            maxWidth: 420,
+            marginBottom: space.md,
+            maxWidth: 260,
             marginLeft: "auto",
             marginRight: "auto",
           }}
@@ -512,28 +514,36 @@ function ContactModal({ onClose }) {
           and consulting engagements across New York, Tokyo, Dubai &amp; London.
         </p>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: space.lg }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: space.sm }}>
           {rows.map((row, i) => (
             <a
               key={row.label}
               href={row.href}
-              target={row.label === "LINKEDIN" ? "_blank" : undefined}
-              rel={row.label === "LINKEDIN" ? "noopener noreferrer" : undefined}
+              target={row.external ? "_blank" : undefined}
+              rel={row.external ? "noopener noreferrer" : undefined}
+              download={row.download ? "EmilyLucas-Resume.pdf" : undefined}
+              onClick={() => {
+                // Belt-and-suspenders for the mailto: / tel: handlers some
+                // browsers swallow when the link is inside a fixed overlay.
+                if (row.href.startsWith("mailto:") || row.href.startsWith("tel:")) {
+                  window.location.href = row.href;
+                }
+              }}
               style={{
                 display: "block",
                 color: "#fff",
                 textDecoration: "none",
-                animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.12}s both`,
+                animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.1}s both`,
               }}
             >
               <div
                 style={{
                   fontFamily: HEROS,
-                  fontSize: 12,
+                  fontSize: 10,
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "-0.01em",
-                  marginBottom: space.xs,
+                  marginBottom: 2,
                 }}
               >
                 {row.label}
@@ -542,8 +552,9 @@ function ContactModal({ onClose }) {
                 style={{
                   fontFamily: "'Times New Roman', Times, serif",
                   fontStyle: "italic",
-                  fontSize: 18,
+                  fontSize: 14,
                   fontWeight: 400,
+                  lineHeight: 1.1,
                 }}
               >
                 {row.value}
