@@ -8,9 +8,10 @@ const NAV_ITEMS = [
 
 export default function Layout({ children }) {
   const location = useLocation();
-  const noHeader = location.pathname === "/" || location.pathname === "/work";
-  // Footer hidden on /work, copyright sits inside the work list under Back to Home
-  const noFooter = location.pathname === "/work";
+  const noChromePaths = ["/", "/work", "/production", "/cultural-strategy", "/visual-research"];
+  const noHeader = noChromePaths.includes(location.pathname);
+  // Footer hidden on the same set, copyright handled by the page itself
+  const noFooter = noChromePaths.includes(location.pathname);
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: colors.bg, color: colors.text }}>

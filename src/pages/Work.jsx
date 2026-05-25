@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
 import CustomCursor from "../components/CustomCursor";
+import PlusMenu from "../components/PlusMenu";
 import { useIsMobile } from "../hooks/useIsMobile";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
@@ -162,6 +163,7 @@ export default function Work() {
         .work-page, .work-page * { cursor: none !important; }
       `}</style>
       <CustomCursor enlargeOnHover />
+      <PlusMenu />
       <WorkHero />
 
       {/* Full-width work section, fits exactly one viewport now that the
@@ -502,7 +504,7 @@ function WorkHero() {
       }}
     >
       <img
-        src="/hero.jpg"
+        src="/work/moonlight-basin/03.jpg"
         alt=""
         style={{
           position: "absolute",
@@ -510,6 +512,7 @@ function WorkHero() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
+          objectPosition: "center 72%",
           display: "block",
         }}
       />

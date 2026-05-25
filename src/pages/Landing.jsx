@@ -838,9 +838,9 @@ function MenuOverlay({ onClose, onContact }) {
 
   const items = [
     { label: "All Work",          to: "/work" },
-    { label: "Production",        to: "/work" },
-    { label: "Cultural Strategy", to: "/work" },
-    { label: "Visual Research",   to: "/work" },
+    { label: "Production",        to: "/production" },
+    { label: "Cultural Strategy", to: "/cultural-strategy" },
+    { label: "Visual Research",   to: "/visual-research" },
   ];
   return (
     <div

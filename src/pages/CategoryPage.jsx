@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
+import PlusMenu from "../components/PlusMenu";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
@@ -10,6 +11,7 @@ const TIMES = "'Times New Roman', Times, serif";
 export default function CategoryPage({ label, heroImage = "/hero.jpg" }) {
   return (
     <div style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
+      <PlusMenu />
       <section
         className="m-hero-section"
         style={{
