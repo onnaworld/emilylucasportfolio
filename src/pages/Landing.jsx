@@ -275,7 +275,7 @@ export default function Landing() {
             color: colors.text,
           }}
         >
-          Executive Producer specialising in luxury campaigns across fashion,
+          Executive Producer specializing in luxury campaigns across fashion,
           beauty, hospitality and editorial. Tokyo-born, with Japanese-US-UK
           heritage and fluency across the US, UK, GCC and Japan. Brand-side at{" "}
           <Brand>Net-a-Porter Group</Brand>, producing <Brand>MR PORTER</Brand>'s
@@ -284,7 +284,7 @@ export default function Landing() {
           <Brand>Condé Nast</Brand>; production partner to agencies for{" "}
           <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
           <Brand>Nike</Brand>. Specialist in integrating AI agentic tools
-          across budgeting, SOWs and supplier management.
+          across budgeting, SOWs and vendor management.
         </p>
       </section>
 

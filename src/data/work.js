@@ -67,7 +67,7 @@ export const productionCases = [
     year: "2023",
     heroVideo: "/work/abraham-moon/hero.mp4",
     heroImage: "/work/abraham-moon/hero.jpg",
-    task: "Document J.Crew's commitment to traditional craftsmanship at the historic Abraham Moon mill in Northern England, commissioned through a long-standing partnership with director Paul Hempstead. The brief called for a deliberate move away from traditional fashion casting in favour of a character-driven approach to capture the authenticity of British culture.",
+    task: "Document J.Crew's commitment to traditional craftsmanship at the historic Abraham Moon mill in Northern England, commissioned through a long-standing partnership with director Paul Hempstead. The brief called for a deliberate move away from traditional fashion casting in favor of a character-driven approach to capture the authenticity of British culture.",
     outcome: "Led a bespoke street-casting initiative that activated the local community — featuring farmers, athletes, musicians, and business owners. A character-driven production where human authenticity and artisanal storytelling sat at the heart of every frame.",
     images: [
       "/work/abraham-moon/1.jpg",
@@ -83,7 +83,7 @@ export const productionCases = [
     heroVideo: "/work/mastercard-sailgp/hero.mp4",
     heroImage: "/work/mastercard-sailgp/hero.jpg",
     task: "Commissioned by global agency Octagon to deliver Mastercard's inaugural partnership with SailGP — capturing the 6th Sailor Experience featuring Luis Figo and the New Zealand Black Foils within a restricted timeline and against the uncompromising standards of three distinct global institutions.",
-    outcome: "Activated a specialised network of sports creatives, deploying a three-camera unit for comprehensive coverage and executing a 48-hour live-edit turnaround for first-round approval across three institutional stakeholders. The final delivery exceeded budget expectations, earning personal commendation from Octagon and a commitment to long-term collaboration across GCC projects.",
+    outcome: "Activated a specialized network of sports creatives, deploying a three-camera unit for comprehensive coverage and executing a 48-hour live-edit turnaround for first-round approval across three institutional stakeholders. The final delivery exceeded budget expectations, earning personal commendation from Octagon and a commitment to long-term collaboration across GCC projects.",
     images: [],
   },
   {
@@ -130,7 +130,7 @@ export const productionCases = [
     year: "2025",
     heroImage: "/work/yasmin-mansour/hero.jpg",
     task: "Execute the visual campaign for emerging Qatari designer Yasmin Mansour following her LVMH Prize win. As an inaugural production in Doha, broker location logistics at the region's most architecturally significant site, The National Museum of Qatar.",
-    outcome: "Facilitated the cross-border mobilisation of a specialised Dubai-based creative team to Qatar, overseeing the technical requirements of a high-fashion shoot within a state-level cultural institution. Proved the capacity to export production standards across the GCC, and to merge high-concept couture with iconic regional locations.",
+    outcome: "Facilitated the cross-border mobilization of a specialized Dubai-based creative team to Qatar, overseeing the technical requirements of a high-fashion shoot within a state-level cultural institution. Proved the capacity to export production standards across the GCC, and to merge high-concept couture with iconic regional locations.",
     images: [
       "/work/yasmin-mansour/2.jpg",
       "/work/yasmin-mansour/3.jpg",
@@ -144,7 +144,7 @@ export const productionCases = [
     year: "2025",
     heroImage: "/work/vogue-bvlgari/hero.jpg",
     task: "Following the editorial relaunch, transition into trusted commercial production partner for Vogue Arabia — leading a series of high-stakes advertorial executions with brands including Bvlgari, integrating Vogue's brand identity while managing complex advertiser requirements.",
-    outcome: "Acted as an extension of the Vogue team, becoming a primary partner for the publication's most demanding advertiser projects and providing the specialised infrastructure necessary when in-house resources are at capacity.",
+    outcome: "Acted as an extension of the Vogue team, becoming a primary partner for the publication's most demanding advertiser projects and providing the specialized infrastructure necessary when in-house resources are at capacity.",
     images: [
       "/work/vogue-bvlgari/1.jpg",
       "/work/vogue-bvlgari/2.jpg",
@@ -160,7 +160,7 @@ export const productionCases = [
     year: "2025",
     heroImage: "/work/glass-magazine/hero.jpg",
     task: "Execute fashion production for Louis Vuitton within the curated framework of The Glass Magazine — balancing the intersection of luxury brand heritage and contemporary editorial standards to maintain Louis Vuitton's seasonal narrative through every frame.",
-    outcome: "Managed specialised technical requirements and the logistical nuances of high-value fine jewellery handling, delivering a suite of imagery that met the rigorous benchmarks of both the publication and the Maison.",
+    outcome: "Managed specialized technical requirements and the logistical nuances of high-value fine jewelry handling, delivering a suite of imagery that met the rigorous benchmarks of both the publication and the Maison.",
     images: [
       "/work/glass-magazine/1.jpg",
       "/work/glass-magazine/2.jpg",
