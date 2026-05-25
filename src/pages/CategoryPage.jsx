@@ -281,13 +281,15 @@ function AutoCycleHero({ showcases }) {
 
   const active = showcases[index];
 
-  // Whoosh-and-navigate: scale the active media up + fade, then go to /work/:slug
+  // Whoosh-and-navigate: scale the active media + fade fully to white,
+  // then route to /work/:slug. Timed so the page change happens at peak
+  // white so there's no visible cross-fade between routes.
   const openCaseStudy = (i) => {
     const slug = showcases[i]?.slug;
     if (!slug || whoosh !== null) return;
     setIndex(i);
     setWhoosh(i);
-    setTimeout(() => navigate(`/work/${slug}`), 620);
+    setTimeout(() => navigate(`/work/${slug}`), 520);
   };
 
   return (
@@ -359,19 +361,29 @@ function AutoCycleHero({ showcases }) {
           }}
         />
 
-        {/* White-flash overlay during whoosh — sells the "toward you" feel */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "#fff",
-            opacity: whoosh !== null ? 0.4 : 0,
-            transition: "opacity 0.55s cubic-bezier(0.6, 0, 0.2, 1)",
-            pointerEvents: "none",
-            zIndex: 5,
-          }}
-        />
+        {/* Full white-out flash during whoosh — full-screen so the page
+            change underneath isn't visible. */}
+        {whoosh !== null && (
+          <div
+            aria-hidden="true"
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "#fff",
+              opacity: 1,
+              animation: "whoosh-flash 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards",
+              pointerEvents: "none",
+              zIndex: 9998,
+            }}
+          />
+        )}
+        <style>{`
+          @keyframes whoosh-flash {
+            0%   { opacity: 0; }
+            55%  { opacity: 1; }
+            100% { opacity: 1; }
+          }
+        `}</style>
 
         {/* Bottom row: tight number cluster (left) + client/title (right),
             baseline-aligned at the bottom of the digits. */}

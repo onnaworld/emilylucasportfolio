@@ -49,47 +49,70 @@ export default function WorkDetail() {
 
   return (
     <div
-      className="m-case-fullbleed"
+      className="m-case-modal-backdrop"
+      onClick={(e) => { if (e.target === e.currentTarget) navigate(-1); }}
       style={{
-        position: "relative",
-        minHeight: "100vh",
-        background: "#fff",
-        color: colors.text,
-        animation: "case-fullbleed-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+        position: "fixed",
+        inset: 0,
+        background: "rgba(20, 20, 20, 0.55)",
+        backdropFilter: "blur(6px)",
+        WebkitBackdropFilter: "blur(6px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 24,
+        zIndex: 100,
+        overflowY: "auto",
+        animation: "case-backdrop-in 0.35s ease-out both",
       }}
     >
-      {/* × close — returns to whichever page the user came from */}
-      <button
-        onClick={() => navigate(-1)}
-        aria-label="Close"
+      <div
+        className="m-case-modal-card"
         style={{
-          position: "fixed",
-          top: 20,
-          right: 24,
-          width: 36,
-          height: 36,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          fontFamily: HEROS_FONT,
-          fontSize: 28,
-          lineHeight: 1,
+          position: "relative",
+          width: "min(640px, 100%)",
+          maxHeight: "calc(100vh - 48px)",
+          background: "#fff",
           color: colors.text,
-          zIndex: 50,
+          borderRadius: 14,
+          boxShadow: "0 30px 80px rgba(0,0,0,0.35)",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          animation: "case-modal-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both",
         }}
       >
-        ×
-      </button>
+        {/* × close inside the card */}
+        <button
+          onClick={() => navigate(-1)}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 12,
+            right: 14,
+            width: 30,
+            height: 30,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: HEROS_FONT,
+            fontSize: 22,
+            lineHeight: 1,
+            color: colors.text,
+            zIndex: 5,
+          }}
+        >
+          ×
+        </button>
 
       <div
-        className="m-case-fullbleed-body"
+        className="m-case-modal-body"
         style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+          padding: `${space.xl + 8}px ${space.xl}px ${space.xl}px`,
+          overflowY: "auto",
         }}
       >
         {/* Project name */}
@@ -254,11 +277,16 @@ export default function WorkDetail() {
           ← Back to all work
         </Link>
       </div>
+      </div>
 
       <style>{`
-        @keyframes case-fullbleed-in {
-          from { opacity: 0; transform: scale(0.985); }
-          to   { opacity: 1; transform: scale(1); }
+        @keyframes case-backdrop-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes case-modal-in {
+          from { opacity: 0; transform: scale(0.94) translateY(8px); }
+          to   { opacity: 1; transform: scale(1) translateY(0); }
         }
       `}</style>
     </div>
@@ -315,8 +343,8 @@ function FullBleedCarousel({ images, project }) {
             key={i}
             style={{
               flex: "0 0 auto",
-              width: "min(560px, 78%)",
-              height: 360,
+              width: "min(420px, 80%)",
+              height: 240,
               background: colors.surface || "#f3f3f3",
               overflow: "hidden",
               scrollSnapAlign: "start",
