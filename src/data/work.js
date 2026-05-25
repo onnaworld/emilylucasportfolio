@@ -138,6 +138,8 @@ export const productionCases = [
     client: "Siro Hotel",
     project: "Brand Campaign",
     year: "2024",
+    task: "Freelance Senior Producer on a stills and video campaign for SIRO Hotel in Dubai. Multi-location production navigating Dubai's roads and key brand locations, working alongside a regional production house.",
+    outcome: "Delivered the campaign across stills and video. Landed as one of the first major hospitality projects within six months of establishing in the Dubai market, opening the door to subsequent hospitality production work across the region.",
     images: [
       "/work/siro-hotel/01.jpg",
       "/work/siro-hotel/02.jpg",
