@@ -25,14 +25,14 @@ function B({ children }) {
 // the directory name (Emily's own filing convention) and works fine as a
 // URL path segment.
 const PRODUCTION_SHOWCASES = [
-  { client: "Vogue Arabia", title: "The Relaunch",                media: ["/Production/:production/1a.jpg", "/Production/:production/1b.JPG"], position: "center top" },
-  { client: "Aman",          title: "Saudi Arabia & Dubai",        media: "/Production/:production/2.mp4" },
-  { client: "Nike",          title: "Vomero 18 Activation",        media: "/Production/:production/6.mp4" },
-  { client: "One&Only",      title: "Moonlight Basin",             media: "/Production/:production/4.mp4" },
-  { client: "Mastercard",    title: "Sail Grand Prix x Luís Figo", media: "/Production/:production/5.mp4" },
-  { client: "J.Crew",        title: "Abraham Moon",                media: "/Production/:production/7.jpg" },
-  { client: "MR PORTER",     title: "Finneas",                     media: "/Production/:production/3.jpg" },
-  { client: "MR PORTER",     title: "In America",                  media: "/Production/:production/3.mp4" },
+  { client: "Aman",       title: "Saudi Arabia",                    media: "/Production/:production/1.mp4" },
+  { client: "Condé Nast", title: "Vogue Arabia Relaunch",           media: ["/Production/:production/2a.jpg", "/Production/:production/2b.JPG"], position: "center top" },
+  { client: "Nike",       title: "Global Vomero 18 Activation",     media: "/Production/:production/3.mp4" },
+  { client: "One&Only",   title: "Moonlight Basin",                 media: "/Production/:production/4.mp4" },
+  { client: "MR PORTER",  title: "Finneas",                         media: "/Production/:production/5.jpg" },
+  { client: "J.Crew",     title: "Abraham Moon",                    media: "/Production/:production/6.mp4" },
+  { client: "Cipriani",   title: "Mr C Residence Dubai",            media: "/Production/:production/7.mp4" },
+  { client: "Mastercard", title: "Sail Grand Prix x Luís Figo",     media: "/Production/:production/8.mp4" },
 ];
 
 const PRODUCTION_BODY = (
