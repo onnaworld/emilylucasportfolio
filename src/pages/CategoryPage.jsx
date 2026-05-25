@@ -7,7 +7,7 @@ const TIMES = "'Times New Roman', Times, serif";
 // Hero-only landing page for a single discipline (Production, Cultural Strategy,
 // Visual Research). Same hero structure as /work but with no project list
 // below it — used as the destination for "View More Work →" links on Landing.
-export default function CategoryPage({ label }) {
+export default function CategoryPage({ label, heroImage = "/hero.jpg" }) {
   return (
     <div style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
       <section
@@ -21,7 +21,7 @@ export default function CategoryPage({ label }) {
         }}
       >
         <img
-          src="/hero.jpg"
+          src={heroImage}
           alt=""
           style={{
             position: "absolute",
