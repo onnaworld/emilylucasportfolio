@@ -119,6 +119,8 @@ export const productionCases = [
     client: "GUESS",
     project: "Global Ramadan Campaign",
     year: "2024",
+    task: "End-to-end production lead on GUESS's global Ramadan OOH campaign, shot in Abu Dhabi with A-list models. Brief required delivering a campaign that met GUESS's global brand standards while landing authentically as a Ramadan-timed moment in the GCC market.",
+    outcome: "Delivered the campaign end-to-end in Abu Dhabi — talent, crew, location, on-set execution. Final assets rolled out as global OOH placements timed to Ramadan, with the production handling the cultural calendar (shoot scheduling, catering, on-set rhythm) as part of the brief rather than as an afterthought.",
     images: [
       "/work/guess-ramadan/01.jpg",
       "/work/guess-ramadan/02.jpg",
