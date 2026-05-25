@@ -656,15 +656,16 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
       }}
     >
       {/* Relative wrapper so the scroll-cue arrow can sit just outside the card */}
-      <div style={{ position: "relative", width: "min(420px, calc(100% - 32px))" }}>
+      <div style={{ position: "relative", width: "min(540px, calc(100% - 32px))" }}>
         <div
           ref={setRefs}
           onScroll={onScroll}
           className="case-popup m-case-popup"
           style={{
             width: "100%",
-            // Match the list height feel — caps at viewport with breathing room.
-            height: "min(500px, calc(100vh - 200px))",
+            // Tall enough that the top aligns with the 'Select Work' header
+            // on the left when both are vertically centred.
+            height: "min(620px, calc(100vh - 140px))",
             overflowY: "auto",
             background: "#fff",
             border: `1px solid ${colors.text}`,
