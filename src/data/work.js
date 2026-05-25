@@ -328,6 +328,8 @@ export const productionCases = [
     client: "MR PORTER",
     project: "Five Ways To Freshen Up Your Work Wardrobe In 2020",
     year: "2020",
+    task: "Visual research and runway image sourcing for a MR PORTER Journal feature reading the AW20 menswear shows as a work wardrobe forecast, published February 2020 — within weeks of the Milan and Paris men's shows. Brief: source and license runway imagery from the shows immediately after they ran, working to a tight editorial turnaround.",
+    outcome: "Sourced and licensed runway stills across fifteen shows from the AW20 men's calendar — Berluti, Bode, Casablanca, Dior, Dries Van Noten, Fendi, Givenchy, Gucci, JW Anderson, Louis Vuitton, Off-White, Prada, Raf Simons, Vetements, and 1017 ALYX 9SM — working through IMAXtree, the primary runway photo agency, and individual photographer credits including Salvatore Dragone, Alessandro Lucioni, Daniele Oberrauch, Isidore Montag, and Armando Grillo. Demonstrates runway image licensing as a distinct visual research discipline — fast-turnaround, agency-led, time-bound to the editorial cycle of the fashion calendar.",
     viewProjectLink: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428",
     images: [
       "/work/mr-porter-work-wardrobe-2020/01.jpg",
@@ -344,6 +346,8 @@ export const productionCases = [
     client: "MR PORTER",
     project: "What To Read, Watch And Do This Black History Month UK",
     year: "2021",
+    task: "Visual research and image sourcing for a MR PORTER Journal feature marking Black History Month UK, published October 2021. Brief: source imagery across nine cultural recommendations spanning podcasts, books, television, exhibitions, theatre, and archival photography — each with its own rights-holder and licensing regime.",
+    outcome: "Sourced and licensed imagery across an unusually broad range of source types: BBC and ITV broadcast stills (Uprising, Stephen), publisher cover imagery from Penguin and Penguin Press (Assembly, What White People Can Do Next, Manifesto), gallery and artist representation (Lisson Gallery for John Akomfrah's The Monuments of Being), theatre production photography (Soho Theatre and the National Theatre), and historic archive imagery (Charlie Phillips's documentation of Notting Hill via Akehurst Creative Management). Each source type required different rights conversations — film and television stills via broadcast PR, publisher cover imagery via marketing departments, gallery imagery via artist estates and representation, theatre stills via production photographers, archival work via personal management. Demonstrates the full breadth of editorial image sourcing across cultural disciplines.",
     viewProjectLink: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134",
     images: [
       "/work/mr-porter-black-history-month-uk/01.jpg",
