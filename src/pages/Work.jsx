@@ -38,16 +38,16 @@ const PROJECTS = [
   { n: 14, client: "TRIPPIN",            title: "An Exploration of Mexico Through the Lens of Graciela Iturbide", thumb: "/work/all-work/14.webp", link: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide" },
   { n: 15, client: "MR PORTER",          title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends",  thumb: "/work/all-work/15.jpg", link: "https://www.mrporter.com/en-ch/journal/fashion/menswear-trends-forecast-street-style-2022-10321430" },
   { n: 16, client: "MR PORTER",          title: "Why You Should Shop (For Yourself) On MR PORTER",              thumb: "/work/all-work/16.jpg", link: "https://www.mrporter.com/en-dk/journal/fashion/women-shopping-buying-wearing-menswear-style-24622422" },
-  { n: 17, client: "MR PORTER",          title: "Meet The Next Generation Of Black British Writers Telling Stories With Style", link: "https://www.mrporter.com/en-us/journal/fashion/black-history-month-uk-writers-portfolio-24605122" },
-  { n: 18, client: "TRIPPIN",            title: "A History of Tattooing in Japan",                              link: "https://trippin.world/feature/a-history-of-tattooing-in-japan" },
-  { n: 19, client: "MR PORTER",          title: "Feels On Wheels: Why Roller-Skating Is Like Therapy",          link: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
-  { n: 20, client: "MR PORTER",          title: "Pride" },
+  { n: 17, client: "MR PORTER",          title: "Meet The Next Generation Of Black British Writers Telling Stories With Style", thumb: "/work/all-work/17.jpg", link: "https://www.mrporter.com/en-us/journal/fashion/black-history-month-uk-writers-portfolio-24605122" },
+  { n: 18, client: "TRIPPIN",            title: "A History of Tattooing in Japan",                              thumb: "/work/all-work/18.avif",  link: "https://trippin.world/feature/a-history-of-tattooing-in-japan" },
+  { n: 19, client: "MR PORTER",          title: "Feels On Wheels: Why Roller-Skating Is Like Therapy",          thumb: "/work/all-work/19.jpeg",  link: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
+  { n: 20, client: "MR PORTER",          title: "Pride",                                                        thumb: "/work/all-work/20.jpg" },
   { n: 21, client: "MR PORTER",          title: "Helping Hands" },
   { n: 22, client: "MR PORTER",          title: "Ask MR PORTER" },
-  { n: 23, client: "MR PORTER",          title: "Eight Striking Images Of New York City Through The Decades",   link: "https://www.mrporter.com/en-gb/journal/lifestyle/new-york-street-photography-bruce-davidson-vivian-maier-10037722" },
-  { n: 24, client: "MR PORTER",          title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe", link: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852" },
-  { n: 25, client: "MR PORTER",          title: "Five Ways To Freshen Up Your Work Wardrobe In 2020",           link: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428" },
-  { n: 26, client: "MR PORTER",          title: "What To Read, Watch And Do This Black History Month UK",       link: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134" },
+  { n: 23, client: "MR PORTER",          title: "Eight Striking Images Of New York City Through The Decades",   thumb: "/work/all-work/23.jpg", link: "https://www.mrporter.com/en-gb/journal/lifestyle/new-york-street-photography-bruce-davidson-vivian-maier-10037722" },
+  { n: 24, client: "MR PORTER",          title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe", thumb: "/work/all-work/24.jpg", link: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852" },
+  { n: 25, client: "MR PORTER",          title: "Five Ways To Freshen Up Your Work Wardrobe In 2020",           thumb: "/work/all-work/25.jpg", link: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428" },
+  { n: 26, client: "MR PORTER",          title: "What To Read, Watch And Do This Black History Month UK",       thumb: "/work/all-work/26.jpg", link: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134" },
 ];
 
 export default function Work() {
@@ -422,7 +422,8 @@ const SCATTER_SLOTS = [
   { leftPct: 18, topPct: 62, width: 240 },
 ];
 
-// Inline fade-in wrapper for thumb media — opacity 0 until the file decodes.
+// Inline fade-in wrapper for thumb media — opacity 0 until the file decodes,
+// editorial pulsing dots placeholder while loading.
 function FadeInMedia({ src, isVideo }) {
   const [loaded, setLoaded] = useState(false);
   const style = {
@@ -432,23 +433,60 @@ function FadeInMedia({ src, isVideo }) {
     opacity: loaded ? 1 : 0,
     transition: "opacity 0.5s ease-out",
   };
-  return isVideo ? (
-    <video
-      src={src}
-      autoPlay muted loop playsInline
-      preload="metadata"
-      onLoadedData={() => setLoaded(true)}
-      style={style}
-    />
-  ) : (
-    <img
-      src={src}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      onLoad={() => setLoaded(true)}
-      style={style}
-    />
+  return (
+    <div style={{ position: "relative", background: colors.surface, aspectRatio: loaded ? undefined : "4 / 3", overflow: "hidden" }}>
+      {!loaded && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 6,
+            pointerEvents: "none",
+          }}
+        >
+          {[0, 1, 2].map(i => (
+            <span
+              key={i}
+              style={{
+                width: 5,
+                height: 5,
+                borderRadius: "50%",
+                background: colors.textMuted,
+                animation: `dot-pulse 1.2s ${i * 0.18}s ease-in-out infinite`,
+              }}
+            />
+          ))}
+          <style>{`
+            @keyframes dot-pulse {
+              0%, 80%, 100% { opacity: 0.15; transform: scale(0.8); }
+              40%           { opacity: 0.9;  transform: scale(1);   }
+            }
+          `}</style>
+        </div>
+      )}
+      {isVideo ? (
+        <video
+          src={src}
+          autoPlay muted loop playsInline
+          preload="metadata"
+          onLoadedData={() => setLoaded(true)}
+          style={style}
+        />
+      ) : (
+        <img
+          src={src}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          style={style}
+        />
+      )}
+    </div>
   );
 }
 

@@ -120,9 +120,12 @@ export default function Landing() {
           color: "#fff",
           mixBlendMode: "difference",
           zIndex: 100,
+          opacity: menuOpen ? 0 : 1,
+          pointerEvents: menuOpen ? "none" : "auto",
+          transition: "opacity 0.3s",
         }}
       >
-        {menuOpen ? "×" : "+"}
+        +
       </button>
 
       {/* ───── 1. HERO: showreel with editorial cover-spread overlay ───── */}
@@ -433,7 +436,9 @@ function ContactModal({ onClose }) {
           position: "absolute",
           bottom: space.xl,
           right: space.xl,
-          background: "#fff",
+          background: "rgba(255, 255, 255, 0.72)",
+          backdropFilter: "blur(18px) saturate(140%)",
+          WebkitBackdropFilter: "blur(18px) saturate(140%)",
           color: colors.text,
           width: "min(440px, calc(100vw - 48px))",
           padding: space.xl,
@@ -449,13 +454,18 @@ function ContactModal({ onClose }) {
           aria-label="Close"
           style={{
             position: "absolute",
-            top: space.md,
-            right: space.md,
+            top: 14,
+            right: 14,
+            width: 28,
+            height: 28,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             background: "none",
             border: "none",
             cursor: "pointer",
             fontFamily: HEROS,
-            fontSize: 24,
+            fontSize: 22,
             lineHeight: 1,
             color: colors.text,
           }}
@@ -764,7 +774,9 @@ function MenuOverlay({ onClose, onContact }) {
           position: "absolute",
           top: space.xl,
           right: space.xl,
-          background: "#fff",
+          background: "rgba(255, 255, 255, 0.72)",
+          backdropFilter: "blur(18px) saturate(140%)",
+          WebkitBackdropFilter: "blur(18px) saturate(140%)",
           color: colors.text,
           width: "min(360px, calc(100vw - 48px))",
           padding: space.xl,
@@ -775,6 +787,29 @@ function MenuOverlay({ onClose, onContact }) {
           animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         }}
       >
+        <button
+          onClick={onClose}
+          aria-label="Close menu"
+          style={{
+            position: "absolute",
+            top: 14,
+            right: 14,
+            width: 28,
+            height: 28,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: HEROS,
+            fontSize: 22,
+            lineHeight: 1,
+            color: colors.text,
+          }}
+        >
+          ×
+        </button>
         <div
           style={{
             fontFamily: "'Times New Roman', Times, serif",
@@ -856,42 +891,88 @@ function Brand({ children }) {
 
 // Horizontal infinite carousel — fixed-width images, marginRight pattern
 // so translateX(-50%) lands exactly on the duplicate boundary (no overlap).
-// Shared media element that fades in from opacity 0 once the file is decoded —
-// turns the slow loading lag into an intentional reveal.
+// Shared media element that fades in from opacity 0 once the file is decoded.
+// While !loaded, three editorial pulsing dots sit centred in the slot.
 function FadeInMedia({ src, width, height, objectFit = "cover" }) {
   const [loaded, setLoaded] = useState(false);
   const isVideo = /\.(mp4|webm|mov)$/i.test(src);
-  const style = {
-    height,
-    width,
-    marginRight: 12,
+  const mediaStyle = {
+    width: "100%",
+    height: "100%",
     objectFit,
     display: "block",
-    background: colors.surface,
-    flexShrink: 0,
     opacity: loaded ? 1 : 0,
     transition: "opacity 0.5s ease-out",
   };
-  return isVideo ? (
-    <video
-      src={src}
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      onLoadedData={() => setLoaded(true)}
-      style={style}
-    />
-  ) : (
-    <img
-      src={src}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      onLoad={() => setLoaded(true)}
-      style={style}
-    />
+  return (
+    <div
+      style={{
+        position: "relative",
+        height,
+        width,
+        marginRight: 12,
+        background: colors.surface,
+        flexShrink: 0,
+        overflow: "hidden",
+      }}
+    >
+      {!loaded && <LoadingDots />}
+      {isVideo ? (
+        <video
+          src={src}
+          autoPlay muted loop playsInline
+          preload="metadata"
+          onLoadedData={() => setLoaded(true)}
+          style={mediaStyle}
+        />
+      ) : (
+        <img
+          src={src}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          style={mediaStyle}
+        />
+      )}
+    </div>
+  );
+}
+
+// Three pulsing dots, staggered — minimal editorial loader.
+function LoadingDots() {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        inset: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 6,
+        pointerEvents: "none",
+      }}
+    >
+      {[0, 1, 2].map(i => (
+        <span
+          key={i}
+          style={{
+            width: 5,
+            height: 5,
+            borderRadius: "50%",
+            background: colors.textMuted,
+            animation: `dot-pulse 1.2s ${i * 0.18}s ease-in-out infinite`,
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes dot-pulse {
+          0%, 80%, 100% { opacity: 0.15; transform: scale(0.8); }
+          40%           { opacity: 0.9;  transform: scale(1);   }
+        }
+      `}</style>
+    </div>
   );
 }
 
