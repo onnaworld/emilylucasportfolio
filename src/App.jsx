@@ -30,7 +30,7 @@ export default function App() {
             <Route path="/work/:slug" element={<WorkDetail />} />
             <Route path="/production" element={<CategoryPage label="Production" />} />
             <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/work/trippin-ethical-photography/06.avif" />} />
-            <Route path="/visual-research" element={<CategoryPage label="Visual Research" />} />
+            <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" />} />
             <Route path="*" element={<Landing />} />
           </Routes>
         </Suspense>
