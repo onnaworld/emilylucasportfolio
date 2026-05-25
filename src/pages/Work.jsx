@@ -88,6 +88,22 @@ export default function Work() {
       `}</style>
       <WorkHero />
 
+      {/* Bottom fade — only covers the right half (the scattered thumb area).
+          Short, sharper ramp so it reads as a defined fade, not a haze. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: "50%",
+          right: 0,
+          height: "12vh",
+          background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
+          pointerEvents: "none",
+          zIndex: 40,
+        }}
+      />
+
       {/* Full-width work section — fits exactly one viewport now that the
           thumbs advance from the list hover, not from page scroll. */}
       <div
@@ -200,7 +216,6 @@ export default function Work() {
             projects={PROJECTS}
             productionCases={productionCases}
             windowStart={windowStart}
-            hoveredIdx={hoveredIdx}
           />
         </div>
 
@@ -387,7 +402,7 @@ const SCATTER_SLOTS = [
   { leftPct: 18, topPct: 62, width: 240 },
 ];
 
-function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx }) {
+function ScatteredThumbs({ projects, productionCases, windowStart }) {
   return (
     <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
       {projects.map((p, i) => {
@@ -420,12 +435,6 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
         const thumbSrc = p.thumb || study?.heroImage;
         const isVideo = thumbSrc && /\.(mp4|webm|mov)$/i.test(thumbSrc);
 
-        // If user is hovering a list row, the hovered project is at slot 0;
-        // dim the other two visible thumbs so the hovered one stands out.
-        const isHoveredThumb = hoveredIdx !== null && i === hoveredIdx;
-        const isDimmedThumb = hoveredIdx !== null && visible && !isHoveredThumb;
-        const targetOpacity = visible ? (isDimmedThumb ? 0.2 : 1) : 0;
-
         return (
           <div
             key={p.n}
@@ -434,7 +443,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
               left: `${leftPct}%`,
               top: `${topPct}%`,
               width,
-              opacity: targetOpacity,
+              opacity: visible ? 1 : 0,
               transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.5s ease-out`,
               pointerEvents: visible ? "auto" : "none",
               willChange: "top, left, opacity",
