@@ -369,8 +369,10 @@ export const productionCases = [
     client: "MR PORTER",
     project: "Social Media Strategy",
     year: "2022",
+    task: "Built MR PORTER's social media production strategy as part of the brand's push to reach a Gen Z menswear audience. Brief: develop content franchises native to TikTok and short-form social, rather than repurposing campaign assets, and grow channel presence from scratch.",
+    outcome: "Conceived and produced Mr Porter's Helping Hands as the inaugural franchise series. A/B tested formats against engagement and retention, evolving the series into the community-led Ask Mr Porter format — where audience questions drove content rather than brand-led scripting. The TikTok channel grew to 50K followers in its inaugural year, establishing the social production playbook MR PORTER continued to build on.",
     images: [],
-    tags: ["Social Strategy", "Editorial Writing", "Visual Research"],
+    tags: ["Social Strategy", "Motion Production", "Editorial Writing"],
   },
   {
     slug: "vogue-relaunch",
