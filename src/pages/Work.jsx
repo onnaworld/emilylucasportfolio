@@ -178,7 +178,7 @@ export default function Work() {
               style={{
                 position: "absolute",
                 top: 22,
-                left: "75%",
+                left: "50%",
                 transform: "translateX(-50%)",
                 background: "none",
                 border: "none",
@@ -194,30 +194,12 @@ export default function Work() {
             >
               ↑
             </button>
-            <div
-              aria-hidden="true"
-              style={{
-                position: "absolute",
-                top: 64,
-                left: space.xxl,
-                right: space.xxl,
-                borderTop: `1px solid ${colors.text}`,
-                zIndex: 15,
-                pointerEvents: "none",
-              }}
-            />
-            <div
-              aria-hidden="true"
-              style={{
-                position: "absolute",
-                bottom: 64,
-                left: space.xxl,
-                right: space.xxl,
-                borderTop: `1px solid ${colors.text}`,
-                zIndex: 15,
-                pointerEvents: "none",
-              }}
-            />
+            {/* Top hairline — split into left + right with a gap for the ↑ arrow */}
+            <div aria-hidden="true" style={{ position: "absolute", top: 64, left: space.xxl, right: "calc(50% + 30px)", borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
+            <div aria-hidden="true" style={{ position: "absolute", top: 64, left: "calc(50% + 30px)", right: space.xxl, borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
+            {/* Bottom hairline — same split, gap aligns visually with the ↑ arrow above */}
+            <div aria-hidden="true" style={{ position: "absolute", bottom: 64, left: space.xxl, right: "calc(50% + 30px)", borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
+            <div aria-hidden="true" style={{ position: "absolute", bottom: 64, left: "calc(50% + 30px)", right: space.xxl, borderTop: `1px solid ${colors.text}`, zIndex: 15, pointerEvents: "none" }} />
             <div
               style={{
                 position: "absolute",
@@ -238,9 +220,9 @@ export default function Work() {
               aria-label="Scroll for more"
               style={{
                 position: "absolute",
-                bottom: 22,
-                left: "75%",
-                transform: "translateX(-50%)",
+                top: "50%",
+                right: space.lg,
+                transform: "translateY(-50%)",
                 background: "none",
                 border: "none",
                 cursor: "pointer",
@@ -424,6 +406,7 @@ export default function Work() {
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
                 height: "100%",
+                paddingLeft: space.xxl,
                 paddingRight: space.xxl,
                 boxSizing: "border-box",
                 opacity: activeStudy ? 0 : 1,
@@ -858,7 +841,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
         position: "absolute",
         top: isMobile ? 0 : 64,
         bottom: isMobile ? 0 : 64,
-        left: "50%",
+        left: isMobile ? "50%" : `calc(50% + ${space.xxl}px)`,
         right: space.xxl,
         display: "flex",
         alignItems: "center",
@@ -867,28 +850,43 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
         pointerEvents: "none",
       }}
     >
-      {/* Relative wrapper so the scroll-cue arrow can sit just outside the card */}
-      <div style={{ position: "relative", width: "min(500px, calc(100% - 32px))" }}>
+      {/* Outer container: holds the scrollable popup + the top/bottom fade
+          overlays. Desktop: no borders, fade softens the scroll edges.
+          Mobile: .m-case-popup CSS override adds full border + rounded. */}
+      <div
+        className="case-popup m-case-popup"
+        style={{
+          position: "relative",
+          width: "min(500px, calc(100% - 32px))",
+          height: "min(540px, calc(100vh - 240px))",
+          background: "#fff",
+          overflow: "hidden",
+          pointerEvents: "auto",
+          animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+          transformOrigin: "center",
+        }}
+      >
+        {/* Top fade — same colour as the scattered area fades */}
+        <div aria-hidden="true" style={{
+          position: "absolute", top: 0, left: 0, right: 0, height: 32,
+          background: `linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0) 100%)`,
+          pointerEvents: "none", zIndex: 3,
+        }} />
+        {/* Bottom fade */}
+        <div aria-hidden="true" style={{
+          position: "absolute", bottom: 0, left: 0, right: 0, height: 32,
+          background: `linear-gradient(to top, #fff 0%, rgba(255,255,255,0) 100%)`,
+          pointerEvents: "none", zIndex: 3,
+        }} />
+
         <div
           ref={setRefs}
           onScroll={onScroll}
-          className="case-popup m-case-popup"
+          className="case-popup-scroll"
           style={{
             width: "100%",
-            // Same height as the list so top + bottom align when both are
-            // vertically centred in the framed section.
-            height: "min(540px, calc(100vh - 240px))",
+            height: "100%",
             overflowY: "auto",
-            background: "#fff",
-            // Desktop: hairlines top + bottom only, no left/right border, no
-            // rounded corners — matches the framed list on the left.
-            // Mobile: revert to full bubble (overrides via .m-case-popup
-            // media query below).
-            borderTop: `1px solid ${colors.text}`,
-            borderBottom: `1px solid ${colors.text}`,
-            pointerEvents: "auto",
-            animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
-            transformOrigin: "center",
             padding: `${space.md}px ${space.lg}px ${space.lg}px`,
             position: "relative",
           }}
@@ -1022,47 +1020,16 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           )}
         </div>
 
-        {/* Editorial scroll cue — sits just outside the bottom border, swings
-            gently, fades out when scroll reaches the bottom. */}
-        <button
-          onClick={() => innerRef.current?.scrollBy({ top: innerRef.current.clientHeight * 0.7, behavior: "smooth" })}
-          aria-label="Scroll for more"
-          className="case-scroll-cue"
-          style={{
-            position: "absolute",
-            left: "50%",
-            bottom: -34,
-            transform: "translateX(-50%)",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontFamily: HEROS_FONT,
-            fontSize: 18,
-            lineHeight: 1,
-            color: colors.text,
-            opacity: atBottom ? 0 : 1,
-            transition: "opacity 0.35s ease",
-            pointerEvents: atBottom ? "none" : "auto",
-            padding: 4,
-          }}
-        >
-          <span style={{ display: "inline-block", animation: "arrow-swing 1.6s ease-in-out infinite" }}>↓</span>
-        </button>
-
         <style>{`
           @keyframes case-popup-in {
             from { opacity: 0; transform: scale(0.94); }
             to   { opacity: 1; transform: scale(1); }
           }
-          @keyframes arrow-swing {
-            0%, 100% { transform: translateY(0); }
-            50%      { transform: translateY(6px); }
-          }
-          .case-popup {
+          .case-popup-scroll {
             scrollbar-width: none;
             -ms-overflow-style: none;
           }
-          .case-popup::-webkit-scrollbar { display: none; width: 0; }
+          .case-popup-scroll::-webkit-scrollbar { display: none; width: 0; }
         `}</style>
       </div>
     </div>
@@ -1080,7 +1047,7 @@ function ImageCarousel({ images, project }) {
     trackRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
   };
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", paddingLeft: 24, paddingRight: 24 }}>
       <div
         ref={trackRef}
         className="case-image-strip"
@@ -1119,22 +1086,18 @@ function ImageCarousel({ images, project }) {
             aria-label="Previous images"
             style={{
               position: "absolute",
-              left: -4,
+              left: -8,
               top: "50%",
               transform: "translateY(-50%)",
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.92)",
-              border: `1px solid ${colors.text}`,
+              background: "none",
+              border: "none",
               cursor: "pointer",
+              padding: 4,
               fontFamily: TIMES,
-              fontSize: 16,
+              fontSize: 22,
+              fontWeight: 400,
               lineHeight: 1,
               color: colors.text,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
             }}
           >
             ‹
@@ -1144,22 +1107,18 @@ function ImageCarousel({ images, project }) {
             aria-label="Next images"
             style={{
               position: "absolute",
-              right: -4,
+              right: -8,
               top: "50%",
               transform: "translateY(-50%)",
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.92)",
-              border: `1px solid ${colors.text}`,
+              background: "none",
+              border: "none",
               cursor: "pointer",
+              padding: 4,
               fontFamily: TIMES,
-              fontSize: 16,
+              fontSize: 22,
+              fontWeight: 400,
               lineHeight: 1,
               color: colors.text,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
             }}
           >
             ›
