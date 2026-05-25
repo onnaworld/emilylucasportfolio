@@ -292,15 +292,14 @@ export default function Landing() {
         >
           Multidisciplinary creative specializing in production, strategy and
           visual research for luxury brands across fashion, beauty, hospitality
-          and editorial. Tokyo-born, with Japanese-US-UK heritage and fluency
-          across the US, UK, GCC and Japan. Brand-side at{" "}
+          and editorial. Tokyo-born, with Japanese-US-UK heritage and industry
+          experience across the US, UK, GCC and Japan. Brand-side at{" "}
           <Brand>Net-a-Porter Group</Brand>, producing <Brand>MR PORTER</Brand>'s
           editorial, commercial and brand partnerships. Direct-to-client
           relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
           <Brand>Condé Nast</Brand>; production partner to agencies for{" "}
           <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
-          <Brand>Nike</Brand>. End-to-end Executive Producer integrating AI
-          agentic tools across budgeting, SOWs, casting and vendor management.
+          <Brand>Nike</Brand>.
         </p>
       </section>
 
