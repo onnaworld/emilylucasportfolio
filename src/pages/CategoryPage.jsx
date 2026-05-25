@@ -282,179 +282,178 @@ function AutoCycleHero({ showcases }) {
     <section
       className="category-snap-section"
       style={{
-        position: "relative",
         width: "100%",
         height: "100vh",
-        overflow: "hidden",
         background: "#000",
         color: "#fff",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      {/* Crossfade stack — every project rendered once, only active visible. */}
-      {showcases.map((s, i) => {
-        const items = Array.isArray(s.media) ? s.media : [s.media];
-        const isActive = i === index;
-        return (
-          <div
-            key={i}
-            aria-hidden={!isActive}
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "grid",
-              gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
-              gap: 0,
-              opacity: isActive ? 1 : 0,
-              transition: "opacity 0.7s ease",
-              pointerEvents: "none",
-            }}
-          >
-            {items.map((src, j) => (
-              <div key={j} style={{ width: "100%", height: "100%", overflow: "hidden" }}>
-                <Media
-                  src={src}
-                  position={s.position}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        );
-      })}
-
-      {/* Brand + title overlay, bottom-right */}
-      <div
-        style={{
-          position: "absolute",
-          right: space.xl,
-          bottom: 80,
-          textAlign: "right",
-          color: "#fff",
-          textShadow: "0 1px 16px rgba(0,0,0,0.45)",
-          pointerEvents: "none",
-          maxWidth: "60vw",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: TIMES,
-            fontStyle: "italic",
-            fontWeight: 400,
-            fontSize: "clamp(18px, 2vw, 30px)",
-            letterSpacing: "-0.01em",
-            lineHeight: 1,
-          }}
-        >
-          {active.client}
-        </div>
-        {active.title && (
-          <div
-            style={{
-              marginTop: 6,
-              fontFamily: HEROS_FONT,
-              fontWeight: 700,
-              fontSize: "clamp(12px, 1.1vw, 16px)",
-              letterSpacing: "-0.01em",
-              lineHeight: 1.1,
-              textTransform: "uppercase",
-            }}
-          >
-            {active.title}
-          </div>
-        )}
-      </div>
-
-      {/* Big numbers along the bottom */}
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 48,
-          display: "flex",
-          justifyContent: "space-between",
-          padding: `0 ${space.xl}px`,
-          gap: 12,
-          alignItems: "flex-end",
-        }}
-      >
-        {showcases.map((_, i) => {
+      {/* Media + overlays + numbers, all share the flex-1 region. Footer
+          sits in its own row below, so it never overlaps the image. */}
+      <div style={{ position: "relative", flex: 1, overflow: "hidden" }}>
+        {/* Crossfade stack — every project rendered once, only active visible. */}
+        {showcases.map((s, i) => {
+          const items = Array.isArray(s.media) ? s.media : [s.media];
           const isActive = i === index;
           return (
-            <button
+            <div
               key={i}
-              onMouseEnter={() => {
-                setPaused(true);
-                setIndex(i);
-              }}
-              onMouseLeave={() => setPaused(false)}
-              onFocus={() => {
-                setPaused(true);
-                setIndex(i);
-              }}
-              onBlur={() => setPaused(false)}
-              aria-label={`Show project ${i + 1}`}
+              aria-hidden={!isActive}
               style={{
-                flex: "1 1 0",
-                background: "none",
-                border: "none",
-                padding: "6px 0",
-                cursor: "pointer",
-                fontFamily: HEROS_FONT,
-                fontSize: "clamp(18px, 2.6vw, 38px)",
-                fontWeight: 700,
-                letterSpacing: "-0.03em",
-                lineHeight: 1,
-                color: "#fff",
-                opacity: isActive ? 1 : 0.35,
-                transition: "opacity 0.3s ease",
-                textAlign: "left",
+                position: "absolute",
+                inset: 0,
+                display: "grid",
+                gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
+                gap: 0,
+                opacity: isActive ? 1 : 0,
+                transition: "opacity 0.7s ease",
+                pointerEvents: "none",
               }}
             >
-              {i + 1}
-            </button>
+              {items.map((src, j) => (
+                <div key={j} style={{ width: "100%", height: "100%", overflow: "hidden" }}>
+                  <Media
+                    src={src}
+                    position={s.position}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           );
         })}
+
+        {/* Brand + title overlay, bottom-right */}
+        <div
+          style={{
+            position: "absolute",
+            right: space.xl,
+            bottom: 72,
+            textAlign: "right",
+            color: "#fff",
+            textShadow: "0 1px 16px rgba(0,0,0,0.45)",
+            pointerEvents: "none",
+            maxWidth: "60vw",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: TIMES,
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "clamp(18px, 2vw, 30px)",
+              letterSpacing: "-0.01em",
+              lineHeight: 1,
+            }}
+          >
+            {active.client}
+          </div>
+          {active.title && (
+            <div
+              style={{
+                marginTop: 6,
+                fontFamily: HEROS_FONT,
+                fontWeight: 700,
+                fontSize: "clamp(12px, 1.1vw, 16px)",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.1,
+                textTransform: "uppercase",
+              }}
+            >
+              {active.title}
+            </div>
+          )}
+        </div>
+
+        {/* Big numbers along the bottom of the media region */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 16,
+            display: "flex",
+            justifyContent: "space-between",
+            padding: `0 ${space.xl}px`,
+            gap: 12,
+            alignItems: "flex-end",
+          }}
+        >
+          {showcases.map((_, i) => {
+            const isActive = i === index;
+            return (
+              <button
+                key={i}
+                onMouseEnter={() => {
+                  setPaused(true);
+                  setIndex(i);
+                }}
+                onMouseLeave={() => setPaused(false)}
+                onFocus={() => {
+                  setPaused(true);
+                  setIndex(i);
+                }}
+                onBlur={() => setPaused(false)}
+                aria-label={`Show project ${i + 1}`}
+                style={{
+                  flex: "1 1 0",
+                  background: "none",
+                  border: "none",
+                  padding: "6px 0",
+                  cursor: "pointer",
+                  fontFamily: HEROS_FONT,
+                  fontSize: "clamp(18px, 2.6vw, 38px)",
+                  fontWeight: 700,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1,
+                  color: "#fff",
+                  opacity: isActive ? 1 : 0.35,
+                  transition: "opacity 0.3s ease",
+                  textAlign: "left",
+                }}
+              >
+                {i + 1}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Footer row */}
-      <div
+      {/* Footer row — matches Layout's Footer font/spacing, inverted for dark bg */}
+      <footer
         style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 14,
+          padding: `${space.lg}px ${space.xl}px ${space.lg}px ${space.xl}px`,
+          borderTop: "1px solid rgba(255,255,255,0.18)",
+          background: "#000",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: `0 ${space.xl}px`,
-          color: "#fff",
-          fontFamily: HEROS_FONT,
-          fontSize: 11,
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "-0.01em",
-          textShadow: "0 1px 8px rgba(0,0,0,0.4)",
+          gap: space.lg,
+          fontFamily: TIMES,
+          fontSize: 14,
+          fontWeight: 400,
+          color: "rgba(255,255,255,0.75)",
         }}
       >
-        <div>© Emily Lucas 2026</div>
+        <div>© {new Date().getFullYear()} Emily Lucas</div>
         <Link
           to="/work"
           style={{
-            color: "#fff",
+            color: "rgba(255,255,255,0.85)",
             textDecoration: "none",
-            borderBottom: "1px solid rgba(255,255,255,0.6)",
-            paddingBottom: 2,
+            fontStyle: "italic",
           }}
         >
           Click for more work →
         </Link>
-      </div>
+      </footer>
     </section>
   );
 }
