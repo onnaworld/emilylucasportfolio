@@ -60,6 +60,10 @@ export default function Work() {
   const wheelTsRef = useRef(0);
   const isMobile = useIsMobile();
 
+  // Declared up here so the wheel useEffect below can reference it without
+  // hitting a TDZ error.
+  const activeStudy = productionCases.find(c => c.slug === activeSlug);
+
   // Restore selection from URL hash (so /work#aman deep-links)
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
@@ -118,8 +122,6 @@ export default function Work() {
       window.history.replaceState(null, "", window.location.pathname);
     }
   };
-
-  const activeStudy = productionCases.find(c => c.slug === activeSlug);
 
   return (
     <div className="work-page" style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
