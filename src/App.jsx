@@ -55,15 +55,11 @@ const PRODUCTION_SHOWCASES = [
 const PRODUCTION_BODY = (
   <>
     End-to-end executive production for luxury and lifestyle brands across
-    photography and video, working across complex post-production formats
-    with CGI rendering, live editing, bespoke sound design. In-house
-    production capabilities as well as external production partner to
-    global agencies and direct to client. Experience across{" "}
-    <B>Hospitality</B>, <B>Fashion</B>, <B>Beauty</B>, <B>Editorial</B>,
-    delivering campaigns across a multitude of locations in the{" "}
-    <B>US</B>, <B>UK</B>, <B>GCC</B>, and <B>Europe</B>. Specialist in
-    integrating AI workflow systems underpinning estimating, SOWs, casting,
-    and vendor management.
+    photography and video. In-house capability and external partner to
+    global agencies, delivering across <B>Hospitality</B>, <B>Fashion</B>,
+    {" "}<B>Beauty</B>, and <B>Editorial</B> in the <B>US</B>, <B>UK</B>,
+    {" "}<B>GCC</B>, and <B>Europe</B>. Specialist in AI workflow
+    integration for estimating, SOWs, casting, and vendor management.
   </>
 );
 
@@ -71,28 +67,24 @@ const VISUAL_RESEARCH_BODY = (
   <>
     Image sourcing, photography curation, and rights licensing for editorial
     features at <B>MR PORTER Journal</B>, <B>Trippin</B>, and <B>Vogue</B>
-    {" "}(<B>Condé Nast</B>). Work spans fine art photography (estates,
-    foundations, galleries), entertainment IP (film stills, studio rights),
-    runway and fashion calendar imagery (IMAXtree and beyond), and
-    multi-discipline publishing rights from broadcast, publisher, gallery,
-    theatre, and archive.
+    {" "}(<B>Condé Nast</B>). Work spans fine art (estates, foundations,
+    galleries), entertainment IP, runway imagery, and multi-discipline
+    publishing rights across broadcast, publisher, gallery, theatre, and
+    archive.
   </>
 );
 
 const CULTURAL_STRATEGY_BODY = (
   <>
-    Cultural work across writing, production, and strategy, bound by a
-    defining editorial position that champions representation from the
-    inside of culture. Authored features for <B>Trippin</B> on visual
-    ethics, Mexican Indigenous photography, and the cultural history of
-    tattooing in Japan, alongside editorial commentary for{" "}
-    <B>MR PORTER</B> in the menswear space. Production work champions a
-    broad range of subcultures across <B>MR PORTER</B>: from Black British
-    literary culture, the London queer community, and the roller skating
-    scene, each cast and crewed from within. Gen Z consumer research and
-    social media production strategy underpinned <B>MR PORTER</B>'s
-    positioning to attract a younger audience, showcased through the
-    growth of the TikTok channel to 50K followers in its inaugural year.
+    Cultural work across writing, production, and strategy, bound by an
+    editorial position that champions representation from the inside of
+    culture. Authored features for <B>Trippin</B> on visual ethics,
+    Mexican Indigenous photography, and tattooing in Japan, alongside
+    editorial commentary for <B>MR PORTER</B>. Production work champions
+    subcultures across <B>MR PORTER</B>, each cast and crewed from
+    within. Gen Z consumer research underpinned the brand's positioning
+    to attract a younger audience, growing the TikTok channel to 50K
+    followers in its inaugural year.
   </>
 );
 
