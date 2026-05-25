@@ -217,6 +217,34 @@
         .m-workdetail-body { padding: 24px 16px 48px !important; }
         .m-workdetail-body h1 { font-size: 18px !important; }
         .m-workdetail-body h2 { font-size: 28px !important; }
+
+        /* Category showcase (AutoCycleHero) — tighter spacing on mobile so the
+           footer + numbers + brand overlay all fit comfortably above 100vh. */
+        .m-showcase-numbers {
+          bottom: 48px !important;
+          padding: 0 16px !important;
+          gap: 6px !important;
+        }
+        .m-showcase-numbers button {
+          font-size: 18px !important;
+          padding: 4px 0 !important;
+        }
+        .m-showcase-overlay {
+          right: 16px !important;
+          bottom: 96px !important;
+          max-width: calc(100vw - 32px) !important;
+        }
+        .m-showcase-overlay > div:first-child { font-size: 18px !important; }
+        .m-showcase-overlay > div:nth-child(2) { font-size: 11px !important; }
+        .m-showcase-footer {
+          padding: 8px 14px !important;
+          font-size: 11px !important;
+          gap: 12px !important;
+        }
+
+        /* Mobile scroll-snap is heavy/buggy in some browsers; relax to
+           proximity so the user keeps fluid touch-scroll. */
+        .category-snap-html { scroll-snap-type: y proximity !important; }
       }
     </style>
   </head>

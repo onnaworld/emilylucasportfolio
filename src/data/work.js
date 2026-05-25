@@ -52,8 +52,8 @@ export const productionCases = [
     project: "Ramadan Campaign",
     year: "2024",
     heroImage: "/work/all-work/7.jpg",
-    task: "Lead the production of an activation that honoured Ramadan 2026, a key moment in the cultural calendar. Translated brand presence into an experience that respected the rhythm of fasting and community spirit to honor wellness over borrowed iconography.",
-    outcome: "Delivered a pre-dawn hike timed to suhoor, iftar arranged at the summit, and catering that respected the fast, anchoring the activation in community and lived cultural practice. Resulting in a campaign delivery that felt authentic to the people it was made for and the brand it served.",
+    task: "Commissioned by agency IMA MENA to lead the production of an activation that honoured Ramadan 2026, a key moment in the cultural calendar. Translated brand presence into an experience that respected the rhythm of fasting and community spirit, honouring wellness over borrowed iconography.",
+    outcome: "Delivered a pre-dawn hike timed to suhoor, iftar arranged at the summit, and catering that respected the fast, anchoring the activation in community and lived cultural practice. Resulted in a campaign delivery that felt authentic to the people it was made for and the brand it served.",
     images: [
       "/work/columbia-ramadan/01.jpg",
       "/work/columbia-ramadan/02.jpg",
