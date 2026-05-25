@@ -440,7 +440,7 @@ function ContactModal({ onClose }) {
       { prefix: "US", value: "+1 (917) 735-8545", href: "tel:+19177358545" },
     ]},
     { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas", href: "https://www.linkedin.com/in/emilyelucas/", external: true },
-    { label: "RESUME",   value: "Download",                    href: "/Resume/Resume_Emily%20Lucas.pdf", download: true },
+    { label: "RESUME",   value: "On request" },
   ];
 
   return (
@@ -575,6 +575,14 @@ function ContactModal({ onClose }) {
                       {p.prefix} - {p.value}
                     </a>
                   ))}
+                </div>
+              );
+            }
+            if (!row.href) {
+              return (
+                <div key={row.label} style={{ color: "#fff", animation }}>
+                  {label}
+                  <div style={valueStyle}>{row.value}</div>
                 </div>
               );
             }
