@@ -299,7 +299,7 @@ function WorkHero() {
       }}
     >
       <img
-        src="/work/aman/hero.jpg"
+        src="/hero.jpg"
         alt=""
         style={{
           position: "absolute",
@@ -583,60 +583,75 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
 
 function CaseStudyPopup({ study, panelRef, onClose }) {
   return (
+    // Outer wrapper covers the right-half scattered area but doesn't block
+    // pointer events outside the card itself. Flex-centers the popup inside.
     <div
-      ref={panelRef}
-      className="case-popup"
       style={{
         position: "absolute",
-        top: space.lg,
-        left: `calc(50% + ${space.lg}px)`,
-        right: space.xxl + space.lg,
-        bottom: space.lg,
-        overflowY: "auto",
-        background: "#fff",
-        border: `1px solid ${colors.text}`,
-        borderRadius: 18,
-        boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
+        top: 0,
+        bottom: 0,
+        left: "50%",
+        right: space.xxl,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         zIndex: 5,
-        animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
-        transformOrigin: "center",
+        pointerEvents: "none",
       }}
     >
-      <button
-        onClick={onClose}
-        aria-label="Close"
+      <div
+        ref={panelRef}
+        className="case-popup m-case-popup"
         style={{
-          position: "sticky",
-          top: 12,
-          marginLeft: "auto",
-          marginRight: 12,
-          display: "block",
-          width: 28,
-          height: 28,
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          fontFamily: HEROS_FONT,
-          fontSize: 22,
-          lineHeight: 1,
-          color: colors.text,
-          zIndex: 3,
-          float: "right",
+          width: "min(340px, calc(100% - 32px))",
+          aspectRatio: "4 / 5",
+          overflowY: "auto",
+          background: "#fff",
+          border: `1px solid ${colors.text}`,
+          borderRadius: 18,
+          boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
+          pointerEvents: "auto",
+          animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+          transformOrigin: "center",
+          padding: `${space.md}px ${space.lg}px ${space.lg}px`,
+          position: "relative",
         }}
       >
-        ×
-      </button>
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            width: 26,
+            height: 26,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: HEROS_FONT,
+            fontSize: 20,
+            lineHeight: 1,
+            color: colors.text,
+            zIndex: 3,
+          }}
+        >
+          ×
+        </button>
 
-      <div style={{ padding: `${space.lg}px ${space.xl}px ${space.xl}px` }}>
         <div
           style={{
             fontFamily: HEROS_FONT,
-            fontSize: 11,
+            fontSize: 9,
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "-0.01em",
             color: colors.textMuted,
-            marginBottom: space.sm,
+            marginBottom: 4,
+            marginTop: space.sm,
             animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
           }}
         >
@@ -646,12 +661,12 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
         <div
           style={{
             fontFamily: HEROS_FONT,
-            fontSize: 24,
+            fontSize: 16,
             fontWeight: 700,
             letterSpacing: "-0.02em",
             lineHeight: 1.1,
             color: colors.text,
-            marginBottom: space.sm,
+            marginBottom: 4,
             animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
           }}
         >
@@ -662,11 +677,11 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
           style={{
             fontFamily: TIMES,
             fontStyle: "italic",
-            fontSize: 22,
+            fontSize: 15,
             lineHeight: 1.25,
             color: colors.text,
             marginTop: 0,
-            marginBottom: space.xl,
+            marginBottom: space.md,
             animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both",
           }}
         >
@@ -675,48 +690,48 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
 
         <div
           style={{
-            marginBottom: space.lg,
+            marginBottom: space.md,
             animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both",
           }}
         >
           <div
             style={{
               fontFamily: HEROS_FONT,
-              fontSize: 10,
+              fontSize: 9,
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "-0.01em",
               color: colors.text,
-              marginBottom: space.sm,
+              marginBottom: 4,
             }}
           >
             The Task
           </div>
-          <p style={{ fontFamily: TIMES, fontSize: 15, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+          <p style={{ fontFamily: TIMES, fontSize: 12, lineHeight: 1.5, color: colors.text, margin: 0 }}>
             {study.task}
           </p>
         </div>
 
         <div
           style={{
-            marginBottom: space.xl,
+            marginBottom: space.md,
             animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both",
           }}
         >
           <div
             style={{
               fontFamily: HEROS_FONT,
-              fontSize: 10,
+              fontSize: 9,
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "-0.01em",
               color: colors.text,
-              marginBottom: space.sm,
+              marginBottom: 4,
             }}
           >
             The Outcome
           </div>
-          <p style={{ fontFamily: TIMES, fontSize: 15, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+          <p style={{ fontFamily: TIMES, fontSize: 12, lineHeight: 1.5, color: colors.text, margin: 0 }}>
             {study.outcome}
           </p>
         </div>
@@ -726,20 +741,20 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
             <ImageCarousel images={study.images} project={study.project} />
           </div>
         )}
-      </div>
 
-      <style>{`
-        .case-popup {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(0,0,0,0.25) transparent;
-        }
-        .case-popup::-webkit-scrollbar { width: 6px; }
-        .case-popup::-webkit-scrollbar-track { background: transparent; }
-        .case-popup::-webkit-scrollbar-thumb {
-          background: rgba(0,0,0,0.25);
-          border-radius: 3px;
-        }
-      `}</style>
+        <style>{`
+          .case-popup {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,0,0,0.25) transparent;
+          }
+          .case-popup::-webkit-scrollbar { width: 5px; }
+          .case-popup::-webkit-scrollbar-track { background: transparent; }
+          .case-popup::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.25);
+            border-radius: 3px;
+          }
+        `}</style>
+      </div>
     </div>
   );
 }
