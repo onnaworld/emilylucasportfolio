@@ -555,7 +555,7 @@ function WorkHero() {
             letterSpacing: "-0.04em",
           }}
         >
-          Selected
+          All
         </div>
       </div>
 

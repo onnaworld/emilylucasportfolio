@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
+import CustomCursor from "../components/CustomCursor";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
@@ -26,11 +27,22 @@ function Brand({ children }) {
 // Visual Research). Same hero as /work, optionally followed by an About-style
 // paragraph block when `body` is provided.
 export default function CategoryPage({ label, heroImage = "/hero.jpg", body, showcases = [] }) {
+  // Snap-scroll between the three full-viewport sections (hero, about,
+  // showcase). Adds the snap class to <html> on mount, removes on unmount
+  // so other routes aren't affected.
+  useEffect(() => {
+    document.documentElement.classList.add("category-snap-html");
+    return () => document.documentElement.classList.remove("category-snap-html");
+  }, []);
   return (
-    <div style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
+    <div className="category-page" style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
+      <style>{`
+        .category-page, .category-page * { cursor: none !important; }
+      `}</style>
+      <CustomCursor enlargeOnHover />
       <PlusMenu />
       <section
-        className="m-hero-section"
+        className="m-hero-section category-snap-section"
         style={{
           background: "#000",
           color: "#fff",
@@ -156,7 +168,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
 
       {body && (
         <section
-          className="m-section"
+          className="m-section category-snap-section"
           style={{
             position: "relative",
             padding: `${space.xxl}px ${space.xl}px ${space.xxl + 40}px`,
@@ -164,7 +176,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
             gridTemplateColumns: "1fr 6fr",
             gap: space.xl,
             alignItems: "start",
-            minHeight: "100vh",
+            height: "100vh",
           }}
         >
           <div
@@ -234,16 +246,17 @@ function isVideoSrc(src) {
   return src && /\.(mp4|webm|mov)$/i.test(src);
 }
 
-function Media({ src, style }) {
+function Media({ src, style, position }) {
+  const merged = position ? { ...style, objectPosition: position } : style;
   return isVideoSrc(src) ? (
     <video
       src={src}
       autoPlay muted loop playsInline
       preload="metadata"
-      style={style}
+      style={merged}
     />
   ) : (
-    <img src={src} alt="" loading="lazy" style={style} />
+    <img src={src} alt="" loading="lazy" style={merged} />
   );
 }
 
@@ -267,6 +280,7 @@ function AutoCycleHero({ showcases }) {
 
   return (
     <section
+      className="category-snap-section"
       style={{
         position: "relative",
         width: "100%",
@@ -299,6 +313,7 @@ function AutoCycleHero({ showcases }) {
               <div key={j} style={{ width: "100%", height: "100%", overflow: "hidden" }}>
                 <Media
                   src={src}
+                  position={s.position}
                   style={{
                     width: "100%",
                     height: "100%",
@@ -317,7 +332,7 @@ function AutoCycleHero({ showcases }) {
         style={{
           position: "absolute",
           right: space.xl,
-          bottom: 120,
+          bottom: 80,
           textAlign: "right",
           color: "#fff",
           textShadow: "0 1px 16px rgba(0,0,0,0.45)",
@@ -327,12 +342,12 @@ function AutoCycleHero({ showcases }) {
       >
         <div
           style={{
-            fontFamily: HEROS_FONT,
-            fontWeight: 700,
-            fontSize: "clamp(28px, 4vw, 56px)",
-            letterSpacing: "-0.02em",
+            fontFamily: TIMES,
+            fontStyle: "italic",
+            fontWeight: 400,
+            fontSize: "clamp(18px, 2vw, 30px)",
+            letterSpacing: "-0.01em",
             lineHeight: 1,
-            textTransform: "uppercase",
           }}
         >
           {active.client}
@@ -341,11 +356,12 @@ function AutoCycleHero({ showcases }) {
           <div
             style={{
               marginTop: 6,
-              fontFamily: TIMES,
-              fontStyle: "italic",
-              fontSize: "clamp(18px, 2vw, 30px)",
-              fontWeight: 400,
+              fontFamily: HEROS_FONT,
+              fontWeight: 700,
+              fontSize: "clamp(12px, 1.1vw, 16px)",
+              letterSpacing: "-0.01em",
               lineHeight: 1.1,
+              textTransform: "uppercase",
             }}
           >
             {active.title}
@@ -359,7 +375,7 @@ function AutoCycleHero({ showcases }) {
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: 12,
+          bottom: 48,
           display: "flex",
           justifyContent: "space-between",
           padding: `0 ${space.xl}px`,
@@ -387,12 +403,12 @@ function AutoCycleHero({ showcases }) {
                 flex: "1 1 0",
                 background: "none",
                 border: "none",
-                padding: "8px 0",
+                padding: "6px 0",
                 cursor: "pointer",
                 fontFamily: HEROS_FONT,
-                fontSize: "clamp(36px, 6vw, 96px)",
+                fontSize: "clamp(18px, 2.6vw, 38px)",
                 fontWeight: 700,
-                letterSpacing: "-0.04em",
+                letterSpacing: "-0.03em",
                 lineHeight: 1,
                 color: "#fff",
                 opacity: isActive ? 1 : 0.35,
@@ -404,6 +420,40 @@ function AutoCycleHero({ showcases }) {
             </button>
           );
         })}
+      </div>
+
+      {/* Footer row */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 14,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: `0 ${space.xl}px`,
+          color: "#fff",
+          fontFamily: HEROS_FONT,
+          fontSize: 11,
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "-0.01em",
+          textShadow: "0 1px 8px rgba(0,0,0,0.4)",
+        }}
+      >
+        <div>© Emily Lucas 2026</div>
+        <Link
+          to="/work"
+          style={{
+            color: "#fff",
+            textDecoration: "none",
+            borderBottom: "1px solid rgba(255,255,255,0.6)",
+            paddingBottom: 2,
+          }}
+        >
+          Click for more work →
+        </Link>
       </div>
     </section>
   );

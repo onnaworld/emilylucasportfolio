@@ -25,14 +25,14 @@ function B({ children }) {
 // the directory name (Emily's own filing convention) and works fine as a
 // URL path segment.
 const PRODUCTION_SHOWCASES = [
-  { client: "Vogue Arabia", title: "The Relaunch",                media: ["/Production/:production/1a.jpg", "/Production/:production/1b.JPG"] },
+  { client: "Vogue Arabia", title: "The Relaunch",                media: ["/Production/:production/1a.jpg", "/Production/:production/1b.JPG"], position: "center top" },
   { client: "Aman",          title: "Saudi Arabia & Dubai",        media: "/Production/:production/2.mp4" },
-  { client: "MR PORTER",     title: "In America",                  media: "/Production/:production/3.mp4" },
+  { client: "Nike",          title: "Vomero 18 Activation",        media: "/Production/:production/6.mp4" },
   { client: "One&Only",      title: "Moonlight Basin",             media: "/Production/:production/4.mp4" },
   { client: "Mastercard",    title: "Sail Grand Prix x Luís Figo", media: "/Production/:production/5.mp4" },
-  { client: "Nike",          title: "Vomero 18 Activation",        media: "/Production/:production/6.mp4" },
   { client: "J.Crew",        title: "Abraham Moon",                media: "/Production/:production/7.jpg" },
-  { client: "Charlotte Tilbury", title: "Disney 100 Campaign",     media: "/Production/:production/3.jpg" },
+  { client: "MR PORTER",     title: "Finneas",                     media: "/Production/:production/3.jpg" },
+  { client: "MR PORTER",     title: "In America",                  media: "/Production/:production/3.mp4" },
 ];
 
 const PRODUCTION_BODY = (
