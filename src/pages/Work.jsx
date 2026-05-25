@@ -664,7 +664,7 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
           style={{
             width: "100%",
             // Match the list height feel — caps at viewport with breathing room.
-            height: "min(640px, calc(100vh - 120px))",
+            height: "min(500px, calc(100vh - 200px))",
             overflowY: "auto",
             background: "#fff",
             border: `1px solid ${colors.text}`,
@@ -701,37 +701,37 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
             ×
           </button>
 
-          {/* Title row — italic Times client, HEROS project, on one line */}
+          {/* Project name — HEROS bold, lead line */}
           <div
             style={{
+              fontFamily: HEROS_FONT,
+              fontWeight: 700,
+              fontSize: 18,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.15,
+              color: colors.text,
               marginTop: space.sm,
-              marginBottom: 4,
-              lineHeight: 1.2,
+              marginBottom: 2,
               animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
             }}
           >
-            <span
-              style={{
-                fontFamily: TIMES,
-                fontStyle: "italic",
-                fontWeight: 400,
-                fontSize: 18,
-                color: colors.text,
-              }}
-            >
-              {study.client}
-            </span>
-            <span
-              style={{
-                fontFamily: HEROS_FONT,
-                fontWeight: 700,
-                fontSize: 16,
-                letterSpacing: "-0.02em",
-                color: colors.text,
-              }}
-            >
-              {" – "}{study.project}
-            </span>
+            {study.project}
+          </div>
+
+          {/* Client — italic Times, secondary */}
+          <div
+            style={{
+              fontFamily: TIMES,
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: 15,
+              lineHeight: 1.2,
+              color: colors.text,
+              marginBottom: 4,
+              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
+            }}
+          >
+            {study.client}
           </div>
 
           {/* Date underneath */}
@@ -744,7 +744,7 @@ function CaseStudyPopup({ study, panelRef, onClose }) {
               letterSpacing: "-0.01em",
               color: colors.textMuted,
               marginBottom: space.md,
-              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
+              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both",
             }}
           >
             {study.year}
