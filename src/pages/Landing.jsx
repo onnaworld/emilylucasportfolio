@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
@@ -828,6 +828,7 @@ function GridTile({ study }) {
 
 
 function MenuOverlay({ onClose, onContact }) {
+  const { pathname } = useLocation();
   useEffect(() => {
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", onKey);
@@ -835,6 +836,7 @@ function MenuOverlay({ onClose, onContact }) {
   }, [onClose]);
 
   const items = [
+    { label: "Home Page",         to: "/" },
     { label: "All Work",          to: "/work" },
     { label: "Production",        to: "/production" },
     { label: "Cultural Strategy", to: "/cultural-strategy" },
@@ -874,6 +876,7 @@ function MenuOverlay({ onClose, onContact }) {
           textAlign: "left",
           transformOrigin: "top right",
           animation: "menu-modal-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+          opacity: 0.94,
         }}
       >
         <button
@@ -917,28 +920,45 @@ function MenuOverlay({ onClose, onContact }) {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {items.map((item, i) => (
-            <Link
-              key={item.label}
-              to={item.to}
-              onClick={onClose}
-              style={{
-                display: "block",
-                color: "#fff",
-                textDecoration: "none",
-                fontFamily: HEROS,
-                fontSize: 13,
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "-0.01em",
-                padding: `${space.sm + 2}px 0`,
-                borderBottom: "1px solid rgba(255,255,255,0.28)",
-                animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.1}s both`,
-              }}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {items.map((item, i) => {
+            const isCurrent = pathname === item.to;
+            const rowStyle = {
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              color: "#fff",
+              textDecoration: "none",
+              fontFamily: HEROS,
+              fontSize: 13,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+              padding: `${space.sm + 2}px 0`,
+              borderBottom: "1px solid rgba(255,255,255,0.28)",
+              animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.1}s both`,
+              opacity: isCurrent ? 0.4 : 1,
+              pointerEvents: isCurrent ? "none" : "auto",
+              cursor: isCurrent ? "default" : "pointer",
+            };
+            const inner = (
+              <>
+                <span aria-hidden="true" style={{ fontSize: 14, lineHeight: 1, opacity: 0.85 }}>•</span>
+                <span>{item.label}</span>
+              </>
+            );
+            if (isCurrent) {
+              return (
+                <div key={item.label} style={rowStyle} aria-current="page">
+                  {inner}
+                </div>
+              );
+            }
+            return (
+              <Link key={item.label} to={item.to} onClick={onClose} style={rowStyle}>
+                {inner}
+              </Link>
+            );
+          })}
           <button
             onClick={(e) => { e.stopPropagation(); onContact(); }}
             style={{

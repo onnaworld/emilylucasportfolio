@@ -42,26 +42,6 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
       <CustomCursor enlargeOnHover />
       <PlusMenu />
 
-      {/* Sticky ← Home (follows scroll, mix-blend-difference for legibility) */}
-      <Link
-        to="/"
-        className="m-portfolio-label"
-        style={{
-          position: "fixed",
-          top: 28,
-          left: space.xl,
-          fontFamily: TIMES,
-          fontSize: 14,
-          fontWeight: 400,
-          color: "#fff",
-          mixBlendMode: "difference",
-          textDecoration: "none",
-          zIndex: 100,
-        }}
-      >
-        ← Home
-      </Link>
-
       <section
         className="m-hero-section category-snap-section"
         style={{
@@ -85,17 +65,34 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
           }}
         />
 
-        {/* Top-left: Selected (← Home is now sticky outside the section) */}
+        {/* Top-left: ← Home + Selected (same pattern as /work hero) */}
         <div
           className="m-hero-tl"
           style={{
             position: "absolute",
-            top: space.xl + 24,
+            top: space.xl,
             left: space.xl,
             color: "#fff",
             zIndex: 5,
           }}
         >
+          <Link
+            to="/"
+            className="m-portfolio-label"
+            style={{
+              display: "inline-block",
+              fontFamily: TIMES,
+              fontSize: 14,
+              fontWeight: 400,
+              color: "#fff",
+              marginBottom: space.sm,
+              marginLeft: 2,
+              opacity: 0.95,
+              textDecoration: "none",
+            }}
+          >
+            ← Home
+          </Link>
           <div
             className="m-hero-title"
             style={{
