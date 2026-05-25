@@ -238,7 +238,7 @@ export default function Landing() {
           }}
         >
           Executive Producer<br />
-          Strategist &amp; Editor<br />
+          Cultural Strategist<br />
           Visual Researcher
         </div>
 
