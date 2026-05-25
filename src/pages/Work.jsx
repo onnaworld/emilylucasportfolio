@@ -235,44 +235,15 @@ export default function Work() {
           )}
         </div>
 
-        {/* Case study panel — fixed overlay on the right when active */}
+        {/* Inline case study — expands into the right-half area, replacing
+            the scattered thumbs. No border, scrolls within itself, top + bottom
+            white fades from the section sit above it so the scroll edge softens. */}
         {activeStudy && (
-          <div
-            ref={rightPanelRef}
-            className="m-case-panel"
-            style={{
-              position: "fixed",
-              top: 88,
-              right: space.xl,
-              width: "min(420px, 36vw)",
-              maxHeight: "calc(100vh - 120px)",
-              overflowY: "auto",
-              background: colors.bg,
-              border: `1px solid ${colors.border}`,
-              padding: space.lg,
-              zIndex: 60,
-            }}
-          >
-            <button
-              onClick={() => setActive(null)}
-              aria-label="Close"
-              style={{
-                position: "absolute",
-                top: space.sm,
-                right: space.sm,
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                fontFamily: HEROS_FONT,
-                fontSize: 22,
-                lineHeight: 1,
-                color: colors.text,
-              }}
-            >
-              ×
-            </button>
-            <CaseStudyView study={activeStudy} />
-          </div>
+          <InlineCaseStudy
+            study={activeStudy}
+            panelRef={rightPanelRef}
+            onClose={() => setActive(null)}
+          />
         )}
 
         {/* Soft top fade — mirror of the bottom one, anchored inside the
@@ -289,7 +260,7 @@ export default function Work() {
             height: "12vh",
             background: `linear-gradient(to top, transparent 0%, ${colors.bg} 55%)`,
             pointerEvents: "none",
-            zIndex: 4,
+            zIndex: 10,
           }}
         />
 
@@ -306,7 +277,7 @@ export default function Work() {
             height: "12vh",
             background: `linear-gradient(to bottom, transparent 0%, ${colors.bg} 55%)`,
             pointerEvents: "none",
-            zIndex: 4,
+            zIndex: 10,
           }}
         />
       </div>
@@ -558,10 +529,10 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
           scale = i === hoveredIdx ? 1.12 : 0.9;
         }
 
-        // Per-project duration variation — slow, gentle glide. Wide spread
+        // Per-project duration variation — heavy, slow drift. Wide spread
         // so thumbs arrive at visibly different times and bump as they transit.
-        const dur = 3.5 + ((i * 37) % 100) / 60; // 3.5s..5.2s, deterministic per project
-        const ease = "cubic-bezier(0.34, 1.56, 0.64, 1)"; // soft overshoot/bounce
+        const dur = 9 + ((i * 37) % 100) / 18; // 9s..14.5s, deterministic per project
+        const ease = "cubic-bezier(0.22, 1, 0.36, 1)"; // soft decel, no overshoot — heavier feel
 
         // Use the project's own thumb if defined; fall back to a matching
         // productionCase heroImage; otherwise blank.
@@ -608,79 +579,186 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx })
   );
 }
 
-function CaseStudyView({ study }) {
+function InlineCaseStudy({ study, panelRef, onClose }) {
   return (
-    <article style={{ paddingBottom: space.xxl }}>
-      <div style={{ background: "#0a0a0a", marginBottom: space.lg, overflow: "hidden" }}>
-        {study.heroVideo ? (
-          <video
-            src={study.heroVideo}
-            poster={study.heroImage}
-            autoPlay muted loop playsInline
-            style={{ width: "100%", display: "block" }}
-          />
-        ) : study.heroImage ? (
-          <img src={study.heroImage} alt={study.project} style={{ width: "100%", display: "block" }} />
-        ) : null}
-      </div>
-
-      <div style={{ ...t("label"), color: colors.textMuted, marginBottom: space.sm, letterSpacing: 1.6 }}>
-        {study.year} · {study.client}
-      </div>
-
-      <h2
+    <div
+      ref={panelRef}
+      className="case-inline"
+      style={{
+        position: "absolute",
+        top: 0,
+        left: "50%",
+        right: 0,
+        bottom: 0,
+        overflowY: "auto",
+        background: colors.bg,
+        zIndex: 5,
+        animation: "case-expand 0.8s cubic-bezier(0.22, 1, 0.36, 1) both",
+        transformOrigin: "top left",
+      }}
+    >
+      <button
+        onClick={onClose}
+        aria-label="Close"
         style={{
-          fontFamily: fonts.sans,
-          fontSize: 28,
-          fontWeight: 700,
-          letterSpacing: "-0.01em",
-          lineHeight: 1.15,
-          marginBottom: space.md,
+          position: "sticky",
+          top: 12,
+          marginLeft: "auto",
+          marginRight: 16,
+          display: "block",
+          width: 32,
+          height: 32,
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.85)",
+          backdropFilter: "blur(4px)",
+          border: "none",
+          cursor: "pointer",
+          fontFamily: HEROS_FONT,
+          fontSize: 22,
+          lineHeight: 1,
           color: colors.text,
+          zIndex: 3,
+          float: "right",
         }}
       >
-        {study.project}
-      </h2>
+        ×
+      </button>
 
-      <p
+      {/* Hero — full-width media, native aspect */}
+      {study.heroVideo ? (
+        <video
+          src={study.heroVideo}
+          poster={study.heroImage}
+          autoPlay muted loop playsInline
+          style={{ width: "100%", display: "block" }}
+        />
+      ) : study.heroImage ? (
+        <img src={study.heroImage} alt={study.project} style={{ width: "100%", display: "block" }} />
+      ) : null}
+
+      <div
+        className="case-text"
         style={{
-          fontFamily: fonts.sans,
-          fontSize: 18,
-          lineHeight: 1.4,
-          color: colors.text,
-          marginBottom: space.xl,
+          padding: `${space.lg}px ${space.xl}px ${space.xxl}px`,
+          animation: "case-text-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both",
         }}
       >
-        {study.title}
-      </p>
-
-      <div style={{ marginBottom: space.lg }}>
-        <div style={{ ...t("label"), marginBottom: space.sm, color: colors.text }}>The Task</div>
-        <p style={{ fontFamily: fonts.sans, fontSize: 14, lineHeight: 1.6, color: colors.text, margin: 0 }}>
-          {study.task}
-        </p>
-      </div>
-
-      <div style={{ marginBottom: space.xl }}>
-        <div style={{ ...t("label"), marginBottom: space.sm, color: colors.text }}>The Outcome</div>
-        <p style={{ fontFamily: fonts.sans, fontSize: 14, lineHeight: 1.6, color: colors.text, margin: 0 }}>
-          {study.outcome}
-        </p>
-      </div>
-
-      {study.images && study.images.length > 0 && (
-        <div style={{ display: "flex", flexDirection: "column", gap: space.md }}>
-          {study.images.map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt={`${study.project} – ${i + 1}`}
-              loading="lazy"
-              style={{ width: "100%", display: "block", background: colors.surface }}
-            />
-          ))}
+        <div
+          style={{
+            fontFamily: HEROS_FONT,
+            fontSize: 11,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "-0.01em",
+            color: colors.textMuted,
+            marginBottom: space.sm,
+          }}
+        >
+          {study.year} · {study.client}
         </div>
-      )}
-    </article>
+
+        <div
+          style={{
+            fontFamily: HEROS_FONT,
+            fontSize: 22,
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.1,
+            color: colors.text,
+            marginBottom: space.sm,
+          }}
+        >
+          {study.project}
+        </div>
+
+        <p
+          style={{
+            fontFamily: TIMES,
+            fontStyle: "italic",
+            fontSize: 22,
+            lineHeight: 1.25,
+            color: colors.text,
+            marginTop: 0,
+            marginBottom: space.xl,
+          }}
+        >
+          {study.title}
+        </p>
+
+        <div style={{ marginBottom: space.lg }}>
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontSize: 10,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+              color: colors.text,
+              marginBottom: space.sm,
+            }}
+          >
+            The Task
+          </div>
+          <p style={{ fontFamily: TIMES, fontSize: 15, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+            {study.task}
+          </p>
+        </div>
+
+        <div style={{ marginBottom: space.xl }}>
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontSize: 10,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+              color: colors.text,
+              marginBottom: space.sm,
+            }}
+          >
+            The Outcome
+          </div>
+          <p style={{ fontFamily: TIMES, fontSize: 15, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+            {study.outcome}
+          </p>
+        </div>
+
+        {study.images && study.images.length > 0 && (
+          <div style={{ display: "flex", flexDirection: "column", gap: space.md }}>
+            {study.images.map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt={`${study.project} – ${i + 1}`}
+                loading="lazy"
+                style={{ width: "100%", display: "block", background: colors.surface }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes case-expand {
+          from { transform: scale(0.55) translate(-12%, -22%); opacity: 0; }
+          to   { transform: scale(1) translate(0, 0); opacity: 1; }
+        }
+        @keyframes case-text-in {
+          from { opacity: 0; transform: translateY(18px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .case-inline {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(0,0,0,0.25) transparent;
+        }
+        .case-inline::-webkit-scrollbar { width: 6px; }
+        .case-inline::-webkit-scrollbar-track { background: transparent; }
+        .case-inline::-webkit-scrollbar-thumb {
+          background: rgba(0,0,0,0.25);
+          border-radius: 3px;
+        }
+        .case-inline::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
+      `}</style>
+    </div>
   );
 }

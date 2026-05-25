@@ -866,6 +866,7 @@ function MenuOverlay({ onClose, onContact }) {
             color: "#fff",
             lineHeight: 1,
             marginBottom: space.lg,
+            textAlign: "center",
           }}
         >
           Menu
