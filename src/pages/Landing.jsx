@@ -194,6 +194,7 @@ export default function Landing() {
             right: space.xl,
             color: "#fff",
             fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
             fontSize: "clamp(44px, 7vw, 100px)",
             fontWeight: 400,
             lineHeight: 0.9,
@@ -413,7 +414,7 @@ function ContactModal({ onClose }) {
   const rows = [
     { label: "EMAIL",    value: "emilyelucas@gmail.com",          href: "mailto:emilyelucas@gmail.com" },
     { label: "PHONE",    value: "+1 (917) 735-8545",              href: "tel:+19177358545" },
-    { label: "LINKEDIN", value: "linkedin.com/in/emilylucas",     href: "https://linkedin.com/in/emilylucas" },
+    { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas",    href: "https://www.linkedin.com/in/emilyelucas/" },
   ];
 
   return (
@@ -422,25 +423,24 @@ function ContactModal({ onClose }) {
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.25)",
+        background: "transparent",
         zIndex: 200,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: space.xl,
-        animation: "contact-backdrop-in 0.5s ease-out both",
       }}
     >
       <div
         onClick={e => e.stopPropagation()}
         style={{
+          position: "absolute",
+          bottom: space.xl,
+          right: space.xl,
           background: "#fff",
           color: colors.text,
-          width: "min(520px, 100%)",
+          width: "min(440px, calc(100vw - 48px))",
           padding: space.xl,
-          position: "relative",
           border: `1px solid ${colors.text}`,
-          borderRadius: 6,
+          borderRadius: 18,
+          boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
+          transformOrigin: "bottom right",
           animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         }}
       >
@@ -742,37 +742,96 @@ function GridTile({ study }) {
 
 
 function MenuOverlay({ onClose, onContact }) {
-  const linkStyle = {
-    color: "#fff",
-    fontFamily: fonts.sans,
-    fontSize: 36,
-    fontWeight: 700,
-    letterSpacing: "-0.01em",
-    textDecoration: "none",
-    padding: "8px 0",
-  };
+  const items = [
+    { label: "All Work",          to: "/work" },
+    { label: "Production",        to: "/work" },
+    { label: "Cultural Strategy", to: "/work" },
+    { label: "Visual Research",   to: "/work" },
+  ];
   return (
     <div
       onClick={onClose}
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.92)",
+        background: "transparent",
         zIndex: 90,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 4,
       }}
     >
-      <Link to="/work" style={linkStyle}>Work</Link>
-      <button
-        onClick={(e) => { e.stopPropagation(); onContact(); }}
-        style={{ ...linkStyle, background: "none", border: "none", cursor: "pointer" }}
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          position: "absolute",
+          top: space.xl,
+          right: space.xl,
+          background: "#fff",
+          color: colors.text,
+          width: "min(360px, calc(100vw - 48px))",
+          padding: space.xl,
+          border: `1px solid ${colors.text}`,
+          borderRadius: 18,
+          boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
+          transformOrigin: "top right",
+          animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+        }}
       >
-        Contact
-      </button>
+        <div
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
+            fontSize: "clamp(22px, 2.4vw, 32px)",
+            fontWeight: 400,
+            lineHeight: 1,
+            marginBottom: space.md,
+          }}
+        >
+          Menu
+        </div>
+        <div style={{ borderTop: `1px solid ${colors.text}` }}>
+          {items.map((item, i) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              onClick={onClose}
+              style={{
+                display: "block",
+                padding: `${space.md}px 0`,
+                borderBottom: `1px solid ${colors.text}`,
+                fontFamily: HEROS,
+                fontSize: 13,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "-0.01em",
+                color: colors.text,
+                textDecoration: "none",
+                animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.18 + i * 0.08}s both`,
+              }}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <button
+            onClick={(e) => { e.stopPropagation(); onContact(); }}
+            style={{
+              display: "block",
+              width: "100%",
+              textAlign: "left",
+              background: "none",
+              border: "none",
+              padding: `${space.md}px 0`,
+              fontFamily: "'Times New Roman', Times, serif",
+              fontStyle: "italic",
+              fontSize: 16,
+              fontWeight: 400,
+              color: colors.text,
+              cursor: "pointer",
+              animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.18 + items.length * 0.08}s both`,
+            }}
+          >
+            Contact →
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

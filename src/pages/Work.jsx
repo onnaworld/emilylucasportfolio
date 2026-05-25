@@ -17,36 +17,37 @@ function categoryFor(n) {
   return "Visual Research";
 }
 
-// Each entry: { n, client?, title, slug?, thumb? }
-// - client is rendered bold, title is rendered regular (split by " - ")
-// - entries without `client` render `title` alone in bold (legacy editorial titles)
+// Each entry: { n, client?, title, slug?, link?, thumb? }
+// - client is rendered bold, title regular (split by " - ")
+// - slug opens the in-page case study panel
+// - link opens the published article in a new tab
 const PROJECTS = [
-  { n: 1,  client: "CONDÉ NAST",         title: "Vogue Arabia Relaunch",        slug: "vogue-relaunch",       thumb: "/work/all-work/01.jpg" },
-  { n: 2,  client: "AMAN",               title: "Saudi Arabia & Dubai",         slug: "aman",                 thumb: "/work/all-work/2..jpg" },
-  { n: 3,  client: "MR PORTER",          title: "N America",                    slug: "mr-porter-in-america", thumb: "/work/all-work/3..webp" },
-  { n: 4,  client: "ONE&ONLY",           title: "Moonlight Basin",              slug: "moonlight-basin",      thumb: "/work/all-work/4..mp4.mp4" },
-  { n: 5,  client: "CIPRIANI",           title: "MR C Residence Dubai",         slug: "mr-c-residences",      thumb: "/work/all-work/5..jpg" },
-  { n: 6,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign",            thumb: "/work/all-work/6..jpg" },
-  { n: 7,  client: "MASTERCARD",         title: "Sail Grand Prix x Luís Figo",  slug: "mastercard-sailgp" },
-  { n: 8,  client: "NIKE",               title: "Global Vomero 18 Activation",  slug: "nike-vomero" },
-  { n: 9,  client: "J.CREW",             title: "Abraham Moon",                 slug: "abraham-moon" },
-  { n: 10, client: "CHARLOTTE TILBURY",  title: "Disney 100 Campaign",          thumb: "/work/all-work/10.mp4" },
-  { n: 11, client: "LOUIS VUITTON",      title: "The Glass Magazine",           slug: "glass-magazine",       thumb: "/work/all-work/11..jpg" },
-  { n: 12, client: "TRIPPIN",            title: "6 Photographers on What Ethical Photography Means to Them", thumb: "/work/all-work/12.avif" },
-  { n: 13, title: "An Exploration of Mexico Through the Lens of Graciela Iturbide", thumb: "/work/all-work/13.jpg" },
-  { n: 14, title: "A History of Tattooing in Japan",                                thumb: "/work/all-work/14.webp" },
-  { n: 15, title: "MR PORTER: The Stylish Gent's Guide To 2022's Freshest Menswear Trends", thumb: "/work/all-work/15.jpg" },
-  { n: 16, title: "Why You Should Shop (For Yourself) On MR PORTER",               thumb: "/work/all-work/16.jpg" },
-  { n: 17, title: "15 Ways To Improve Your Life, Japanese Style" },
-  { n: 18, title: "Meet The Next Generation Of Black British Writers Telling Stories With Style" },
-  { n: 19, title: "Feels On Wheels: Why Roller-Skating Is Like Therapy" },
-  { n: 20, title: "MR PORTER Social Pride Takeover" },
-  { n: 21, title: "MR PORTER Helping Hands" },
-  { n: 22, title: "Ask MR PORTER" },
-  { n: 23, title: "Eight Striking Images Of New York City Through The Decades" },
-  { n: 24, title: "Five Ways To Freshen Up Your Work Wardrobe In 2020" },
-  { n: 25, title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe" },
-  { n: 26, title: "What To Read, Watch And Do This Black History Month UK" },
+  { n: 1,  client: "CONDÉ NAST",         title: "Vogue Arabia Relaunch",       slug: "vogue-relaunch",       thumb: "/work/all-work/01.jpg" },
+  { n: 2,  client: "AMAN",               title: "Saudi Arabia & Dubai",        slug: "aman",                 thumb: "/work/all-work/2..jpg" },
+  { n: 3,  client: "MR PORTER",          title: "N America",                   slug: "mr-porter-in-america", thumb: "/work/all-work/3..webp" },
+  { n: 4,  client: "ONE&ONLY",           title: "Moonlight Basin",             slug: "moonlight-basin",      thumb: "/work/all-work/4..mp4.mp4" },
+  { n: 5,  client: "CIPRIANI",           title: "MR C Residence Dubai",        slug: "mr-c-residences",      thumb: "/work/all-work/5..jpg" },
+  { n: 6,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign",           thumb: "/work/all-work/6..jpg" },
+  { n: 7,  client: "MASTERCARD",         title: "Sail Grand Prix x Luís Figo", slug: "mastercard-sailgp" },
+  { n: 8,  client: "NIKE",               title: "Global Vomero 18 Activation", slug: "nike-vomero" },
+  { n: 9,  client: "J.CREW",             title: "Abraham Moon",                slug: "abraham-moon" },
+  { n: 10, client: "CHARLOTTE TILBURY",  title: "Disney 100 Campaign",         thumb: "/work/all-work/10.mp4" },
+  { n: 11, client: "LOUIS VUITTON",      title: "The Glass Magazine",          slug: "glass-magazine",       thumb: "/work/all-work/11..jpg" },
+  { n: 12, client: "TRIPPIN",            title: "6 Photographers on What Ethical Photography Means to Them", thumb: "/work/all-work/12.avif", link: "https://trippin.world/feature/through-the-lens-6-photographers-on-what-ethical-photography-means-to-them" },
+  { n: 13, client: "MR PORTER",          title: "15 Ways To Improve Your Life, Japanese Style", thumb: "/work/all-work/13.jpg", link: "https://www.mrporter.com/en-us/journal/lifestyle/life-lessons-people-tokyo-japan-style-food-24538500" },
+  { n: 14, client: "TRIPPIN",            title: "An Exploration of Mexico Through the Lens of Graciela Iturbide", thumb: "/work/all-work/14.webp", link: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide" },
+  { n: 15, client: "MR PORTER",          title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends",  thumb: "/work/all-work/15.jpg", link: "https://www.mrporter.com/en-ch/journal/fashion/menswear-trends-forecast-street-style-2022-10321430" },
+  { n: 16, client: "MR PORTER",          title: "Why You Should Shop (For Yourself) On MR PORTER",              thumb: "/work/all-work/16.jpg", link: "https://www.mrporter.com/en-dk/journal/fashion/women-shopping-buying-wearing-menswear-style-24622422" },
+  { n: 17, client: "MR PORTER",          title: "Meet The Next Generation Of Black British Writers Telling Stories With Style", link: "https://www.mrporter.com/en-us/journal/fashion/black-history-month-uk-writers-portfolio-24605122" },
+  { n: 18, client: "TRIPPIN",            title: "A History of Tattooing in Japan",                              link: "https://trippin.world/feature/a-history-of-tattooing-in-japan" },
+  { n: 19, client: "MR PORTER",          title: "Feels On Wheels: Why Roller-Skating Is Like Therapy",          link: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
+  { n: 20, client: "MR PORTER",          title: "Pride" },
+  { n: 21, client: "MR PORTER",          title: "Helping Hands" },
+  { n: 22, client: "MR PORTER",          title: "Ask MR PORTER" },
+  { n: 23, client: "MR PORTER",          title: "Eight Striking Images Of New York City Through The Decades",   link: "https://www.mrporter.com/en-gb/journal/lifestyle/new-york-street-photography-bruce-davidson-vivian-maier-10037722" },
+  { n: 24, client: "MR PORTER",          title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe", link: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852" },
+  { n: 25, client: "MR PORTER",          title: "Five Ways To Freshen Up Your Work Wardrobe In 2020",           link: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428" },
+  { n: 26, client: "MR PORTER",          title: "What To Read, Watch And Do This Black History Month UK",       link: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134" },
 ];
 
 export default function Work() {
@@ -136,9 +137,13 @@ export default function Work() {
             </div>
             {PROJECTS.map((p, idx) => {
               const isActive = activeSlug && p.slug === activeSlug;
-              const clickable = !!p.slug;
+              const clickable = !!p.slug || !!p.link;
               const isHovered = hoveredIdx === idx;
               const isDimmed = hoveredIdx !== null && !isHovered;
+              const onProjectClick = () => {
+                if (p.slug) setActive(isActive ? null : p.slug);
+                else if (p.link) window.open(p.link, "_blank", "noopener,noreferrer");
+              };
               return (
                 <button
                   key={p.n}
@@ -146,7 +151,7 @@ export default function Work() {
                     setHoveredIdx(idx);
                     onHoverProject(idx);
                   }}
-                  onClick={() => clickable && setActive(isActive ? null : p.slug)}
+                  onClick={onProjectClick}
                   style={{
                     background: "none",
                     border: "none",
@@ -176,7 +181,7 @@ export default function Work() {
                     {p.client ? (
                       <>
                         <span style={{ fontWeight: 700 }}>{p.client}</span>
-                        <span style={{ fontWeight: 400 }}> — {p.title}</span>
+                        <span style={{ fontWeight: 400 }}> - {p.title}</span>
                       </>
                     ) : (
                       <span style={{ fontWeight: 700 }}>{p.title}</span>
