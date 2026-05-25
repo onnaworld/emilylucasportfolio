@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 // Small white dot that follows the cursor. mix-blend-mode: difference inverts
 // it automatically so it appears black on light backgrounds and white on
-// dark ones. Grows slightly when hovering over a clickable element.
+// dark ones.
 export default function CustomCursor() {
   const ref = useRef(null);
 
@@ -14,19 +14,8 @@ export default function CustomCursor() {
         ref.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
       }
     };
-    const onOver = (e) => {
-      if (!ref.current) return;
-      const interactive = e.target?.closest?.('button, a, [role="button"]');
-      const size = interactive ? 24 : 12;
-      ref.current.style.width = `${size}px`;
-      ref.current.style.height = `${size}px`;
-    };
     window.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseover", onOver);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseover", onOver);
-    };
+    return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
   return (
@@ -45,7 +34,6 @@ export default function CustomCursor() {
         pointerEvents: "none",
         zIndex: 9999,
         transform: "translate(-100px, -100px)",
-        transition: "width 0.18s ease-out, height 0.18s ease-out",
       }}
     />
   );

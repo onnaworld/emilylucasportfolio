@@ -63,6 +63,7 @@ const VISUAL_RESEARCH_IMAGES = [
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   // Heavy/bouncy smooth scroll — long duration + gentle easing.
   useEffect(() => {
@@ -228,7 +229,12 @@ export default function Landing() {
         <DownArrow color="#fff" />
       </section>
 
-      {menuOpen && <MenuOverlay onClose={() => setMenuOpen(false)} />}
+      {menuOpen && (
+        <MenuOverlay
+          onClose={() => setMenuOpen(false)}
+          onContact={() => { setMenuOpen(false); setContactOpen(true); }}
+        />
+      )}
 
       {/* ───── 2. ABOUT (Studio Move-style giant intro paragraph) ───── */}
       <section
@@ -359,7 +365,8 @@ export default function Landing() {
         </p>
       </section>
 
-      {/* Contact — small Times link, centered between two lines (mirrors View All Work) */}
+      {/* Contact — small Times link, centered between two lines. Opens the
+          Get-in-Touch modal instead of routing to a dedicated page. */}
       <div
         style={{
           padding: `${space.md}px ${space.xl}px ${space.md}px`,
@@ -367,9 +374,13 @@ export default function Landing() {
           textAlign: "center",
         }}
       >
-        <Link
-          to="/contact"
+        <button
+          onClick={() => setContactOpen(true)}
           style={{
+            background: "none",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
             fontFamily: "'Times New Roman', Times, serif",
             fontSize: 18,
             fontWeight: 400,
@@ -379,9 +390,147 @@ export default function Landing() {
           }}
         >
           Contact →
-        </Link>
+        </button>
       </div>
 
+      {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
+
+    </div>
+  );
+}
+
+function ContactModal({ onClose }) {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  const rows = [
+    { label: "EMAIL",    value: "emilyelucas@gmail.com",          href: "mailto:emilyelucas@gmail.com" },
+    { label: "PHONE",    value: "+1 (917) 735-8545",              href: "tel:+19177358545" },
+    { label: "LINKEDIN", value: "linkedin.com/in/emilylucas",     href: "https://linkedin.com/in/emilylucas" },
+  ];
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,0.45)",
+        zIndex: 200,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: space.xl,
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: "#fff",
+          color: colors.text,
+          width: "min(880px, 100%)",
+          padding: `${space.xxl}px ${space.xxl}px ${space.xl}px`,
+          position: "relative",
+        }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: space.lg,
+            right: space.lg,
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: HEROS,
+            fontSize: 28,
+            lineHeight: 1,
+            color: colors.text,
+          }}
+        >
+          ×
+        </button>
+
+        <div
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
+            fontSize: "clamp(28px, 3.4vw, 48px)",
+            fontWeight: 400,
+            color: colors.text,
+            lineHeight: 1,
+            marginBottom: space.md,
+          }}
+        >
+          Get in touch
+        </div>
+        <p
+          style={{
+            fontFamily: HEROS,
+            fontSize: 16,
+            fontWeight: 400,
+            lineHeight: 1.4,
+            color: colors.text,
+            margin: 0,
+            marginBottom: space.xxl,
+            maxWidth: 560,
+          }}
+        >
+          Available for editorial production, branded content, and consulting engagements.
+        </p>
+
+        <div style={{ borderTop: `1px solid ${colors.text}` }}>
+          {rows.map(row => (
+            <a
+              key={row.label}
+              href={row.href}
+              target={row.label === "LINKEDIN" ? "_blank" : undefined}
+              rel={row.label === "LINKEDIN" ? "noopener noreferrer" : undefined}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "120px 1fr",
+                alignItems: "baseline",
+                padding: `${space.lg}px 0`,
+                borderBottom: `1px solid ${colors.text}`,
+                color: colors.text,
+                textDecoration: "none",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: HEROS,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  color: colors.textMuted,
+                }}
+              >
+                {row.label}
+              </span>
+              <span
+                style={{
+                  fontFamily: HEROS,
+                  fontSize: 18,
+                  fontWeight: 400,
+                  textAlign: "right",
+                  color: colors.text,
+                }}
+              >
+                {row.value}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -569,7 +718,7 @@ function GridTile({ study }) {
 }
 
 
-function MenuOverlay({ onClose }) {
+function MenuOverlay({ onClose, onContact }) {
   const linkStyle = {
     color: "#fff",
     fontFamily: fonts.sans,
@@ -596,7 +745,12 @@ function MenuOverlay({ onClose }) {
     >
       <Link to="/work" style={linkStyle}>Work</Link>
       <Link to="/about" style={linkStyle}>About</Link>
-      <Link to="/contact" style={linkStyle}>Contact</Link>
+      <button
+        onClick={(e) => { e.stopPropagation(); onContact(); }}
+        style={{ ...linkStyle, background: "none", border: "none", cursor: "pointer" }}
+      >
+        Contact
+      </button>
     </div>
   );
 }
