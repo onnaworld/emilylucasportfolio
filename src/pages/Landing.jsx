@@ -418,6 +418,20 @@ export default function Landing() {
 
       {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
 
+      <footer
+        className="m-landing-footer"
+        style={{
+          padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
+          borderTop: `1px solid ${colors.border}`,
+          fontFamily: "'Times New Roman', Times, serif",
+          fontSize: 14,
+          fontWeight: 400,
+          color: colors.textMuted,
+        }}
+      >
+        © {new Date().getFullYear()} Emily Lucas
+      </footer>
+
     </div>
   );
 }

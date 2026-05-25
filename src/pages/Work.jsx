@@ -242,33 +242,9 @@ export default function Work() {
                 zIndex: 20,
               }}
             >
-              Site designed and built by Emily Lucas © {new Date().getFullYear()}
+              © {new Date().getFullYear()} Emily Lucas
             </div>
           </>
-        )}
-
-        {/* Mobile-only ↑, pinned at top of section */}
-        {isMobile && (
-          <button
-            onClick={scrollToHero}
-            aria-label="Back to top"
-            style={{
-              position: "absolute",
-              top: space.md,
-              left: "50%",
-              transform: "translateX(-50%)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: colors.text,
-              fontFamily: HEROS_FONT,
-              fontSize: 18,
-              padding: 8,
-              zIndex: 20,
-            }}
-          >
-            ↑
-          </button>
         )}
 
         <div
@@ -400,7 +376,7 @@ export default function Work() {
                     lineHeight: 1,
                   }}
                 >
-                  Site designed and built by Emily Lucas © {new Date().getFullYear()}
+                  © {new Date().getFullYear()} Emily Lucas
                 </div>
               </div>
             )}

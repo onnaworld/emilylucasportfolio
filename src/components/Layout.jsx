@@ -83,7 +83,7 @@ function Footer() {
           color: colors.textMuted,
         }}
       >
-        Site designed and built by Emily Lucas © {new Date().getFullYear()}
+        © {new Date().getFullYear()} Emily Lucas
       </div>
     </footer>
   );
