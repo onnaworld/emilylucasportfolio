@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 // payload) until the user actually navigates there.
 const Work = lazy(() => import("./pages/Work"));
 const WorkDetail = lazy(() => import("./pages/WorkDetail"));
+const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -27,6 +28,9 @@ export default function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<WorkDetail />} />
+            <Route path="/production" element={<CategoryPage label="Production" />} />
+            <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" />} />
+            <Route path="/visual-research" element={<CategoryPage label="Visual Research" />} />
             <Route path="*" element={<Landing />} />
           </Routes>
         </Suspense>

@@ -304,9 +304,9 @@ export default function Landing() {
         </p>
       </section>
 
-      <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
-      <CategorySlide label="CULTURAL STRATEGY & COMMENTARY" images={WRITING_IMAGES} compact />
-      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape />
+      <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} viewMoreHref="/production" />
+      <CategorySlide label="CULTURAL STRATEGY & COMMENTARY" images={WRITING_IMAGES} compact viewMoreHref="/cultural-strategy" />
+      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape viewMoreHref="/visual-research" />
 
       {/* View all work, small Times link, centered between two lines */}
       <div
@@ -636,7 +636,7 @@ function ContactModal({ onClose }) {
   );
 }
 
-function CategorySlide({ label, images, compact = false, landscape = false }) {
+function CategorySlide({ label, images, compact = false, landscape = false, viewMoreHref = "/work" }) {
   const padV = compact ? space.sm : space.md;
   return (
     <section
@@ -666,7 +666,7 @@ function CategorySlide({ label, images, compact = false, landscape = false }) {
           {label}
         </div>
         <Link
-          to="/work"
+          to={viewMoreHref}
           style={{
             fontFamily: HEROS,
             fontSize: 13,
