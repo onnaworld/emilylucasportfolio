@@ -24,6 +24,19 @@ function B({ children }) {
 // Asset folder is /public/Production/:production/ — the colon is part of
 // the directory name (Emily's own filing convention) and works fine as a
 // URL path segment.
+// Cultural-strategy showcase entries — media intentionally null while
+// Emily uploads the actual assets; the showcase renders a placeholder
+// gradient in their place.
+const CULTURAL_STRATEGY_SHOWCASES = [
+  { slug: "mr-porter-championing-subcultures", client: "MR PORTER", title: "Championing Subcultures",            media: null },
+  { slug: "mr-porter-social-media",             client: "MR PORTER", title: "Social Media Strategy",              media: null },
+  { slug: "trippin-ethical-photography",        client: "Trippin",   title: "Ethical Photography",                media: null },
+  { slug: "trippin-graciela-iturbide",          client: "Trippin",   title: "Mexico through Graciela Iturbide",   media: null },
+  { slug: "trippin-tattooing-japan",            client: "Trippin",   title: "A History of Tattooing",             media: null },
+  { slug: "mr-porter-menswear-trends-2022",     client: "MR PORTER", title: "2022 Menswear Trends",               media: null },
+  { slug: "mr-porter-japanese-style",           client: "MR PORTER", title: "Improve Your Life",                  media: null },
+];
+
 const PRODUCTION_SHOWCASES = [
   { slug: "aman",              client: "Aman",       title: "Saudi Arabia",                    media: "/Production/:production/1.mp4" },
   { slug: "vogue-relaunch",    client: "Condé Nast", title: "Vogue Arabia Relaunch",           media: ["/Production/:production/2a.jpg", "/Production/:production/2b.JPG"], position: "center top" },
@@ -99,7 +112,7 @@ export default function App() {
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<WorkDetail />} />
             <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} showcases={PRODUCTION_SHOWCASES} />} />
-            <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} />} />
+            <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} showcases={CULTURAL_STRATEGY_SHOWCASES} />} />
             <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" body={VISUAL_RESEARCH_BODY} />} />
             <Route path="*" element={<Landing />} />
           </Routes>

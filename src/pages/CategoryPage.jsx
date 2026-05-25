@@ -274,6 +274,19 @@ function isVideoSrc(src) {
 }
 
 function Media({ src, style, position }) {
+  // Placeholder when no asset is wired yet — soft tonal gradient block,
+  // same dimensions as the real media so layout doesn't shift on swap.
+  if (!src) {
+    return (
+      <div
+        aria-hidden="true"
+        style={{
+          ...style,
+          background: "linear-gradient(135deg, #2a2a2a 0%, #525252 50%, #2a2a2a 100%)",
+        }}
+      />
+    );
+  }
   const merged = position ? { ...style, objectPosition: position } : style;
   return isVideoSrc(src) ? (
     <video
