@@ -53,13 +53,9 @@ function Brand({ children }) {
 // Visual Research). Same hero as /work, optionally followed by an About-style
 // paragraph block when `body` is provided.
 export default function CategoryPage({ label, heroImage = "/hero.jpg", body, showcases = [] }) {
-  // Snap-scroll between the three full-viewport sections (hero, about,
-  // showcase). Adds the snap class to <html> on mount, removes on unmount
-  // so other routes aren't affected.
-  useEffect(() => {
-    document.documentElement.classList.add("category-snap-html");
-    return () => document.documentElement.classList.remove("category-snap-html");
-  }, []);
+  // Snap-scroll removed — proximity-snap was pulling the user back from
+  // the footer onto the showcase. Free scroll feels better for these
+  // pages now that there's a footer below the last full-bleed section.
 
   // Once the hero has scrolled mostly out of view, show a fixed ← Home
   // top-left so the user always has a way back.
