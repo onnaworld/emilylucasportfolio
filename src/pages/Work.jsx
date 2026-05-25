@@ -821,8 +821,11 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
         position: "absolute",
         top: isMobile ? 0 : 64,
         bottom: isMobile ? 0 : 64,
-        left: isMobile ? "50%" : `calc(50% + ${space.xxl}px)`,
-        right: space.xxl,
+        // Wrapper spans the same horizontal range as the right hairline,
+        // so the flex-centred popup sits visually centred between the
+        // hairline endpoints — same margin on left and right.
+        left: isMobile ? "50%" : `calc(50% + 30px)`,
+        right: isMobile ? 0 : space.lg,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -830,18 +833,18 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
         pointerEvents: "none",
       }}
     >
-      {/* Outer container: holds the scrollable popup + the top/bottom fade
-          overlays. Desktop: no borders, fade softens the scroll edges.
-          Mobile: .m-case-popup CSS override adds full border + rounded. */}
+      {/* Wrapper holds the popup card + the end-of-scroll ↓ that sits just
+          below the popup's bottom edge (clipped if placed inside the card
+          itself, since the card has overflow: hidden). */}
+      <div style={{ position: "relative", width: "min(560px, calc(100% - 32px))", pointerEvents: "auto" }}>
       <div
         className="case-popup m-case-popup"
         style={{
           position: "relative",
-          width: "min(560px, calc(100% - 32px))",
+          width: "100%",
           height: "min(540px, calc(100vh - 240px))",
           background: "#fff",
           overflow: "hidden",
-          pointerEvents: "auto",
           animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
           transformOrigin: "center",
         }}
@@ -1004,27 +1007,6 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           )}
         </div>
 
-        {/* End-of-scroll ↓ — pinned to the outer (non-scrolling) container so
-            it stays visible regardless of scroll position. */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            bottom: 10,
-            left: "50%",
-            transform: "translateX(-50%)",
-            fontFamily: HEROS_FONT,
-            fontSize: 16,
-            fontWeight: 400,
-            lineHeight: 1,
-            color: colors.textMuted,
-            zIndex: 4,
-            pointerEvents: "none",
-          }}
-        >
-          ↓
-        </div>
-
         <style>{`
           @keyframes case-popup-in {
             from { opacity: 0; transform: scale(0.94); }
@@ -1036,6 +1018,26 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
           }
           .case-popup-scroll::-webkit-scrollbar { display: none; width: 0; }
         `}</style>
+      </div>
+      {/* End-of-scroll ↓ — sits in the white space just below the popup card
+          so it never overlaps content but is always visible. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: -28,
+          left: "50%",
+          transform: "translateX(-50%)",
+          fontFamily: HEROS_FONT,
+          fontSize: 16,
+          fontWeight: 400,
+          lineHeight: 1,
+          color: colors.textMuted,
+          pointerEvents: "none",
+        }}
+      >
+        ↓
+      </div>
       </div>
     </div>
   );
@@ -1088,14 +1090,16 @@ function ImageCarousel({ images, project }) {
       </div>
       {images.length > 1 && (
         <>
+          {/* Arrows sit in the popup's side gutter — outside the image
+              strip but inside the popup itself so they're still visible. */}
           <button
             onClick={() => step(-1)}
             aria-label="Previous images"
             style={{
               position: "absolute",
-              left: -20,
+              left: -16,
               top: "50%",
-              transform: "translate(-100%, -50%)",
+              transform: "translate(-50%, -50%)",
               background: "none",
               border: "none",
               cursor: "pointer",
@@ -1114,9 +1118,9 @@ function ImageCarousel({ images, project }) {
             aria-label="Next images"
             style={{
               position: "absolute",
-              right: -20,
+              right: -16,
               top: "50%",
-              transform: "translate(100%, -50%)",
+              transform: "translate(50%, -50%)",
               background: "none",
               border: "none",
               cursor: "pointer",

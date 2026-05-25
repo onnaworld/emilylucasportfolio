@@ -17,6 +17,11 @@ public/fonts/Sackers/
 public/fonts/Unica 77 LL/
 public/fonts/Avenir/
 
+# Working assets folder — site uses public/work/ (lowercase). public/ALL WORK/
+# is Emily's source-asset organisation folder; raw GIFs/MP4s in there can
+# easily exceed GitHub's 100 MB file limit.
+public/ALL WORK/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
