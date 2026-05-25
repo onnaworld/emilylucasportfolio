@@ -9,9 +9,7 @@ const NAV_ITEMS = [
 export default function Layout({ children }) {
   const location = useLocation();
   const noChromePaths = ["/", "/work", "/production", "/cultural-strategy", "/visual-research"];
-  // Case study detail routes (/work/:slug) also render full-bleed,
-  // so suppress chrome there too.
-  const noChrome = noChromePaths.includes(location.pathname) || location.pathname.startsWith("/work/");
+  const noChrome = noChromePaths.includes(location.pathname);
   const noHeader = noChrome;
   const noFooter = noChrome;
 

@@ -6,7 +6,6 @@ import Landing from "./pages/Landing";
 // Code-split the Work routes, defers their bundle (and the productionCases
 // payload) until the user actually navigates there.
 const Work = lazy(() => import("./pages/Work"));
-const WorkDetail = lazy(() => import("./pages/WorkDetail"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 
 // Brand-name italic Times treatment for inline mentions in the
@@ -115,7 +114,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
-            <Route path="/work/:slug" element={<WorkDetail />} />
             <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} showcases={PRODUCTION_SHOWCASES} />} />
             <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} showcases={CULTURAL_STRATEGY_SHOWCASES} />} />
             <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" body={VISUAL_RESEARCH_BODY} showcases={VISUAL_RESEARCH_SHOWCASES} />} />
