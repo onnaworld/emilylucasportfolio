@@ -159,11 +159,7 @@ export default function Landing() {
           }}
         />
 
-        {/* Top-left: Portfolio 2026 (above) + Emily.
-            mix-blend-difference on the wrapper so the children blend with
-            the video underneath (not with the wrapper's empty stacking
-            context — putting the blend on the children alone doesn't
-            work because the absolute+z-index parent isolates them). */}
+        {/* Top-left: Portfolio 2026 (above) + Emily */}
         <div
           className="m-hero-tl"
           style={{
@@ -171,7 +167,6 @@ export default function Landing() {
             top: space.xl,
             left: space.xl,
             color: "#fff",
-            mixBlendMode: "difference",
             zIndex: 5,
           }}
         >
@@ -212,7 +207,6 @@ export default function Landing() {
             bottom: space.xl,
             right: space.xl,
             color: "#fff",
-            mixBlendMode: "difference",
             fontFamily: "'Times New Roman', Times, serif",
             fontStyle: "italic",
             fontSize: "clamp(44px, 7vw, 100px)",
