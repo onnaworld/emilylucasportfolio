@@ -115,7 +115,7 @@ export default function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
             <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} showcases={PRODUCTION_SHOWCASES} />} />
-            <Route path="/cultural-strategy" element={<CategoryPage label="Cultural Strategy" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} showcases={CULTURAL_STRATEGY_SHOWCASES} />} />
+            <Route path="/cultural-strategy" element={<CategoryPage label="Strategy & Editorial" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} showcases={CULTURAL_STRATEGY_SHOWCASES} />} />
             <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" body={VISUAL_RESEARCH_BODY} showcases={VISUAL_RESEARCH_SHOWCASES} />} />
             <Route path="*" element={<Landing />} />
           </Routes>

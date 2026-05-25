@@ -16,7 +16,7 @@ const TIMES = "'Times New Roman', Times, serif";
 // 'Select Work' header to the discipline name on hover.
 function categoryFor(n) {
   if (n <= 17) return "Production";
-  if (n <= 25) return "Cultural Strategy";
+  if (n <= 25) return "Strategy & Editorial";
   return "Visual Research";
 }
 

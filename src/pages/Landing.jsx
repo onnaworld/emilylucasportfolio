@@ -238,7 +238,7 @@ export default function Landing() {
           }}
         >
           Executive Producer<br />
-          Cultural Strategist<br />
+          Strategist &amp; Editor<br />
           Visual Researcher
         </div>
 
@@ -304,7 +304,7 @@ export default function Landing() {
       </section>
 
       <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} viewMoreHref="/production" />
-      <CategorySlide label="CULTURAL STRATEGY & COMMENTARY" images={WRITING_IMAGES} compact viewMoreHref="/cultural-strategy" />
+      <CategorySlide label="STRATEGY & EDITORIAL" images={WRITING_IMAGES} compact viewMoreHref="/cultural-strategy" />
       <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape viewMoreHref="/visual-research" />
 
       {/* View all work, small Times link, centered between two lines */}
@@ -855,7 +855,7 @@ function MenuOverlay({ onClose, onContact }) {
     { label: "Home Page",         to: "/" },
     { label: "All Work",          to: "/work" },
     { label: "Production",        to: "/production" },
-    { label: "Cultural Strategy", to: "/cultural-strategy" },
+    { label: "Strategy & Editorial", to: "/cultural-strategy" },
     { label: "Visual Research",   to: "/visual-research" },
   ];
   return (

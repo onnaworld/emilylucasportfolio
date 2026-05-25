@@ -25,7 +25,7 @@ function Brand({ children }) {
   );
 }
 
-// Hero landing page for a single discipline (Production, Cultural Strategy,
+// Hero landing page for a single discipline (Production, Strategy & Editorial,
 // Visual Research). Same hero as /work, optionally followed by an About-style
 // paragraph block when `body` is provided.
 export default function CategoryPage({ label, heroImage = "/hero.jpg", body, showcases = [] }) {

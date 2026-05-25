@@ -63,7 +63,7 @@ function MenuOverlay({ onClose, onContact }) {
     { label: "Home Page",         to: "/" },
     { label: "All Work",          to: "/work" },
     { label: "Production",        to: "/production" },
-    { label: "Cultural Strategy", to: "/cultural-strategy" },
+    { label: "Strategy & Editorial", to: "/cultural-strategy" },
     { label: "Visual Research",   to: "/visual-research" },
   ];
   return (

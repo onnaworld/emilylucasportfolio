@@ -19,7 +19,7 @@ export const productionCases = [
     images: [
       "/work/aman/05.mp4",
     ],
-    tags: ["Stills Production", "Video Production", "Location Scouting", "Cultural Strategy"],
+    tags: ["Stills Production", "Video Production", "Location Scouting", "Strategy & Editorial"],
   },
   {
     slug: "nike-vomero",
@@ -372,7 +372,7 @@ export const productionCases = [
       { label: "Writers Portfolio →", url: "https://www.mrporter.com/en-us/journal/fashion/black-history-month-uk-writers-portfolio-24605122" },
     ],
     images: [],
-    tags: ["Cultural Strategy", "Casting", "Editorial Direction", "Production"],
+    tags: ["Strategy & Editorial", "Casting", "Editorial Direction", "Production"],
   },
   {
     slug: "mr-porter-social-media",
