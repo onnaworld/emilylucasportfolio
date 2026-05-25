@@ -4,6 +4,7 @@ import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
 import CustomCursor from "../components/CustomCursor";
 import PlusMenu from "../components/PlusMenu";
+import CaseStudyCard from "../components/CaseStudyCard";
 import { useIsMobile } from "../hooks/useIsMobile";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
@@ -765,50 +766,12 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
   );
 }
 
-// Brand / publication / talent names that should always render in italic
-// Times, matches the About/Brands paragraph convention on Landing.
-// Longest-first so 'British Vogue' is matched before 'Vogue', etc.
-const BRAND_NAMES = [
-  "Net-a-Porter Group", "National Museum of Qatar", "Noë & Associates",
-  "Charlotte Tilbury", "Louis Vuitton", "The Glass Magazine",
-  "Columbia Sportswear", "Willson Project", "Moonlight Basin",
-  "British Vogue", "Vogue Arabia", "Condé Nast", "Mr. C", "Mr C",
-  "MR PORTER", "Net-a-Porter", "Burj Khalifa", "Kite Beach",
-  "Imaan Hammam", "Achraf Hakimi", "Halima Aden", "Balqees Fathi",
-  "Luc Braquet", "Txema Yeste", "Paul Hempstead", "Will Beach",
-  "Yasmin Mansour", "Luis Figo", "Abraham Moon",
-  "One&Only", "Charlotte", "Mastercard", "Cipriani", "Jumeirah",
-  "Bvlgari", "Columbia", "J.Crew", "LVMH", "Aman", "Nike", "Vomero",
-  "SailGP", "Octagon", "Maison", "Vogue", "Trippin",
-].sort((a, b) => b.length - a.length);
-
-const BRAND_REGEX = new RegExp(
-  `(${BRAND_NAMES.map((b) => b.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
-  "g"
-);
-
-function withBrands(text) {
-  const parts = text.split(BRAND_REGEX);
-  return parts.map((p, i) =>
-    BRAND_NAMES.includes(p)
-      ? <em key={i} style={{ fontFamily: TIMES, fontStyle: "italic", fontWeight: 400 }}>{p}</em>
-      : p
-  );
-}
-
 function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
-  const [atBottom, setAtBottom] = useState(false);
   const innerRef = useRef(null);
-
   const setRefs = (el) => {
     innerRef.current = el;
     if (typeof panelRef === "function") panelRef(el);
     else if (panelRef) panelRef.current = el;
-  };
-
-  const onScroll = (e) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.target;
-    setAtBottom(scrollTop + clientHeight >= scrollHeight - 16);
   };
 
   return (
@@ -830,263 +793,39 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
         padding: isMobile ? 12 : 0,
       }}
     >
-      {/* Wrapper holds the popup card + the end-of-scroll ↓ that sits just
-          below the popup's bottom edge (clipped if placed inside the card
-          itself, since the card has overflow: hidden). */}
       <div style={{ position: "relative", width: isMobile ? "100%" : "min(560px, calc(100% - 32px))", maxWidth: isMobile ? 560 : undefined, pointerEvents: "auto" }}>
-      <div
-        className="case-popup m-case-popup"
-        style={{
-          position: "relative",
-          width: "100%",
-          // Fixed height on both desktop + mobile so every popup is the same
-          // size regardless of content length, the inner div scrolls for
-          // longer cases (Trippin features, MR PORTER essays, etc).
-          height: isMobile ? "min(640px, calc(100vh - 80px))" : "min(540px, calc(100vh - 240px))",
-          background: "#fff",
-          overflow: "hidden",
-          animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
-          transformOrigin: "center",
-        }}
-      >
-        {/* Top fade, same colour as the scattered area fades */}
-        <div aria-hidden="true" style={{
-          position: "absolute", top: 0, left: 0, right: 0, height: 32,
-          background: `linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0) 100%)`,
-          pointerEvents: "none", zIndex: 3,
-        }} />
-        {/* Bottom fade */}
-        <div aria-hidden="true" style={{
-          position: "absolute", bottom: 0, left: 0, right: 0, height: 32,
-          background: `linear-gradient(to top, #fff 0%, rgba(255,255,255,0) 100%)`,
-          pointerEvents: "none", zIndex: 3,
-        }} />
+        <div
+          className="case-popup m-case-popup"
+          style={{
+            position: "relative",
+            width: "100%",
+            height: isMobile ? "min(640px, calc(100vh - 80px))" : "min(540px, calc(100vh - 240px))",
+            background: "#fff",
+            overflow: "hidden",
+            animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+            transformOrigin: "center",
+          }}
+        >
+          <CaseStudyCard study={study} onClose={onClose} stagger bodyRef={setRefs} />
+        </div>
 
-        {/* Close ×, sits on the outer (non-scrolling) container so it
-            stays visible no matter how far you scroll the popup body. */}
-        <button
-          onClick={onClose}
-          aria-label="Close"
+        {/* End-of-scroll ↓, sits in the white space just below the popup card */}
+        <div
+          aria-hidden="true"
           style={{
             position: "absolute",
-            top: 10,
-            right: 10,
-            width: 26,
-            height: 26,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
+            bottom: -28,
+            left: "50%",
+            transform: "translateX(-50%)",
             fontFamily: HEROS_FONT,
-            fontSize: 20,
+            fontSize: 16,
+            fontWeight: 400,
             lineHeight: 1,
-            color: colors.text,
-            zIndex: 5,
+            color: colors.textMuted,
+            pointerEvents: "none",
           }}
         >
-          ×
-        </button>
-
-        <div
-          ref={setRefs}
-          onScroll={onScroll}
-          className="case-popup-scroll"
-          style={{
-            width: "100%",
-            height: "100%",
-            overflowY: "auto",
-            padding: `${space.md}px ${space.lg}px ${space.lg}px`,
-            position: "relative",
-          }}
-        >
-
-          {/* Client (italic Times, lead line) on top + optional View Project link
-              on the far right of the same row. */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              justifyContent: "space-between",
-              gap: space.md,
-              marginTop: space.sm,
-              marginBottom: 2,
-              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
-            }}
-          >
-            <div
-              style={{
-                fontFamily: TIMES,
-                fontStyle: "italic",
-                fontWeight: 400,
-                fontSize: 26,
-                lineHeight: 1.1,
-                letterSpacing: "-0.01em",
-                color: colors.text,
-              }}
-            >
-              {study.client}
-            </div>
-            {study.viewProjectLink && (() => {
-              // viewProjectLink can be a single string OR an array of either
-              // strings or { label, url } pairs. Multiple links stack vertically.
-              const linksRaw = Array.isArray(study.viewProjectLink)
-                ? study.viewProjectLink
-                : [study.viewProjectLink];
-              const links = linksRaw.map((l) =>
-                typeof l === "string" ? { label: "View Project →", url: l } : l
-              );
-              return (
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
-                  {links.map((l) => (
-                    <a
-                      key={l.url}
-                      href={l.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontFamily: TIMES,
-                        fontSize: 14,
-                        fontWeight: 400,
-                        color: colors.text,
-                        textDecoration: "none",
-                        letterSpacing: 0,
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
-              );
-            })()}
-          </div>
-
-          {/* Project name (smaller subheading under client) */}
-          <div
-            style={{
-              fontFamily: HEROS_FONT,
-              fontWeight: 700,
-              fontSize: 12,
-              textTransform: "uppercase",
-              letterSpacing: "-0.01em",
-              lineHeight: 1.1,
-              color: colors.text,
-              marginBottom: 8,
-              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both",
-            }}
-          >
-            {study.project}
-          </div>
-
-          {/* Date underneath */}
-          <div
-            style={{
-              fontFamily: HEROS_FONT,
-              fontSize: 10,
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "-0.01em",
-              color: colors.textMuted,
-              marginBottom: space.md,
-              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both",
-            }}
-          >
-            {study.year}
-          </div>
-
-          {study.task && (
-            <div
-              style={{
-                marginBottom: space.md,
-                animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: HEROS_FONT,
-                  fontSize: 9,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.01em",
-                  color: colors.text,
-                  marginBottom: 6,
-                }}
-              >
-                The Task
-              </div>
-              <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
-                {withBrands(study.task)}
-              </p>
-            </div>
-          )}
-
-          {study.outcome && (
-            <div
-              style={{
-                marginBottom: space.md,
-                animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: HEROS_FONT,
-                  fontSize: 9,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.01em",
-                  color: colors.text,
-                  marginBottom: 6,
-                }}
-              >
-                The Outcome
-              </div>
-              <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
-                {withBrands(study.outcome)}
-              </p>
-            </div>
-          )}
-
-          {study.images && study.images.length > 0 && (
-            <div style={{ animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both" }}>
-              <ImageCarousel images={study.images} project={study.project} />
-            </div>
-          )}
-
-          {study.tags && study.tags.length > 0 && (
-            <div
-              style={{
-                marginTop: space.lg,
-                display: "flex",
-                flexWrap: "wrap",
-                gap: 6,
-                animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.54s both",
-              }}
-            >
-              {study.tags.map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    display: "inline-block",
-                    padding: "5px 11px",
-                    borderRadius: 999,
-                    background: "#ececec",
-                    color: colors.textMuted,
-                    fontFamily: HEROS_FONT,
-                    fontSize: 10,
-                    fontWeight: 700,
-                    letterSpacing: "0.02em",
-                    textTransform: "uppercase",
-                    lineHeight: 1,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+          ↓
         </div>
 
         <style>{`
@@ -1094,152 +833,9 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
             from { opacity: 0; transform: scale(0.94); }
             to   { opacity: 1; transform: scale(1); }
           }
-          .case-popup-scroll {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-          }
-          .case-popup-scroll::-webkit-scrollbar { display: none; width: 0; }
         `}</style>
-      </div>
-      {/* End-of-scroll ↓, sits in the white space just below the popup card
-          so it never overlaps content but is always visible. */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: -28,
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontFamily: HEROS_FONT,
-          fontSize: 16,
-          fontWeight: 400,
-          lineHeight: 1,
-          color: colors.textMuted,
-          pointerEvents: "none",
-        }}
-      >
-        ↓
-      </div>
       </div>
     </div>
   );
 }
 
-// Horizontal scrolling strip, same vibe as the home-page sliding carousel.
-// Multiple images visible at once at a fixed compact height; < > arrows step
-// the strip by roughly one image width.
-function ImageCarousel({ images, project }) {
-  const trackRef = useRef(null);
-  const isMobile = useIsMobile();
-  const step = (dir) => {
-    if (!trackRef.current) return;
-    const w = trackRef.current.clientWidth * 0.7;
-    trackRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
-  };
-  const mediaH = isMobile ? 160 : 200;
-  return (
-    // No internal padding, image strip aligns flush with the text above.
-    // Arrows sit outside the strip in the popup's left/right padding gutter.
-    <div style={{ position: "relative" }}>
-      <div
-        ref={trackRef}
-        className="case-image-strip"
-        style={{
-          display: "flex",
-          gap: 8,
-          overflowX: "auto",
-          scrollSnapType: "x mandatory",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          paddingBottom: 2,
-        }}
-      >
-        {images.map((src, i) => {
-          const isVideo = /\.(mp4|webm|mov)$/i.test(src);
-          const mediaStyle = {
-            height: mediaH,
-            // Keep a stable placeholder box while the file is loading so the
-            // strip doesn't jump from "?" icon-sized boxes to real media.
-            minWidth: Math.round(mediaH * 0.75),
-            width: "auto",
-            flexShrink: 0,
-            display: "block",
-            background: colors.surface,
-            scrollSnapAlign: "start",
-          };
-          return isVideo ? (
-            <video
-              key={i}
-              src={src}
-              autoPlay muted loop playsInline
-              preload={i < 2 ? "auto" : "metadata"}
-              style={mediaStyle}
-            />
-          ) : (
-            <img
-              key={i}
-              src={src}
-              alt=""
-              loading={i < 2 ? "eager" : "lazy"}
-              fetchpriority={i === 0 ? "high" : "auto"}
-              decoding="async"
-              draggable={false}
-              style={mediaStyle}
-            />
-          );
-        })}
-      </div>
-      {images.length > 1 && (
-        <>
-          {/* Arrows sit in the popup's side gutter, outside the image
-              strip but inside the popup itself so they're still visible. */}
-          <button
-            onClick={() => step(-1)}
-            aria-label="Previous images"
-            style={{
-              position: "absolute",
-              left: -16,
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: 4,
-              fontFamily: TIMES,
-              fontSize: 22,
-              fontWeight: 400,
-              lineHeight: 1,
-              color: colors.text,
-            }}
-          >
-            ‹
-          </button>
-          <button
-            onClick={() => step(1)}
-            aria-label="Next images"
-            style={{
-              position: "absolute",
-              right: -16,
-              top: "50%",
-              transform: "translate(50%, -50%)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: 4,
-              fontFamily: TIMES,
-              fontSize: 22,
-              fontWeight: 400,
-              lineHeight: 1,
-              color: colors.text,
-            }}
-          >
-            ›
-          </button>
-        </>
-      )}
-      <style>{`
-        .case-image-strip::-webkit-scrollbar { display: none; height: 0; }
-      `}</style>
-    </div>
-  );
-}
