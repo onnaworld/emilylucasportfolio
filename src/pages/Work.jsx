@@ -21,7 +21,7 @@ const PROJECTS = [
   { n: 1, title: "Vogue Arabia", slug: "vogue-relaunch", thumb: "/work/all-work/01.jpg" },
   { n: 2, title: "Aman", slug: "aman", thumb: "/work/all-work/2..jpg" },
   { n: 3, title: "MR PORTER", slug: "mr-porter-in-america", thumb: "/work/all-work/3..webp" },
-  { n: 4, title: "One&Only", thumb: "/work/all-work/4..mp4.gif" },
+  { n: 4, title: "One&Only", thumb: "/work/all-work/4..mp4.mp4" },
   { n: 5, title: "Cipriani", slug: "mr-c-residences", thumb: "/work/all-work/5..jpg" },
   { n: 6, title: "Columbia Sportswear", thumb: "/work/all-work/6..jpg" },
   { n: 7, title: "Mastercard", slug: "mastercard-sailgp" },

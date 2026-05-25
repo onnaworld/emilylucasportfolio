@@ -34,13 +34,13 @@ const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 // Per-section work imagery (URL-encoded spaces in folder names)
 const PRODUCTION_IMAGES = [
   "/Production/01.jpg",
-  "/Production/2..mov.gif",
+  "/Production/2..mov.mp4",
   "/Production/3..webp",
   "/Production/4.%20.jpg",
   "/Production/5..mp4",
   "/Production/6..jpg",
-  "/Production/6..mp4.gif",
-  "/Production/7.gif",
+  "/Production/6..mp4.mp4",
+  "/Production/7.mp4",
 ];
 // Items can be a string OR { src, landscape? } so individual images can opt
 // into a wider crop without changing the rest of the row.
@@ -434,14 +434,12 @@ function ContactModal({ onClose }) {
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: "rgba(255, 255, 255, 0.88)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
+          background: "#fff",
           color: colors.text,
           width: "min(520px, 100%)",
           padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
           position: "relative",
-          border: `3px solid ${colors.text}`,
+          border: `1px solid ${colors.text}`,
           animation: "contact-modal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
         }}
       >
@@ -513,25 +511,26 @@ function ContactModal({ onClose }) {
             >
               <span
                 style={{
-                  fontFamily: HEROS,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.01em",
-                  color: colors.textMuted,
+                  fontFamily: "'Times New Roman', Times, serif",
+                  fontStyle: "italic",
+                  fontSize: 18,
+                  fontWeight: 400,
+                  color: colors.text,
+                  letterSpacing: 0,
+                  textTransform: "lowercase",
                 }}
               >
-                {row.label}
+                {row.label.toLowerCase()}
               </span>
               <span
                 style={{
-                  fontFamily: "'Times New Roman', Times, serif",
-                  fontStyle: "italic",
-                  fontSize: 22,
-                  fontWeight: 400,
+                  fontFamily: HEROS,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
                   textAlign: "right",
                   color: colors.text,
-                  letterSpacing: 0,
                 }}
               >
                 {row.value}
