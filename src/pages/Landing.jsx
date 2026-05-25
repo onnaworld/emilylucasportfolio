@@ -628,25 +628,28 @@ function CategorySlide({ label, images, compact = false, landscape = false }) {
 
 function DownArrow({ color }) {
   return (
-    <div
-      aria-hidden="true"
+    <button
+      onClick={() => window.scrollBy({ top: window.innerHeight, behavior: "smooth" })}
+      aria-label="Scroll to next section"
       style={{
         position: "absolute",
         bottom: space.lg,
-        left: 0,
-        right: 0,
-        textAlign: "center",
+        left: "50%",
+        transform: "translateX(-50%)",
+        background: "none",
+        border: "none",
+        padding: 8,
+        cursor: "pointer",
         color,
         fontFamily: HEROS,
         fontSize: 18,
         fontWeight: 400,
         lineHeight: 1,
-        pointerEvents: "none",
         zIndex: 4,
       }}
     >
       ↓
-    </div>
+    </button>
   );
 }
 
