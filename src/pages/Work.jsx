@@ -71,16 +71,23 @@ export default function Work() {
   // entry yet) still render a popup with the title / client / year fields
   // filled in. task / outcome / images are blank until data is added.
   const activeProject = activeSlug ? PROJECTS.find(p => p.slug === activeSlug) : null;
-  const activeStudy = activeSlug
-    ? (productionCases.find(c => c.slug === activeSlug) || (activeProject && {
+  const baseCase = productionCases.find(c => c.slug === activeSlug);
+  // Merge minimal PROJECTS data into the case so editorial pieces that only
+  // exist in PROJECTS still render the popup, and full case studies pick up
+  // the project's `link` as viewProjectLink and `tags` if not explicitly
+  // set in productionCases.
+  const activeStudy = activeSlug && activeProject
+    ? {
         slug: activeProject.slug,
-        client: activeProject.client,
-        project: activeProject.title,
-        year: "",
-        task: "",
-        outcome: "",
-        images: [],
-      }))
+        client: baseCase?.client ?? activeProject.client,
+        project: baseCase?.project ?? activeProject.title,
+        year: baseCase?.year ?? activeProject.year ?? "",
+        task: baseCase?.task ?? "",
+        outcome: baseCase?.outcome ?? "",
+        images: baseCase?.images ?? activeProject.images ?? [],
+        tags: baseCase?.tags ?? activeProject.tags ?? [],
+        viewProjectLink: baseCase?.viewProjectLink ?? activeProject.link ?? null,
+      }
     : null;
 
   // Restore selection from URL hash (so /work#aman or /work#siro-hotel deep-link)
@@ -304,12 +311,12 @@ export default function Work() {
               const clickable = !!p.slug || !!p.link;
               const isHovered = hoveredIdx === idx;
               const isDimmed = hoveredIdx !== null && !isHovered;
-              // External-link projects: open the article. Everything else:
-              // open the case popup (full data if a productionCase exists,
-              // else a minimal popup via the activeStudy fallback above).
+              // Every project opens the popup (with View Project → link inside
+              // for editorial pieces that link out). Falls back to a minimal
+              // popup via activeStudy if no full productionCase exists yet.
               const onProjectClick = () => {
-                if (p.link) window.open(p.link, "_blank", "noopener,noreferrer");
-                else if (p.slug) setActive(isActive ? null : p.slug);
+                if (p.slug) setActive(isActive ? null : p.slug);
+                else if (p.link) window.open(p.link, "_blank", "noopener,noreferrer");
               };
               return (
                 <button
@@ -421,8 +428,8 @@ export default function Work() {
                 hoveredIdx={hoveredIdx}
                 onProjectHover={(idx) => setHoveredIdx(idx)}
                 onProjectClick={(p) => {
-                  if (p.link) window.open(p.link, "_blank", "noopener,noreferrer");
-                  else if (p.slug) setActive(p.slug);
+                  if (p.slug) setActive(p.slug);
+                  else if (p.link) window.open(p.link, "_blank", "noopener,noreferrer");
                 }}
               />
             </div>
@@ -972,57 +979,86 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
             {study.year}
           </div>
 
-          <div
-            style={{
-              marginBottom: space.md,
-              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both",
-            }}
-          >
+          {study.task && (
             <div
               style={{
-                fontFamily: HEROS_FONT,
-                fontSize: 9,
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "-0.01em",
-                color: colors.text,
-                marginBottom: 6,
+                marginBottom: space.md,
+                animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both",
               }}
             >
-              The Task
+              <div
+                style={{
+                  fontFamily: HEROS_FONT,
+                  fontSize: 9,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  color: colors.text,
+                  marginBottom: 6,
+                }}
+              >
+                The Task
+              </div>
+              <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+                {withBrands(study.task)}
+              </p>
             </div>
-            <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
-              {withBrands(study.task)}
-            </p>
-          </div>
+          )}
 
-          <div
-            style={{
-              marginBottom: space.md,
-              animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both",
-            }}
-          >
+          {study.outcome && (
             <div
               style={{
-                fontFamily: HEROS_FONT,
-                fontSize: 9,
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "-0.01em",
-                color: colors.text,
-                marginBottom: 6,
+                marginBottom: space.md,
+                animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both",
               }}
             >
-              The Outcome
+              <div
+                style={{
+                  fontFamily: HEROS_FONT,
+                  fontSize: 9,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  color: colors.text,
+                  marginBottom: 6,
+                }}
+              >
+                The Outcome
+              </div>
+              <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+                {withBrands(study.outcome)}
+              </p>
             </div>
-            <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
-              {withBrands(study.outcome)}
-            </p>
-          </div>
+          )}
 
           {study.images && study.images.length > 0 && (
             <div style={{ animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both" }}>
               <ImageCarousel images={study.images} project={study.project} />
+            </div>
+          )}
+
+          {study.viewProjectLink && (
+            <div
+              style={{
+                marginTop: space.lg,
+                animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both",
+              }}
+            >
+              <a
+                href={study.viewProjectLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: TIMES,
+                  fontSize: 15,
+                  fontWeight: 400,
+                  color: colors.text,
+                  textDecoration: "none",
+                  letterSpacing: 0,
+                }}
+              >
+                View Project →
+              </a>
             </div>
           )}
 
@@ -1048,7 +1084,8 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
                     fontFamily: HEROS_FONT,
                     fontSize: 10,
                     fontWeight: 700,
-                    letterSpacing: "-0.01em",
+                    letterSpacing: "0.02em",
+                    textTransform: "uppercase",
                     lineHeight: 1,
                     whiteSpace: "nowrap",
                   }}
