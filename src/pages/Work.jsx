@@ -1002,23 +1002,27 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
               <ImageCarousel images={study.images} project={study.project} />
             </div>
           )}
+        </div>
 
-          {/* End-of-scroll ↓ — sits in the white space at the bottom of the
-              popup content as a subtle reading cue. */}
-          <div
-            aria-hidden="true"
-            style={{
-              textAlign: "center",
-              marginTop: space.xl,
-              fontFamily: HEROS_FONT,
-              fontSize: 16,
-              fontWeight: 400,
-              lineHeight: 1,
-              color: colors.textMuted,
-            }}
-          >
-            ↓
-          </div>
+        {/* End-of-scroll ↓ — pinned to the outer (non-scrolling) container so
+            it stays visible regardless of scroll position. */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: 10,
+            left: "50%",
+            transform: "translateX(-50%)",
+            fontFamily: HEROS_FONT,
+            fontSize: 16,
+            fontWeight: 400,
+            lineHeight: 1,
+            color: colors.textMuted,
+            zIndex: 4,
+            pointerEvents: "none",
+          }}
+        >
+          ↓
         </div>
 
         <style>{`
@@ -1048,7 +1052,9 @@ function ImageCarousel({ images, project }) {
     trackRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
   };
   return (
-    <div style={{ position: "relative", paddingLeft: 24, paddingRight: 24 }}>
+    // No internal padding — image strip aligns flush with the text above.
+    // Arrows sit outside the strip in the popup's left/right padding gutter.
+    <div style={{ position: "relative" }}>
       <div
         ref={trackRef}
         className="case-image-strip"
@@ -1087,9 +1093,9 @@ function ImageCarousel({ images, project }) {
             aria-label="Previous images"
             style={{
               position: "absolute",
-              left: -8,
+              left: -20,
               top: "50%",
-              transform: "translateY(-50%)",
+              transform: "translate(-100%, -50%)",
               background: "none",
               border: "none",
               cursor: "pointer",
@@ -1108,9 +1114,9 @@ function ImageCarousel({ images, project }) {
             aria-label="Next images"
             style={{
               position: "absolute",
-              right: -8,
+              right: -20,
               top: "50%",
-              transform: "translateY(-50%)",
+              transform: "translate(100%, -50%)",
               background: "none",
               border: "none",
               cursor: "pointer",
