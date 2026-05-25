@@ -36,14 +36,14 @@ const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 // Items can be a string OR { src, landscape?, client?, title? }. When client/title
 // are set, a dark gradient + label fades in over the image on hover.
 const PRODUCTION_IMAGES = [
-  { src: "/Production/01.jpg",        client: "CONDÉ NAST",          title: "Vogue Arabia Relaunch" },
+  { src: "/Production/01.jpg",        client: "VOGUE ARABIA",        title: "March Cover" },
   { src: "/Production/2..mov.mp4",    client: "NIKE",                title: "Vomero 18 Activation" },
   { src: "/Production/3..webp",       client: "MR PORTER",           title: "Finneas" },
   { src: "/Production/4.%20.jpg",     client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign" },
-  { src: "/Production/5..mp4",        client: "ONE&ONLY",            title: "Moonlight Basin" },
+  { src: "/Production/5..mp4",        client: "J.CREW",              title: "Abraham Moon" },
   { src: "/Production/6..jpg",        client: "AMAN",                title: "Saudi Arabia & Dubai" },
-  { src: "/Production/6..mp4.mp4",    client: "MASTERCARD",          title: "Sail Grand Prix x Luís Figo" },
-  { src: "/Production/7.mp4",         client: "J.CREW",              title: "Abraham Moon" },
+  { src: "/Production/6..mp4.mp4",    client: "ONE&ONLY",            title: "Moonlight Basin" },
+  { src: "/Production/7.mp4",         client: "MASTERCARD",          title: "Sail Grand Prix x Luís Figo" },
 ];
 const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",                     client: "TRIPPIN",   title: "6 Photographers on Ethical Photography" },
