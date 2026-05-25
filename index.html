@@ -149,11 +149,16 @@
         .m-hero-roles { font-size: 10px !important; line-height: 1.4 !important; }
         .m-portfolio-label { font-size: 11px !important; margin-bottom: 4px !important; }
 
-        /* About / Brands two-column sections */
+        /* About / Brands two-column sections.
+           height: auto !important so the body text can flow naturally on
+           narrow screens (Landing/Category pages set inline height: 100vh
+           for desktop snap, which crops content on mobile). */
         .m-section {
           padding: 32px 16px !important;
           grid-template-columns: 1fr !important;
           gap: 12px !important;
+          height: auto !important;
+          min-height: 0 !important;
         }
         .m-section-title { font-size: 22px !important; padding-top: 0 !important; }
         .m-section-body { font-size: 16px !important; line-height: 1.35 !important; }

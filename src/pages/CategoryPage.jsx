@@ -283,16 +283,14 @@ function AutoCycleHero({ showcases }) {
     <section
       className="category-snap-section m-showcase-section"
       style={{
+        position: "relative",
         width: "100%",
         height: "100vh",
-        background: "#fff",
+        background: "#000",
         color: "#fff",
-        display: "flex",
-        flexDirection: "column",
+        overflow: "hidden",
       }}
     >
-      {/* Media region — image fills this region only; footer is below, not overlaid. */}
-      <div style={{ position: "relative", flex: 1, minHeight: 0, overflow: "hidden", background: "#000" }}>
         {/* Crossfade stack */}
         {showcases.map((s, i) => {
           const items = Array.isArray(s.media) ? s.media : [s.media];
@@ -435,38 +433,6 @@ function AutoCycleHero({ showcases }) {
             )}
           </div>
         </div>
-      </div>
-
-      {/* White footer — sits BELOW the media, not on top */}
-      <footer
-        className="m-showcase-footer"
-        style={{
-          flex: "0 0 auto",
-          padding: `14px ${space.xl}px`,
-          background: "#fff",
-          color: colors.text,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: space.lg,
-          fontFamily: TIMES,
-          fontSize: 14,
-          fontWeight: 400,
-          borderTop: "1px solid rgba(0,0,0,0.08)",
-        }}
-      >
-        <div>Site designed and built by Emily Lucas © {new Date().getFullYear()}</div>
-        <Link
-          to="/work"
-          style={{
-            color: colors.text,
-            textDecoration: "none",
-            fontStyle: "italic",
-          }}
-        >
-          Click for more work →
-        </Link>
-      </footer>
     </section>
   );
 }

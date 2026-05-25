@@ -936,14 +936,14 @@ function MenuOverlay({ onClose, onContact }) {
               padding: `${space.sm + 2}px 0`,
               borderBottom: "1px solid rgba(255,255,255,0.28)",
               animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.1}s both`,
-              opacity: isCurrent ? 0.4 : 1,
+              opacity: isCurrent ? 0.55 : 1,
               pointerEvents: isCurrent ? "none" : "auto",
               cursor: isCurrent ? "default" : "pointer",
             };
             const inner = (
               <>
                 <span aria-hidden="true" style={{ fontSize: 14, lineHeight: 1, opacity: 0.85 }}>•</span>
-                <span>{item.label}</span>
+                <span style={{ textDecoration: isCurrent ? "line-through" : "none" }}>{item.label}</span>
               </>
             );
             if (isCurrent) {
