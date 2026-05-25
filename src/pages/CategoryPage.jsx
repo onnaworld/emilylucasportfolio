@@ -286,160 +286,164 @@ function AutoCycleHero({ showcases }) {
     <section
       className="category-snap-section m-showcase-section"
       style={{
-        position: "relative",
         width: "100%",
         height: "100vh",
-        background: "#000",
+        background: "#fff",
         color: "#fff",
-        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      {/* Full-bleed crossfade stack — fills the entire section. */}
-      {showcases.map((s, i) => {
-        const items = Array.isArray(s.media) ? s.media : [s.media];
-        const isActive = i === index;
-        return (
-          <div
-            key={i}
-            aria-hidden={!isActive}
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "grid",
-              gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
-              gap: 0,
-              opacity: isActive ? 1 : 0,
-              transition: "opacity 0.7s ease",
-              pointerEvents: "none",
-            }}
-          >
-            {items.map((src, j) => (
-              <div key={j} style={{ width: "100%", height: "100%", overflow: "hidden" }}>
-                <Media
-                  src={src}
-                  position={s.position}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        );
-      })}
-
-      {/* Brand + title overlay, bottom-right (above numbers + footer) */}
-      <div
-        className="m-showcase-overlay"
-        style={{
-          position: "absolute",
-          right: space.xl,
-          bottom: 120,
-          textAlign: "right",
-          color: "#fff",
-          textShadow: "0 1px 16px rgba(0,0,0,0.45)",
-          pointerEvents: "none",
-          maxWidth: "60vw",
-          zIndex: 3,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: TIMES,
-            fontStyle: "italic",
-            fontWeight: 400,
-            fontSize: "clamp(18px, 2vw, 30px)",
-            letterSpacing: "-0.01em",
-            lineHeight: 1,
-          }}
-        >
-          {active.client}
-        </div>
-        {active.title && (
-          <div
-            style={{
-              marginTop: 6,
-              fontFamily: HEROS_FONT,
-              fontWeight: 700,
-              fontSize: "clamp(12px, 1.1vw, 16px)",
-              letterSpacing: "-0.01em",
-              lineHeight: 1.1,
-              textTransform: "uppercase",
-            }}
-          >
-            {active.title}
-          </div>
-        )}
-      </div>
-
-      {/* Big numbers row (sits just above the footer, over the image) */}
-      <div
-        className="m-showcase-numbers"
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 56,
-          display: "flex",
-          justifyContent: "space-between",
-          padding: `0 ${space.xl}px`,
-          gap: 12,
-          alignItems: "flex-end",
-          zIndex: 3,
-        }}
-      >
-        {showcases.map((_, i) => {
+      {/* Media region — image fills this region only; footer is below, not overlaid. */}
+      <div style={{ position: "relative", flex: 1, minHeight: 0, overflow: "hidden", background: "#000" }}>
+        {/* Crossfade stack */}
+        {showcases.map((s, i) => {
+          const items = Array.isArray(s.media) ? s.media : [s.media];
           const isActive = i === index;
           return (
-            <button
+            <div
               key={i}
-              onMouseEnter={() => {
-                setPaused(true);
-                setIndex(i);
-              }}
-              onMouseLeave={() => setPaused(false)}
-              onFocus={() => {
-                setPaused(true);
-                setIndex(i);
-              }}
-              onBlur={() => setPaused(false)}
-              aria-label={`Show project ${i + 1}`}
+              aria-hidden={!isActive}
               style={{
-                flex: "1 1 0",
-                background: "none",
-                border: "none",
-                padding: "6px 0",
-                cursor: "pointer",
-                fontFamily: HEROS_FONT,
-                fontSize: "clamp(18px, 2.6vw, 38px)",
-                fontWeight: 700,
-                letterSpacing: "-0.03em",
-                lineHeight: 1,
-                color: "#fff",
-                opacity: isActive ? 1 : 0.35,
-                transition: "opacity 0.3s ease",
-                textAlign: "left",
-                textShadow: "0 1px 12px rgba(0,0,0,0.35)",
+                position: "absolute",
+                inset: 0,
+                display: "grid",
+                gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
+                gap: 0,
+                opacity: isActive ? 1 : 0,
+                transition: "opacity 0.7s ease",
+                pointerEvents: "none",
               }}
             >
-              {i + 1}
-            </button>
+              {items.map((src, j) => (
+                <div key={j} style={{ width: "100%", height: "100%", overflow: "hidden" }}>
+                  <Media
+                    src={src}
+                    position={s.position}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           );
         })}
+
+        {/* Bottom row: tight number cluster (left) + client/title (right),
+            baseline-aligned at the bottom of the digits. */}
+        <div
+          className="m-showcase-bottom"
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 16,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            padding: `0 ${space.xl}px`,
+            gap: space.lg,
+            zIndex: 3,
+          }}
+        >
+          <div
+            className="m-showcase-numbers"
+            style={{
+              display: "flex",
+              gap: 18,
+              alignItems: "flex-end",
+            }}
+          >
+            {showcases.map((_, i) => {
+              const isActive = i === index;
+              return (
+                <button
+                  key={i}
+                  onMouseEnter={() => {
+                    setPaused(true);
+                    setIndex(i);
+                  }}
+                  onMouseLeave={() => setPaused(false)}
+                  onFocus={() => {
+                    setPaused(true);
+                    setIndex(i);
+                  }}
+                  onBlur={() => setPaused(false)}
+                  aria-label={`Show project ${i + 1}`}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: 0,
+                    cursor: "pointer",
+                    fontFamily: HEROS_FONT,
+                    fontSize: "clamp(18px, 2.6vw, 38px)",
+                    fontWeight: 700,
+                    letterSpacing: "-0.03em",
+                    lineHeight: 1,
+                    color: "#fff",
+                    opacity: isActive ? 1 : 0.35,
+                    transition: "opacity 0.3s ease",
+                    textShadow: "0 1px 12px rgba(0,0,0,0.35)",
+                  }}
+                >
+                  {i + 1}
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            className="m-showcase-overlay"
+            style={{
+              textAlign: "right",
+              color: "#fff",
+              textShadow: "0 1px 16px rgba(0,0,0,0.45)",
+              pointerEvents: "none",
+              maxWidth: "60vw",
+              lineHeight: 1,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: TIMES,
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: "clamp(18px, 2vw, 30px)",
+                letterSpacing: "-0.01em",
+                lineHeight: 1,
+              }}
+            >
+              {active.client}
+            </div>
+            {active.title && (
+              <div
+                style={{
+                  marginTop: 4,
+                  fontFamily: HEROS_FONT,
+                  fontWeight: 700,
+                  fontSize: "clamp(11px, 1vw, 14px)",
+                  letterSpacing: "-0.01em",
+                  lineHeight: 1,
+                  textTransform: "uppercase",
+                }}
+              >
+                {active.title}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-      {/* White footer poking out at the bottom of the full-bleed image */}
+      {/* White footer — sits BELOW the media, not on top */}
       <footer
         className="m-showcase-footer"
         style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          padding: `12px ${space.xl}px`,
+          flex: "0 0 auto",
+          padding: `14px ${space.xl}px`,
           background: "#fff",
           color: colors.text,
           display: "flex",
@@ -449,7 +453,6 @@ function AutoCycleHero({ showcases }) {
           fontFamily: TIMES,
           fontSize: 14,
           fontWeight: 400,
-          zIndex: 4,
           borderTop: "1px solid rgba(0,0,0,0.08)",
         }}
       >
