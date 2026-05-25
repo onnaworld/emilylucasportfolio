@@ -64,6 +64,7 @@ function Header({ isLanding }) {
 function Footer() {
   return (
     <footer
+      className="m-footer"
       style={{
         padding: `${space.xl}px ${space.xl}px ${space.lg}px ${space.xl}px`,
         borderTop: `1px solid ${colors.border}`,

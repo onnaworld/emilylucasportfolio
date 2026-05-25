@@ -4,6 +4,7 @@ import Lenis from "lenis";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
 import CustomCursor from "../components/CustomCursor";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 const BRAND_LOGOS = [
   "TIFFANY & CO.",
@@ -104,6 +105,7 @@ export default function Landing() {
       <button
         onClick={() => setMenuOpen(o => !o)}
         aria-label="Menu"
+        className="m-plus"
         style={{
           position: "fixed",
           top: 24,
@@ -154,6 +156,7 @@ export default function Landing() {
 
         {/* Top-left: Portfolio 2026 (above) + Emily */}
         <div
+          className="m-hero-tl"
           style={{
             position: "absolute",
             top: space.xl,
@@ -163,6 +166,7 @@ export default function Landing() {
           }}
         >
           <div
+            className="m-portfolio-label"
             style={{
               fontFamily: "'Times New Roman', Times, serif",
               fontSize: 14,
@@ -176,6 +180,7 @@ export default function Landing() {
             Portfolio 2026
           </div>
           <div
+            className="m-hero-title"
             style={{
               fontFamily: HEROS,
               fontSize: "clamp(44px, 7vw, 100px)",
@@ -191,6 +196,7 @@ export default function Landing() {
 
         {/* Bottom-right: Lucas */}
         <div
+          className="m-hero-br m-hero-title"
           style={{
             position: "absolute",
             bottom: space.xl,
@@ -210,6 +216,7 @@ export default function Landing() {
 
         {/* Bottom-left: role list */}
         <div
+          className="m-hero-bl m-hero-roles"
           style={{
             position: "absolute",
             bottom: space.xl,
@@ -241,6 +248,7 @@ export default function Landing() {
 
       {/* ───── 2. ABOUT (Studio Move-style giant intro paragraph) ───── */}
       <section
+        className="m-section"
         style={{
           padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
           display: "grid",
@@ -251,6 +259,7 @@ export default function Landing() {
         }}
       >
         <div
+          className="m-section-title"
           style={{
             fontFamily: "'Times New Roman', Times, serif",
             fontStyle: "italic",
@@ -264,6 +273,7 @@ export default function Landing() {
           About
         </div>
         <p
+          className="m-section-body"
           style={{
             fontFamily: HEROS,
             fontSize: "clamp(20px, 2.6vw, 42px)",
@@ -293,6 +303,7 @@ export default function Landing() {
 
       {/* View all work — small Times link, centered between two lines */}
       <div
+        className="m-link-row"
         style={{
           padding: `${space.md}px ${space.xl}px ${space.md}px`,
           borderBottom: `1px solid ${colors.text}`,
@@ -316,6 +327,7 @@ export default function Landing() {
 
       {/* ───── BRANDS (formatted like ABOUT) ───── */}
       <section
+        className="m-section"
         style={{
           padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
           display: "grid",
@@ -326,6 +338,7 @@ export default function Landing() {
         }}
       >
         <div
+          className="m-section-title"
           style={{
             fontFamily: "'Times New Roman', Times, serif",
             fontStyle: "italic",
@@ -339,6 +352,7 @@ export default function Landing() {
           Brands
         </div>
         <p
+          className="m-section-body"
           style={{
             fontFamily: HEROS,
             fontSize: "clamp(20px, 2.6vw, 42px)",
@@ -371,6 +385,7 @@ export default function Landing() {
       {/* Contact — small Times link, centered between two lines. Opens the
           Get-in-Touch modal instead of routing to a dedicated page. */}
       <div
+        className="m-link-row"
         style={{
           padding: `${space.md}px ${space.xl}px ${space.md}px`,
           borderBottom: `1px solid ${colors.text}`,
@@ -432,6 +447,7 @@ function ContactModal({ onClose }) {
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="m-corner-modal m-contact-modal"
         style={{
           position: "absolute",
           bottom: space.xl,
@@ -584,6 +600,7 @@ function CategorySlide({ label, images, compact = false, landscape = false }) {
   const padV = compact ? space.sm : space.md;
   return (
     <section
+      className="m-category-slide"
       style={{
         padding: `${padV}px ${space.xl}px ${padV}px`,
         borderBottom: `1px solid ${colors.text}`,
@@ -791,6 +808,7 @@ function MenuOverlay({ onClose, onContact }) {
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="m-corner-modal m-menu-modal"
         style={{
           position: "absolute",
           top: space.xl,
@@ -809,9 +827,9 @@ function MenuOverlay({ onClose, onContact }) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          textAlign: "center",
+          textAlign: "left",
           transformOrigin: "top right",
-          animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+          animation: "menu-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both",
         }}
       >
         <button
@@ -853,7 +871,7 @@ function MenuOverlay({ onClose, onContact }) {
           Menu
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: space.md }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           {items.map((item, i) => (
             <Link
               key={item.label}
@@ -868,6 +886,8 @@ function MenuOverlay({ onClose, onContact }) {
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "-0.01em",
+                padding: `${space.sm + 2}px 0`,
+                borderBottom: "1px solid rgba(255,255,255,0.28)",
                 animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.1}s both`,
               }}
             >
@@ -879,11 +899,10 @@ function MenuOverlay({ onClose, onContact }) {
             style={{
               display: "block",
               width: "100%",
-              textAlign: "center",
+              textAlign: "left",
               background: "none",
               border: "none",
-              padding: 0,
-              marginTop: space.sm,
+              padding: `${space.md}px 0 0`,
               fontFamily: "'Times New Roman', Times, serif",
               fontStyle: "italic",
               fontSize: 17,
@@ -897,6 +916,12 @@ function MenuOverlay({ onClose, onContact }) {
           </button>
         </div>
       </div>
+      <style>{`
+        @keyframes menu-fade-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -1010,7 +1035,7 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
   return (
-    <div style={{ overflow: "hidden", width: "100%" }}>
+    <div className={`m-carousel${landscape ? " m-carousel-landscape" : ""}`} style={{ overflow: "hidden", width: "100%" }}>
       <div
         style={{
           display: "flex",

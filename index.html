@@ -93,6 +93,96 @@
         font-style: normal;
         font-display: swap;
       }
+      html, body { margin: 0; padding: 0; }
+      * { box-sizing: border-box; }
+
+      /* ─────────────────────────────────────────────────────────────
+         Mobile overrides — ≤768px. Inline styles use !important to
+         beat the JS-applied desktop defaults. Class-name conventions:
+           .m-pad-x   = page horizontal padding
+           .m-hero-tl/br/bl = hero corner labels
+           .m-section = two-column about/brands sections
+           .m-category-slide = inline category strip on landing
+           .m-corner-modal = the 340px corner cards
+           .m-work-grid    = Work page sticky grid
+         ───────────────────────────────────────────────────────────── */
+      @media (max-width: 768px) {
+        /* Disable custom cursor on touch — pointer is OS-driven */
+        .landing-snap, .landing-snap *, .work-page, .work-page * {
+          cursor: auto !important;
+        }
+
+        /* + button — closer to edge, smaller */
+        .m-plus { top: 14px !important; right: 16px !important; font-size: 44px !important; }
+
+        /* Hero corner labels */
+        .m-hero-tl { top: 16px !important; left: 16px !important; }
+        .m-hero-br { bottom: 20px !important; right: 16px !important; }
+        .m-hero-bl { bottom: 56px !important; left: 16px !important; }
+        .m-hero-title { font-size: 56px !important; }
+        .m-hero-roles { font-size: 12px !important; }
+        .m-portfolio-label { font-size: 12px !important; margin-bottom: 4px !important; }
+
+        /* About / Brands two-column sections */
+        .m-section {
+          padding: 32px 16px !important;
+          grid-template-columns: 1fr !important;
+          gap: 12px !important;
+        }
+        .m-section-title { font-size: 22px !important; padding-top: 0 !important; }
+        .m-section-body { font-size: 16px !important; line-height: 1.35 !important; }
+
+        /* CategorySlide — stack label above carousel */
+        .m-category-slide {
+          grid-template-columns: 1fr !important;
+          padding: 14px 16px !important;
+          gap: 8px !important;
+        }
+
+        /* Credentials carousel — shrink the wrappers (img inside is 100%/cover) */
+        .m-carousel > div > div { height: 140px !important; width: 200px !important; }
+        .m-carousel.m-carousel-landscape > div > div { height: 120px !important; width: 180px !important; }
+
+        /* View More / Contact buttons row */
+        .m-link-row { padding: 14px 16px !important; }
+        .m-link-row a, .m-link-row button { font-size: 16px !important; }
+
+        /* Corner modals (Menu + Contact) — anchor with 12px gutters,
+           and let height grow to content so text doesn't overflow */
+        .m-corner-modal {
+          width: calc(100vw - 24px) !important;
+          aspect-ratio: auto !important;
+          max-height: calc(100vh - 24px) !important;
+          padding: 20px 22px !important;
+        }
+        .m-corner-modal.m-contact-modal { right: 12px !important; bottom: 12px !important; }
+        .m-corner-modal.m-menu-modal    { right: 12px !important; top: 12px !important; }
+
+        /* Footer */
+        .m-footer { padding: 24px 16px !important; }
+        .m-footer > div { font-size: 13px !important; }
+
+        /* Work page mobile */
+        .m-work-section { height: auto !important; }
+        .m-work-grid { grid-template-columns: 1fr !important; height: auto !important; }
+        .m-work-list { padding: 32px 16px 24px !important; width: 100% !important; }
+        .m-work-list-header { font-size: 18px !important; margin-bottom: 12px !important; }
+        .m-work-list button { font-size: 12px !important; white-space: normal !important; padding: 6px 0 !important; }
+        .m-work-list button span:first-child { width: 24px !important; }
+        .m-scattered { display: none !important; }
+        .m-work-fade-top, .m-work-fade-bottom { display: none !important; }
+        .m-case-panel {
+          position: fixed !important;
+          inset: 12px !important;
+          width: auto !important; right: 12px !important; left: 12px !important;
+          max-height: calc(100vh - 24px) !important;
+        }
+
+        /* WorkDetail body */
+        .m-workdetail-body { padding: 24px 16px 48px !important; }
+        .m-workdetail-body h1 { font-size: 18px !important; }
+        .m-workdetail-body h2 { font-size: 28px !important; }
+      }
     </style>
   </head>
   <body>

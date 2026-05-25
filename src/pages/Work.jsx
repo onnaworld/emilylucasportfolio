@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
 import CustomCursor from "../components/CustomCursor";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
@@ -56,6 +57,7 @@ export default function Work() {
   const [hoveredIdx, setHoveredIdx] = useState(null); // for dimming non-hovered titles
   const sectionRef = useRef(null);
   const rightPanelRef = useRef(null);
+  const isMobile = useIsMobile();
 
   // Restore selection from URL hash (so /work#aman deep-links)
   useEffect(() => {
@@ -99,6 +101,7 @@ export default function Work() {
           thumbs advance from the list hover, not from page scroll. */}
       <div
         ref={sectionRef}
+        className="m-work-section"
         style={{
           position: "relative",
           width: "100%",
@@ -106,6 +109,7 @@ export default function Work() {
         }}
       >
         <div
+          className="m-work-grid"
           style={{
             height: "100vh",
             display: "grid",
@@ -114,6 +118,7 @@ export default function Work() {
         >
           {/* LEFT: list centred vertically; ← Back to Home sits beneath it */}
           <div
+            className="m-work-list"
             style={{
               alignSelf: "center",
               paddingLeft: space.xxl,
@@ -122,6 +127,7 @@ export default function Work() {
             onMouseLeave={() => setHoveredIdx(null)}
           >
             <div
+              className="m-work-list-header"
               style={{
                 fontFamily: HEROS_FONT,
                 fontSize: 22,
@@ -215,19 +221,25 @@ export default function Work() {
             </div>
           </div>
 
-          {/* RIGHT: 3 thumbs scattered at fixed positions inside the right half */}
-          <ScatteredThumbs
-            projects={PROJECTS}
-            productionCases={productionCases}
-            windowStart={windowStart}
-            hoveredIdx={hoveredIdx}
-          />
+          {/* RIGHT: 3 thumbs scattered at fixed positions inside the right half.
+              Skipped on mobile — touch can't drive the hover-carousel. */}
+          {!isMobile && (
+            <div className="m-scattered" style={{ height: "100%" }}>
+              <ScatteredThumbs
+                projects={PROJECTS}
+                productionCases={productionCases}
+                windowStart={windowStart}
+                hoveredIdx={hoveredIdx}
+              />
+            </div>
+          )}
         </div>
 
         {/* Case study panel — fixed overlay on the right when active */}
         {activeStudy && (
           <div
             ref={rightPanelRef}
+            className="m-case-panel"
             style={{
               position: "fixed",
               top: 88,
@@ -263,10 +275,29 @@ export default function Work() {
           </div>
         )}
 
+        {/* Soft top fade — mirror of the bottom one, anchored inside the
+            section so it stays in place while the section is in view.
+            Only covers the right half (the scattered thumb area). */}
+        <div
+          aria-hidden="true"
+          className="m-work-fade-top"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: "50%",
+            right: 0,
+            height: "12vh",
+            background: `linear-gradient(to top, transparent 0%, ${colors.bg} 55%)`,
+            pointerEvents: "none",
+            zIndex: 4,
+          }}
+        />
+
         {/* Soft bottom fade — anchored inside the section, scrolls with it.
             Only covers the right half (the scattered thumb area). */}
         <div
           aria-hidden="true"
+          className="m-work-fade-bottom"
           style={{
             position: "absolute",
             bottom: 0,
@@ -314,6 +345,7 @@ function WorkHero() {
 
       {/* Top-left: ← Home + Selected */}
       <div
+        className="m-hero-tl"
         style={{
           position: "absolute",
           top: space.xl,
@@ -324,6 +356,7 @@ function WorkHero() {
       >
         <Link
           to="/"
+          className="m-portfolio-label"
           style={{
             display: "inline-block",
             fontFamily: TIMES,
@@ -339,6 +372,7 @@ function WorkHero() {
           ← Home
         </Link>
         <div
+          className="m-hero-title"
           style={{
             fontFamily: HEROS_FONT,
             fontSize: "clamp(44px, 7vw, 100px)",
@@ -353,6 +387,7 @@ function WorkHero() {
 
       {/* Bottom-right: Projects */}
       <div
+        className="m-hero-br m-hero-title"
         style={{
           position: "absolute",
           bottom: space.xl,
@@ -372,13 +407,13 @@ function WorkHero() {
 
       {/* Bottom-left: All Work */}
       <div
+        className="m-hero-bl m-hero-roles"
         style={{
           position: "absolute",
           bottom: space.xl,
           left: space.xl,
           color: "#fff",
           fontFamily: TIMES,
-          fontStyle: "italic",
           fontSize: 14,
           fontWeight: 400,
           lineHeight: 1.5,

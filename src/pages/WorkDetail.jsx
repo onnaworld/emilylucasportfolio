@@ -41,6 +41,7 @@ export default function WorkDetail() {
 
       {/* Body */}
       <div
+        className="m-workdetail-body"
         style={{
           maxWidth: 900,
           margin: "0 auto",
