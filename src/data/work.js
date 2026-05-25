@@ -23,7 +23,7 @@ export const productionCases = [
       "/work/aman/03.jpg",
       "/work/aman/04.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Casting", "Art Direction"],
+    tags: ["Stills Production", "Video Production", "Location Scouting", "Cultural Strategy"],
   },
   {
     slug: "nike-vomero",
@@ -43,7 +43,7 @@ export const productionCases = [
       "/work/nike-vomero/05.jpg",
       "/work/nike-vomero/06.jpg",
     ],
-    tags: ["Stills Production", "Motion Production"],
+    tags: ["Stills Production", "Video Production", "Art Buying"],
   },
   {
     slug: "columbia-ramadan",
@@ -62,7 +62,7 @@ export const productionCases = [
       "/work/columbia-ramadan/05.jpg",
       "/work/columbia-ramadan/06.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Art Direction", "Cultural Strategy"],
+    tags: ["Stills Production", "Video Production"],
   },
   {
     slug: "mr-porter-finneas",
@@ -78,7 +78,7 @@ export const productionCases = [
       "/work/mr-porter-finneas/04.jpg",
       "/work/mr-porter-finneas/05.jpg",
     ],
-    tags: ["Stills Production", "Casting", "Art Direction"],
+    tags: ["Stills Production"],
   },
   {
     slug: "charlotte-tilbury-disney",
@@ -94,7 +94,7 @@ export const productionCases = [
       "/work/charlotte-tilbury-disney/04.jpg",
       "/work/charlotte-tilbury-disney/05.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Art Direction"],
+    tags: ["Stills Production", "Video Production", "Event Production"],
   },
   {
     slug: "harvey-nichols-festive-beauty",
@@ -114,7 +114,7 @@ export const productionCases = [
       "/work/harvey-nichols-festive-beauty/07.jpg",
       "/work/harvey-nichols-festive-beauty/08.jpg",
     ],
-    tags: ["Motion Production", "Stills Production", "Art Direction"],
+    tags: ["Stills Production", "Video Production", "Casting", "Location Scouting"],
   },
   {
     slug: "guess-ramadan",
@@ -131,7 +131,7 @@ export const productionCases = [
       "/work/guess-ramadan/05.jpg",
       "/work/guess-ramadan/06.jpg",
     ],
-    tags: ["Stills Production", "Casting", "Art Direction"],
+    tags: ["Stills Production", "Video Production"],
   },
   {
     slug: "siro-hotel",
@@ -146,7 +146,7 @@ export const productionCases = [
       "/work/siro-hotel/03.jpg",
       "/work/siro-hotel/04.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Art Direction"],
+    tags: ["Stills Production", "Video Production"],
   },
   {
     slug: "hamilton-watches",
@@ -161,7 +161,7 @@ export const productionCases = [
       "/work/hamilton-watches/03.jpg",
       "/work/hamilton-watches/04.jpg",
     ],
-    tags: ["Stills Production", "Art Direction"],
+    tags: ["Stills Production", "Casting", "Location Scouting"],
   },
   {
     slug: "jumeirah-marsa-al-arab",
@@ -178,7 +178,7 @@ export const productionCases = [
       "/work/jumeirah-marsa-al-arab/05.jpg",
       "/work/jumeirah-marsa-al-arab/06.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Art Direction"],
+    tags: ["Stills Production", "Video Production"],
   },
   {
     slug: "trippin-ethical-photography",
@@ -200,7 +200,7 @@ export const productionCases = [
       "/work/trippin-ethical-photography/09.avif",
       "/work/trippin-ethical-photography/10.avif",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Editorial Writing", "Cultural Commentary", "Photography Curation"],
   },
   {
     slug: "trippin-graciela-iturbide",
@@ -218,7 +218,7 @@ export const productionCases = [
       "/work/trippin-graciela-iturbide/05.avif",
       "/work/trippin-graciela-iturbide/06.avif",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Editorial Writing", "Cultural Commentary", "Visual Research"],
   },
   {
     slug: "trippin-tattooing-japan",
@@ -237,7 +237,7 @@ export const productionCases = [
       "/work/trippin-tattooing-japan/06.avif",
       "/work/trippin-tattooing-japan/07.avif",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Editorial Writing", "Cultural Commentary", "Visual Research"],
   },
   {
     slug: "mr-porter-menswear-trends-2022",
@@ -257,7 +257,7 @@ export const productionCases = [
       "/work/mr-porter-menswear-trends-2022/07.jpg",
       "/work/mr-porter-menswear-trends-2022/08.jpg",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Editorial Writing", "Cultural Commentary", "Visual Research", "Trend Forecasting"],
   },
   {
     slug: "mr-porter-women-shopping-menswear",
@@ -273,7 +273,7 @@ export const productionCases = [
       "/work/mr-porter-women-shopping-menswear/03.jpg",
       "/work/mr-porter-women-shopping-menswear/04.jpg",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Featured Editorial", "Cultural Commentary"],
   },
   {
     slug: "mr-porter-japanese-style",
@@ -284,7 +284,7 @@ export const productionCases = [
     outcome: "Featured in the May 2026 piece authored by Ashley Ogawa Clarke, providing on-record cultural commentary on Japanese approaches to food, mindfulness, and everyday social etiquette. Quoted on the Japanese breakfast tradition and the cultural courtesy around public phone use — both rooted in personal experience of growing up in Tokyo. The piece sat alongside MR PORTER's Made In Japan edit, part of the brand's broader editorial conversation on Japanese craft and culture.",
     viewProjectLink: "https://www.mrporter.com/en-us/journal/lifestyle/life-lessons-people-tokyo-japan-style-food-24538500",
     images: [],
-    tags: ["Cultural Commentary", "Editorial"],
+    tags: ["Featured Editorial", "Cultural Commentary"],
   },
   {
     slug: "mr-porter-new-york-street",
@@ -303,7 +303,7 @@ export const productionCases = [
       "/work/mr-porter-new-york-street/06.jpg",
       "/work/mr-porter-new-york-street/07.jpg",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Visual Research", "Photography Curation", "Image Licensing", "Editorial Direction"],
   },
   {
     slug: "mr-porter-summertime-movies",
@@ -321,7 +321,7 @@ export const productionCases = [
       "/work/mr-porter-summertime-movies/05.jpg",
       "/work/mr-porter-summertime-movies/06.jpg",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Visual Research", "Image Licensing"],
   },
   {
     slug: "mr-porter-work-wardrobe-2020",
@@ -339,7 +339,7 @@ export const productionCases = [
       "/work/mr-porter-work-wardrobe-2020/05.jpg",
       "/work/mr-porter-work-wardrobe-2020/06.jpg",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Visual Research", "Image Licensing"],
   },
   {
     slug: "mr-porter-black-history-month-uk",
@@ -362,7 +362,7 @@ export const productionCases = [
       "/work/mr-porter-black-history-month-uk/10.jpg",
       "/work/mr-porter-black-history-month-uk/11.jpg",
     ],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research"],
+    tags: ["Visual Research", "Image Licensing", "Cultural Commentary"],
   },
   {
     slug: "mr-porter-championing-subcultures",
@@ -376,7 +376,7 @@ export const productionCases = [
       { label: "Writers Portfolio →", url: "https://www.mrporter.com/en-us/journal/fashion/black-history-month-uk-writers-portfolio-24605122" },
     ],
     images: [],
-    tags: ["Editorial Writing", "Picture Research", "Visual Research", "Casting"],
+    tags: ["Cultural Strategy", "Casting", "Editorial Direction", "Production"],
   },
   {
     slug: "mr-porter-social-media",
@@ -386,7 +386,7 @@ export const productionCases = [
     task: "Built MR PORTER's social media production strategy as part of the brand's push to reach a Gen Z menswear audience. Brief: develop content franchises native to TikTok and short-form social, rather than repurposing campaign assets, and grow channel presence from scratch.",
     outcome: "Conceived and produced Mr Porter's Helping Hands as the inaugural franchise series. A/B tested formats against engagement and retention, evolving the series into the community-led Ask Mr Porter format — where audience questions drove content rather than brand-led scripting. The TikTok channel grew to 50K followers in its inaugural year, establishing the social production playbook MR PORTER continued to build on.",
     images: [],
-    tags: ["Social Strategy", "Motion Production", "Editorial Writing"],
+    tags: ["Social Media Strategy", "Gen Z Research", "Content Production", "Brand Strategy"],
   },
   {
     slug: "vogue-relaunch",
@@ -408,7 +408,7 @@ export const productionCases = [
       "/work/vogue-relaunch/07.jpg",
       "/work/vogue-relaunch/08.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Casting", "Art Direction", "Visual Research"],
+    tags: ["Stills Production", "Video Production", "Art Direction", "Visual Research", "Editorial Direction", "Casting"],
   },
   {
     slug: "abraham-moon",
@@ -427,7 +427,7 @@ export const productionCases = [
       "/work/abraham-moon/04.jpg",
       "/work/abraham-moon/05.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Casting", "Art Direction"],
+    tags: ["Stills Production", "Video Production", "Casting", "Location Scouting"],
   },
   {
     slug: "mastercard-sailgp",
@@ -443,7 +443,7 @@ export const productionCases = [
       "/work/mastercard-sailgp/01.mp4",
       "/work/mastercard-sailgp/02.jpg",
     ],
-    tags: ["Motion Production", "Stills Production", "Live Edit"],
+    tags: ["Video Production", "Post-Production", "Live-Editing"],
   },
   {
     slug: "moonlight-basin",
@@ -463,7 +463,7 @@ export const productionCases = [
       "/work/moonlight-basin/05.jpg",
       "/work/moonlight-basin/06.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Art Direction"],
+    tags: ["Stills Production", "Video Production", "Location Scouting", "Casting"],
   },
   {
     slug: "mr-c-residences",
@@ -484,7 +484,7 @@ export const productionCases = [
       "/work/mr-c-residences/05.jpg",
       "/work/mr-c-residences/06.jpg",
     ],
-    tags: ["Stills Production", "Motion Production", "Art Direction"],
+    tags: ["Stills Production", "Video Production", "Location Scouting"],
   },
   {
     slug: "yasmin-mansour",
@@ -533,7 +533,7 @@ export const productionCases = [
       "/work/glass-magazine/03.jpg",
       "/work/glass-magazine/04.jpg",
     ],
-    tags: ["Stills Production", "Casting"],
+    tags: ["Stills Production"],
   },
   {
     slug: "mr-porter-in-america",
@@ -552,7 +552,7 @@ export const productionCases = [
       "/work/mr-porter-in-america/05.jpg",
       "/work/mr-porter-in-america/06.mp4",
     ],
-    tags: ["Stills Production", "Motion Production", "Casting", "Art Direction"],
+    tags: ["Stills Production", "Video Production", "Editorial Direction", "Casting"],
   },
 ];
 
