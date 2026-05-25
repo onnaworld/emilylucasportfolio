@@ -51,9 +51,9 @@ const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",                      client: "TRIPPIN",   title: "An Exploration of Mexico Through Graciela Iturbide" },
   { src: "/Cultural%20Strategy/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",                      client: "TRIPPIN",   title: "A History of Tattooing in Japan" },
   { src: "/Cultural%20Strategy/w1500_q80.jpg",                                                                client: "MR PORTER", title: "Calling All Women" },
-  { src: "/Cultural%20Strategy/w1500_q80.jpeg",                                                               client: "MR PORTER", title: "Championing Subcultures", landscape: true },
+  { src: "/Cultural%20Strategy/w1500_q80.jpeg",                                                               client: "MR PORTER", title: "Tee Store", landscape: true },
   { src: "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",                                         client: "MR PORTER", title: "Black History Month UK" },
-  { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Championing Subcultures" },
+  { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Pride" },
 ];
 const VISUAL_RESEARCH_IMAGES = [
   { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Menswear Trends 2022" },
