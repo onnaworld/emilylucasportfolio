@@ -158,11 +158,13 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
         <section
           className="m-section"
           style={{
-            padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+            position: "relative",
+            padding: `${space.xxl}px ${space.xl}px ${space.xxl + 40}px`,
             display: "grid",
             gridTemplateColumns: "1fr 6fr",
             gap: space.xl,
             alignItems: "start",
+            minHeight: "100vh",
           }}
         >
           <div
@@ -193,14 +195,37 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
           >
             {body}
           </p>
+          {showcases.length > 0 && (
+            <button
+              onClick={(e) => {
+                const section = e.currentTarget.closest("section");
+                const next = section?.nextElementSibling;
+                next?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              aria-label="Scroll to projects"
+              style={{
+                position: "absolute",
+                bottom: space.lg,
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "none",
+                border: "none",
+                padding: 8,
+                cursor: "pointer",
+                color: colors.text,
+                fontFamily: HEROS_FONT,
+                fontSize: 18,
+                fontWeight: 400,
+                lineHeight: 1,
+              }}
+            >
+              ↓
+            </button>
+          )}
         </section>
       )}
 
-      {showcases.map((s, i) => (
-        // Vary drift per item so neighbours float at different speeds and
-        // never feel mechanically synchronised.
-        <Showcase key={i} {...s} driftFactor={40 + ((i * 23) % 60)} />
-      ))}
+      {showcases.length > 0 && <AutoCycleHero showcases={showcases} />}
     </div>
   );
 }
@@ -222,153 +247,163 @@ function Media({ src, style }) {
   );
 }
 
-// Hook: returns a Y translate (px) based on how the element sits inside the
-// viewport. Used to give each showcase a subtle floating drift as the page
-// scrolls. Per-element factor lets neighbours drift at slightly different
-// rates so they never lock-step with each other.
-function useScrollDrift(factor) {
-  const ref = useRef(null);
-  const [offset, setOffset] = useState(0);
-  useEffect(() => {
-    let raf = 0;
-    const compute = () => {
-      const el = ref.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const viewportCenter = window.innerHeight / 2;
-      const elCenter = rect.top + rect.height / 2;
-      // Distance from element centre to viewport centre, normalised so 1 ≈
-      // one viewport away. Multiplying by factor gives the parallax shift.
-      const distance = (elCenter - viewportCenter) / window.innerHeight;
-      setOffset(distance * factor);
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(compute);
-    };
-    compute();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", compute);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", compute);
-    };
-  }, [factor]);
-  return [ref, offset];
-}
+// Iconoclast-style full-bleed cycler. Active project's media fills the
+// viewport (a flush pair when media is an array). The bottom strip holds
+// a big number for each project — auto-advancing every few seconds, paused
+// while the user is hovering a number, and hover sets that number active.
+function AutoCycleHero({ showcases }) {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-// One project block: a single asset (single media OR a flush pair grouped as
-// one) centred in the page, drifting subtly on scroll. Hover fades the asset
-// down and reveals the client + title overlay; no overlay by default since
-// most assets already carry the brand mark on the image itself.
-function Showcase({ client, title, media, driftFactor = 60 }) {
-  const items = Array.isArray(media) ? media : [media];
-  const [ref, offset] = useScrollDrift(driftFactor);
-  const [hovered, setHovered] = useState(false);
+  useEffect(() => {
+    if (paused || showcases.length < 2) return;
+    const id = setInterval(() => {
+      setIndex(i => (i + 1) % showcases.length);
+    }, 4500);
+    return () => clearInterval(id);
+  }, [paused, showcases.length]);
+
+  const active = showcases[index];
+
   return (
     <section
       style={{
+        position: "relative",
         width: "100%",
-        padding: `${space.xxl}px ${space.xl}px`,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        background: colors.bg,
+        height: "100vh",
+        overflow: "hidden",
+        background: "#000",
+        color: "#fff",
       }}
     >
+      {/* Crossfade stack — every project rendered once, only active visible. */}
+      {showcases.map((s, i) => {
+        const items = Array.isArray(s.media) ? s.media : [s.media];
+        const isActive = i === index;
+        return (
+          <div
+            key={i}
+            aria-hidden={!isActive}
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "grid",
+              gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
+              gap: 0,
+              opacity: isActive ? 1 : 0,
+              transition: "opacity 0.7s ease",
+              pointerEvents: "none",
+            }}
+          >
+            {items.map((src, j) => (
+              <div key={j} style={{ width: "100%", height: "100%", overflow: "hidden" }}>
+                <Media
+                  src={src}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        );
+      })}
+
+      {/* Brand + title overlay, bottom-right */}
       <div
-        ref={ref}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
         style={{
-          position: "relative",
-          width: "min(720px, 90vw)",
-          transform: `translate3d(0, ${offset}px, 0)`,
-          transition: "transform 0.05s linear",
-          willChange: "transform",
-          cursor: "pointer",
+          position: "absolute",
+          right: space.xl,
+          bottom: 120,
+          textAlign: "right",
+          color: "#fff",
+          textShadow: "0 1px 16px rgba(0,0,0,0.45)",
+          pointerEvents: "none",
+          maxWidth: "60vw",
         }}
       >
         <div
           style={{
-            position: "relative",
-            width: "100%",
-            display: "grid",
-            // Pair sits flush — no gap — so the two assets read as one piece.
-            gridTemplateColumns: items.length > 1 ? `repeat(${items.length}, 1fr)` : "1fr",
-            gap: 0,
-            opacity: hovered ? 0.25 : 1,
-            transition: "opacity 0.4s ease",
+            fontFamily: HEROS_FONT,
+            fontWeight: 700,
+            fontSize: "clamp(28px, 4vw, 56px)",
+            letterSpacing: "-0.02em",
+            lineHeight: 1,
+            textTransform: "uppercase",
           }}
         >
-          {items.map((src, i) => (
-            <div
-              key={i}
-              style={{
-                position: "relative",
-                width: "100%",
-                aspectRatio: items.length > 1 ? "3 / 4" : "16 / 9",
-                overflow: "hidden",
-                background: "#000",
-              }}
-            >
-              <Media
-                src={src}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
-            </div>
-          ))}
+          {active.client}
         </div>
-        {/* Hover-only title overlay. Sits over the dimmed asset, centre-stage. */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            pointerEvents: "none",
-            textAlign: "center",
-            color: colors.text,
-            opacity: hovered ? 1 : 0,
-            transform: hovered ? "translateY(0)" : "translateY(6px)",
-            transition: "opacity 0.35s ease, transform 0.35s ease",
-          }}
-        >
+        {active.title && (
           <div
             style={{
-              fontFamily: HEROS_FONT,
-              fontWeight: 700,
-              fontSize: "clamp(20px, 3.4vw, 48px)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1,
-              textTransform: "uppercase",
+              marginTop: 6,
+              fontFamily: TIMES,
+              fontStyle: "italic",
+              fontSize: "clamp(18px, 2vw, 30px)",
+              fontWeight: 400,
+              lineHeight: 1.1,
             }}
           >
-            {client}
+            {active.title}
           </div>
-          {title && (
-            <div
+        )}
+      </div>
+
+      {/* Big numbers along the bottom */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 12,
+          display: "flex",
+          justifyContent: "space-between",
+          padding: `0 ${space.xl}px`,
+          gap: 12,
+          alignItems: "flex-end",
+        }}
+      >
+        {showcases.map((_, i) => {
+          const isActive = i === index;
+          return (
+            <button
+              key={i}
+              onMouseEnter={() => {
+                setPaused(true);
+                setIndex(i);
+              }}
+              onMouseLeave={() => setPaused(false)}
+              onFocus={() => {
+                setPaused(true);
+                setIndex(i);
+              }}
+              onBlur={() => setPaused(false)}
+              aria-label={`Show project ${i + 1}`}
               style={{
-                marginTop: 6,
-                fontFamily: TIMES,
-                fontStyle: "italic",
-                fontSize: "clamp(15px, 1.6vw, 22px)",
-                fontWeight: 400,
-                lineHeight: 1.1,
+                flex: "1 1 0",
+                background: "none",
+                border: "none",
+                padding: "8px 0",
+                cursor: "pointer",
+                fontFamily: HEROS_FONT,
+                fontSize: "clamp(36px, 6vw, 96px)",
+                fontWeight: 700,
+                letterSpacing: "-0.04em",
+                lineHeight: 1,
+                color: "#fff",
+                opacity: isActive ? 1 : 0.35,
+                transition: "opacity 0.3s ease",
+                textAlign: "left",
               }}
             >
-              {title}
-            </div>
-          )}
-        </div>
+              {i + 1}
+            </button>
+          );
+        })}
       </div>
     </section>
   );
