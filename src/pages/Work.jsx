@@ -725,10 +725,10 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
           scale = i === hoveredIdx ? 1.12 : 0.9;
         }
 
-        // Per-project duration variation — heavy, slow drift. Wide spread
-        // so thumbs arrive at visibly different times and bump as they transit.
-        const dur = 9 + ((i * 37) % 100) / 18; // 9s..14.5s, deterministic per project
-        const ease = "cubic-bezier(0.22, 1, 0.36, 1)"; // soft decel, no overshoot — heavier feel
+        // Per-project duration variation — slow drift with a touch of weight,
+        // but lighter than before so the carousel feels responsive.
+        const dur = 5 + ((i * 37) % 100) / 30; // 5s..8.3s, deterministic per project
+        const ease = "cubic-bezier(0.22, 1, 0.36, 1)"; // soft decel, no overshoot
 
         // Use the project's own thumb if defined; fall back to a matching
         // productionCase heroImage; otherwise blank.
@@ -916,17 +916,18 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
             ×
           </button>
 
-          {/* Project name — HEROS bold, lead line */}
+          {/* Project name — HEROS bold, lead line. Matches the 'Select Work'
+              header font size on the left side. */}
           <div
             style={{
               fontFamily: HEROS_FONT,
               fontWeight: 700,
-              fontSize: 18,
+              fontSize: 22,
               letterSpacing: "-0.02em",
-              lineHeight: 1.15,
+              lineHeight: 1.1,
               color: colors.text,
               marginTop: space.sm,
-              marginBottom: 2,
+              marginBottom: 4,
               animation: "contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
             }}
           >
