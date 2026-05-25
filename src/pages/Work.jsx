@@ -588,6 +588,7 @@ function WorkHero() {
           left: space.xl,
           color: "#fff",
           fontFamily: TIMES,
+          fontStyle: "italic",
           fontSize: 14,
           fontWeight: 400,
           lineHeight: 1.5,
