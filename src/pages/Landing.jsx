@@ -43,7 +43,7 @@ const PRODUCTION_IMAGES = [
   { src: "/Production/5..mp4",        client: "J.CREW",              title: "Abraham Moon" },
   { src: "/Production/6..jpg",        client: "AMAN",                title: "Saudi Arabia & Dubai" },
   { src: "/Production/6..mp4.mp4",    client: "ONE&ONLY",            title: "Moonlight Basin" },
-  { src: "/Production/7.mp4",         client: "MASTERCARD",          title: "Sail Grand Prix x Luís Figo" },
+  { src: "/Production/7.mp4",         client: "CIPRIANI",            title: "Mr C Residences Dubai" },
 ];
 const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",                     client: "TRIPPIN",   title: "6 Photographers on Ethical Photography" },
