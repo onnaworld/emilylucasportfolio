@@ -309,7 +309,9 @@ export const productionCases = [
     slug: "mr-porter-summertime-movies",
     client: "MR PORTER",
     project: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe",
-    year: "2021",
+    year: "2020",
+    task: "Visual research and image sourcing for a MR PORTER Journal feature on cinematic summer style, published June 2020. Brief: source and license still imagery across five films spanning six decades of cinema, working through the rights complexity of studio stills, agency photo libraries, and licensed archive imagery.",
+    outcome: "Sourced and licensed stills across Plein Soleil (1960), Do The Right Thing (1989), The Great Gatsby (1974), Once Upon A Time in Hollywood (2019), and Call Me By Your Name (2017). Navigated licensing across Universal, Paramount, Sony Pictures Entertainment, Times Film, AKG Images, Alamy, and Photofest — handing the editorial team a rights-cleared visual set to write the piece around. Demonstrates production capability around film stills and entertainment IP licensing, distinct from photography rights work.",
     viewProjectLink: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852",
     images: [
       "/work/mr-porter-summertime-movies/01.jpg",
