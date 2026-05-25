@@ -24,7 +24,7 @@ function categoryFor(n) {
 const PROJECTS = [
   { n: 1,  client: "CONDÉ NAST",         title: "Vogue Arabia Relaunch",       slug: "vogue-relaunch",       thumb: "/work/all-work/01.jpg" },
   { n: 2,  client: "AMAN",               title: "Saudi Arabia & Dubai",        slug: "aman",                 thumb: "/work/all-work/2..jpg" },
-  { n: 3,  client: "MR PORTER",          title: "N America",                   slug: "mr-porter-in-america", thumb: "/work/all-work/3..webp" },
+  { n: 3,  client: "MR PORTER",          title: "In America",                  slug: "mr-porter-in-america", thumb: "/work/all-work/3..webp" },
   { n: 4,  client: "ONE&ONLY",           title: "Moonlight Basin",             slug: "moonlight-basin",      thumb: "/work/all-work/4..mp4.mp4" },
   { n: 5,  client: "CIPRIANI",           title: "MR C Residence Dubai",        slug: "mr-c-residences",      thumb: "/work/all-work/5..jpg" },
   { n: 6,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign",           thumb: "/work/all-work/6..jpg" },
@@ -220,6 +220,7 @@ export default function Work() {
             projects={PROJECTS}
             productionCases={productionCases}
             windowStart={windowStart}
+            hoveredIdx={hoveredIdx}
           />
         </div>
 
@@ -490,7 +491,7 @@ function FadeInMedia({ src, isVideo }) {
   );
 }
 
-function ScatteredThumbs({ projects, productionCases, windowStart }) {
+function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx }) {
   return (
     <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
       {projects.map((p, i) => {
@@ -501,15 +502,22 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
         if (visible) {
           ({ leftPct, topPct, width } = SCATTER_SLOTS[slot]);
         } else if (slot < 0) {
-          // Stack above the viewport, further up the more negative
+          // Slide above the viewport — overflow:hidden on the parent clips
           leftPct = SCATTER_SLOTS[0].leftPct;
-          topPct = -40 + slot * 8;
+          topPct = -70 + slot * 8;
           width = SCATTER_SLOTS[0].width;
         } else {
-          // Stack below the viewport, further down the more positive
+          // Slide below the viewport — overflow:hidden on the parent clips
           leftPct = SCATTER_SLOTS[2].leftPct;
-          topPct = 110 + (slot - SCATTER_SLOTS.length) * 8;
+          topPct = 130 + (slot - SCATTER_SLOTS.length) * 8;
           width = SCATTER_SLOTS[2].width;
+        }
+
+        // Hover scaling: hovered project scales up, the other two visible
+        // siblings scale down so the hovered one is unmistakable.
+        let scale = 1;
+        if (hoveredIdx !== null && visible) {
+          scale = i === hoveredIdx ? 1.12 : 0.9;
         }
 
         // Per-project duration variation — slow, gentle glide. Wide spread
@@ -531,10 +539,11 @@ function ScatteredThumbs({ projects, productionCases, windowStart }) {
               left: `${leftPct}%`,
               top: `${topPct}%`,
               width,
-              opacity: visible ? 1 : 0,
-              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, opacity 0.5s ease-out`,
+              transform: `scale(${scale})`,
+              transformOrigin: "center",
+              transition: `top ${dur}s ${ease}, left ${dur}s ${ease}, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`,
               pointerEvents: visible ? "auto" : "none",
-              willChange: "top, left, opacity",
+              willChange: "top, left, transform",
             }}
           >
             <div
