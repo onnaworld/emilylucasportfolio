@@ -426,26 +426,35 @@ function ContactModal({ onClose }) {
       style={{
         position: "fixed",
         inset: 0,
-        background: "transparent",
+        background: "rgba(0,0,0,0.25)",
         zIndex: 200,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: space.xl,
+        animation: "contact-backdrop-in 0.4s ease-out both",
       }}
     >
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          position: "absolute",
-          bottom: space.xl,
-          right: space.xl,
-          background: "rgba(255, 255, 255, 0.72)",
-          backdropFilter: "blur(18px) saturate(140%)",
-          WebkitBackdropFilter: "blur(18px) saturate(140%)",
-          color: colors.text,
-          width: "min(440px, calc(100vw - 48px))",
-          padding: space.xl,
-          border: `1px solid ${colors.text}`,
+          position: "relative",
+          width: "min(540px, 100%)",
+          aspectRatio: "4 / 5",
+          maxHeight: "calc(100vh - 48px)",
+          color: "#fff",
+          padding: `${space.xxl}px ${space.xl}px`,
           borderRadius: 18,
-          boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
-          transformOrigin: "bottom right",
+          overflow: "hidden",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.32)",
+          backgroundImage: "url(/contact-bg.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          textAlign: "center",
+          transformOrigin: "center",
           animation: "contact-modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         }}
       >
@@ -467,7 +476,8 @@ function ContactModal({ onClose }) {
             fontFamily: HEROS,
             fontSize: 22,
             lineHeight: 1,
-            color: colors.text,
+            color: "#fff",
+            zIndex: 2,
           }}
         >
           ×
@@ -477,11 +487,11 @@ function ContactModal({ onClose }) {
           style={{
             fontFamily: "'Times New Roman', Times, serif",
             fontStyle: "italic",
-            fontSize: "clamp(24px, 2.8vw, 36px)",
+            fontSize: "clamp(28px, 3.4vw, 42px)",
             fontWeight: 400,
-            color: colors.text,
+            color: "#fff",
             lineHeight: 1,
-            marginBottom: space.sm,
+            marginBottom: space.lg,
           }}
         >
           Get in touch
@@ -493,16 +503,20 @@ function ContactModal({ onClose }) {
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "-0.01em",
-            lineHeight: 1.4,
-            color: colors.text,
+            lineHeight: 1.5,
+            color: "#fff",
             margin: 0,
-            marginBottom: space.lg,
+            marginBottom: space.xxl,
+            maxWidth: 420,
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
         >
-          Available for editorial production, branded content, and consulting engagements.
+          Available for production enquiries, editorial &amp; branded content
+          and consulting engagements across New York, Tokyo, Dubai &amp; London.
         </p>
 
-        <div style={{ borderTop: `1px solid ${colors.text}` }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: space.lg }}>
           {rows.map((row, i) => (
             <a
               key={row.label}
@@ -510,42 +524,34 @@ function ContactModal({ onClose }) {
               target={row.label === "LINKEDIN" ? "_blank" : undefined}
               rel={row.label === "LINKEDIN" ? "noopener noreferrer" : undefined}
               style={{
-                display: "grid",
-                gridTemplateColumns: "90px 1fr",
-                alignItems: "baseline",
-                padding: `${space.md}px 0`,
-                borderBottom: `1px solid ${colors.text}`,
-                color: colors.text,
+                display: "block",
+                color: "#fff",
                 textDecoration: "none",
                 animation: `contact-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${0.25 + i * 0.12}s both`,
               }}
             >
-              <span
+              <div
+                style={{
+                  fontFamily: HEROS,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  marginBottom: space.xs,
+                }}
+              >
+                {row.label}
+              </div>
+              <div
                 style={{
                   fontFamily: "'Times New Roman', Times, serif",
                   fontStyle: "italic",
                   fontSize: 18,
                   fontWeight: 400,
-                  color: colors.text,
-                  letterSpacing: 0,
-                  textTransform: "lowercase",
-                }}
-              >
-                {row.label.toLowerCase()}
-              </span>
-              <span
-                style={{
-                  fontFamily: HEROS,
-                  fontSize: 13,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.01em",
-                  textAlign: "right",
-                  color: colors.text,
                 }}
               >
                 {row.value}
-              </span>
+              </div>
             </a>
           ))}
         </div>
