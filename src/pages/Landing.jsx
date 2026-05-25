@@ -970,6 +970,13 @@ function MenuOverlay({ onClose, onContact }) {
           from { transform: scale(0.85); }
           to   { transform: scale(1); }
         }
+        /* Local copy of the contact-row-in keyframe — without it, the menu
+           items reference an animation name that only exists when the
+           ContactModal is also mounted, so they don't fade in. */
+        @keyframes contact-row-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
       `}</style>
     </div>
   );
