@@ -385,9 +385,44 @@ function AutoCycleHero({ showcases }) {
 
   const closeStudy = () => setActiveStudy(null);
 
+  // Mobile swipe-to-next on the showcase. Tracks the starting touch and
+  // on release decides: swipe → change index; otherwise let the
+  // click-through fire so the tap still opens the case study.
+  const touchRef = useRef({ x: 0, y: 0, swiped: false });
+  const onTouchStart = (e) => {
+    const t = e.touches[0];
+    touchRef.current = { x: t.clientX, y: t.clientY, swiped: false };
+  };
+  const onTouchEnd = (e) => {
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchRef.current.x;
+    const dy = t.clientY - touchRef.current.y;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      touchRef.current.swiped = true;
+      setPaused(true);
+      setIndex(i => {
+        const next = dx < 0 ? i + 1 : i - 1 + showcases.length;
+        return next % showcases.length;
+      });
+      // Resume the auto-cycle after a beat
+      setTimeout(() => setPaused(false), 3500);
+    }
+  };
+  // Suppress the click-through tap if we just swiped, so the case study
+  // doesn't open when the user is just navigating between projects.
+  const onClickThrough = () => {
+    if (touchRef.current.swiped) {
+      touchRef.current.swiped = false;
+      return;
+    }
+    openCaseStudy(index);
+  };
+
   return (
     <section
       className="category-snap-section m-showcase-section"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       style={{
         position: "relative",
         width: "100%",
@@ -434,9 +469,10 @@ function AutoCycleHero({ showcases }) {
           );
         })}
 
-        {/* Click-through layer over the media — opens the case study */}
+        {/* Click-through layer over the media — opens the case study
+            (swipe is intercepted by the section's touch handlers above). */}
         <button
-          onClick={() => openCaseStudy(index)}
+          onClick={onClickThrough}
           aria-label={`Open ${active.client} case study`}
           style={{
             position: "absolute",
