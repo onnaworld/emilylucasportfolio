@@ -26,7 +26,7 @@ function Brand({ children }) {
 // Hero landing page for a single discipline (Production, Strategy & Editorial,
 // Visual Research). Same hero as /work, optionally followed by an About-style
 // paragraph block when `body` is provided.
-export default function CategoryPage({ label, heroImage = "/hero.jpg", body, showcases = [], metaPath, metaTitle, metaDescription, metaImage, suppressMeta = false }) {
+export default function CategoryPage({ label, heroImage = "/hero.jpg", body, showcases = [], metaPath, metaTitle, metaDescription, metaImage, suppressMeta = false, heroOverlayColor = "#fff" }) {
   // Snap-scroll removed — proximity-snap was pulling the user back from
   // the footer onto the showcase. Free scroll feels better for these
   // pages now that there's a footer below the last full-bleed section.
@@ -111,7 +111,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
             position: "absolute",
             top: space.xl,
             left: space.xl,
-            color: "#fff",
+            color: heroOverlayColor,
             zIndex: 5,
           }}
         >
@@ -123,7 +123,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
               fontFamily: TIMES,
               fontSize: 14,
               fontWeight: 400,
-              color: "#fff",
+              color: heroOverlayColor,
               marginBottom: space.sm,
               marginLeft: 2,
               opacity: 0.95,
@@ -153,7 +153,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
             position: "absolute",
             bottom: space.xl,
             right: space.xl,
-            color: "#fff",
+            color: heroOverlayColor,
             fontFamily: TIMES,
             fontSize: "clamp(44px, 7vw, 100px)",
             fontStyle: "italic",
@@ -173,7 +173,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
             position: "absolute",
             bottom: space.xl,
             left: space.xl,
-            color: "#fff",
+            color: heroOverlayColor,
             fontFamily: TIMES,
             fontStyle: "italic",
             fontSize: 14,
@@ -194,7 +194,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
             bottom: space.lg,
             left: "50%",
             transform: "translateX(-50%)",
-            color: "#fff",
+            color: heroOverlayColor,
             fontFamily: HEROS_FONT,
             fontSize: 18,
             fontWeight: 400,

@@ -236,12 +236,14 @@ function AppRoutes() {
             <Route path="/production" element={
               <CategoryPage
                 label="Production"
+                heroImage="/production-hero.jpg"
                 body={PRODUCTION_BODY}
                 showcases={PRODUCTION_SHOWCASES}
+                heroOverlayColor="#000"
                 metaPath="/production"
                 metaTitle="Production | Emily Lucas | Executive Producer"
                 metaDescription="End-to-end executive production for luxury brands across photography, video and complex post-production. Campaigns delivered across the US, UK, GCC and Europe — Aman, Vogue Arabia, Nike, One&Only, MR PORTER, Cipriani, Mastercard, J.Crew."
-                metaImage="/work/aman-saudi-arabia/01.jpg"
+                metaImage="/production-hero.jpg"
                 suppressMeta={!!slug}
               />
             } />
