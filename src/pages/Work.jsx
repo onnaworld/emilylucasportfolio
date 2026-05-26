@@ -43,7 +43,7 @@ const PROJECTS = [
   { n: 13, client: "HARVEY NICHOLS",      title: "Festive, Beauty",             slug: "harvey-nichols-festive-beauty",        thumb: "/work/all-work/13.jpg" },
   { n: 14, client: "GUESS",               title: "Global Ramadan Campaign",     slug: "guess-ramadan",                        thumb: "/work/all-work/14.jpg" },
   { n: 15, client: "SIRO HOTEL",          title: "Campaign",                    slug: "siro-hotel",                           thumb: "/work/all-work/15.jpg" },
-  { n: 16, client: "HAMILTON WATCHES",    title: "Campaign",                    slug: "hamilton-watches",                     thumb: "/work/all-work/16.jpg" },
+  { n: 16, client: "HAMILTON WATCHES",    title: "Ventura XXL Campaign",        slug: "hamilton-watches",                     thumb: "/work/all-work/16.jpg" },
   { n: 17, client: "JUMEIRAH",            title: "Marsa Al Arab",               slug: "jumeirah-marsa-al-arab",               thumb: "/work/all-work/17.jpg" },
   { n: 18, client: "MR PORTER",           title: "Championing Subcultures",     slug: "mr-porter-championing-subcultures",    thumb: "/work/all-work/18.jpg", link: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
   { n: 19, client: "MR PORTER",           title: "Social Media Strategy",       slug: "mr-porter-social-media",               thumb: "/work/all-work/19.jpg" },

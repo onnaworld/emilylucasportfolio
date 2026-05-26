@@ -200,11 +200,39 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           </div>
         )}
 
-        {study.images && study.images.length > 0 && (
-          <div style={{ animation: anim(0.46) }}>
-            <Carousel images={study.images} project={study.project} />
-          </div>
-        )}
+        {study.images && study.images.length > 0 && (() => {
+          const hasVideo = study.images.some((s) => /\.(mp4|webm|mov)$/i.test(s));
+          const firstLink = (() => {
+            const v = study.viewProjectLink;
+            if (!v) return null;
+            const arr = Array.isArray(v) ? v : [v];
+            const first = arr[0];
+            return typeof first === "string" ? first : first?.url || null;
+          })();
+          return (
+            <div style={{ animation: anim(0.46) }}>
+              {hasVideo && firstLink && (
+                <div
+                  style={{
+                    fontFamily: TIMES,
+                    fontStyle: "italic",
+                    fontSize: 12,
+                    fontWeight: 400,
+                    color: colors.textMuted,
+                    marginBottom: 8,
+                  }}
+                >
+                  click video to view project
+                </div>
+              )}
+              <Carousel
+                images={study.images}
+                project={study.project}
+                videoLink={firstLink}
+              />
+            </div>
+          );
+        })()}
 
         {study.tags && study.tags.length > 0 && (
           <div style={{ marginTop: space.lg, display: "flex", flexWrap: "wrap", gap: 6, animation: anim(0.54) }}>
@@ -248,10 +276,12 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
 // Single carousel item with its own fade-in load state. Starts at
 // opacity 0 against a white placeholder, transitions to 1 when the
 // asset's first frame / image decode lands — so slow assets fade in
-// rather than popping in abruptly.
-function CarouselAsset({ src, idx, project }) {
+// rather than popping in abruptly. If `videoLink` is set, videos
+// become clickable and open the project page in a new tab.
+function CarouselAsset({ src, idx, project, videoLink }) {
   const [loaded, setLoaded] = useState(false);
   const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+  const clickable = isVideo && !!videoLink;
 
   const baseStyle = {
     flex: "0 0 auto",
@@ -262,6 +292,7 @@ function CarouselAsset({ src, idx, project }) {
     background: "#ffffff",
     opacity: loaded ? 1 : 0,
     transition: "opacity 0.35s ease-out",
+    cursor: clickable ? "pointer" : "default",
   };
   const style = isVideo
     ? baseStyle
@@ -270,17 +301,33 @@ function CarouselAsset({ src, idx, project }) {
         maxWidth: "85%",
         minWidth: 160,
         objectFit: "cover",
+        cursor: "default",
       };
 
-  return isVideo ? (
-    <video
-      src={src}
-      autoPlay muted loop playsInline
-      preload={idx < 2 ? "auto" : "metadata"}
-      style={style}
-      onLoadedData={() => setLoaded(true)}
-    />
-  ) : (
+  if (isVideo) {
+    const video = (
+      <video
+        src={src}
+        autoPlay muted loop playsInline
+        preload={idx < 2 ? "auto" : "metadata"}
+        style={style}
+        onLoadedData={() => setLoaded(true)}
+      />
+    );
+    return clickable ? (
+      <a
+        href={videoLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ display: "inline-block", flex: "0 0 auto", lineHeight: 0 }}
+        aria-label="View project"
+      >
+        {video}
+      </a>
+    ) : video;
+  }
+
+  return (
     <img
       src={src}
       alt={`${project} – ${idx + 1}`}
@@ -303,7 +350,7 @@ function CarouselAsset({ src, idx, project }) {
 // Note: relies on the browser's native overflow scrolling for swipe (no
 // custom touch handlers — layering scrollBy() on top of native momentum
 // caused a visible double-scroll glitch on iOS).
-function Carousel({ images, project }) {
+function Carousel({ images, project, videoLink }) {
   const trackRef = useRef(null);
   const oneSetWidthRef = useRef(0);
   const teleportingRef = useRef(false);
@@ -390,6 +437,7 @@ function Carousel({ images, project }) {
               src={src}
               idx={idx}
               project={project}
+              videoLink={videoLink}
             />
           );
         })}

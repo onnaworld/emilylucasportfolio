@@ -32,6 +32,7 @@ export const productionCases = [
     task: "Bridge global creative standards with regional execution for Nike's worldwide launch of the Vomero 18, translating brand DNA into world-class visual assets during high-stakes running activations at Kite Beach and the Burj Khalifa.",
     outcome: "Acted as the essential link between global creative direction and in-market production, facilitating the workflow for Photographer/Director Will Beach. By removing local friction, delivered Nike-standard assets that solidified long-term relationships between global creative talent and regional distributors.",
     images: [
+      "/work/nike-vomero/hero.mp4",
       "/work/nike-vomero/01.jpg",
       "/work/nike-vomero/02.jpg",
       "/work/nike-vomero/03.jpg",
@@ -435,6 +436,7 @@ export const productionCases = [
     task: "Document J.Crew's commitment to traditional craftsmanship at the historic Abraham Moon mill in Northern England, with director Paul Hempstead. The brief called for a deliberate move away from traditional fashion casting in favor of a character-driven approach to capture the authenticity of British culture.",
     outcome: "Supported on location scouting and street-casting initiative that activated the local community, featuring farmers, athletes, musicians, and business owners. A character-driven production where human authenticity and artisanal storytelling sat at the heart of every frame.",
     images: [
+      "/work/abraham-moon/hero.mp4",
       "/work/abraham-moon/01.jpg",
       "/work/abraham-moon/02.jpg",
       "/work/abraham-moon/03.jpg",
