@@ -21,11 +21,8 @@ export default function PlusMenu() {
         className="m-plus"
         style={{
           position: "fixed",
-          // Closed: viewport-edge menu trigger. Open: slides into the
-          // modal's top-right corner so the rotated × sits where a
-          // close button naturally lives.
-          top: menuOpen ? 60 : 24,
-          right: menuOpen ? 60 : space.xl,
+          top: 24,
+          right: space.xl,
           margin: 0,
           background: "none",
           border: "none",
@@ -35,14 +32,13 @@ export default function PlusMenu() {
           fontWeight: 400,
           letterSpacing: "-0.02em",
           lineHeight: 1,
-          color: "#000",
+          color: "#fff",
+          mixBlendMode: "difference",
           zIndex: 300,
-          // Single element rotates 45° to become ×. Standard pattern,
-          // saves the user re-finding a separate close button.
-          transform: menuOpen ? "rotate(45deg)" : "rotate(0deg)",
-          transformOrigin: "50% 50%",
-          transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.32s cubic-bezier(0.22, 1, 0.36, 1), right 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
           cursor: "pointer",
+          // Rotate-to-× is hover-only on hover-capable devices —
+          // handled by the .m-plus:hover CSS rule in index.css so
+          // touch devices don't get a sticky rotate after tap.
         }}
       >
         +

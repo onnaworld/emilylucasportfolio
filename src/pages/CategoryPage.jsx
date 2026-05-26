@@ -47,7 +47,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
       {metaPath && (
         <RouteMeta
           path={metaPath}
-          title={metaTitle || `${label} — Emily Lucas | Executive Producer`}
+          title={metaTitle || `${label} | Emily Lucas | Executive Producer`}
           description={metaDescription}
           image={metaImage || heroImage}
         />
@@ -296,9 +296,27 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
           fontSize: 14,
           fontWeight: 400,
           color: colors.textMuted,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          gap: space.lg,
         }}
       >
-        © {new Date().getFullYear()} Emily Lucas
+        <span>© {new Date().getFullYear()} Emily Lucas</span>
+        <Link
+          to="/work"
+          className="hover-text"
+          style={{
+            fontFamily: TIMES,
+            fontStyle: "italic",
+            fontSize: 14,
+            fontWeight: 400,
+            color: colors.text,
+            textDecoration: "none",
+          }}
+        >
+          View All Work →
+        </Link>
       </footer>
     </div>
   );

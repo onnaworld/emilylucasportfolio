@@ -102,7 +102,7 @@ export default function About() {
     >
       <RouteMeta
         path="/about"
-        title="About — Emily Lucas | Executive Producer"
+        title="About | Emily Lucas | Executive Producer"
         description="My work sits at the intersection of four cultures, shaped by growing up in Tokyo and working across London, Dubai, New York and Japan. Production, strategy and visual research for luxury brands."
         image="/hero.jpg"
         jsonLd={{
@@ -136,11 +136,13 @@ export default function About() {
           style tags, so it's safer kept in the static head CSS). */}
       <style>{`
         /* About header is just one 14px text line (← Home) — the default
-           + position sits visually far below it. Pull the CLOSED-state +
-           up so its glyph centre lines up with ← Home. Scoped to
-           [aria-expanded="false"] so the open-state slide-to-corner
-           (top: 60, set inline by PlusMenu) still wins on click. */
-        .about-page .m-plus[aria-expanded="false"] { top: -8px !important; }
+           + position sits visually far below it. Pull + up on desktop so
+           its glyph centre lines up with ← Home. Mobile uses the global
+           .m-plus rule in index.html (top: 14px) which already lines up
+           with ← Home there. */
+        @media (min-width: 769px) {
+          .about-page .m-plus { top: -8px !important; }
+        }
         @keyframes about-fade-in {
           from { opacity: 0; transform: translateY(10px); }
           to   { opacity: 1; transform: translateY(0); }

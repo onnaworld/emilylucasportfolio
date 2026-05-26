@@ -83,6 +83,17 @@ button {
   opacity: 0.85;
 }
 
+/* + button rotates to × on hover, in place — no position change. Scoped
+   to hover-capable devices so touch users don't get a sticky rotation
+   after tap (mobile shows + → tap opens menu, never rotates). */
+.m-plus {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: 50% 50%;
+}
+@media (hover: hover) and (pointer: fine) {
+  .m-plus:hover { transform: rotate(45deg); }
+}
+
 /* Subtle on-mount fade. Each page applies this to its root div, so
    the animation re-runs naturally on every route mount without a
    wrapper-level remount (heavier than the animation itself). */
