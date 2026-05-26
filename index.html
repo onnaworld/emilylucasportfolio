@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:site_name" content="Emily Lucas" />
-    <meta property="og:title" content="Emily Lucas, Executive Producer" />
+    <meta property="og:title" content="Emily Lucas | Executive Producer" />
     <meta property="og:description" content="Executive Producer specializing in luxury campaigns across fashion, beauty, hospitality and editorial. Clients include MR PORTER, Aman, Condé Nast, One&Only, Charlotte Tilbury, Vogue Arabia, Nike, Mastercard." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://emilyelucas.com/" />
@@ -196,8 +196,13 @@
           cursor: auto !important;
         }
 
-        /* + button, closer to edge, smaller */
-        .m-plus { top: 14px !important; right: 16px !important; font-size: 44px !important; }
+        /* + button on mobile: smaller font, anchored to the edge when
+           closed, slides into the modal corner when open. aria-expanded
+           selector lets the open-state values override closed-state
+           values without fighting the inline transition. */
+        .m-plus { right: 16px !important; font-size: 44px !important; }
+        .m-plus[aria-expanded="false"] { top: 14px !important; }
+        .m-plus[aria-expanded="true"]  { top: 26px !important; right: 26px !important; }
 
         /* Hero section: landscape banner on mobile (image's native ~4:3),
            not a portrait full-bleed crop. */
@@ -245,9 +250,8 @@
         .m-about-footer { padding: 10px 16px !important; }
         /* Sit Contact → close to the bottom hairline. */
         .m-about-contact { margin-bottom: 8px !important; padding-top: 16px !important; }
-        /* About-page + button on mobile: anchor on the same row as
-           ← Home, shrunken so it doesn't overshoot the hairline below. */
-        .about-page .m-plus { top: 32px !important; right: 16px !important; font-size: 30px !important; line-height: 1 !important; }
+        /* About + button on mobile: no override — uses the global
+           .m-plus rule so the open-state position animates cleanly. */
         .m-about-body { padding: 14px 16px !important; overflow: hidden !important; }
         /* Tighter section heading → bullets gap on mobile so each block
            is more compact. */

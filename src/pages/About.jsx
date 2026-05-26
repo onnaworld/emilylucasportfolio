@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
@@ -83,31 +83,9 @@ export default function About() {
     };
   }, []);
 
-  // Imperatively position the + button so it lines up with ← Home on
-  // this page (PlusMenu's inline style + the global mobile media query
-  // both fight each other; setProperty with priority "important" wins
-  // every cascade race and works around iOS Safari quirks).
-  //
-  // useLayoutEffect (not useEffect) so the override applies BEFORE the
-  // browser paints — otherwise users see a flash where + renders at its
-  // default position and then jumps to the right spot.
-  useLayoutEffect(() => {
-    const plus = document.querySelector(".about-page .m-plus");
-    if (!plus) return;
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const prev = plus.getAttribute("style") || "";
-    if (isMobile) {
-      plus.style.setProperty("top", "32px", "important");
-      plus.style.setProperty("right", "16px", "important");
-      plus.style.setProperty("font-size", "30px", "important");
-      plus.style.setProperty("line-height", "1", "important");
-    } else {
-      plus.style.setProperty("top", "-8px", "important");
-    }
-    return () => {
-      plus.setAttribute("style", prev);
-    };
-  }, []);
+  // + button position is now handled globally by PlusMenu — open state
+  // animates into the modal corner. The previous About-specific
+  // imperative overrides aren't needed.
 
   return (
     <div
@@ -157,7 +135,8 @@ export default function About() {
           block — Safari sometimes ignores nested @media inside injected
           style tags, so it's safer kept in the static head CSS). */}
       <style>{`
-        .about-page .m-plus { top: -8px !important; }
+        /* About + position is now standard (handled in PlusMenu) — no
+           override needed; closes/opens slide consistently with other pages. */
         @keyframes about-fade-in {
           from { opacity: 0; transform: translateY(10px); }
           to   { opacity: 1; transform: translateY(0); }
