@@ -278,8 +278,11 @@
            keep the landscape category landscape. Per-item landscape overrides
            within a portrait carousel use the portrait size on mobile (acceptable
            simplification, keeps thumbs visually consistent). */
-        .m-carousel > div > div { height: 220px !important; width: 165px !important; }
-        .m-carousel.m-carousel-landscape > div > div { height: 150px !important; width: 220px !important; }
+        /* Target the FadeInMedia wrapper by class — descendant selector
+           so the rule still hits when the wrapper is nested inside a
+           Link (homepage cluster carousels link to category pages). */
+        .m-carousel .m-carousel-item { height: 220px !important; width: 165px !important; }
+        .m-carousel.m-carousel-landscape .m-carousel-item { height: 150px !important; width: 220px !important; }
 
         /* View More / Contact buttons row */
         .m-link-row { padding: 14px 16px !important; }

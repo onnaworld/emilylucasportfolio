@@ -881,6 +881,7 @@ function FadeInMedia({ src, width, height, objectFit = "cover", client, title })
   const hasLabel = !!(client || title);
   return (
     <div
+      className="m-carousel-item"
       onMouseEnter={() => hasLabel && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
