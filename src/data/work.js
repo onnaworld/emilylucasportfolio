@@ -556,6 +556,7 @@ export const productionCases = [
     heroImage: "/work/mr-porter-in-america/01.jpg",
     task: "Lead US production for 'MR PORTER In America': a 360° multi-brand integrated campaign spanning LA, New York, and Miami, coordinating shoots with brand partnerships for Hennessy, editorial partnerships with The Elder Statesman, Polite Worldwide, and Greg Lauren, across photography, film, and digital.",
     outcome: "Generated 2.65M views and a 75% engagement uplift. Built and managed the on-the-ground US production framework for one of MR PORTER's flagship annual campaigns.",
+    viewProjectLink: { label: "The Elder Statesman →", url: "https://www.mrporter.com/en-us/journal/fashion/the-elder-statesman-los-angeles-factory-tour-2022-23562644" },
     images: [
       "/work/mr-porter-in-america/01.jpg",
       "/work/mr-porter-in-america/02.jpg",
