@@ -478,6 +478,7 @@ export const productionCases = [
     heroImage: "/work/moonlight-basin/01.jpg",
     task: "Execute the visual campaign for One&Only Moonlight Basin in Big Sky, Montana (the brand's first North American mountain resort), navigating complex international logistics between a Middle Eastern base and a remote US location.",
     outcome: "Leveraged a long-standing partnership with US-based production house Willson Project to facilitate a seamless global workflow. The transcontinental collaboration proved scalable operations worldwide, ensuring regional distance never compromised execution or quality.",
+    videoLink: "https://vimeo.com/1051509174?share=copy&fl=sv&fe=ci",
     images: [
       "/work/moonlight-basin/hero.mp4",
       "/work/moonlight-basin/01.jpg",
