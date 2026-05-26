@@ -173,7 +173,7 @@ export default function About() {
             lineHeight: 1.15,
             letterSpacing: "-0.015em",
             color: colors.text,
-            margin: `clamp(32px, 3vw, 48px) 0 0`,
+            margin: `clamp(40px, 4.5vw, 72px) 0 0`,
             maxWidth: "min(1180px, 92%)",
           }}
         >
