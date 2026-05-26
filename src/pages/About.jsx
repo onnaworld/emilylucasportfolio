@@ -40,8 +40,8 @@ function DotItem({ children }) {
         gap: 10,
         alignItems: "baseline",
         marginBottom: 4,
-        fontFamily: TIMES,
-        fontStyle: "italic",
+        fontFamily: HEROS,
+        fontStyle: "normal",
         fontSize: "clamp(13px, 0.95vw, 16px)",
         fontWeight: 400,
         lineHeight: 1.3,
@@ -53,8 +53,8 @@ function DotItem({ children }) {
         aria-hidden="true"
         style={{
           flexShrink: 0,
-          width: 9,
-          height: 9,
+          width: 7,
+          height: 7,
           borderRadius: "50%",
           background: HINOMARU,
           alignSelf: "center",
