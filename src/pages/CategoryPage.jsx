@@ -85,7 +85,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
       >
         <img
           src={heroImage}
-          alt=""
+          alt={`${label} — Emily Lucas portfolio hero`}
           style={{
             position: "absolute",
             inset: 0,
@@ -298,7 +298,7 @@ function isVideoSrc(src) {
   return src && /\.(mp4|webm|mov)$/i.test(src);
 }
 
-function Media({ src, style, position }) {
+function Media({ src, style, position, alt }) {
   // Placeholder when no asset is wired yet — soft tonal gradient block,
   // same dimensions as the real media so layout doesn't shift on swap.
   if (!src) {
@@ -324,7 +324,7 @@ function Media({ src, style, position }) {
       style={{ ...merged, background: videoBg }}
     />
   ) : (
-    <img src={src} alt="" loading="lazy" style={merged} />
+    <img src={src} alt={alt || ""} loading="lazy" style={merged} />
   );
 }
 
@@ -430,6 +430,7 @@ function AutoCycleHero({ showcases }) {
                   <Media
                     src={src}
                     position={s.position}
+                    alt={`${s.client} — ${s.title}, produced by Emily Lucas`}
                     style={{
                       width: "100%",
                       height: "100%",

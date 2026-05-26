@@ -914,7 +914,7 @@ function FadeInMedia({ src, width, height, objectFit = "cover", client, title })
       ) : (
         <img
           src={src}
-          alt=""
+          alt={[client, title].filter(Boolean).join(" — ") || "Emily Lucas portfolio"}
           loading="lazy"
           decoding="async"
           onLoad={() => setLoaded(true)}

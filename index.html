@@ -6,13 +6,29 @@
     <link rel="apple-touch-icon" href="/favicon.svg?v=3" />
     <link rel="shortcut icon" href="/favicon.svg?v=3" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="Emily Lucas, Executive Producer specializing in luxury campaigns across fashion, beauty, hospitality and editorial. Clients include MR PORTER, Aman, Condé Nast, One&Only, Charlotte Tilbury, Vogue Arabia, Nike, Mastercard." />
+    <link rel="canonical" href="https://emilyelucas.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Emily Lucas" />
     <meta property="og:title" content="Emily Lucas, Executive Producer" />
     <meta property="og:description" content="Executive Producer specializing in luxury campaigns across fashion, beauty, hospitality and editorial. Clients include MR PORTER, Aman, Condé Nast, One&Only, Charlotte Tilbury, Vogue Arabia, Nike, Mastercard." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://emilyelucas.com" />
+    <meta property="og:url" content="https://emilyelucas.com/" />
     <meta property="og:image" content="https://emilyelucas.com/hero.jpg" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1760" />
+    <meta property="og:image:alt" content="Emily Lucas — Executive Producer & Cultural Strategy Consultant portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Emily Lucas, Executive Producer" />
+    <meta name="twitter:description" content="Executive Producer specializing in luxury campaigns across fashion, beauty, hospitality and editorial. Clients include MR PORTER, Aman, Condé Nast, One&Only, Charlotte Tilbury, Vogue Arabia, Nike, Mastercard." />
+    <meta name="twitter:image" content="https://emilyelucas.com/hero.jpg" />
+    <meta name="twitter:image:alt" content="Emily Lucas — Executive Producer & Cultural Strategy Consultant portfolio" />
+
     <!-- menu/contact bgs are tiny (~16–24KB) and used everywhere; keep
          the preload. Showreel (11MB) and hero.jpg are landing-page-only
          assets — loading them on /work and other routes blocked mobile
@@ -20,6 +36,53 @@
     <link rel="preload" as="image" href="/menu-bg.jpg" />
     <link rel="preload" as="image" href="/contact-bg.jpg" />
     <title>Emily Lucas, Executive Producer</title>
+
+    <!-- JSON-LD structured data: Person + WebSite. Helps Google Rich
+         Results and LLM crawlers (GPTBot, ClaudeBot, PerplexityBot)
+         identify Emily as a named entity and surface her portfolio as
+         the canonical source for "Emily Lucas" queries. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Emily Lucas",
+      "url": "https://emilyelucas.com/",
+      "image": "https://emilyelucas.com/hero.jpg",
+      "jobTitle": "Executive Producer & Cultural Strategy Consultant",
+      "description": "Executive Producer and Consultant specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial. Tokyo-born, with Japanese-US-UK background and industry experience across the US, UK, GCC and Japan.",
+      "worksFor": { "@type": "Organization", "name": "Independent" },
+      "address": [
+        { "@type": "PostalAddress", "addressLocality": "New York", "addressCountry": "US" },
+        { "@type": "PostalAddress", "addressLocality": "Tokyo", "addressCountry": "JP" },
+        { "@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE" },
+        { "@type": "PostalAddress", "addressLocality": "London", "addressCountry": "GB" }
+      ],
+      "knowsAbout": [
+        "Executive Production",
+        "Cultural Strategy",
+        "Editorial Production",
+        "Visual Research",
+        "Luxury Brand Campaigns",
+        "GCC Production",
+        "Japan Production"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/emilyelucas/"
+      ],
+      "email": "emilyelucas@gmail.com"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Emily Lucas",
+      "url": "https://emilyelucas.com/",
+      "description": "Portfolio of Emily Lucas — Executive Producer & Cultural Strategy Consultant. Production, strategy and visual research for luxury brands.",
+      "author": { "@type": "Person", "name": "Emily Lucas" },
+      "inLanguage": "en"
+    }
+    </script>
     <style>
       @font-face {
         font-family: 'Sackers Gothic Std';

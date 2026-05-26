@@ -473,7 +473,7 @@ function WorkHero() {
     >
       <img
         src="/work/moonlight-basin/03.jpg"
-        alt=""
+        alt="All Work — Emily Lucas portfolio hero, One&Only Moonlight Basin"
         style={{
           position: "absolute",
           inset: 0,
@@ -611,7 +611,7 @@ const SCATTER_SLOTS = [
 
 // Inline fade-in wrapper for thumb media, opacity 0 until the file decodes,
 // editorial pulsing dots placeholder while loading.
-function FadeInMedia({ src, isVideo }) {
+function FadeInMedia({ src, isVideo, alt }) {
   const [loaded, setLoaded] = useState(false);
   const style = {
     width: "100%",
@@ -666,7 +666,7 @@ function FadeInMedia({ src, isVideo }) {
       ) : (
         <img
           src={src}
-          alt=""
+          alt={alt || "Emily Lucas portfolio thumbnail"}
           loading="lazy"
           decoding="async"
           onLoad={() => setLoaded(true)}
@@ -757,7 +757,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
               {String(p.n).padStart(2, "0")}
             </div>
             {thumbSrc ? (
-              <FadeInMedia src={thumbSrc} isVideo={isVideo} />
+              <FadeInMedia src={thumbSrc} isVideo={isVideo} alt={[p.client, p.title].filter(Boolean).join(" — ")} />
             ) : (
               <div style={{ background: "#f2f2f2", aspectRatio: "4 / 3" }} />
             )}

@@ -7,17 +7,14 @@ const NAV_ITEMS = [
 ];
 
 export default function Layout({ children }) {
-  const location = useLocation();
-  const noChromePaths = ["/", "/work", "/production", "/cultural-strategy", "/visual-research", "/about"];
-  const noChrome = noChromePaths.includes(location.pathname);
-  const noHeader = noChrome;
-  const noFooter = noChrome;
-
+  // Every current page renders its own header/footer; the legacy
+  // Header/Footer below are kept only as a fallback reference. Unknown
+  // paths (404) also render their own chrome, so we never want Layout's
+  // chrome to appear.
+  useLocation();
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: colors.bg, color: colors.text }}>
-      {!noHeader && <Header isLanding={false} />}
       <main style={{ flex: 1, width: "100%" }}>{children}</main>
-      {!noFooter && <Footer />}
     </div>
   );
 }
