@@ -11,6 +11,7 @@ const TIMES = "'Times New Roman', Times, serif";
 export default function NotFound() {
   return (
     <div
+      className="page-fade-in"
       style={{
         background: colors.bg,
         color: colors.text,

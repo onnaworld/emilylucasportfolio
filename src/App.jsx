@@ -104,23 +104,11 @@ function ScrollToTop() {
   return null;
 }
 
-// Subtle fade + translate-up applied to every route's content on mount.
-// Keyed by pathname so the animation re-runs on every navigation.
-function PageFade({ children }) {
-  const { pathname } = useLocation();
-  return (
-    <div key={pathname} className="page-fade-in" style={{ minHeight: "100vh" }}>
-      {children}
-      <style>{`
-        @keyframes page-fade-in {
-          from { opacity: 0; transform: translateY(8px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .page-fade-in { animation: page-fade-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-      `}</style>
-    </div>
-  );
-}
+// page-fade-in keyframes live in src/index.css. Each page applies the
+// class to its own root div — the page component mounts/unmounts on
+// route change so the animation runs naturally without forcing a
+// wrapper remount (the old keyed PageFade made navigation feel slow
+// because Lenis + heavy media on Landing all reset).
 
 export default function App() {
   return (
@@ -128,7 +116,6 @@ export default function App() {
       <ScrollToTop />
       <Layout>
         <Suspense fallback={null}>
-          <PageFade>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
@@ -170,7 +157,6 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          </PageFade>
         </Suspense>
       </Layout>
     </BrowserRouter>

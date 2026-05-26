@@ -112,7 +112,7 @@ export default function About() {
 
   return (
     <div
-      className="about-page"
+      className="about-page page-fade-in"
       style={{
         background: colors.bg,
         color: colors.text,

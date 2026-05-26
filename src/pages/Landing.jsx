@@ -91,7 +91,7 @@ export default function Landing() {
 
   return (
     <div
-      className="landing-snap"
+      className="landing-snap page-fade-in"
       style={{
         background: "#fff",
         color: colors.text,

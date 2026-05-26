@@ -159,7 +159,7 @@ export default function Work() {
   };
 
   return (
-    <div className="work-page" style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
+    <div className="work-page page-fade-in" style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
       <RouteMeta
         path="/work"
         title="All Work — Emily Lucas"

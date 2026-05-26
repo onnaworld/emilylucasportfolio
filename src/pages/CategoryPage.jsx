@@ -44,7 +44,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (
-    <div className="category-page" style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
+    <div className="category-page page-fade-in" style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
       {metaPath && (
         <RouteMeta
           path={metaPath}
