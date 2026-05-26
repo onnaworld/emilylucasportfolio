@@ -91,6 +91,7 @@ export default function Work() {
         tags: baseCase?.tags ?? activeProject.tags ?? [],
         viewProjectLink: baseCase?.viewProjectLink ?? activeProject.link ?? null,
         videoLink: baseCase?.videoLink ?? null,
+        videoLinks: baseCase?.videoLinks ?? null,
       }
     : null;
 

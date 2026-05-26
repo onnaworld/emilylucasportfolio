@@ -201,27 +201,25 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
         )}
 
         {study.images && study.images.length > 0 && (() => {
-          const hasVideo = study.images.some((s) => /\.(mp4|webm|mov)$/i.test(s));
-          // Priority for the video click target:
-          //   1. study.videoLink (case-study-specific override, e.g. Vimeo)
-          //   2. study.viewProjectLink first URL
-          //   3. null — video is NOT clickable. We never fall back to
-          //      the raw .mp4 file URL because that opens the file in
-          //      a wide native player which the user explicitly didn't
-          //      want.
-          const firstLink = (() => {
+          // Per-asset resolver for video click target:
+          //   1. study.videoLinks[src] (per-asset override, e.g. each
+          //      video opens its own Instagram reel)
+          //   2. study.videoLink (case-wide single link, e.g. one Vimeo
+          //      for the whole project)
+          //   3. null — video is NOT clickable. viewProjectLink is NOT
+          //      used here; that stays a text-only link in the top-
+          //      right corner.
+          const getVideoLink = (src) => {
+            if (study.videoLinks && study.videoLinks[src]) return study.videoLinks[src];
             if (study.videoLink) return study.videoLink;
-            const v = study.viewProjectLink;
-            if (v) {
-              const arr = Array.isArray(v) ? v : [v];
-              const first = arr[0];
-              return typeof first === "string" ? first : first?.url || null;
-            }
             return null;
-          })();
+          };
+          const anyClickableVideo = study.images.some(
+            (s) => /\.(mp4|webm|mov)$/i.test(s) && getVideoLink(s)
+          );
           return (
             <div style={{ animation: anim(0.46) }}>
-              {hasVideo && firstLink && (
+              {anyClickableVideo && (
                 <div
                   style={{
                     fontFamily: TIMES,
@@ -239,7 +237,7 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
               <Carousel
                 images={study.images}
                 project={study.project}
-                videoLink={firstLink}
+                getVideoLink={getVideoLink}
               />
             </div>
           );
@@ -377,7 +375,7 @@ function CarouselAsset({ src, idx, project, videoLink }) {
 // Note: relies on the browser's native overflow scrolling for swipe (no
 // custom touch handlers — layering scrollBy() on top of native momentum
 // caused a visible double-scroll glitch on iOS).
-function Carousel({ images, project, videoLink }) {
+function Carousel({ images, project, getVideoLink }) {
   const trackRef = useRef(null);
 
   // Always lead with video assets, then images. Stable order within
@@ -414,7 +412,7 @@ function Carousel({ images, project, videoLink }) {
             src={src}
             idx={i}
             project={project}
-            videoLink={videoLink}
+            videoLink={getVideoLink ? getVideoLink(src) : null}
           />
         ))}
       </div>
