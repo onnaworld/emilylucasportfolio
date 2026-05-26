@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
@@ -782,9 +783,15 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
     else if (panelRef) panelRef.current = el;
   };
 
-  return (
-    // On desktop: centred inside the right hairline area.
-    // On mobile: fixed full-screen overlay so the popup spans the whole viewport.
+  // On mobile, portal to document.body so position: fixed is
+  // viewport-relative. Without this, the .page-fade-in transform on
+  // .work-page makes "fixed" relative to the wrapper, and the
+  // centered overlay lands at the wrapper's midpoint — meaning the
+  // popup appears way below the fold when a top-of-list item is
+  // clicked, and only "near the viewport" for items near the bottom.
+  // Desktop keeps in-place rendering since it intentionally docks
+  // into the right column of the page layout.
+  const overlay = (
     <div
       style={{
         position: isMobile ? "fixed" : "absolute",
@@ -845,5 +852,7 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
       </div>
     </div>
   );
+
+  return isMobile ? createPortal(overlay, document.body) : overlay;
 }
 
