@@ -99,7 +99,7 @@ export default function Landing() {
     >
       <RouteMeta
         path="/"
-        title="Emily Lucas, Executive Producer"
+        title="Emily Lucas | Executive Producer"
         description="Executive Producer and Consultant specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial."
         image="/hero.jpg"
       />

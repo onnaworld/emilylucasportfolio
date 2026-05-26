@@ -47,7 +47,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
       {metaPath && (
         <RouteMeta
           path={metaPath}
-          title={metaTitle || `${label} — Emily Lucas`}
+          title={metaTitle || `${label} — Emily Lucas | Executive Producer`}
           description={metaDescription}
           image={metaImage || heroImage}
         />

@@ -102,7 +102,7 @@ export default function About() {
     >
       <RouteMeta
         path="/about"
-        title="About — Emily Lucas, Executive Producer"
+        title="About — Emily Lucas | Executive Producer"
         description="My work sits at the intersection of four cultures, shaped by growing up in Tokyo and working across London, Dubai, New York and Japan. Production, strategy and visual research for luxury brands."
         image="/hero.jpg"
         jsonLd={{

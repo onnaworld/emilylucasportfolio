@@ -161,7 +161,7 @@ export default function Work() {
     <div className="work-page page-fade-in" style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
       <RouteMeta
         path="/work"
-        title="All Work — Emily Lucas"
+        title="All Work — Emily Lucas | Executive Producer"
         description="Selected production, strategy and visual research work by Emily Lucas. Luxury campaigns and editorial across MR PORTER, Aman, Condé Nast, One&Only, Nike, Mastercard, Cipriani, Charlotte Tilbury and more."
         image="/work/moonlight-basin/03.jpg"
       />
