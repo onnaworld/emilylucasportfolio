@@ -135,6 +135,7 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
                     href={l.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="hover-text"
                     style={{ fontFamily: TIMES, fontSize: 14, fontWeight: 400, color: colors.text, textDecoration: "none", whiteSpace: "nowrap" }}
                   >
                     {l.label}

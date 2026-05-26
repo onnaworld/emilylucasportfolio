@@ -69,10 +69,10 @@ export default function NotFound() {
             gap: space.sm,
           }}
         >
-          <Link to="/" style={{ fontFamily: TIMES, fontSize: 18, color: colors.text, textDecoration: "none" }}>
+          <Link to="/" className="hover-text" style={{ fontFamily: TIMES, fontSize: 18, color: colors.text, textDecoration: "none" }}>
             ← Back to Home
           </Link>
-          <Link to="/work" style={{ fontFamily: TIMES, fontSize: 18, color: colors.text, textDecoration: "none" }}>
+          <Link to="/work" className="hover-text" style={{ fontFamily: TIMES, fontSize: 18, color: colors.text, textDecoration: "none" }}>
             View All Work →
           </Link>
         </nav>

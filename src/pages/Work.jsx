@@ -195,6 +195,7 @@ export default function Work() {
           <>
             <Link
               to="/"
+              className="hover-text"
               style={{
                 position: "absolute",
                 top: 28,

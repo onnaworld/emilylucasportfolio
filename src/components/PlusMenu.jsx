@@ -162,13 +162,14 @@ function MenuOverlay({ onClose, onContact }) {
               );
             }
             return (
-              <Link key={item.label} to={item.to} onClick={onClose} style={rowStyle}>
+              <Link key={item.label} to={item.to} onClick={onClose} className="hover-text" style={rowStyle}>
                 {inner}
               </Link>
             );
           })}
           <button
             onClick={(e) => { e.stopPropagation(); onContact(); }}
+            className="hover-text"
             style={{
               display: "block",
               width: "100%",

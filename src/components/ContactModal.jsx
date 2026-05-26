@@ -136,6 +136,7 @@ export default function ContactModal({ onClose }) {
                       key={p.prefix}
                       href={p.href}
                       onClick={() => { window.location.href = p.href; }}
+                      className="hover-text"
                       style={{ display: "block", color: "#fff", textDecoration: "none", ...valueStyle }}
                     >
                       {p.prefix} - {p.value}
@@ -163,6 +164,7 @@ export default function ContactModal({ onClose }) {
                     window.location.href = row.href;
                   }
                 }}
+                className="hover-text"
                 style={{ display: "block", color: "#fff", textDecoration: "none", animation }}
               >
                 {label}

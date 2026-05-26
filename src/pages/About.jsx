@@ -159,6 +159,13 @@ export default function About() {
           style tags, so it's safer kept in the static head CSS). */}
       <style>{`
         .about-page .m-plus { top: -8px !important; }
+        @keyframes about-fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .about-fade-in {
+          animation: about-fade-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
       `}</style>
       <div
         className="m-about-header"
@@ -170,6 +177,7 @@ export default function About() {
       >
         <Link
           to="/"
+          className="hover-text"
           style={{
             fontFamily: TIMES,
             fontSize: 14,
@@ -199,7 +207,7 @@ export default function About() {
       >
         {/* About title */}
         <h1
-          className="m-about-title"
+          className="m-about-title about-fade-in"
           style={{
             fontFamily: HEROS,
             fontWeight: 700,
@@ -208,6 +216,7 @@ export default function About() {
             letterSpacing: "-0.02em",
             margin: 0,
             color: colors.text,
+            animationDelay: "60ms",
           }}
         >
           About
@@ -216,7 +225,7 @@ export default function About() {
         {/* Bio paragraph — same maxWidth as the grid below so the
             right edges of bio and bullets columns line up. */}
         <p
-          className="m-about-bio"
+          className="m-about-bio about-fade-in"
           style={{
             fontFamily: HEROS,
             fontStyle: "normal",
@@ -227,6 +236,7 @@ export default function About() {
             color: colors.text,
             margin: `clamp(40px, 4.5vw, 72px) 0 0`,
             maxWidth: "min(1180px, 92%)",
+            animationDelay: "180ms",
           }}
         >
           My work sits at the intersection of four cultures, shaped by
@@ -239,13 +249,14 @@ export default function About() {
 
         {/* Two-column section: SELECTED EXPERIENCE | AVAILABLE FOR */}
         <div
-          className="m-about-grid"
+          className="m-about-grid about-fade-in"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gap: "clamp(32px, 5vw, 80px)",
             marginTop: "clamp(40px, 4.5vw, 72px)",
             maxWidth: "min(1180px, 92%)",
+            animationDelay: "320ms",
           }}
         >
           <div>
@@ -276,9 +287,10 @@ export default function About() {
 
         {/* Contact link — marginTop:auto pushes it to the bottom of the
             flex content rail, just above the footer hairline. */}
-        <div className="m-about-contact" style={{ marginTop: "auto", paddingTop: "clamp(28px, 3.5vw, 48px)" }}>
+        <div className="m-about-contact about-fade-in" style={{ marginTop: "auto", paddingTop: "clamp(28px, 3.5vw, 48px)", animationDelay: "460ms" }}>
           <button
             onClick={() => setContactOpen(true)}
+            className="hover-text"
             style={{
               background: "none",
               border: "none",

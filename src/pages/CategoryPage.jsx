@@ -78,6 +78,8 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
           pointerEvents: scrolled ? "auto" : "none",
           transition: "opacity 0.3s ease",
         }}
+        onMouseEnter={(e) => { if (scrolled) e.currentTarget.style.opacity = "0.7"; }}
+        onMouseLeave={(e) => { if (scrolled) e.currentTarget.style.opacity = "1"; }}
       >
         ← Home
       </Link>
@@ -118,7 +120,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
         >
           <Link
             to="/"
-            className="m-portfolio-label"
+            className="m-portfolio-label hover-text"
             style={{
               display: "inline-block",
               fontFamily: TIMES,
