@@ -256,7 +256,7 @@ export default function Landing() {
       <section
         className="m-section m-section-about"
         style={{
-          padding: `${space.xxl}px ${space.xl}px ${space.lg}px`,
+          padding: `${space.xxl}px ${space.xl}px ${space.xl}px`,
           display: "grid",
           gridTemplateColumns: "1fr 6fr",
           gap: space.xl,
