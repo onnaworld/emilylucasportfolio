@@ -16,7 +16,8 @@ export default function PlusMenu() {
     <>
       <button
         onClick={() => setMenuOpen(o => !o)}
-        aria-label="Menu"
+        aria-label={menuOpen ? "Close menu" : "Menu"}
+        aria-expanded={menuOpen}
         className="m-plus"
         style={{
           position: "fixed",
@@ -33,10 +34,13 @@ export default function PlusMenu() {
           lineHeight: 1,
           color: "#fff",
           mixBlendMode: "difference",
-          zIndex: 100,
-          opacity: menuOpen ? 0 : 1,
-          pointerEvents: menuOpen ? "none" : "auto",
-          transition: "opacity 0.3s",
+          zIndex: 300,
+          // Single element rotates 45° to become ×. Standard pattern,
+          // saves the user re-finding a separate close button.
+          transform: menuOpen ? "rotate(45deg)" : "rotate(0deg)",
+          transformOrigin: "50% 50%",
+          transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
+          cursor: "pointer",
         }}
       >
         +
@@ -105,31 +109,9 @@ function MenuOverlay({ onClose, onContact }) {
           opacity: 0.94,
         }}
       >
-        <button
-          onClick={onClose}
-          aria-label="Close menu"
-          style={{
-            position: "absolute",
-            top: 14,
-            right: 14,
-            width: 28,
-            height: 28,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontFamily: HEROS,
-            fontSize: 22,
-            lineHeight: 1,
-            color: "#fff",
-            zIndex: 2,
-          }}
-        >
-          ×
-        </button>
-
+        {/* No in-modal close button — the fixed + rotates to × and
+            handles the close. Standard interaction pattern, the same
+            element handles open + close. */}
         <div
           style={{
             fontFamily: TIMES,
