@@ -32,6 +32,7 @@ export const productionCases = [
     heroImage: "/work/nike-vomero/01.jpg",
     task: "Bridge global creative standards with regional execution for Nike's worldwide launch of the Vomero 18, translating brand DNA into world-class visual assets during high-stakes running activations at Kite Beach and the Burj Khalifa.",
     outcome: "Acted as the essential link between global creative direction and in-market production, facilitating the workflow for Photographer/Director Will Beach. By removing local friction, delivered Nike-standard assets that solidified long-term relationships between global creative talent and regional distributors.",
+    videoLink: "https://vimeo.com/1095827322?share=copy&fl=sv&fe=ci",
     images: [
       "/work/nike-vomero/hero.mp4",
       "/work/nike-vomero/01.jpg",
@@ -459,6 +460,7 @@ export const productionCases = [
     heroImage: "/work/mastercard-sailgp/02.jpg",
     task: "Commissioned by global agency Octagon to deliver Mastercard's inaugural partnership with SailGP: capturing the 6th Sailor Experience featuring Luis Figo and the New Zealand Black Foils within a restricted timeline and against the uncompromising standards of three distinct global institutions.",
     outcome: "Activated a specialized network of sports creatives, deploying a three-camera unit for comprehensive coverage and executing a 48-hour live-edit turnaround for first-round approval across three institutional stakeholders. The final delivery exceeded budget expectations, earning personal commendation from Octagon and a commitment to long-term collaboration across GCC projects.",
+    videoLink: "https://vimeo.com/1153536808?share=copy&fl=sv&fe=ci",
     images: [
       "/work/mastercard-sailgp/01.mp4",
       "/work/mastercard-sailgp/02.jpg",
@@ -496,6 +498,7 @@ export const productionCases = [
     heroImage: "/work/mr-c-residences/01.jpg",
     task: "Facilitate the visual launch of Mr. C Residences Downtown in partnership with London-based agency Noë & Associates, using the brand's existing jumeirah residences to create content for a new development, acting as on-the-ground production lead between London's creative direction and Dubai's logistical realities.",
     outcome: "Provided the regional expertise necessary to navigate a sensitive, live residential environment with discretion. Delivered a suite of assets that maintained Cipriani's Italian heritage while speaking to the Dubai luxury market.",
+    videoLink: "https://vimeo.com/1160185821?share=copy&fl=sv&fe=ci",
     images: [
       "/work/mr-c-residences/07.mp4",
       "/work/mr-c-residences/01.jpg",
