@@ -16,6 +16,7 @@ export const productionCases = [
     heroImage: "/work/aman/01.jpg",
     task: "Communicate the essence of upcoming Aman properties in Saudi Arabia prior to physical completion, translating an abstract, atmosphere-driven creative brief into high-quality visual assets across vast regional landscapes.",
     outcome: "Delivered a comprehensive library of cinematic assets that established the emotional foundation for the destinations through atmospheric, localised storytelling, enabling the brand to initiate market presence and residential sales with a visual language that felt established, authentic, and uncompromisingly Aman.",
+    videoLink: "https://vimeo.com/1132426046?share=copy&fl=sv&fe=ci",
     images: [
       "/work/aman/05.mp4",
     ],
@@ -564,6 +565,7 @@ export const productionCases = [
     task: "Lead US production for 'MR PORTER In America': a 360° multi-brand integrated campaign spanning LA, New York, and Miami, coordinating shoots with brand partnerships for Hennessy, editorial partnerships with The Elder Statesman, Polite Worldwide, and Greg Lauren, across photography, film, and digital.",
     outcome: "Generated 2.65M views and a 75% engagement uplift. Built and managed the on-the-ground US production framework for one of MR PORTER's flagship annual campaigns.",
     viewProjectLink: { label: "The Elder Statesman →", url: "https://www.mrporter.com/en-us/journal/fashion/the-elder-statesman-los-angeles-factory-tour-2022-23562644" },
+    videoLink: "https://www.instagram.com/reels/CkwSXpqJSIR/",
     images: [
       "/work/mr-porter-in-america/01.jpg",
       "/work/mr-porter-in-america/02.jpg",
@@ -573,6 +575,7 @@ export const productionCases = [
       "/work/mr-porter-in-america/06.mp4",
       "/work/mr-porter-in-america/07.mp4",
       "/work/mr-porter-in-america/08.mp4",
+      "/work/mr-porter-in-america/09.mp4",
     ],
     tags: ["Stills Production", "Video Production", "Editorial Direction", "Casting"],
   },
