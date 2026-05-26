@@ -202,16 +202,21 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
 
         {study.images && study.images.length > 0 && (() => {
           const hasVideo = study.images.some((s) => /\.(mp4|webm|mov)$/i.test(s));
+          // First explicit viewProjectLink URL if present, otherwise
+          // fall back to the first video file so the click still opens
+          // something useful in a new tab.
           const firstLink = (() => {
             const v = study.viewProjectLink;
-            if (!v) return null;
-            const arr = Array.isArray(v) ? v : [v];
-            const first = arr[0];
-            return typeof first === "string" ? first : first?.url || null;
+            if (v) {
+              const arr = Array.isArray(v) ? v : [v];
+              const first = arr[0];
+              return typeof first === "string" ? first : first?.url || null;
+            }
+            return study.images.find((s) => /\.(mp4|webm|mov)$/i.test(s)) || null;
           })();
           return (
             <div style={{ animation: anim(0.46) }}>
-              {hasVideo && firstLink && (
+              {hasVideo && (
                 <div
                   style={{
                     fontFamily: TIMES,
@@ -343,19 +348,14 @@ function CarouselAsset({ src, idx, project, videoLink }) {
 }
 
 // Internal image carousel — fixed height, native aspect ratio per
-// asset, native swipe + ‹ › chevrons. True infinite loop: renders the
-// asset list three times and silently teleports the scroll position
-// when the user lands in the leftmost or rightmost copy, so scrolling
-// forever feels continuous.
+// asset, native swipe + ‹ › chevrons. Hard start / hard stop: opens
+// on the first asset, ends on the last (no looping).
 //
 // Note: relies on the browser's native overflow scrolling for swipe (no
 // custom touch handlers — layering scrollBy() on top of native momentum
 // caused a visible double-scroll glitch on iOS).
 function Carousel({ images, project, videoLink }) {
   const trackRef = useRef(null);
-  const oneSetWidthRef = useRef(0);
-  const teleportingRef = useRef(false);
-  const scrollEndTimerRef = useRef(null);
 
   // Always lead with video assets, then images. Stable order within
   // each group so the relative sequence Emily set in work.js is kept.
@@ -364,45 +364,6 @@ function Carousel({ images, project, videoLink }) {
     ...images.filter(isVid),
     ...images.filter((s) => !isVid(s)),
   ];
-
-  const shouldLoop = ordered.length > 1;
-  const rendered = shouldLoop ? [...ordered, ...ordered, ...ordered] : ordered;
-
-  // After layout, measure one copy's width and centre the scroll on the
-  // middle copy so the user has room to scroll in either direction.
-  useEffect(() => {
-    if (!shouldLoop) return;
-    const el = trackRef.current;
-    if (!el) return;
-    const id = requestAnimationFrame(() => {
-      oneSetWidthRef.current = el.scrollWidth / 3;
-      el.scrollLeft = oneSetWidthRef.current;
-    });
-    return () => cancelAnimationFrame(id);
-  }, [shouldLoop, images]);
-
-  // Teleport ONLY after scroll has settled (debounced). Doing this mid
-  // momentum-scroll cancels the inertial scroll on iOS and reads as a
-  // glitch. Wait 140ms after the last scroll event, then normalise the
-  // position back into the middle copy if we drifted into a side copy.
-  const handleScroll = () => {
-    if (!shouldLoop) return;
-    if (scrollEndTimerRef.current) clearTimeout(scrollEndTimerRef.current);
-    scrollEndTimerRef.current = setTimeout(() => {
-      const el = trackRef.current;
-      if (!el || teleportingRef.current) return;
-      const w = oneSetWidthRef.current;
-      if (!w) return;
-      // Anywhere outside [w, 2w] (the middle copy) is fair game to
-      // teleport back into the middle, preserving relative offset.
-      if (el.scrollLeft < w || el.scrollLeft >= 2 * w) {
-        teleportingRef.current = true;
-        const offset = ((el.scrollLeft % w) + w) % w;
-        el.scrollLeft = w + offset;
-        requestAnimationFrame(() => { teleportingRef.current = false; });
-      }
-    }, 140);
-  };
 
   const step = (dir) => {
     const el = trackRef.current;
@@ -414,34 +375,25 @@ function Carousel({ images, project, videoLink }) {
     <div style={{ position: "relative", paddingLeft: 22, paddingRight: 22 }}>
       <div
         ref={trackRef}
-        onScroll={handleScroll}
         className="cs-card-scroll cs-card-carousel"
         style={{
           display: "flex",
           gap: 8,
           overflowX: "auto",
-          // No scroll-snap — combined with native momentum on iOS it
-          // snaps to the wrong copy after a fast swipe, which looks
-          // exactly like the "glitch" the user described.
           touchAction: "pan-x",
           WebkitOverflowScrolling: "touch",
           paddingBottom: 4,
         }}
       >
-        {rendered.map((src, i) => {
-          // i % images.length so alt text + load priorities are tied to
-          // the underlying source index (each src appears 3×).
-          const idx = i % images.length;
-          return (
-            <CarouselAsset
-              key={i}
-              src={src}
-              idx={idx}
-              project={project}
-              videoLink={videoLink}
-            />
-          );
-        })}
+        {ordered.map((src, i) => (
+          <CarouselAsset
+            key={i}
+            src={src}
+            idx={i}
+            project={project}
+            videoLink={videoLink}
+          />
+        ))}
       </div>
       {images.length > 1 && (
         <>
