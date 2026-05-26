@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { colors, space } from "../theme";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
@@ -245,6 +245,55 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
   );
 }
 
+// Single carousel item with its own fade-in load state. Starts at
+// opacity 0 against a white placeholder, transitions to 1 when the
+// asset's first frame / image decode lands — so slow assets fade in
+// rather than popping in abruptly.
+function CarouselAsset({ src, idx, project }) {
+  const [loaded, setLoaded] = useState(false);
+  const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+
+  const baseStyle = {
+    flex: "0 0 auto",
+    height: 220,
+    width: "auto",
+    display: "block",
+    borderRadius: 4,
+    background: "#ffffff",
+    opacity: loaded ? 1 : 0,
+    transition: "opacity 0.35s ease-out",
+  };
+  const style = isVideo
+    ? baseStyle
+    : {
+        ...baseStyle,
+        maxWidth: "85%",
+        minWidth: 160,
+        objectFit: "cover",
+      };
+
+  return isVideo ? (
+    <video
+      src={src}
+      autoPlay muted loop playsInline
+      preload={idx < 2 ? "auto" : "metadata"}
+      style={style}
+      onLoadedData={() => setLoaded(true)}
+    />
+  ) : (
+    <img
+      src={src}
+      alt={`${project} – ${idx + 1}`}
+      loading={idx < 2 ? "eager" : "lazy"}
+      fetchpriority={idx === 0 ? "high" : "auto"}
+      decoding="async"
+      draggable={false}
+      style={style}
+      onLoad={() => setLoaded(true)}
+    />
+  );
+}
+
 // Internal image carousel — fixed height, native aspect ratio per
 // asset, native swipe + ‹ › chevrons. True infinite loop: renders the
 // asset list three times and silently teleports the scroll position
@@ -332,47 +381,15 @@ function Carousel({ images, project }) {
         }}
       >
         {rendered.map((src, i) => {
-          const isVideo = /\.(mp4|webm|mov)$/i.test(src);
-          // Videos use intrinsic sizing so a 9:16 portrait video keeps
-          // its full aspect ratio at height 220 (= 124px wide). minWidth
-          // would otherwise force the video to stretch and crop.
-          const baseStyle = {
-            flex: "0 0 auto",
-            height: 220,
-            width: "auto",
-            display: "block",
-            borderRadius: 4,
-            background: "#ffffff",
-          };
-          const common = isVideo
-            ? baseStyle
-            : {
-                ...baseStyle,
-                maxWidth: "85%",
-                minWidth: 160,
-                objectFit: "cover",
-              };
-          // i % images.length so the alt text + load priorities are
-          // tied to the underlying source index (each src appears 3×).
+          // i % images.length so alt text + load priorities are tied to
+          // the underlying source index (each src appears 3×).
           const idx = i % images.length;
-          return isVideo ? (
-            <video
+          return (
+            <CarouselAsset
               key={i}
               src={src}
-              autoPlay muted loop playsInline
-              preload={idx < 2 ? "auto" : "metadata"}
-              style={common}
-            />
-          ) : (
-            <img
-              key={i}
-              src={src}
-              alt={`${project} – ${idx + 1}`}
-              loading={idx < 2 ? "eager" : "lazy"}
-              fetchpriority={idx === 0 ? "high" : "auto"}
-              decoding="async"
-              draggable={false}
-              style={common}
+              idx={idx}
+              project={project}
             />
           );
         })}
