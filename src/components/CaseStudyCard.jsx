@@ -202,10 +202,12 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
 
         {study.images && study.images.length > 0 && (() => {
           const hasVideo = study.images.some((s) => /\.(mp4|webm|mov)$/i.test(s));
-          // First explicit viewProjectLink URL if present, otherwise
-          // fall back to the first video file so the click still opens
-          // something useful in a new tab.
+          // Priority for the video click target:
+          //   1. study.videoLink (case-study-specific override)
+          //   2. study.viewProjectLink first URL (when they're the same)
+          //   3. the first video file (so click still opens something)
           const firstLink = (() => {
+            if (study.videoLink) return study.videoLink;
             const v = study.viewProjectLink;
             if (v) {
               const arr = Array.isArray(v) ? v : [v];
