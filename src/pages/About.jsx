@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
@@ -43,7 +43,7 @@ function DotItem({ children }) {
         fontFamily: TIMES,
         fontStyle: "italic",
         fontSize: "clamp(13px, 0.95vw, 16px)",
-        fontWeight: 400,
+        fontWeight: 700,
         lineHeight: 1.3,
         color: colors.text,
         whiteSpace: "nowrap",
@@ -68,6 +68,19 @@ function DotItem({ children }) {
 
 export default function About() {
   const [contactOpen, setContactOpen] = useState(false);
+
+  // Lock body/html scroll while About is mounted — the page is designed
+  // to live entirely on one screen with no scrollbar of any kind.
+  useEffect(() => {
+    const prevHtml = document.documentElement.style.overflow;
+    const prevBody = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = prevHtml;
+      document.body.style.overflow = prevBody;
+    };
+  }, []);
 
   return (
     <div
@@ -95,6 +108,7 @@ export default function About() {
         .about-page .m-plus { top: -8px !important; }
       `}</style>
       <div
+        className="m-about-header"
         style={{
           padding: `${space.md}px ${space.xl}px ${space.sm}px`,
           display: "flex",
@@ -233,6 +247,7 @@ export default function About() {
       {/* Bottom hairline + © footer — hairline matches the top hairline
           (1px solid colors.text) so the two read as a matched pair. */}
       <footer
+        className="m-about-footer"
         style={{
           padding: `${space.md}px ${space.xl}px`,
           borderTop: `1px solid ${colors.text}`,

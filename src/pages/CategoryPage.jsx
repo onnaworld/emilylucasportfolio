@@ -205,8 +205,9 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
             position: "relative",
             // Symmetric top/bottom padding so the arrow sits with equal
             // whitespace above (between body and arrow) and below
-            // (between arrow and section edge).
-            padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+            // (between arrow and section edge). space.xxl=96 was too
+            // airy after dense body copy — drop the bottom rail to lg.
+            padding: `${space.xxl}px ${space.xl}px ${space.lg}px`,
             display: "grid",
             gridTemplateColumns: "1fr 6fr",
             gap: space.xl,
@@ -249,10 +250,11 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
                 next?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
               aria-label="Scroll to projects"
+              className="m-category-arrow"
               style={{
                 gridColumn: "1 / -1",
                 justifySelf: "center",
-                marginTop: space.xxl,
+                marginTop: space.lg,
                 background: "none",
                 border: "none",
                 padding: 8,

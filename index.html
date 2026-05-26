@@ -159,12 +159,15 @@
            padding-bottom leaves room for the absolute down-arrow so it
            doesn't overlap the last line of body copy. */
         .m-section {
-          padding: 32px 16px 32px !important;
+          padding: 32px 16px 16px !important;
           grid-template-columns: 1fr !important;
           gap: 12px !important;
           height: auto !important;
           min-height: 0 !important;
         }
+        /* Tighten the gap between body copy and the down-arrow on mobile
+           (desktop already sits at space.lg = 24px). */
+        .m-category-arrow { margin-top: 16px !important; }
         .m-section-title { font-size: 22px !important; padding-top: 0 !important; }
         .m-section-body { font-size: 16px !important; line-height: 1.35 !important; }
         /* Landing's About has no down arrow — tighter bottom padding than
@@ -173,13 +176,16 @@
         .m-section-coda { font-size: 17px !important; margin-top: 16px !important; }
 
         /* /about body — match mobile gutters to the rest of the site */
-        .m-about-body { padding: 20px 16px !important; overflow-y: auto !important; }
-        .m-about-title { font-size: 48px !important; }
-        .m-about-bio { max-width: 100% !important; font-size: 15px !important; margin-top: 16px !important; }
-        .m-about-grid { grid-template-columns: 1fr !important; gap: 24px !important; margin-top: 24px !important; max-width: 100% !important; }
+        .m-about-header { padding: 14px 16px 10px !important; }
+        .m-about-footer { padding: 12px 16px !important; }
+        .m-about-body { padding: 16px 16px !important; overflow-y: auto !important; }
+        .m-about-title { font-size: 44px !important; }
+        .m-about-bio { max-width: 100% !important; font-size: 14px !important; margin-top: 14px !important; }
+        .m-about-grid { grid-template-columns: 1fr !important; gap: 18px !important; margin-top: 20px !important; max-width: 100% !important; }
         /* List items wrap on mobile (desktop forces nowrap to fit on one
-           line per item — too narrow for that on a phone). */
-        .m-about-grid li { white-space: normal !important; }
+           line per item — too narrow for that on a phone). Slightly smaller
+           Times so all four bullets fit comfortably on one screen. */
+        .m-about-grid li { white-space: normal !important; font-size: 12px !important; }
 
         /* CategorySlide, stack label above carousel */
         .m-category-slide {
