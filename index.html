@@ -196,10 +196,13 @@
           cursor: auto !important;
         }
 
-        /* + button on mobile: smaller font, anchored to the edge. The
-           +-to-× rotation is desktop-hover only, so on mobile the
-           button just sits in one fixed position. */
-        .m-plus { top: 14px !important; right: 16px !important; font-size: 44px !important; }
+        /* + button on mobile: smaller font, anchored to the edge when
+           closed, slides into the modal corner when open. The
+           [aria-expanded] selector lets the open-state values override
+           the closed-state values without fighting the inline transition. */
+        .m-plus { right: 16px !important; font-size: 44px !important; }
+        .m-plus[aria-expanded="false"] { top: 14px !important; }
+        .m-plus[aria-expanded="true"]  { top: 26px !important; right: 26px !important; }
 
         /* Hero section: landscape banner on mobile (image's native ~4:3),
            not a portrait full-bleed crop. */

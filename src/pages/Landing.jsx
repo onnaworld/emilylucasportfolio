@@ -122,8 +122,8 @@ export default function Landing() {
           // Closed: viewport-edge menu trigger. Open: slides into the
           // modal's top-right corner so the rotated × sits where a
           // close button naturally lives.
-          top: 24,
-          right: space.xl,
+          top: menuOpen ? 60 : 24,
+          right: menuOpen ? 60 : space.xl,
           margin: 0,
           background: "none",
           border: "none",
@@ -137,6 +137,7 @@ export default function Landing() {
           mixBlendMode: "difference",
           zIndex: 300,
           cursor: "pointer",
+          transition: "top 0.32s cubic-bezier(0.22, 1, 0.36, 1), right 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
         +

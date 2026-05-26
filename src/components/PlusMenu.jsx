@@ -21,8 +21,11 @@ export default function PlusMenu() {
         className="m-plus"
         style={{
           position: "fixed",
-          top: 24,
-          right: space.xl,
+          // Closed: viewport-edge menu trigger. Open: slides into the
+          // modal's top-right corner so + sits inside the menu and
+          // doubles as a close button on second click.
+          top: menuOpen ? 60 : 24,
+          right: menuOpen ? 60 : space.xl,
           margin: 0,
           background: "none",
           border: "none",
@@ -36,6 +39,7 @@ export default function PlusMenu() {
           mixBlendMode: "difference",
           zIndex: 300,
           cursor: "pointer",
+          transition: "top 0.32s cubic-bezier(0.22, 1, 0.36, 1), right 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
         +

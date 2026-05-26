@@ -136,12 +136,13 @@ export default function About() {
           style tags, so it's safer kept in the static head CSS). */}
       <style>{`
         /* About header is just one 14px text line (← Home) — the default
-           + position sits visually far below it. Pull + up on desktop so
-           its glyph centre lines up with ← Home. Mobile uses the global
-           .m-plus rule in index.html (top: 14px) which already lines up
-           with ← Home there. */
+           + position sits visually far below it. Pull the CLOSED-state +
+           up on desktop so its glyph centre lines up with ← Home.
+           Scoped to [aria-expanded="false"] so the open-state inline
+           top:60 (slide into modal corner) still wins. Mobile uses the
+           global .m-plus rules in index.html. */
         @media (min-width: 769px) {
-          .about-page .m-plus { top: -8px !important; }
+          .about-page .m-plus[aria-expanded="false"] { top: -8px !important; }
         }
         @keyframes about-fade-in {
           from { opacity: 0; transform: translateY(10px); }
