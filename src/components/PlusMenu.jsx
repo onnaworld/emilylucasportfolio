@@ -35,8 +35,7 @@ export default function PlusMenu() {
           fontWeight: 400,
           letterSpacing: "-0.02em",
           lineHeight: 1,
-          color: "#fff",
-          mixBlendMode: "difference",
+          color: "#000",
           zIndex: 300,
           // Single element rotates 45° to become ×. Standard pattern,
           // saves the user re-finding a separate close button.
