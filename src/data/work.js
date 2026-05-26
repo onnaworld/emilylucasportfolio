@@ -108,6 +108,11 @@ export const productionCases = [
     heroVideo: "/work/harvey-nichols-festive-beauty/01.mp4",
     task: "In-house senior editorial producer for Harvey Nichols across two seasonal campaigns: a festive shoot delivering 40+ assets in a single day across stills and video on a built set, paired with a separate still-life festive gifting campaign, alongside a beauty shoot focused on social-first playful video.",
     outcome: "Delivered the full festive content engine for the season: 40+ assets per shoot day across stills and video, plus a complementary still-life gifting campaign to land the season across digital, print, and in-store. The beauty shoot delivered social-native video content built for speed and channel performance, working within tight budget parameters without compromising the brand's luxury retail standards.",
+    videoLinks: {
+      "/work/harvey-nichols-festive-beauty/01.mp4": "https://www.instagram.com/reel/DBiqVobuMYu/?igsh=MXNvOWwzdXFrd3Ntdg==",
+      "/work/harvey-nichols-festive-beauty/02.mp4": "https://www.instagram.com/reels/DBlZDtCNfph/",
+      "/work/harvey-nichols-festive-beauty/03.mp4": "https://www.instagram.com/reel/DB6Qmcfx9eb/?igsh=MWYzMjB4eXpocXp3aQ==",
+    },
     images: [
       "/work/harvey-nichols-festive-beauty/01.mp4",
       "/work/harvey-nichols-festive-beauty/02.mp4",
