@@ -333,15 +333,37 @@ function ContactModal({ onClose }) {
             lineHeight: 1.4,
             color: "#fff",
             margin: 0,
-            marginBottom: space.md,
+            marginBottom: space.sm,
             maxWidth: 260,
             marginLeft: "auto",
             marginRight: "auto",
           }}
         >
-          Available for production enquiries, editorial &amp; branded content
-          and consulting engagements across New York, Tokyo, Dubai &amp; London.
+          Contact for production, editorial and consulting engagements across
+          New York, Tokyo, Dubai and London.
         </p>
+
+        {/* Service menu — left-aligned italic Times bullets */}
+        <ul
+          style={{
+            listStyle: "none",
+            margin: 0,
+            marginBottom: space.md,
+            padding: 0,
+            textAlign: "left",
+            fontFamily: TIMES,
+            fontStyle: "italic",
+            fontSize: 11,
+            fontWeight: 400,
+            lineHeight: 1.45,
+            color: "#fff",
+          }}
+        >
+          <li>— Executive production across stills, video, brand films and editorial shoots</li>
+          <li>— Regional production &amp; consultancy across GCC, Japan, London and New York</li>
+          <li>— Advisory across content operations, AI integration and brand-side strategy</li>
+          <li>— Editorial commissions across writing, visual research and image licensing</li>
+        </ul>
 
         <div style={{ display: "flex", flexDirection: "column", gap: space.sm }}>
           {rows.map((row, i) => {
