@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { colors, space } from "../theme";
 
 const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
@@ -35,7 +36,12 @@ export default function ContactModal({ onClose }) {
     lineHeight: 1.15,
   };
 
-  return (
+  // Portal to document.body so position: fixed is genuinely relative
+  // to the viewport. Without this, .page-fade-in's transform makes any
+  // fixed descendant relative to the page wrapper instead — the modal
+  // then renders at the bottom of a tall page (off-screen) on routes
+  // like /cultural-strategy.
+  return createPortal(
     <div
       onClick={onClose}
       style={{
@@ -184,6 +190,7 @@ export default function ContactModal({ onClose }) {
           to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-    </div>
+    </div>,
+    document.body
   );
 }
