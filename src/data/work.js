@@ -164,8 +164,8 @@ export const productionCases = [
     client: "Jumeirah",
     project: "Jumeirah Beach Hotel Al Bahar Villa",
     year: "2025",
-    task: "Production partner to London-based agency Noë & Associates on the visual campaign for the private villas at Jumeirah's Marsa Al Arab property. On-the-ground production lead for all Dubai-side logistics.",
-    outcome: "Delivered the campaign across the private villas, managing every layer of regional execution (from location permits through equipment and fittings), so that the London creative team could focus on direction and delivery. Strengthened the working relationship with Noë & Associates across multiple regional luxury hospitality projects.",
+    task: "Production partner to London-based agency Noë & Associates on the visual campaign for the Al Bahar villa at Jumeirah Beach Hotel. On-the-ground production lead for all Dubai-side logistics.",
+    outcome: "Delivered the campaign across the villa, managing every layer of regional execution (from location permits through equipment and fittings), so that the London creative team could focus on direction and delivery. Strengthened the working relationship with Noë & Associates across multiple regional luxury hospitality projects.",
     images: [
       "/work/jumeirah-marsa-al-arab/01.jpg",
       "/work/jumeirah-marsa-al-arab/02.jpg",
