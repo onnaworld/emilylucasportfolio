@@ -254,9 +254,9 @@ export default function Landing() {
 
       {/* ───── 2. ABOUT (Studio Move-style giant intro paragraph) ───── */}
       <section
-        className="m-section"
+        className="m-section m-section-about"
         style={{
-          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
+          padding: `${space.xxl}px ${space.xl}px ${space.lg}px`,
           display: "grid",
           gridTemplateColumns: "1fr 6fr",
           gap: space.xl,
@@ -309,7 +309,7 @@ export default function Landing() {
               marginBottom: 0,
               fontFamily: "'Times New Roman', Times, serif",
               fontStyle: "italic",
-              fontSize: "clamp(16px, 1.4vw, 22px)",
+              fontSize: "clamp(20px, 1.8vw, 28px)",
               fontWeight: 400,
               lineHeight: 1.3,
               color: colors.textMuted,
