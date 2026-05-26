@@ -145,9 +145,9 @@ export default function About() {
         <p
           className="m-about-bio"
           style={{
-            fontFamily: TIMES,
-            fontStyle: "italic",
-            fontWeight: 400,
+            fontFamily: HEROS,
+            fontStyle: "normal",
+            fontWeight: 700,
             fontSize: "clamp(16px, 1.35vw, 21px)",
             lineHeight: 1.4,
             color: colors.text,
