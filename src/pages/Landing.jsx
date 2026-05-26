@@ -540,7 +540,7 @@ function CategorySlide({ label, images, compact = false, landscape = false, view
           View More Work →
         </Link>
       </div>
-      <CredentialsCarousel images={images} compact={compact} landscape={landscape} />
+      <CredentialsCarousel images={images} compact={compact} landscape={landscape} linkHref={viewMoreHref} />
     </section>
   );
 }
@@ -1014,7 +1014,7 @@ function LoadingDots() {
   );
 }
 
-function CredentialsCarousel({ images, compact = false, landscape = false }) {
+function CredentialsCarousel({ images, compact = false, landscape = false, linkHref }) {
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
   const trackRef = useRef(null);
@@ -1022,6 +1022,10 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
   const halfWidthRef = useRef(0);
   const draggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, offset: 0 });
+  // Distance dragged since pointerdown. Used to suppress the
+  // <Link> click if the user was scrubbing the carousel (vs tapping
+  // an image to navigate to the category page).
+  const dragDeltaRef = useRef(0);
 
   // JS-driven auto-drift + drag. rAF runs continuously; when draggingRef is
   // true, the loop skips the auto-decrement so user pointer motion fully
@@ -1068,12 +1072,14 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
 
   const onPointerDown = (e) => {
     draggingRef.current = true;
+    dragDeltaRef.current = 0;
     dragStartRef.current = { x: e.clientX, offset: offsetRef.current };
     e.currentTarget.setPointerCapture?.(e.pointerId);
   };
   const onPointerMove = (e) => {
     if (!draggingRef.current) return;
     const delta = e.clientX - dragStartRef.current.x;
+    dragDeltaRef.current = delta;
     offsetRef.current = dragStartRef.current.offset + delta;
   };
   const onPointerUp = (e) => {
@@ -1107,7 +1113,7 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
           const src = isObj ? item.src : item;
           const itemLandscape = isObj ? (item.landscape ?? landscape) : landscape;
           const w = itemLandscape ? 360 : compact ? 180 : 320;
-          return (
+          const media = (
             <FadeInMedia
               key={i}
               src={src}
@@ -1117,6 +1123,24 @@ function CredentialsCarousel({ images, compact = false, landscape = false }) {
               client={isObj ? item.client : undefined}
               title={isObj ? item.title : undefined}
             />
+          );
+          if (!linkHref) return media;
+          return (
+            <Link
+              key={i}
+              to={linkHref}
+              draggable={false}
+              // If the user scrubbed the carousel (drag > 5px), treat
+              // pointerup as a drag-release, not a click — block the
+              // navigation so the carousel doesn't yank them to the
+              // category page when they were just nudging the strip.
+              onClick={(e) => {
+                if (Math.abs(dragDeltaRef.current) > 5) e.preventDefault();
+              }}
+              style={{ display: "block" }}
+            >
+              {media}
+            </Link>
           );
         })}
       </div>
