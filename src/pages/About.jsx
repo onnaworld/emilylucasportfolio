@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
@@ -87,7 +87,11 @@ export default function About() {
   // this page (PlusMenu's inline style + the global mobile media query
   // both fight each other; setProperty with priority "important" wins
   // every cascade race and works around iOS Safari quirks).
-  useEffect(() => {
+  //
+  // useLayoutEffect (not useEffect) so the override applies BEFORE the
+  // browser paints — otherwise users see a flash where + renders at its
+  // default position and then jumps to the right spot.
+  useLayoutEffect(() => {
     const plus = document.querySelector(".about-page .m-plus");
     if (!plus) return;
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
