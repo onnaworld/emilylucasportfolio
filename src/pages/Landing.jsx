@@ -1074,7 +1074,11 @@ function CredentialsCarousel({ images, compact = false, landscape = false, linkH
     draggingRef.current = true;
     dragDeltaRef.current = 0;
     dragStartRef.current = { x: e.clientX, offset: offsetRef.current };
-    e.currentTarget.setPointerCapture?.(e.pointerId);
+    // No setPointerCapture: capturing the pointer on the track div
+    // suppresses the click event on the nested <Link>, so clicks
+    // never reached the route. Drag still works for ordinary mouse
+    // movement; if the pointer leaves the track mid-drag, drag ends
+    // naturally, which is fine.
   };
   const onPointerMove = (e) => {
     if (!draggingRef.current) return;
@@ -1082,10 +1086,14 @@ function CredentialsCarousel({ images, compact = false, landscape = false, linkH
     dragDeltaRef.current = delta;
     offsetRef.current = dragStartRef.current.offset + delta;
   };
-  const onPointerUp = (e) => {
+  const onPointerUp = () => {
     if (!draggingRef.current) return;
     draggingRef.current = false;
-    e.currentTarget?.releasePointerCapture?.(e.pointerId);
+  };
+  const onPointerLeave = () => {
+    // End drag if the pointer exits the track. Replaces what
+    // setPointerCapture used to handle.
+    if (draggingRef.current) draggingRef.current = false;
   };
 
   return (
@@ -1099,6 +1107,7 @@ function CredentialsCarousel({ images, compact = false, landscape = false, linkH
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onPointerLeave={onPointerLeave}
         style={{
           display: "flex",
           width: "max-content",

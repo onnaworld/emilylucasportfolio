@@ -103,7 +103,7 @@ export default function About() {
       <RouteMeta
         path="/about"
         title="About | Emily Lucas | Executive Producer"
-        description="My work sits at the intersection of four cultures, shaped by growing up in Tokyo and working across London, Dubai, New York and Japan. Production, strategy and visual research for luxury brands."
+        description="Tokyo-born Executive Producer with industry experience across London, Dubai, New York and Japan. Production that emerges from inside the communities it represents, and advisory work for brands building strategies that reflect the cultures they speak to."
         image="/hero.jpg"
         jsonLd={{
           "@context": "https://schema.org",
@@ -224,12 +224,11 @@ export default function About() {
             animationDelay: "180ms",
           }}
         >
-          My work sits at the intersection of four cultures, shaped by
-          growing up in Tokyo and working across London, Dubai, New York
-          and Japan. I&rsquo;m most interested in production that emerges
-          from inside the communities it represents, and in advisory work
-          that helps brands build editorial systems that match their
-          cultural ambitions.
+          Tokyo-born, with industry experience across London, Dubai,
+          New York and Japan. Most interested in production that
+          emerges from inside the communities it represents, and
+          advisory work for brands building strategies that reflect
+          the cultures they speak to.
         </p>
 
         {/* Two-column section: SELECTED EXPERIENCE | AVAILABLE FOR */}
