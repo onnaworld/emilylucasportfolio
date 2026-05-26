@@ -84,16 +84,13 @@ const CULTURAL_STRATEGY_BODY = (
   <>
     Cultural work across writing, production, and strategy, bound by a
     defining editorial position that champions representation from the
-    inside of culture. Authored features for <B>Trippin</B> on visual
-    ethics, Mexican Indigenous photography, and the cultural history of
-    tattooing in Japan, alongside editorial commentary for{" "}
-    <B>MR PORTER</B> in the menswear space. Production work champions a
-    broad range of subcultures across <B>MR PORTER</B>: from Black British
-    literary culture, the London queer community, and the roller skating
-    scene, each cast and crewed from within. Gen Z consumer research and
-    social media production strategy underpinned <B>MR PORTER</B>'s
-    positioning to attract a younger audience, showcased through the
-    growth of the TikTok channel to 50K followers in its inaugural year.
+    inside of culture. Authored features for <B>Trippin</B> and{" "}
+    <B>MR PORTER</B>. Production work rooted in subcultures from Black
+    British literary culture, Saudi Arabian poetry, the London queer
+    community, and London's roller skating scene, each cast and crewed
+    from within. Gen Z consumer research and social media production
+    strategy driving organic growth for <B>MR PORTER</B>'s TikTok channel
+    to 50K followers in its inaugural year.
   </>
 );
 
