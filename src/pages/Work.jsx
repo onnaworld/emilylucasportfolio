@@ -34,7 +34,7 @@ const PROJECTS = [
   { n: 4,  client: "ONE&ONLY",            title: "Moonlight Basin",             slug: "moonlight-basin",                      thumb: "/work/all-work/4..mp4.mp4" },
   { n: 5,  client: "CIPRIANI",            title: "MR C Residence Dubai",        slug: "mr-c-residences",                      thumb: "/work/all-work/5..jpg" },
   { n: 6,  client: "MR PORTER",           title: "In America",                  slug: "mr-porter-in-america",                 thumb: "/work/all-work/06.jpg" },
-  { n: 7,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign",            slug: "columbia-ramadan",                     thumb: "/work/all-work/7.jpg" },
+  { n: 7,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Activation: Light Your Path", slug: "columbia-ramadan",                     thumb: "/work/all-work/7.jpg" },
   { n: 8,  client: "MASTERCARD",          title: "Sail Grand Prix x Luís Figo", slug: "mastercard-sailgp" },
   { n: 9,  client: "NIKE",                title: "Global Vomero 18 Activation", slug: "nike-vomero" },
   { n: 10, client: "J.CREW",              title: "Abraham Moon",                slug: "abraham-moon",                         thumb: "/work/all-work/10.mp4" },
