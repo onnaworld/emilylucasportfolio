@@ -110,7 +110,7 @@ export default function About() {
       <div
         className="m-about-header"
         style={{
-          padding: `${space.md}px ${space.xl}px ${space.sm}px`,
+          padding: `${space.md}px ${space.xl}px ${space.md + 4}px`,
           display: "flex",
           alignItems: "center",
         }}
@@ -172,7 +172,7 @@ export default function About() {
             lineHeight: 1.15,
             letterSpacing: "-0.015em",
             color: colors.text,
-            margin: `clamp(20px, 2vw, 32px) 0 0`,
+            margin: `clamp(32px, 3vw, 48px) 0 0`,
             maxWidth: "min(1180px, 92%)",
           }}
         >
@@ -191,7 +191,7 @@ export default function About() {
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gap: "clamp(32px, 5vw, 80px)",
-            marginTop: "clamp(28px, 3.5vw, 56px)",
+            marginTop: "clamp(40px, 4.5vw, 72px)",
             maxWidth: "min(1180px, 92%)",
           }}
         >
