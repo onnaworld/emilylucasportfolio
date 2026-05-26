@@ -107,15 +107,13 @@ const PRODUCTION_SHOWCASES = [
 const PRODUCTION_BODY = (
   <>
     End-to-end executive production for luxury and lifestyle brands across
-    photography and video, working across complex post-production formats
-    with CGI rendering, live editing, bespoke sound design. In-house
-    production capabilities as well as external production partner to
-    global agencies and direct to client. Experience across{" "}
-    <B>Hospitality</B>, <B>Fashion</B>, <B>Beauty</B>, <B>Editorial</B>,
-    delivering campaigns across a multitude of locations in the{" "}
-    <B>US</B>, <B>UK</B>, <B>GCC</B>, and <B>Europe</B>. Specialist in
-    integrating AI workflow systems underpinning estimating, SOWs, casting,
-    and vendor management.
+    photography and video. In-house production capabilities as well as
+    external production partner to global agencies and direct-to-client.
+    Experience across <B>Hospitality</B>, <B>Fashion</B>, <B>Beauty</B>,{" "}
+    <B>Editorial</B>, delivering campaigns across the <B>US</B>,{" "}
+    <B>UK</B>, <B>GCC</B>, and <B>Europe</B>. Specialist in integrating
+    AI workflow systems underpinning estimating, SOWs, casting, and
+    vendor management.
   </>
 );
 
