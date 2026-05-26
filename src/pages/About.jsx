@@ -39,8 +39,9 @@ function DotItem({ children }) {
         gap: 12,
         alignItems: "baseline",
         marginBottom: 10,
-        fontFamily: HEROS,
-        fontSize: "clamp(12px, 0.9vw, 14px)",
+        fontFamily: TIMES,
+        fontStyle: "italic",
+        fontSize: "clamp(15px, 1.1vw, 18px)",
         fontWeight: 400,
         lineHeight: 1.45,
         color: colors.text,
@@ -178,19 +179,13 @@ export default function About() {
             <SectionHeading>Selected Experience</SectionHeading>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <DotItem>
-                Executive Producer &amp; Cultural Strategy Consultant —{" "}
-                <em style={{ fontFamily: TIMES, fontStyle: "italic" }}>Independent</em>
-                <span style={{ color: colors.textMuted }}> (2024–present)</span>
+                Executive Producer &amp; Cultural Strategy Consultant — Independent (2024–present)
               </DotItem>
               <DotItem>
-                Senior Editorial Producer —{" "}
-                <em style={{ fontFamily: TIMES, fontStyle: "italic" }}>Harvey Nichols</em>
-                <span style={{ color: colors.textMuted }}> (2024)</span>
+                Senior Editorial Producer — Harvey Nichols (2024)
               </DotItem>
               <DotItem>
-                Producer —{" "}
-                <em style={{ fontFamily: TIMES, fontStyle: "italic" }}>MR PORTER, Net-a-Porter Group</em>
-                <span style={{ color: colors.textMuted }}> (2019–2024)</span>
+                Producer — MR PORTER, Net-a-Porter Group (2019–2024)
               </DotItem>
             </ul>
           </div>
