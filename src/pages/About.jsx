@@ -221,8 +221,9 @@ export default function About() {
           </div>
         </div>
 
-        {/* Contact link */}
-        <div style={{ marginTop: "clamp(28px, 3.5vw, 48px)" }}>
+        {/* Contact link — marginTop:auto pushes it to the bottom of the
+            flex content rail, just above the footer hairline. */}
+        <div style={{ marginTop: "auto", paddingTop: "clamp(28px, 3.5vw, 48px)" }}>
           <button
             onClick={() => setContactOpen(true)}
             style={{
