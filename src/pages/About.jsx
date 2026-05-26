@@ -7,27 +7,19 @@ import ContactModal from "../components/ContactModal";
 
 const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
+const HINOMARU = "#BC002D";
 
-function Brand({ children }) {
-  return (
-    <em style={{ fontFamily: TIMES, fontStyle: "italic", fontWeight: 400, fontSize: "1.05em" }}>
-      {children}
-    </em>
-  );
-}
-
-// Section label — small uppercase Heros, tracked.
-function SectionLabel({ children }) {
+function SectionHeading({ children }) {
   return (
     <div
       style={{
         fontFamily: HEROS,
-        fontSize: 11,
+        fontSize: "clamp(15px, 1.2vw, 18px)",
         fontWeight: 700,
         textTransform: "uppercase",
         letterSpacing: "0.04em",
-        color: colors.textMuted,
-        marginBottom: space.md,
+        color: colors.text,
+        marginBottom: 10,
       }}
     >
       {children}
@@ -35,16 +27,35 @@ function SectionLabel({ children }) {
   );
 }
 
-// Experience row — role in Heros, em-dash separator, company in italic Times,
-// year in muted Heros.
-function ExperienceRow({ role, company, years }) {
+function DotItem({ children }) {
   return (
-    <div style={{ marginBottom: space.sm, fontFamily: HEROS, fontSize: 17, fontWeight: 400, lineHeight: 1.4, color: colors.text }}>
-      <span>{role}</span>
-      <span> — </span>
-      <span style={{ fontFamily: TIMES, fontStyle: "italic" }}>{company}</span>
-      <span style={{ color: colors.textMuted }}> ({years})</span>
-    </div>
+    <li
+      style={{
+        display: "flex",
+        gap: 12,
+        alignItems: "baseline",
+        marginBottom: 6,
+        fontFamily: HEROS,
+        fontSize: "clamp(13px, 1vw, 15px)",
+        fontWeight: 400,
+        lineHeight: 1.45,
+        color: colors.text,
+      }}
+    >
+      <span
+        aria-hidden="true"
+        style={{
+          flexShrink: 0,
+          width: 8,
+          height: 8,
+          borderRadius: "50%",
+          background: HINOMARU,
+          alignSelf: "center",
+          transform: "translateY(-1px)",
+        }}
+      />
+      <span>{children}</span>
+    </li>
   );
 }
 
@@ -52,128 +63,96 @@ export default function About() {
   const [contactOpen, setContactOpen] = useState(false);
 
   return (
-    <div className="about-page" style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
+    <div
+      className="about-page"
+      style={{
+        background: colors.bg,
+        color: colors.text,
+        height: "100vh",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
       <style>{`
         .about-page, .about-page * { cursor: none !important; }
       `}</style>
       <CustomCursor enlargeOnHover />
       <PlusMenu />
 
-      <section
-        className="m-section m-section-about"
+      {/* Top-left ← Home, fixed to the corner */}
+      <Link
+        to="/"
         style={{
-          padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
-          display: "grid",
-          gridTemplateColumns: "1fr 6fr",
-          gap: space.xl,
-          alignItems: "start",
-          minHeight: "calc(100vh - 80px)",
+          position: "fixed",
+          top: 28,
+          left: space.xl,
+          fontFamily: TIMES,
+          fontSize: 14,
+          fontWeight: 400,
+          color: colors.text,
+          textDecoration: "none",
+          zIndex: 100,
         }}
       >
-        {/* Sticky-style left title column */}
+        ← Home
+      </Link>
+
+      {/* Centred narrow column of all sections — one screen, no scroll */}
+      <div
+        className="m-about-body"
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          padding: `${space.xxl}px 8vw`,
+        }}
+      >
         <div
-          className="m-section-title"
           style={{
-            fontFamily: TIMES,
-            fontStyle: "italic",
-            fontSize: "clamp(28px, 3.4vw, 48px)",
-            fontWeight: 400,
-            color: colors.text,
-            lineHeight: 1,
-            paddingTop: 8,
+            width: "min(520px, 100%)",
+            display: "flex",
+            flexDirection: "column",
+            gap: space.xl,
           }}
         >
-          About
-        </div>
-
-        {/* Right body column — sections stacked */}
-        <div>
-          <Link
-            to="/"
-            style={{
-              display: "inline-block",
-              fontFamily: TIMES,
-              fontSize: 14,
-              fontWeight: 400,
-              color: colors.textMuted,
-              textDecoration: "none",
-              marginBottom: space.lg,
-            }}
-          >
-            ← Home
-          </Link>
-
-          {/* Bio paragraph (matches Landing About body) */}
-          <p
-            className="m-section-body"
-            style={{
-              fontFamily: HEROS,
-              fontSize: "clamp(20px, 2.6vw, 42px)",
-              fontWeight: 700,
-              lineHeight: 1.15,
-              letterSpacing: "-0.015em",
-              margin: 0,
-              marginBottom: space.xxl,
-              color: colors.text,
-            }}
-          >
-            Executive Producer and Consultant specializing in production, strategy
-            and visual research for luxury brands across fashion, beauty,
-            hospitality and editorial. Tokyo-born, with Japanese-US-UK background
-            and industry experience across the US, UK, GCC and Japan. Brand-side
-            at <Brand>Net-a-Porter Group</Brand>, producing <Brand>MR PORTER</Brand>'s
-            editorial, commercial and brand partnerships. Direct-to-client
-            relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
-            <Brand>Condé Nast</Brand>; production partner to agencies for{" "}
-            <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
-            <Brand>Nike</Brand>.
-          </p>
-
           {/* SELECTED EXPERIENCE */}
-          <div style={{ marginBottom: space.xxl }}>
-            <SectionLabel>Selected Experience</SectionLabel>
-            <ExperienceRow
-              role="Executive Producer & Cultural Strategy Consultant"
-              company="Independent"
-              years="2024–present"
-            />
-            <ExperienceRow
-              role="Senior Editorial Producer"
-              company="Harvey Nichols"
-              years="2024"
-            />
-            <ExperienceRow
-              role="Producer"
-              company="MR PORTER, Net-a-Porter Group"
-              years="2019–2024"
-            />
+          <div>
+            <SectionHeading>Selected Experience</SectionHeading>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              <DotItem>
+                Executive Producer &amp; Cultural Strategy Consultant —{" "}
+                <em style={{ fontFamily: TIMES, fontStyle: "italic" }}>Independent</em>
+                <span style={{ color: colors.textMuted }}> (2024–present)</span>
+              </DotItem>
+              <DotItem>
+                Senior Editorial Producer —{" "}
+                <em style={{ fontFamily: TIMES, fontStyle: "italic" }}>Harvey Nichols</em>
+                <span style={{ color: colors.textMuted }}> (2024)</span>
+              </DotItem>
+              <DotItem>
+                Producer —{" "}
+                <em style={{ fontFamily: TIMES, fontStyle: "italic" }}>MR PORTER, Net-a-Porter Group</em>
+                <span style={{ color: colors.textMuted }}> (2019–2024)</span>
+              </DotItem>
+            </ul>
           </div>
 
-          {/* AVAILABLE FOR */}
-          <div style={{ marginBottom: space.xxl }}>
-            <SectionLabel>Available For</SectionLabel>
-            <ul
-              style={{
-                listStyle: "none",
-                margin: 0,
-                padding: 0,
-                fontFamily: HEROS,
-                fontSize: 16,
-                fontWeight: 400,
-                lineHeight: 1.5,
-                color: colors.text,
-              }}
-            >
-              <li style={{ marginBottom: 4 }}>— Executive production across stills, video, brand films and editorial shoots</li>
-              <li style={{ marginBottom: 4 }}>— Regional production &amp; consultancy across GCC, Japan, London and New York</li>
-              <li style={{ marginBottom: 4 }}>— Advisory across content operations, AI integration and brand-side strategy</li>
-              <li style={{ marginBottom: 4 }}>— Editorial commissions across writing, visual research and image licensing</li>
+          {/* SERVICES */}
+          <div>
+            <SectionHeading>Services</SectionHeading>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              <DotItem>Executive production across stills, video, brand films and editorial shoots</DotItem>
+              <DotItem>Regional production &amp; consultancy across GCC, Japan, London and New York</DotItem>
+              <DotItem>Advisory across content operations, AI integration and brand-side strategy</DotItem>
+              <DotItem>Editorial commissions across writing, visual research and image licensing</DotItem>
             </ul>
           </div>
 
           {/* FOR ENQUIRIES */}
           <div>
-            <SectionLabel>For Enquiries</SectionLabel>
+            <SectionHeading>For Enquiries</SectionHeading>
             <button
               onClick={() => setContactOpen(true)}
               style={{
@@ -183,7 +162,7 @@ export default function About() {
                 padding: 0,
                 fontFamily: TIMES,
                 fontStyle: "italic",
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: 400,
                 color: colors.text,
                 cursor: "pointer",
@@ -195,22 +174,7 @@ export default function About() {
             </button>
           </div>
         </div>
-      </section>
-
-      <footer
-        className="m-category-footer"
-        style={{
-          padding: `${space.xl}px ${space.xl}px ${space.lg}px`,
-          borderTop: `1px solid ${colors.border}`,
-          background: colors.bg,
-          fontFamily: TIMES,
-          fontSize: 14,
-          fontWeight: 400,
-          color: colors.textMuted,
-        }}
-      >
-        © {new Date().getFullYear()} Emily Lucas
-      </footer>
+      </div>
 
       {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
     </div>
