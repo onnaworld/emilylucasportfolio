@@ -14,12 +14,12 @@ function SectionHeading({ children }) {
     <div
       style={{
         fontFamily: HEROS,
-        fontSize: "clamp(15px, 1.2vw, 18px)",
+        fontSize: "clamp(13px, 1vw, 15px)",
         fontWeight: 700,
         textTransform: "uppercase",
         letterSpacing: "0.04em",
         color: colors.text,
-        marginBottom: 10,
+        marginBottom: 18,
       }}
     >
       {children}
@@ -34,7 +34,7 @@ function DotItem({ children }) {
         display: "flex",
         gap: 12,
         alignItems: "baseline",
-        marginBottom: 6,
+        marginBottom: 14,
         fontFamily: HEROS,
         fontSize: "clamp(13px, 1vw, 15px)",
         fontWeight: 400,
@@ -46,14 +46,15 @@ function DotItem({ children }) {
         aria-hidden="true"
         style={{
           flexShrink: 0,
-          width: 8,
-          height: 8,
-          borderRadius: "50%",
-          background: HINOMARU,
+          color: HINOMARU,
+          fontSize: "1.1em",
+          lineHeight: 1,
           alignSelf: "center",
           transform: "translateY(-1px)",
         }}
-      />
+      >
+        •
+      </span>
       <span>{children}</span>
     </li>
   );
@@ -68,9 +69,10 @@ export default function About() {
       style={{
         background: colors.bg,
         color: colors.text,
-        height: "100vh",
-        overflow: "hidden",
+        minHeight: "100vh",
         position: "relative",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <style>{`
@@ -79,45 +81,87 @@ export default function About() {
       <CustomCursor enlargeOnHover />
       <PlusMenu />
 
-      {/* Top-left ← Home, fixed to the corner */}
-      <Link
-        to="/"
+      {/* Top hairline border across the page */}
+      <div style={{ borderTop: `1px solid ${colors.text}`, width: "100%" }} />
+
+      {/* ← home, sits just under the top hairline */}
+      <div
         style={{
-          position: "fixed",
-          top: 28,
-          left: space.xl,
-          fontFamily: TIMES,
-          fontSize: 14,
-          fontWeight: 400,
-          color: colors.text,
-          textDecoration: "none",
-          zIndex: 100,
+          padding: `${space.lg}px ${space.xl}px 0`,
         }}
       >
-        ← Home
-      </Link>
+        <Link
+          to="/"
+          style={{
+            fontFamily: TIMES,
+            fontSize: 14,
+            fontWeight: 400,
+            color: colors.text,
+            textDecoration: "none",
+          }}
+        >
+          ← Home
+        </Link>
+      </div>
 
-      {/* Centred narrow column of all sections — one screen, no scroll */}
+      {/* Main content body */}
       <div
         className="m-about-body"
         style={{
-          position: "absolute",
-          inset: 0,
+          flex: 1,
+          padding: `${space.lg}px ${space.xl}px ${space.xxl}px`,
           display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          padding: `${space.xxl}px 8vw`,
+          flexDirection: "column",
         }}
       >
-        <div
+        {/* Big About title */}
+        <h1
           style={{
-            width: "min(520px, 100%)",
-            display: "flex",
-            flexDirection: "column",
-            gap: space.xl,
+            fontFamily: HEROS,
+            fontWeight: 700,
+            fontSize: "clamp(72px, 11vw, 168px)",
+            lineHeight: 0.95,
+            letterSpacing: "-0.02em",
+            margin: 0,
+            color: colors.text,
           }}
         >
-          {/* SELECTED EXPERIENCE */}
+          About
+        </h1>
+
+        {/* Bio paragraph */}
+        <p
+          className="m-about-bio"
+          style={{
+            fontFamily: TIMES,
+            fontStyle: "italic",
+            fontWeight: 400,
+            fontSize: "clamp(20px, 1.9vw, 28px)",
+            lineHeight: 1.35,
+            color: colors.text,
+            margin: `${space.xl}px 0 0`,
+            maxWidth: "min(880px, 70%)",
+          }}
+        >
+          My work sits at the intersection of four cultures, shaped by
+          growing up in Tokyo and working across London, Dubai, New York
+          and Japan. I&rsquo;m most interested in production that emerges
+          from inside the communities it represents, and in advisory work
+          that helps brands build editorial systems that match their
+          cultural ambitions.
+        </p>
+
+        {/* Two-column section: SELECTED EXPERIENCE | SERVICES */}
+        <div
+          className="m-about-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "clamp(40px, 6vw, 96px)",
+            marginTop: "clamp(56px, 7vw, 96px)",
+            maxWidth: "min(1280px, 92%)",
+          }}
+        >
           <div>
             <SectionHeading>Selected Experience</SectionHeading>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -139,9 +183,8 @@ export default function About() {
             </ul>
           </div>
 
-          {/* SERVICES */}
           <div>
-            <SectionHeading>Services</SectionHeading>
+            <SectionHeading>Available For</SectionHeading>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <DotItem>Executive production across stills, video, brand films and editorial shoots</DotItem>
               <DotItem>Regional production &amp; consultancy across GCC, Japan, London and New York</DotItem>
@@ -149,32 +192,43 @@ export default function About() {
               <DotItem>Editorial commissions across writing, visual research and image licensing</DotItem>
             </ul>
           </div>
+        </div>
 
-          {/* FOR ENQUIRIES */}
-          <div>
-            <SectionHeading>For Enquiries</SectionHeading>
-            <button
-              onClick={() => setContactOpen(true)}
-              style={{
-                display: "inline-block",
-                background: "none",
-                border: "none",
-                padding: 0,
-                fontFamily: TIMES,
-                fontStyle: "italic",
-                fontSize: 20,
-                fontWeight: 400,
-                color: colors.text,
-                cursor: "pointer",
-                letterSpacing: 0,
-                lineHeight: 1,
-              }}
-            >
-              Contact →
-            </button>
-          </div>
+        {/* Contact link */}
+        <div style={{ marginTop: "clamp(56px, 7vw, 96px)" }}>
+          <button
+            onClick={() => setContactOpen(true)}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              fontFamily: TIMES,
+              fontStyle: "italic",
+              fontSize: "clamp(18px, 1.4vw, 22px)",
+              fontWeight: 400,
+              color: colors.text,
+              cursor: "pointer",
+              letterSpacing: 0,
+              lineHeight: 1,
+            }}
+          >
+            Contact →
+          </button>
         </div>
       </div>
+
+      {/* Bottom hairline + © footer */}
+      <div style={{ borderTop: `1px solid ${colors.text}`, width: "100%" }} />
+      <footer
+        style={{
+          padding: `${space.md}px ${space.xl}px`,
+          fontFamily: TIMES,
+          fontSize: 13,
+          color: colors.text,
+        }}
+      >
+        © {new Date().getFullYear()} Emily Lucas
+      </footer>
 
       {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
     </div>
