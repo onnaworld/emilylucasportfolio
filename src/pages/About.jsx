@@ -17,11 +17,12 @@ function SectionHeading({ children }) {
   return (
     <div
       style={{
-        fontFamily: HEROS,
-        fontSize: "clamp(12px, 0.9vw, 14px)",
-        fontWeight: 700,
-        textTransform: "uppercase",
-        letterSpacing: "-0.01em",
+        fontFamily: TIMES,
+        fontStyle: "italic",
+        fontSize: "clamp(16px, 1.3vw, 20px)",
+        fontWeight: 400,
+        textTransform: "none",
+        letterSpacing: 0,
         lineHeight: 1,
         color: colors.text,
         marginBottom: 14,
