@@ -544,7 +544,7 @@ function ContactModal({ onClose }) {
             lineHeight: 1.4,
             color: "#fff",
             margin: 0,
-            marginBottom: space.sm,
+            marginBottom: space.md,
             maxWidth: 260,
             marginLeft: "auto",
             marginRight: "auto",
@@ -553,27 +553,6 @@ function ContactModal({ onClose }) {
           Contact for production, editorial and consulting engagements across
           New York, Tokyo, Dubai and London.
         </p>
-
-        <ul
-          style={{
-            listStyle: "none",
-            margin: 0,
-            marginBottom: space.md,
-            padding: 0,
-            textAlign: "left",
-            fontFamily: "'Times New Roman', Times, serif",
-            fontStyle: "italic",
-            fontSize: 11,
-            fontWeight: 400,
-            lineHeight: 1.45,
-            color: "#fff",
-          }}
-        >
-          <li>— Executive production across stills, video, brand films and editorial shoots</li>
-          <li>— Regional production &amp; consultancy across GCC, Japan, London and New York</li>
-          <li>— Advisory across content operations, AI integration and brand-side strategy</li>
-          <li>— Editorial commissions across writing, visual research and image licensing</li>
-        </ul>
 
         <div style={{ display: "flex", flexDirection: "column", gap: space.sm }}>
           {rows.map((row, i) => {
