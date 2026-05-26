@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
-import CustomCursor from "../components/CustomCursor";
 import CaseStudyCard from "../components/CaseStudyCard";
 import RouteMeta from "../components/RouteMeta";
 import { productionCases } from "../data/work";
@@ -56,7 +55,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
       <style>{`
         .category-page, .category-page * { cursor: none !important; }
       `}</style>
-      <CustomCursor enlargeOnHover />
+      {/* CustomCursor mounted globally in App.jsx */}
       <PlusMenu />
 
       {/* Fixed ← Home, appears once you scroll past the hero. mix-blend

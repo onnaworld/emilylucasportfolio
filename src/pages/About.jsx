@@ -2,7 +2,6 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
-import CustomCursor from "../components/CustomCursor";
 import ContactModal from "../components/ContactModal";
 import RouteMeta from "../components/RouteMeta";
 
@@ -149,7 +148,7 @@ export default function About() {
       <style>{`
         .about-page, .about-page * { cursor: none !important; }
       `}</style>
-      <CustomCursor enlargeOnHover />
+      {/* CustomCursor mounted globally in App.jsx */}
       <PlusMenu />
 
       {/* Top row: ← Home (left). + lives in PlusMenu (fixed top-right).

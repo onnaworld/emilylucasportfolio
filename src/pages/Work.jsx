@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
-import CustomCursor from "../components/CustomCursor";
 import PlusMenu from "../components/PlusMenu";
 import CaseStudyCard from "../components/CaseStudyCard";
 import RouteMeta from "../components/RouteMeta";
@@ -172,7 +171,6 @@ export default function Work() {
         html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
         .work-page, .work-page * { cursor: none !important; }
       `}</style>
-      <CustomCursor enlargeOnHover />
       <PlusMenu />
       <WorkHero />
 

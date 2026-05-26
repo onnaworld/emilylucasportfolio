@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
-import CustomCursor from "../components/CustomCursor";
 import ContactModal from "../components/ContactModal";
 import RouteMeta from "../components/RouteMeta";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -104,15 +103,19 @@ export default function Landing() {
         description="Executive Producer and Consultant specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial."
         image="/hero.jpg"
       />
-      <CustomCursor enlargeOnHover />
+      {/* CustomCursor mounted globally in App.jsx (outside the
+          .page-fade-in transform scope so it stays viewport-fixed). */}
       <style>{`
         .landing-snap, .landing-snap * { cursor: none !important; }
       `}</style>
 
-      {/* + menu, fixed top-right, color-flips across all sections */}
+      {/* + menu, fixed top-right, color-flips across all sections.
+          Rotates 45° to × when menu is open (same element handles open
+          and close). */}
       <button
         onClick={() => setMenuOpen(o => !o)}
-        aria-label="Menu"
+        aria-label={menuOpen ? "Close menu" : "Menu"}
+        aria-expanded={menuOpen}
         className="m-plus"
         style={{
           position: "fixed",
@@ -129,10 +132,11 @@ export default function Landing() {
           lineHeight: 1,
           color: "#fff",
           mixBlendMode: "difference",
-          zIndex: 100,
-          opacity: menuOpen ? 0 : 1,
-          pointerEvents: menuOpen ? "none" : "auto",
-          transition: "opacity 0.3s",
+          zIndex: 300,
+          transform: menuOpen ? "rotate(45deg)" : "rotate(0deg)",
+          transformOrigin: "50% 50%",
+          transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
+          cursor: "pointer",
         }}
       >
         +
@@ -740,31 +744,8 @@ function MenuOverlay({ onClose, onContact }) {
           opacity: 0.94,
         }}
       >
-        <button
-          onClick={onClose}
-          aria-label="Close menu"
-          style={{
-            position: "absolute",
-            top: 14,
-            right: 14,
-            width: 28,
-            height: 28,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontFamily: HEROS,
-            fontSize: 22,
-            lineHeight: 1,
-            color: "#fff",
-            zIndex: 2,
-          }}
-        >
-          ×
-        </button>
-
+        {/* In-modal × removed: the fixed + rotates 45° to × and acts
+            as the close affordance. Same element handles open + close. */}
         <div
           style={{
             fontFamily: "'Times New Roman', Times, serif",

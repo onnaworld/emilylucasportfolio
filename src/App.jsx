@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./components/Layout";
 import Landing from "./pages/Landing";
+import CustomCursor from "./components/CustomCursor";
 
 // Code-split the Work routes, defers their bundle (and the productionCases
 // payload) until the user actually navigates there.
@@ -114,6 +115,12 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      {/* Render once at the app root so the cursor div sits OUTSIDE
+          any page's .page-fade-in wrapper. position: fixed inside a
+          transformed ancestor becomes positioned relative to that
+          ancestor — which made the cursor scroll off-screen with the
+          page. Globally mounted, the cursor stays viewport-anchored. */}
+      <CustomCursor enlargeOnHover />
       <Layout>
         <Suspense fallback={null}>
           <Routes>
