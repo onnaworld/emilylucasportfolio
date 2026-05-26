@@ -83,6 +83,28 @@ export default function About() {
     };
   }, []);
 
+  // Imperatively position the + button so it lines up with ← Home on
+  // this page (PlusMenu's inline style + the global mobile media query
+  // both fight each other; setProperty with priority "important" wins
+  // every cascade race and works around iOS Safari quirks).
+  useEffect(() => {
+    const plus = document.querySelector(".about-page .m-plus");
+    if (!plus) return;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const prev = plus.getAttribute("style") || "";
+    if (isMobile) {
+      plus.style.setProperty("top", "32px", "important");
+      plus.style.setProperty("right", "16px", "important");
+      plus.style.setProperty("font-size", "30px", "important");
+      plus.style.setProperty("line-height", "1", "important");
+    } else {
+      plus.style.setProperty("top", "-8px", "important");
+    }
+    return () => {
+      plus.setAttribute("style", prev);
+    };
+  }, []);
+
   return (
     <div
       className="about-page"
