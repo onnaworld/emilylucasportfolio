@@ -40,8 +40,8 @@ function DotItem({ children }) {
         gap: 10,
         alignItems: "baseline",
         marginBottom: 4,
-        fontFamily: HEROS,
-        fontStyle: "normal",
+        fontFamily: TIMES,
+        fontStyle: "italic",
         fontSize: "clamp(13px, 0.95vw, 16px)",
         fontWeight: 400,
         lineHeight: 1.3,
@@ -89,11 +89,10 @@ export default function About() {
       <PlusMenu />
 
       {/* Top row: ← Home (left). + lives in PlusMenu (fixed top-right).
-          Push + up via a scoped style override so it sits closer to the
-          edge than its default of 24px. Header strip is compact so the
-          hairline rides just under both. */}
+          Pull + up so its visual centre aligns with the ← Home baseline
+          (PlusMenu default top:24 sits too low on this single-screen page). */}
       <style>{`
-        .about-page .m-plus { top: 12px !important; }
+        .about-page .m-plus { top: -8px !important; }
       `}</style>
       <div
         style={{
@@ -147,7 +146,8 @@ export default function About() {
           About
         </h1>
 
-        {/* Bio paragraph */}
+        {/* Bio paragraph — same maxWidth as the grid below so the
+            right edges of bio and bullets columns line up. */}
         <p
           className="m-about-bio"
           style={{
@@ -159,7 +159,7 @@ export default function About() {
             letterSpacing: "-0.015em",
             color: colors.text,
             margin: `clamp(20px, 2vw, 32px) 0 0`,
-            maxWidth: "min(780px, 72%)",
+            maxWidth: "min(1180px, 92%)",
           }}
         >
           My work sits at the intersection of four cultures, shaped by
@@ -230,11 +230,12 @@ export default function About() {
         </div>
       </div>
 
-      {/* Bottom hairline + © footer — matches the Landing footer */}
+      {/* Bottom hairline + © footer — hairline matches the top hairline
+          (1px solid colors.text) so the two read as a matched pair. */}
       <footer
         style={{
           padding: `${space.md}px ${space.xl}px`,
-          borderTop: `1px solid ${colors.border}`,
+          borderTop: `1px solid ${colors.text}`,
           background: colors.bg,
           fontFamily: TIMES,
           fontSize: 14,

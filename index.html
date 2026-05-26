@@ -177,6 +177,9 @@
         .m-about-title { font-size: 48px !important; }
         .m-about-bio { max-width: 100% !important; font-size: 15px !important; margin-top: 16px !important; }
         .m-about-grid { grid-template-columns: 1fr !important; gap: 24px !important; margin-top: 24px !important; max-width: 100% !important; }
+        /* List items wrap on mobile (desktop forces nowrap to fit on one
+           line per item — too narrow for that on a phone). */
+        .m-about-grid li { white-space: normal !important; }
 
         /* CategorySlide, stack label above carousel */
         .m-category-slide {
