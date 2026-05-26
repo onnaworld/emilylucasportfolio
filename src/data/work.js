@@ -53,6 +53,7 @@ export const productionCases = [
     outcome: "Delivered a pre-dawn hike timed to suhoor, iftar arranged at the summit, and catering that respected the fast, anchoring the activation in community and lived cultural practice. Resulted in a campaign delivery that felt authentic to the people it was made for and the brand it served.",
     viewProjectLink: { label: "Hypebeast Press Link →", url: "https://hypebeast.com/2026/2/columbia-hike-society-ramadan-hike-uae-event-recap" },
     images: [
+      "/work/columbia-ramadan/07.mp4",
       "/work/columbia-ramadan/01.jpg",
       "/work/columbia-ramadan/02.jpg",
       "/work/columbia-ramadan/03.jpg",

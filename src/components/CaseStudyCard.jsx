@@ -220,9 +220,10 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
                     fontWeight: 400,
                     color: colors.textMuted,
                     marginBottom: 8,
+                    paddingLeft: 22,
                   }}
                 >
-                  click video to view project
+                  Click video to view project
                 </div>
               )}
               <Carousel
