@@ -219,7 +219,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
             style={{
               fontFamily: TIMES,
               fontStyle: "italic",
-              fontSize: "clamp(28px, 3.4vw, 48px)",
+              fontSize: "clamp(20px, 2.2vw, 32px)",
               fontWeight: 400,
               color: colors.text,
               lineHeight: 1,
