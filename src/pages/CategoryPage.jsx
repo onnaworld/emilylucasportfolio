@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
-import CaseStudyCard from "../components/CaseStudyCard";
 import RouteMeta from "../components/RouteMeta";
-import { productionCases } from "../data/work";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
@@ -364,29 +362,28 @@ function Media({ src, style, position, alt }) {
 function AutoCycleHero({ showcases }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [activeStudy, setActiveStudy] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (paused || activeStudy || showcases.length < 2) return;
+    if (paused || showcases.length < 2) return;
     const id = setInterval(() => {
       setIndex(i => (i + 1) % showcases.length);
     }, 4500);
     return () => clearInterval(id);
-  }, [paused, activeStudy, showcases.length]);
+  }, [paused, showcases.length]);
 
   const active = showcases[index];
 
-  // Open the case-study popup directly over the showcase image.
+  // Navigate to /work/:slug with the current location as background.
+  // The modal route in App.jsx handles rendering the overlay; closing
+  // pops back to here without reloading the category page.
   const openCaseStudy = (i) => {
     const slug = showcases[i]?.slug;
     if (!slug) return;
-    const study = productionCases.find((c) => c.slug === slug);
-    if (!study) return;
     setIndex(i);
-    setActiveStudy(study);
+    navigate(`/work/${slug}`, { state: { backgroundLocation: location } });
   };
-
-  const closeStudy = () => setActiveStudy(null);
 
   // Mobile swipe-to-next on the showcase. Tracks the starting touch and
   // on release decides: swipe → change index; otherwise let the
@@ -605,83 +602,10 @@ function AutoCycleHero({ showcases }) {
           </div>
         </div>
 
-      {/* Case-study popup — overlays the showcase image, not a route change */}
-      {activeStudy && <CaseStudyModal study={activeStudy} onClose={closeStudy} />}
+      {/* The case-study modal is rendered globally by App.jsx whenever
+          the URL matches /work/:slug. Opening from here is a navigate()
+          call so the URL changes and refresh-to-modal works. */}
     </section>
-  );
-}
-
-// Outer modal — backdrop + centered translucent white card. The inner
-// content (× / fades / project fields / carousel / tags) is delegated to
-// the shared CaseStudyCard so the /production popup and the /work popup
-// render the same markup from one source.
-function CaseStudyModal({ study, onClose }) {
-  const [closing, setClosing] = useState(false);
-
-  const handleClose = () => {
-    if (closing) return;
-    setClosing(true);
-    setTimeout(() => onClose(), 260);
-  };
-
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") handleClose(); };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <div
-      onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
-      style={{
-        position: "fixed",
-        inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 20,
-        background: "rgba(0, 0, 0, 0.20)",
-        zIndex: 50,
-        pointerEvents: "auto",
-        animation: closing
-          ? "cs-backdrop-out 0.26s ease-in forwards"
-          : "cs-backdrop-in 0.3s ease-out both",
-      }}
-    >
-      <div
-        className="cs-modal-card"
-        style={{
-          position: "relative",
-          width: "min(740px, 100%)",
-          height: "min(580px, calc(100vh - 80px))",
-          background: "rgba(255, 255, 255, 0.96)",
-          backdropFilter: "blur(18px) saturate(1.1)",
-          WebkitBackdropFilter: "blur(18px) saturate(1.1)",
-          borderRadius: 14,
-          overflow: "hidden",
-          boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 24px 60px rgba(0,0,0,0.22), 0 6px 18px rgba(0,0,0,0.10)",
-          animation: closing
-            ? "cs-modal-out 0.26s ease-in forwards"
-            : "cs-modal-in 0.3s ease-out both",
-        }}
-      >
-        <CaseStudyCard study={study} onClose={handleClose} />
-      </div>
-
-      <style>{`
-        @keyframes cs-modal-in {
-          from { opacity: 0; transform: scale(0.95); }
-          to   { opacity: 1; transform: scale(1); }
-        }
-        @keyframes cs-modal-out {
-          from { opacity: 1; transform: scale(1); }
-          to   { opacity: 0; transform: scale(0.95); }
-        }
-        @keyframes cs-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes cs-backdrop-out { from { opacity: 1; } to { opacity: 0; } }
-      `}</style>
-    </div>
   );
 }
 

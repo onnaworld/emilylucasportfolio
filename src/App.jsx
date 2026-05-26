@@ -1,8 +1,10 @@
 import { lazy, Suspense, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Landing from "./pages/Landing";
 import CustomCursor from "./components/CustomCursor";
+import CaseStudyModal from "./components/CaseStudyModal";
+import { productionCases, CATEGORY_BY_SLUG } from "./data/work";
 
 // Code-split the Work routes, defers their bundle (and the productionCases
 // payload) until the user actually navigates there.
@@ -28,31 +30,31 @@ function B({ children }) {
 // URL path segment.
 const CULTURAL_STRATEGY_SHOWCASES = [
   { slug: "mr-porter-championing-subcultures", client: "MR PORTER", title: "Championing Subcultures",          media: "/Cultural%20Strategy/:cultural%20strategy/01.mp4" },
-  { slug: "mr-porter-social-media",             client: "MR PORTER", title: "Social Media Strategy",            media: "/Cultural%20Strategy/:cultural%20strategy/02.mp4" },
+  { slug: "mr-porter-social-media-strategy",             client: "MR PORTER", title: "Social Media Strategy",            media: "/Cultural%20Strategy/:cultural%20strategy/02.mp4" },
   { slug: "trippin-ethical-photography",        client: "Trippin",   title: "Ethical Photography",              media: "/Cultural%20Strategy/:cultural%20strategy/03.avif" },
-  { slug: "trippin-graciela-iturbide",          client: "Trippin",   title: "Mexico through Graciela Iturbide", media: "/Cultural%20Strategy/:cultural%20strategy/04.avif" },
+  { slug: "trippin-mexico-iturbide",          client: "Trippin",   title: "Mexico through Graciela Iturbide", media: "/Cultural%20Strategy/:cultural%20strategy/04.avif" },
   { slug: "trippin-tattooing-japan",            client: "Trippin",   title: "A History of Tattooing",           media: "/Cultural%20Strategy/:cultural%20strategy/05.avif" },
   { slug: "mr-porter-menswear-trends-2022",     client: "MR PORTER", title: "2022 Menswear Trends",             media: "/Cultural%20Strategy/:cultural%20strategy/06.jpg" },
-  { slug: "mr-porter-japanese-style",           client: "MR PORTER", title: "Improve Your Life",                media: "/Cultural%20Strategy/:cultural%20strategy/07.jpg" },
-  { slug: "mr-porter-women-shopping-menswear",  client: "MR PORTER", title: "Shop For Yourself",                media: "/Cultural%20Strategy/:cultural%20strategy/08.jpg" },
+  { slug: "mr-porter-15-ways-japanese-style",           client: "MR PORTER", title: "Improve Your Life",                media: "/Cultural%20Strategy/:cultural%20strategy/07.jpg" },
+  { slug: "mr-porter-women-buy-menswear",  client: "MR PORTER", title: "Shop For Yourself",                media: "/Cultural%20Strategy/:cultural%20strategy/08.jpg" },
 ];
 
 const VISUAL_RESEARCH_SHOWCASES = [
-  { slug: "mr-porter-new-york-street",        client: "MR PORTER", title: "New York through the Decades", media: "/Visual%20Research/:visual%20research/01.jpg" },
-  { slug: "mr-porter-summertime-movies",      client: "MR PORTER", title: "Summertime Movies",            media: "/Visual%20Research/:visual%20research/2.jpg" },
-  { slug: "mr-porter-work-wardrobe-2020",     client: "MR PORTER", title: "Freshen up your Wardrobe",     media: "/Visual%20Research/:visual%20research/03.jpg" },
+  { slug: "mr-porter-nyc-street-photography",        client: "MR PORTER", title: "New York through the Decades", media: "/Visual%20Research/:visual%20research/01.jpg" },
+  { slug: "mr-porter-five-stylish-summertime-movies",      client: "MR PORTER", title: "Summertime Movies",            media: "/Visual%20Research/:visual%20research/2.jpg" },
+  { slug: "mr-porter-five-ways-freshen-work-wardrobe",     client: "MR PORTER", title: "Freshen up your Wardrobe",     media: "/Visual%20Research/:visual%20research/03.jpg" },
   { slug: "mr-porter-black-history-month-uk", client: "MR PORTER", title: "Black History Month",          media: "/Visual%20Research/:visual%20research/04.jpg" },
 ];
 
 const PRODUCTION_SHOWCASES = [
-  { slug: "aman",              client: "Aman",       title: "Saudi Arabia",                    media: "/Production/:production/1.mp4" },
-  { slug: "vogue-relaunch",    client: "Condé Nast", title: "Vogue Arabia Relaunch",           media: ["/Production/:production/2a.jpg", "/Production/:production/2b.JPG"], position: "center top" },
-  { slug: "nike-vomero",       client: "Nike",       title: "Global Vomero 18 Activation",     media: "/Production/:production/3.mp4" },
-  { slug: "moonlight-basin",   client: "One&Only",   title: "Moonlight Basin",                 media: "/Production/:production/4.mp4" },
+  { slug: "aman-saudi-arabia",              client: "Aman",       title: "Saudi Arabia",                    media: "/Production/:production/1.mp4" },
+  { slug: "vogue-arabia-relaunch",    client: "Condé Nast", title: "Vogue Arabia Relaunch",           media: ["/Production/:production/2a.jpg", "/Production/:production/2b.JPG"], position: "center top" },
+  { slug: "nike-vomero-18",       client: "Nike",       title: "Global Vomero 18 Activation",     media: "/Production/:production/3.mp4" },
+  { slug: "one-only-moonlight-basin",   client: "One&Only",   title: "Moonlight Basin",                 media: "/Production/:production/4.mp4" },
   { slug: "mr-porter-finneas", client: "MR PORTER",  title: "Finneas",                         media: "/Production/:production/5.jpg" },
-  { slug: "abraham-moon",      client: "J.Crew",     title: "Abraham Moon",                    media: "/Production/:production/6.mp4" },
-  { slug: "mr-c-residences",   client: "Cipriani",   title: "Mr C Residence Dubai",            media: "/Production/:production/7.mp4" },
-  { slug: "mastercard-sailgp", client: "Mastercard", title: "Sail Grand Prix x Luís Figo",     media: "/Production/:production/8.mp4" },
+  { slug: "jcrew-abraham-moon",      client: "J.Crew",     title: "Abraham Moon",                    media: "/Production/:production/6.mp4" },
+  { slug: "cipriani-mr-c-residence-dubai",   client: "Cipriani",   title: "Mr C Residence Dubai",            media: "/Production/:production/7.mp4" },
+  { slug: "mastercard-sail-grand-prix", client: "Mastercard", title: "Sail Grand Prix x Luís Figo",     media: "/Production/:production/8.mp4" },
 ];
 
 const PRODUCTION_BODY = (
@@ -97,11 +99,19 @@ const CULTURAL_STRATEGY_BODY = (
 );
 
 function ScrollToTop() {
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, state } = useLocation();
   useEffect(() => {
     if (hash) return; // honour anchor links like /work#aman
+    // Modal-over-background navigations should leave the background
+    // page where it was. Two cases:
+    //   1. Opened from a category page — state.backgroundLocation is set.
+    //   2. Direct deep link to /work/:slug — pathname matches the case
+    //      study pattern; the background is the parent category which
+    //      itself shouldn't auto-scroll to top either way.
+    if (state?.backgroundLocation) return;
+    if (/^\/work\/[^/]+\/?$/.test(pathname)) return;
     window.scrollTo(0, 0);
-  }, [pathname, hash]);
+  }, [pathname, hash, state]);
   return null;
 }
 
@@ -111,9 +121,48 @@ function ScrollToTop() {
 // wrapper remount (the old keyed PageFade made navigation feel slow
 // because Lenis + heavy media on Landing all reset).
 
-export default function App() {
+// Modal-route renderer. Reads /work/:slug from the current location,
+// resolves to a case study, and shows the shared CaseStudyModal. On
+// close, navigates back to either the prior location (if the user got
+// here by clicking from a category page) or the parent category route
+// (if this was a direct deep link).
+function CaseStudyRoute({ slug }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const study = productionCases.find((c) => c.slug === slug);
+
+  const onClose = () => {
+    if (location.state?.backgroundLocation) {
+      // navigate(-1) pops the modal state cleanly so back-button parity holds.
+      navigate(-1);
+    } else {
+      // Deep-link entry — there's no history to pop. Replace so the modal
+      // close doesn't leave a useless /work/:slug entry on the back stack.
+      navigate(CATEGORY_BY_SLUG[slug] || "/work", { replace: true });
+    }
+  };
+
+  if (!study) return null;
+  return <CaseStudyModal study={study} onClose={onClose} />;
+}
+
+function AppRoutes() {
+  const location = useLocation();
+  const state = location.state || {};
+
+  // /work/:slug — either modal-over-background (state.backgroundLocation
+  // set by the opener) or a direct deep link (synthesise the parent
+  // category as the background).
+  const slugMatch = location.pathname.match(/^\/work\/([^/]+)\/?$/);
+  const slug = slugMatch?.[1];
+
+  let backgroundLocation = state.backgroundLocation;
+  if (!backgroundLocation && slug) {
+    backgroundLocation = { pathname: CATEGORY_BY_SLUG[slug] || "/work" };
+  }
+
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       {/* Render once at the app root so the cursor div sits OUTSIDE
           any page's .page-fade-in wrapper. position: fixed inside a
@@ -123,7 +172,7 @@ export default function App() {
       <CustomCursor enlargeOnHover />
       <Layout>
         <Suspense fallback={null}>
-          <Routes>
+          <Routes location={backgroundLocation || location}>
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
             <Route path="/production" element={
@@ -134,7 +183,7 @@ export default function App() {
                 metaPath="/production"
                 metaTitle="Production | Emily Lucas | Executive Producer"
                 metaDescription="End-to-end executive production for luxury brands across photography, video and complex post-production. Campaigns delivered across the US, UK, GCC and Europe — Aman, Vogue Arabia, Nike, One&Only, MR PORTER, Cipriani, Mastercard, J.Crew."
-                metaImage="/work/aman/01.jpg"
+                metaImage="/work/aman-saudi-arabia/01.jpg"
               />
             } />
             <Route path="/cultural-strategy" element={
@@ -166,6 +215,15 @@ export default function App() {
           </Routes>
         </Suspense>
       </Layout>
+      {slug && <CaseStudyRoute slug={slug} />}
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
     </BrowserRouter>
   );
 }

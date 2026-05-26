@@ -28,34 +28,34 @@ function categoryFor(n) {
 // matches an entry in productionCases) and for stable deep-link URLs like
 // /work#mr-porter-finneas regardless of whether a case study exists yet.
 const PROJECTS = [
-  { n: 1,  client: "CONDÉ NAST",          title: "Vogue Arabia Relaunch",       slug: "vogue-relaunch",                       thumb: "/work/all-work/01.jpg" },
-  { n: 2,  client: "AMAN",                title: "Saudi Arabia & Dubai",        slug: "aman",                                 thumb: "/work/all-work/2..jpg" },
+  { n: 1,  client: "CONDÉ NAST",          title: "Vogue Arabia Relaunch",       slug: "vogue-arabia-relaunch",                       thumb: "/work/all-work/01.jpg" },
+  { n: 2,  client: "AMAN",                title: "Saudi Arabia & Dubai",        slug: "aman-saudi-arabia",                                 thumb: "/work/all-work/2..jpg" },
   { n: 3,  client: "MR PORTER",           title: "Finneas",                     slug: "mr-porter-finneas",                    thumb: "/work/all-work/3..webp" },
-  { n: 4,  client: "ONE&ONLY",            title: "Moonlight Basin",             slug: "moonlight-basin",                      thumb: "/work/all-work/4..mp4.mp4" },
-  { n: 5,  client: "CIPRIANI",            title: "MR C Residence Dubai",        slug: "mr-c-residences",                      thumb: "/work/all-work/5..jpg" },
+  { n: 4,  client: "ONE&ONLY",            title: "Moonlight Basin",             slug: "one-only-moonlight-basin",                      thumb: "/work/all-work/4..mp4.mp4" },
+  { n: 5,  client: "CIPRIANI",            title: "MR C Residence Dubai",        slug: "cipriani-mr-c-residence-dubai",                      thumb: "/work/all-work/5..jpg" },
   { n: 6,  client: "MR PORTER",           title: "In America",                  slug: "mr-porter-in-america",                 thumb: "/work/all-work/06.jpg" },
-  { n: 7,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Activation: Light Your Path", slug: "columbia-ramadan",                     thumb: "/work/all-work/7.jpg" },
-  { n: 8,  client: "MASTERCARD",          title: "Sail Grand Prix x Luís Figo", slug: "mastercard-sailgp" },
-  { n: 9,  client: "NIKE",                title: "Global Vomero 18 Activation", slug: "nike-vomero" },
-  { n: 10, client: "J.CREW",              title: "Abraham Moon",                slug: "abraham-moon",                         thumb: "/work/all-work/10.mp4" },
-  { n: 11, client: "CHARLOTTE TILBURY",   title: "Disney 100 Campaign",         slug: "charlotte-tilbury-disney",             thumb: "/work/all-work/11..jpg" },
-  { n: 12, client: "LOUIS VUITTON",       title: "The Glass Magazine",          slug: "glass-magazine",                       thumb: "/work/all-work/12.jpg" },
+  { n: 7,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Activation: Light Your Path", slug: "columbia-sportswear-ramadan-campaign",                     thumb: "/work/all-work/7.jpg" },
+  { n: 8,  client: "MASTERCARD",          title: "Sail Grand Prix x Luís Figo", slug: "mastercard-sail-grand-prix" },
+  { n: 9,  client: "NIKE",                title: "Global Vomero 18 Activation", slug: "nike-vomero-18" },
+  { n: 10, client: "J.CREW",              title: "Abraham Moon",                slug: "jcrew-abraham-moon",                         thumb: "/work/all-work/10.mp4" },
+  { n: 11, client: "CHARLOTTE TILBURY",   title: "Disney 100 Campaign",         slug: "charlotte-tilbury-disney-100",             thumb: "/work/all-work/11..jpg" },
+  { n: 12, client: "LOUIS VUITTON",       title: "The Glass Magazine",          slug: "louis-vuitton-glass-magazine",                       thumb: "/work/all-work/12.jpg" },
   { n: 13, client: "HARVEY NICHOLS",      title: "Festive, Beauty",             slug: "harvey-nichols-festive-beauty",        thumb: "/work/all-work/13.jpg" },
-  { n: 14, client: "GUESS",               title: "Global Ramadan Campaign",     slug: "guess-ramadan",                        thumb: "/work/all-work/14.jpg" },
+  { n: 14, client: "GUESS",               title: "Global Ramadan Campaign",     slug: "guess-global-ramadan",                        thumb: "/work/all-work/14.jpg" },
   { n: 15, client: "SIRO HOTEL",          title: "Campaign",                    slug: "siro-hotel",                           thumb: "/work/all-work/15.jpg" },
-  { n: 16, client: "HAMILTON WATCHES",    title: "Ventura XXL Campaign",        slug: "hamilton-watches",                     thumb: "/work/all-work/16.jpg" },
+  { n: 16, client: "HAMILTON WATCHES",    title: "Ventura XXL Campaign",        slug: "hamilton-watches-ventura-xxl",                     thumb: "/work/all-work/16.jpg" },
   { n: 17, client: "JUMEIRAH",            title: "Marsa Al Arab",               slug: "jumeirah-marsa-al-arab",               thumb: "/work/all-work/17.jpg" },
   { n: 18, client: "MR PORTER",           title: "Championing Subcultures",     slug: "mr-porter-championing-subcultures",    thumb: "/work/all-work/18.jpg", link: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
-  { n: 19, client: "MR PORTER",           title: "Social Media Strategy",       slug: "mr-porter-social-media",               thumb: "/work/all-work/19.jpg" },
+  { n: 19, client: "MR PORTER",           title: "Social Media Strategy",       slug: "mr-porter-social-media-strategy",               thumb: "/work/all-work/19.jpg" },
   { n: 20, client: "TRIPPIN",             title: "6 Photographers on What Ethical Photography Means to Them",                  slug: "trippin-ethical-photography",       thumb: "/work/all-work/20.avif", link: "https://trippin.world/feature/through-the-lens-6-photographers-on-what-ethical-photography-means-to-them" },
-  { n: 21, client: "TRIPPIN",             title: "An Exploration of Mexico Through the Lens of Graciela Iturbide",              slug: "trippin-graciela-iturbide",         thumb: "/work/all-work/21.webp", link: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide" },
+  { n: 21, client: "TRIPPIN",             title: "An Exploration of Mexico Through the Lens of Graciela Iturbide",              slug: "trippin-mexico-iturbide",         thumb: "/work/all-work/21.webp", link: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide" },
   { n: 22, client: "TRIPPIN",             title: "A History of Tattooing in Japan",                                            slug: "trippin-tattooing-japan",           thumb: "/work/all-work/22.avif", link: "https://trippin.world/feature/a-history-of-tattooing-in-japan" },
   { n: 23, client: "MR PORTER",           title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends",                slug: "mr-porter-menswear-trends-2022",    thumb: "/work/all-work/23.jpg",  link: "https://www.mrporter.com/en-ch/journal/fashion/menswear-trends-forecast-street-style-2022-10321430" },
-  { n: 24, client: "MR PORTER",           title: "Why You Should Shop (For Yourself) On MR PORTER",                            slug: "mr-porter-women-shopping-menswear", thumb: "/work/all-work/24.jpg",  link: "https://www.mrporter.com/en-dk/journal/fashion/women-shopping-buying-wearing-menswear-style-24622422" },
-  { n: 25, client: "MR PORTER",           title: "15 Ways To Improve Your Life, Japanese Style",                               slug: "mr-porter-japanese-style",          thumb: "/work/all-work/25.jpg",  link: "https://www.mrporter.com/en-us/journal/lifestyle/life-lessons-people-tokyo-japan-style-food-24538500" },
-  { n: 26, client: "MR PORTER",           title: "Eight Striking Images Of New York City Through The Decades",                 slug: "mr-porter-new-york-street",         thumb: "/work/all-work/26.jpg",  link: "https://www.mrporter.com/en-gb/journal/lifestyle/new-york-street-photography-bruce-davidson-vivian-maier-10037722" },
-  { n: 27, client: "MR PORTER",           title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe",       slug: "mr-porter-summertime-movies",       thumb: "/work/all-work/27.jpg",  link: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852" },
-  { n: 28, client: "MR PORTER",           title: "Five Ways To Freshen Up Your Work Wardrobe In 2020",                         slug: "mr-porter-work-wardrobe-2020",      thumb: "/work/all-work/28.jpg",  link: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428" },
+  { n: 24, client: "MR PORTER",           title: "Why You Should Shop (For Yourself) On MR PORTER",                            slug: "mr-porter-women-buy-menswear", thumb: "/work/all-work/24.jpg",  link: "https://www.mrporter.com/en-dk/journal/fashion/women-shopping-buying-wearing-menswear-style-24622422" },
+  { n: 25, client: "MR PORTER",           title: "15 Ways To Improve Your Life, Japanese Style",                               slug: "mr-porter-15-ways-japanese-style",          thumb: "/work/all-work/25.jpg",  link: "https://www.mrporter.com/en-us/journal/lifestyle/life-lessons-people-tokyo-japan-style-food-24538500" },
+  { n: 26, client: "MR PORTER",           title: "Eight Striking Images Of New York City Through The Decades",                 slug: "mr-porter-nyc-street-photography",         thumb: "/work/all-work/26.jpg",  link: "https://www.mrporter.com/en-gb/journal/lifestyle/new-york-street-photography-bruce-davidson-vivian-maier-10037722" },
+  { n: 27, client: "MR PORTER",           title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe",       slug: "mr-porter-five-stylish-summertime-movies",       thumb: "/work/all-work/27.jpg",  link: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852" },
+  { n: 28, client: "MR PORTER",           title: "Five Ways To Freshen Up Your Work Wardrobe In 2020",                         slug: "mr-porter-five-ways-freshen-work-wardrobe",      thumb: "/work/all-work/28.jpg",  link: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428" },
   { n: 29, client: "MR PORTER",           title: "What To Read, Watch And Do This Black History Month UK",                     slug: "mr-porter-black-history-month-uk",  thumb: "/work/all-work/29.jpg",  link: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134" },
 ];
 
@@ -163,7 +163,7 @@ export default function Work() {
         path="/work"
         title="All Work | Emily Lucas | Executive Producer"
         description="Selected production, strategy and visual research work by Emily Lucas. Luxury campaigns and editorial across MR PORTER, Aman, Condé Nast, One&Only, Nike, Mastercard, Cipriani, Charlotte Tilbury and more."
-        image="/work/moonlight-basin/03.jpg"
+        image="/work/one-only-moonlight-basin/03.jpg"
       />
       <style>{`
         /* Page is intentionally non-scrollbar-driven on /work, list hover advances the thumbs */
@@ -478,7 +478,7 @@ function WorkHero() {
       }}
     >
       <img
-        src="/work/moonlight-basin/03.jpg"
+        src="/work/one-only-moonlight-basin/03.jpg"
         alt="All Work — Emily Lucas portfolio hero, One&Only Moonlight Basin"
         style={{
           position: "absolute",
