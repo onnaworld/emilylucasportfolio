@@ -278,33 +278,49 @@ export default function Landing() {
         >
           About
         </div>
-        <p
-          className="m-section-body"
-          style={{
-            fontFamily: HEROS,
-            fontSize: "clamp(20px, 2.6vw, 42px)",
-            fontWeight: 700,
-            lineHeight: 1.15,
-            letterSpacing: "-0.015em",
-            margin: 0,
-            color: colors.text,
-          }}
-        >
-          Executive Producer and Consultant specializing in production, strategy
-          and visual research for luxury brands across fashion, beauty,
-          hospitality and editorial. Tokyo-born, with Japanese-US-UK background
-          and industry experience across the US, UK, GCC and Japan. Brand-side
-          at <Brand>Net-a-Porter Group</Brand>, producing <Brand>MR PORTER</Brand>'s
-          editorial, commercial and brand partnerships. Direct-to-client
-          relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
-          <Brand>Condé Nast</Brand>; production partner to agencies for{" "}
-          <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
-          <Brand>Nike</Brand>.
-        </p>
+        <div>
+          <p
+            className="m-section-body"
+            style={{
+              fontFamily: HEROS,
+              fontSize: "clamp(20px, 2.6vw, 42px)",
+              fontWeight: 700,
+              lineHeight: 1.15,
+              letterSpacing: "-0.015em",
+              margin: 0,
+              color: colors.text,
+            }}
+          >
+            Executive Producer and Consultant specializing in production, strategy
+            and visual research for luxury brands across fashion, beauty,
+            hospitality and editorial. Tokyo-born, with Japanese-US-UK background
+            and industry experience across the US, UK, GCC and Japan. Brand-side
+            at <Brand>Net-a-Porter Group</Brand>, producing <Brand>MR PORTER</Brand>'s
+            editorial, commercial and brand partnerships. Direct-to-client
+            relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
+            <Brand>Condé Nast</Brand>; production partner to agencies for{" "}
+            <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
+            <Brand>Nike</Brand>.
+          </p>
+          <p
+            className="m-section-coda"
+            style={{
+              marginTop: space.lg,
+              marginBottom: 0,
+              fontFamily: "'Times New Roman', Times, serif",
+              fontStyle: "italic",
+              fontSize: "clamp(22px, 2.1vw, 32px)",
+              fontWeight: 400,
+              lineHeight: 1.3,
+              color: colors.textMuted,
+            }}
+          >
+            Consultancy and advisory engagements across New York, Tokyo, Dubai, and London.
+          </p>
+        </div>
       </section>
 
-      {/* About link row — italic consultancy line + "About →" link, same
-          centered/bordered treatment as "View All Work →" below. */}
+      {/* About link row — same centered/bordered treatment as "View All Work →" */}
       <div
         className="m-link-row"
         style={{
@@ -313,19 +329,6 @@ export default function Landing() {
           textAlign: "center",
         }}
       >
-        <div
-          style={{
-            fontFamily: "'Times New Roman', Times, serif",
-            fontStyle: "italic",
-            fontSize: 15,
-            fontWeight: 400,
-            color: colors.textMuted,
-            lineHeight: 1.3,
-            marginBottom: space.sm,
-          }}
-        >
-          Consultancy and advisory engagements across New York, Tokyo, Dubai, and London.
-        </div>
         <Link
           to="/about"
           style={{

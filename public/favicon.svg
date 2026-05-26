@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <text
-    x="50%" y="50%"
+    x="50%" y="44%"
     text-anchor="middle"
     dominant-baseline="central"
     font-family="'TeX Gyre Heros', 'Helvetica Neue', Helvetica, Arial, sans-serif"
-    font-weight="700"
-    font-size="30"
+    font-weight="400"
+    font-size="32"
     fill="#000"
   >e</text>
 </svg>
