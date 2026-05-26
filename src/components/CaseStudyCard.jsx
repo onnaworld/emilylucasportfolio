@@ -203,9 +203,12 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
         {study.images && study.images.length > 0 && (() => {
           const hasVideo = study.images.some((s) => /\.(mp4|webm|mov)$/i.test(s));
           // Priority for the video click target:
-          //   1. study.videoLink (case-study-specific override)
-          //   2. study.viewProjectLink first URL (when they're the same)
-          //   3. the first video file (so click still opens something)
+          //   1. study.videoLink (case-study-specific override, e.g. Vimeo)
+          //   2. study.viewProjectLink first URL
+          //   3. null — video is NOT clickable. We never fall back to
+          //      the raw .mp4 file URL because that opens the file in
+          //      a wide native player which the user explicitly didn't
+          //      want.
           const firstLink = (() => {
             if (study.videoLink) return study.videoLink;
             const v = study.viewProjectLink;
@@ -214,11 +217,11 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
               const first = arr[0];
               return typeof first === "string" ? first : first?.url || null;
             }
-            return study.images.find((s) => /\.(mp4|webm|mov)$/i.test(s)) || null;
+            return null;
           })();
           return (
             <div style={{ animation: anim(0.46) }}>
-              {hasVideo && (
+              {hasVideo && firstLink && (
                 <div
                   style={{
                     fontFamily: TIMES,

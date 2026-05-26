@@ -44,7 +44,7 @@ function DotItem({ children }) {
         fontFamily: HEROS,
         fontStyle: "normal",
         fontSize: "clamp(13px, 0.95vw, 16px)",
-        fontWeight: 700,
+        fontWeight: 400,
         lineHeight: 1.3,
         color: colors.text,
         whiteSpace: "nowrap",

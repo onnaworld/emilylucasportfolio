@@ -294,6 +294,16 @@
              on the inner carousel reach it without being captured here. */
           touch-action: pan-y !important;
         }
+        /* Case-study carousel assets on mobile: drop the fixed height
+           from 220 → 160 so 16:9 landscape videos no longer overflow
+           the card. Portrait assets shrink proportionally too. */
+        .cs-card-carousel > * > video,
+        .cs-card-carousel > * > img,
+        .cs-card-carousel > video,
+        .cs-card-carousel > img {
+          height: 160px !important;
+          max-width: calc(100vw - 100px) !important;
+        }
 
         /* Category page footer — slimmer on mobile */
         .m-category-footer {
