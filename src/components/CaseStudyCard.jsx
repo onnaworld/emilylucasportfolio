@@ -316,26 +316,20 @@ function CarouselAsset({ src, idx, project, videoLink }) {
       };
 
   if (isVideo) {
-    const video = (
+    return (
       <video
         src={src}
         autoPlay muted loop playsInline
         preload={idx < 2 ? "auto" : "metadata"}
         style={style}
         onLoadedData={() => setLoaded(true)}
+        onClick={
+          clickable
+            ? () => window.open(videoLink, "_blank", "noopener,noreferrer")
+            : undefined
+        }
       />
     );
-    return clickable ? (
-      <a
-        href={videoLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ display: "inline-block", flex: "0 0 auto", lineHeight: 0 }}
-        aria-label="View project"
-      >
-        {video}
-      </a>
-    ) : video;
   }
 
   return (
