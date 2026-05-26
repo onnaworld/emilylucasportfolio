@@ -186,24 +186,33 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
           {label}
         </div>
 
-        {/* Bottom-center: down arrow (decorative — no section below) */}
-        <div
-          aria-hidden="true"
+        {/* Bottom-center: down arrow — scrolls to the next section
+            (body when present, otherwise the showcase). */}
+        <button
+          onClick={(e) => {
+            const section = e.currentTarget.closest("section");
+            section?.nextElementSibling?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
+          aria-label="Scroll down"
           style={{
             position: "absolute",
             bottom: space.lg,
             left: "50%",
             transform: "translateX(-50%)",
+            background: "none",
+            border: "none",
+            padding: 8,
+            cursor: "pointer",
             color: heroOverlayColor,
             fontFamily: HEROS_FONT,
             fontSize: 18,
             fontWeight: 400,
             lineHeight: 1,
-            zIndex: 4,
+            zIndex: 6,
           }}
         >
           ↓
-        </div>
+        </button>
       </section>
 
       {body && (
