@@ -5,6 +5,7 @@ import { colors, fonts, space, t } from "../theme";
 import { productionCases } from "../data/work";
 import CustomCursor from "../components/CustomCursor";
 import ContactModal from "../components/ContactModal";
+import RouteMeta from "../components/RouteMeta";
 import { useIsMobile } from "../hooks/useIsMobile";
 
 const BRAND_LOGOS = [
@@ -97,6 +98,12 @@ export default function Landing() {
         scrollBehavior: "smooth",
       }}
     >
+      <RouteMeta
+        path="/"
+        title="Emily Lucas, Executive Producer"
+        description="Executive Producer and Consultant specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial."
+        image="/hero.jpg"
+      />
       <CustomCursor enlargeOnHover />
       <style>{`
         .landing-snap, .landing-snap * { cursor: none !important; }

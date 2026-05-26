@@ -113,9 +113,41 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
-            <Route path="/production" element={<CategoryPage label="Production" body={PRODUCTION_BODY} showcases={PRODUCTION_SHOWCASES} />} />
-            <Route path="/cultural-strategy" element={<CategoryPage label="Strategy & Editorial" heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif" body={CULTURAL_STRATEGY_BODY} showcases={CULTURAL_STRATEGY_SHOWCASES} />} />
-            <Route path="/visual-research" element={<CategoryPage label="Visual Research" heroImage="/Visual%20Research/w1500_q80%20(2).jpg" body={VISUAL_RESEARCH_BODY} showcases={VISUAL_RESEARCH_SHOWCASES} />} />
+            <Route path="/production" element={
+              <CategoryPage
+                label="Production"
+                body={PRODUCTION_BODY}
+                showcases={PRODUCTION_SHOWCASES}
+                metaPath="/production"
+                metaTitle="Production — Emily Lucas, Executive Producer"
+                metaDescription="End-to-end executive production for luxury brands across photography, video and complex post-production. Campaigns delivered across the US, UK, GCC and Europe — Aman, Vogue Arabia, Nike, One&Only, MR PORTER, Cipriani, Mastercard, J.Crew."
+                metaImage="/work/aman/01.jpg"
+              />
+            } />
+            <Route path="/cultural-strategy" element={
+              <CategoryPage
+                label="Strategy & Editorial"
+                heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif"
+                body={CULTURAL_STRATEGY_BODY}
+                showcases={CULTURAL_STRATEGY_SHOWCASES}
+                metaPath="/cultural-strategy"
+                metaTitle="Strategy & Editorial — Emily Lucas"
+                metaDescription="Cultural work across writing, production and strategy — features for Trippin and MR PORTER, production rooted in subcultures, and Gen Z consumer research for MR PORTER's TikTok channel."
+                metaImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif"
+              />
+            } />
+            <Route path="/visual-research" element={
+              <CategoryPage
+                label="Visual Research"
+                heroImage="/Visual%20Research/w1500_q80%20(2).jpg"
+                body={VISUAL_RESEARCH_BODY}
+                showcases={VISUAL_RESEARCH_SHOWCASES}
+                metaPath="/visual-research"
+                metaTitle="Visual Research — Emily Lucas"
+                metaDescription="Image sourcing, photography curation and rights licensing for editorial features at MR PORTER Journal, Trippin and Vogue (Condé Nast). Fine art, entertainment IP, runway and archive."
+                metaImage="/Visual%20Research/w1500_q80%20(2).jpg"
+              />
+            } />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

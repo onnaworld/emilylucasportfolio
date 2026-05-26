@@ -5,6 +5,7 @@ import { productionCases } from "../data/work";
 import CustomCursor from "../components/CustomCursor";
 import PlusMenu from "../components/PlusMenu";
 import CaseStudyCard from "../components/CaseStudyCard";
+import RouteMeta from "../components/RouteMeta";
 import { useIsMobile } from "../hooks/useIsMobile";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
@@ -159,6 +160,12 @@ export default function Work() {
 
   return (
     <div className="work-page" style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
+      <RouteMeta
+        path="/work"
+        title="All Work — Emily Lucas"
+        description="Selected production, strategy and visual research work by Emily Lucas. Luxury campaigns and editorial across MR PORTER, Aman, Condé Nast, One&Only, Nike, Mastercard, Cipriani, Charlotte Tilbury and more."
+        image="/work/moonlight-basin/03.jpg"
+      />
       <style>{`
         /* Page is intentionally non-scrollbar-driven on /work, list hover advances the thumbs */
         html { scrollbar-width: none; }

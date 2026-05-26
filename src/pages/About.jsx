@@ -4,6 +4,7 @@ import { colors, space } from "../theme";
 import PlusMenu from "../components/PlusMenu";
 import CustomCursor from "../components/CustomCursor";
 import ContactModal from "../components/ContactModal";
+import RouteMeta from "../components/RouteMeta";
 
 const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
@@ -122,6 +123,29 @@ export default function About() {
         flexDirection: "column",
       }}
     >
+      <RouteMeta
+        path="/about"
+        title="About — Emily Lucas, Executive Producer"
+        description="My work sits at the intersection of four cultures, shaped by growing up in Tokyo and working across London, Dubai, New York and Japan. Production, strategy and visual research for luxury brands."
+        image="/hero.jpg"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          mainEntity: {
+            "@type": "Person",
+            name: "Emily Lucas",
+            jobTitle: "Executive Producer & Cultural Strategy Consultant",
+            url: "https://emilyelucas.com/about",
+            image: "https://emilyelucas.com/hero.jpg",
+            sameAs: ["https://www.linkedin.com/in/emilyelucas/"],
+            email: "emilyelucas@gmail.com",
+            alumniOf: [
+              { "@type": "Organization", name: "Harvey Nichols" },
+              { "@type": "Organization", name: "MR PORTER, Net-a-Porter Group" },
+            ],
+          },
+        }}
+      />
       <style>{`
         .about-page, .about-page * { cursor: none !important; }
       `}</style>
