@@ -135,8 +135,12 @@ export default function About() {
           block — Safari sometimes ignores nested @media inside injected
           style tags, so it's safer kept in the static head CSS). */}
       <style>{`
-        /* About + position is now standard (handled in PlusMenu) — no
-           override needed; closes/opens slide consistently with other pages. */
+        /* About header is just one 14px text line (← Home) — the default
+           + position sits visually far below it. Pull the CLOSED-state +
+           up so its glyph centre lines up with ← Home. Scoped to
+           [aria-expanded="false"] so the open-state slide-to-corner
+           (top: 60, set inline by PlusMenu) still wins on click. */
+        .about-page .m-plus[aria-expanded="false"] { top: -8px !important; }
         @keyframes about-fade-in {
           from { opacity: 0; transform: translateY(10px); }
           to   { opacity: 1; transform: translateY(0); }
