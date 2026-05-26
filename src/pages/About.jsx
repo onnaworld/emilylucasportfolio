@@ -199,13 +199,13 @@ export default function About() {
             <SectionHeading>Selected Experience</SectionHeading>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <DotItem>
-                Executive Producer &amp; Cultural Strategy Consultant — Independent (2024–present)
+                Executive Producer &amp; Cultural Strategy Consultant → Independent (2024–present)
               </DotItem>
               <DotItem>
-                Senior Editorial Producer — Harvey Nichols (2024)
+                Senior Editorial Producer → Harvey Nichols (2024)
               </DotItem>
               <DotItem>
-                Producer — MR PORTER, Net-a-Porter Group (2019–2024)
+                Producer → MR PORTER, Net-a-Porter Group (2019–2024)
               </DotItem>
             </ul>
           </div>
