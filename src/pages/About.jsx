@@ -104,12 +104,11 @@ export default function About() {
 
       {/* Top row: ← Home (left). + lives in PlusMenu (fixed top-right).
           Desktop: pull + up so its centre aligns with the ← Home baseline.
-          Mobile: anchor + on the same row as ← Home, above the hairline. */}
+          Mobile alignment lives in index.html (inside the mobile @media
+          block — Safari sometimes ignores nested @media inside injected
+          style tags, so it's safer kept in the static head CSS). */}
       <style>{`
         .about-page .m-plus { top: -8px !important; }
-        @media (max-width: 768px) {
-          .about-page .m-plus { top: 18px !important; right: 14px !important; font-size: 40px !important; }
-        }
       `}</style>
       <div
         className="m-about-header"
