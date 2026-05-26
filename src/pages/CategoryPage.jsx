@@ -308,10 +308,11 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
           className="hover-text"
           style={{
             fontFamily: TIMES,
-            fontStyle: "italic",
-            fontSize: 14,
+            fontSize: 18,
             fontWeight: 400,
             color: colors.text,
+            letterSpacing: 0,
+            lineHeight: 1,
             textDecoration: "none",
           }}
         >
