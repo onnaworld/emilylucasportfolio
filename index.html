@@ -374,11 +374,14 @@
           width: auto !important;
         }
 
-        /* Category page footer — slimmer on mobile */
+        /* Category page footer — slimmer on mobile. The "View All Work →"
+           link has an inline 18px size for desktop parity with the
+           homepage; rein it in on mobile to match the © line. */
         .m-category-footer {
           padding: 18px 16px 14px !important;
           font-size: 13px !important;
         }
+        .m-category-footer a { font-size: 14px !important; }
 
         /* Showcase overlay overflow fix: the 260px reserved width on
            desktop was clipping the client/title on narrow mobile screens.
