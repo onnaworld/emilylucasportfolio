@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { colors, space } from "../theme";
 
 const HEROS_FONT = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
@@ -245,29 +245,56 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
   );
 }
 
-// Internal image carousel — fixed height, auto width (portraits stay
-// portrait), explicit touch swipe + ‹ › chevrons in the side gutter.
-// Loops: clicking › at the end wraps back to the first asset; clicking
-// ‹ at the start jumps to the last.
+// Internal image carousel — fixed height, native aspect ratio per
+// asset, explicit touch swipe + ‹ › chevrons. True infinite loop:
+// renders the asset list three times and silently teleports the scroll
+// position when the user crosses a copy boundary, so scrolling forever
+// feels continuous instead of bouncing back to the first asset.
 function Carousel({ images, project }) {
   const trackRef = useRef(null);
   const touchRef = useRef({ x: 0, y: 0, t: 0 });
+  const oneSetWidthRef = useRef(0);
+  const teleportingRef = useRef(false);
+
+  const shouldLoop = images.length > 1;
+  const rendered = shouldLoop ? [...images, ...images, ...images] : images;
+
+  // After layout, measure one copy's width and centre the scroll on the
+  // middle copy so the user has room to scroll in either direction.
+  useEffect(() => {
+    if (!shouldLoop) return;
+    const el = trackRef.current;
+    if (!el) return;
+    const id = requestAnimationFrame(() => {
+      oneSetWidthRef.current = el.scrollWidth / 3;
+      el.scrollLeft = oneSetWidthRef.current;
+    });
+    return () => cancelAnimationFrame(id);
+  }, [shouldLoop, images]);
+
+  // When scroll crosses into the leftmost or rightmost copy, jump back
+  // to the equivalent position in the middle copy — instant (no smooth)
+  // so it's invisible to the user.
+  const handleScroll = () => {
+    if (!shouldLoop) return;
+    const el = trackRef.current;
+    if (!el || teleportingRef.current) return;
+    const w = oneSetWidthRef.current;
+    if (!w) return;
+    if (el.scrollLeft < w * 0.5) {
+      teleportingRef.current = true;
+      el.scrollLeft += w;
+      requestAnimationFrame(() => { teleportingRef.current = false; });
+    } else if (el.scrollLeft > w * 1.5) {
+      teleportingRef.current = true;
+      el.scrollLeft -= w;
+      requestAnimationFrame(() => { teleportingRef.current = false; });
+    }
+  };
 
   const step = (dir) => {
     const el = trackRef.current;
     if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
-    const epsilon = 4;
-    if (dir > 0 && el.scrollLeft >= max - epsilon) {
-      // At the end → wrap back to the first asset.
-      el.scrollTo({ left: 0, behavior: "smooth" });
-      return;
-    }
-    if (dir < 0 && el.scrollLeft <= epsilon) {
-      // At the start → wrap forward to the last asset.
-      el.scrollTo({ left: max, behavior: "smooth" });
-      return;
-    }
     el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
   };
 
@@ -289,6 +316,7 @@ function Carousel({ images, project }) {
     <div style={{ position: "relative", paddingLeft: 22, paddingRight: 22 }}>
       <div
         ref={trackRef}
+        onScroll={handleScroll}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         className="cs-card-scroll cs-card-carousel"
@@ -296,45 +324,54 @@ function Carousel({ images, project }) {
           display: "flex",
           gap: 8,
           overflowX: "auto",
-          scrollSnapType: "x mandatory",
+          // Proximity (not mandatory) snap — mandatory was fighting the
+          // teleport, snapping to the wrong copy at the boundary.
+          scrollSnapType: "x proximity",
           touchAction: "pan-x",
           WebkitOverflowScrolling: "touch",
           paddingBottom: 4,
         }}
       >
-        {images.map((src, i) => {
-          // Fixed height, width follows native aspect ratio so portrait
-          // stays portrait and landscape stays landscape.
-          const common = {
+        {rendered.map((src, i) => {
+          const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+          // Videos use intrinsic sizing so a 9:16 portrait video keeps
+          // its full aspect ratio at height 220 (= 124px wide). minWidth
+          // would otherwise force the video to stretch and crop.
+          const baseStyle = {
             flex: "0 0 auto",
             height: 220,
             width: "auto",
-            maxWidth: "85%",
-            minWidth: 160,
             display: "block",
             scrollSnapAlign: "start",
             borderRadius: 4,
-            // Pure white placeholder so portrait videos (whose container
-            // briefly shows behind the loading asset) blend into the bg
-            // instead of looking like they have a dark shadow.
             background: "#ffffff",
-            objectFit: "cover",
           };
-          return /\.(mp4|webm|mov)$/i.test(src) ? (
+          const common = isVideo
+            ? baseStyle
+            : {
+                ...baseStyle,
+                maxWidth: "85%",
+                minWidth: 160,
+                objectFit: "cover",
+              };
+          // i % images.length so the alt text + load priorities are
+          // tied to the underlying source index (each src appears 3×).
+          const idx = i % images.length;
+          return isVideo ? (
             <video
               key={i}
               src={src}
               autoPlay muted loop playsInline
-              preload={i < 2 ? "auto" : "metadata"}
+              preload={idx < 2 ? "auto" : "metadata"}
               style={common}
             />
           ) : (
             <img
               key={i}
               src={src}
-              alt={`${project} – ${i + 1}`}
-              loading={i < 2 ? "eager" : "lazy"}
-              fetchpriority={i === 0 ? "high" : "auto"}
+              alt={`${project} – ${idx + 1}`}
+              loading={idx < 2 ? "eager" : "lazy"}
+              fetchpriority={idx === 0 ? "high" : "auto"}
               decoding="async"
               draggable={false}
               style={common}
