@@ -566,6 +566,7 @@ export const productionCases = [
       "/work/mr-porter-in-america/05.jpg",
       "/work/mr-porter-in-america/06.mp4",
       "/work/mr-porter-in-america/07.mp4",
+      "/work/mr-porter-in-america/08.mp4",
     ],
     tags: ["Stills Production", "Video Production", "Editorial Direction", "Casting"],
   },
