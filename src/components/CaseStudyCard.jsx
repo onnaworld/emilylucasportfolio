@@ -256,8 +256,16 @@ function Carousel({ images, project }) {
   const oneSetWidthRef = useRef(0);
   const teleportingRef = useRef(false);
 
-  const shouldLoop = images.length > 1;
-  const rendered = shouldLoop ? [...images, ...images, ...images] : images;
+  // Always lead with video assets, then images. Stable order within
+  // each group so the relative sequence Emily set in work.js is kept.
+  const isVid = (src) => /\.(mp4|webm|mov)$/i.test(src);
+  const ordered = [
+    ...images.filter(isVid),
+    ...images.filter((s) => !isVid(s)),
+  ];
+
+  const shouldLoop = ordered.length > 1;
+  const rendered = shouldLoop ? [...ordered, ...ordered, ...ordered] : ordered;
 
   // After layout, measure one copy's width and centre the scroll on the
   // middle copy so the user has room to scroll in either direction.
