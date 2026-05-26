@@ -9,17 +9,21 @@ const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
 const HINOMARU = "#BC002D";
 
+// Vertical breathing room between top/bottom hairlines and the
+// content/contact rows. Used twice so the spacing reads symmetric.
+const RAIL_PAD = "clamp(28px, 3.2vw, 52px)";
+
 function SectionHeading({ children }) {
   return (
     <div
       style={{
         fontFamily: HEROS,
-        fontSize: "clamp(13px, 1vw, 15px)",
+        fontSize: "clamp(12px, 0.9vw, 14px)",
         fontWeight: 700,
         textTransform: "uppercase",
         letterSpacing: "0.04em",
         color: colors.text,
-        marginBottom: 18,
+        marginBottom: 14,
       }}
     >
       {children}
@@ -34,9 +38,9 @@ function DotItem({ children }) {
         display: "flex",
         gap: 12,
         alignItems: "baseline",
-        marginBottom: 14,
+        marginBottom: 10,
         fontFamily: HEROS,
-        fontSize: "clamp(13px, 1vw, 15px)",
+        fontSize: "clamp(12px, 0.9vw, 14px)",
         fontWeight: 400,
         lineHeight: 1.45,
         color: colors.text,
@@ -46,15 +50,14 @@ function DotItem({ children }) {
         aria-hidden="true"
         style={{
           flexShrink: 0,
-          color: HINOMARU,
-          fontSize: "1.1em",
-          lineHeight: 1,
+          width: 12,
+          height: 12,
+          borderRadius: "50%",
+          background: HINOMARU,
           alignSelf: "center",
           transform: "translateY(-1px)",
         }}
-      >
-        •
-      </span>
+      />
       <span>{children}</span>
     </li>
   );
@@ -69,7 +72,8 @@ export default function About() {
       style={{
         background: colors.bg,
         color: colors.text,
-        minHeight: "100vh",
+        height: "100vh",
+        overflow: "hidden",
         position: "relative",
         display: "flex",
         flexDirection: "column",
@@ -81,13 +85,15 @@ export default function About() {
       <CustomCursor enlargeOnHover />
       <PlusMenu />
 
-      {/* Top hairline border across the page */}
-      <div style={{ borderTop: `1px solid ${colors.text}`, width: "100%" }} />
-
-      {/* ← home, sits just under the top hairline */}
+      {/* Top row: ← Home (left). + lives in PlusMenu (fixed top-right).
+          Heights below the two are reserved so the hairline sits beneath
+          both with consistent whitespace. */}
       <div
         style={{
-          padding: `${space.lg}px ${space.xl}px 0`,
+          padding: `${space.lg}px ${space.xl}px ${space.md}px`,
+          minHeight: 76,
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <Link
@@ -104,22 +110,28 @@ export default function About() {
         </Link>
       </div>
 
-      {/* Main content body */}
+      {/* Top hairline — sits below ← Home and + */}
+      <div style={{ borderTop: `1px solid ${colors.text}`, width: "100%" }} />
+
+      {/* Main content body — fills the remaining viewport */}
       <div
         className="m-about-body"
         style={{
           flex: 1,
-          padding: `${space.lg}px ${space.xl}px ${space.xxl}px`,
+          minHeight: 0,
+          padding: `${RAIL_PAD} ${space.xl}px`,
           display: "flex",
           flexDirection: "column",
+          overflow: "hidden",
         }}
       >
-        {/* Big About title */}
+        {/* About title */}
         <h1
+          className="m-about-title"
           style={{
             fontFamily: HEROS,
             fontWeight: 700,
-            fontSize: "clamp(72px, 11vw, 168px)",
+            fontSize: "clamp(56px, 7.5vw, 112px)",
             lineHeight: 0.95,
             letterSpacing: "-0.02em",
             margin: 0,
@@ -136,11 +148,11 @@ export default function About() {
             fontFamily: TIMES,
             fontStyle: "italic",
             fontWeight: 400,
-            fontSize: "clamp(20px, 1.9vw, 28px)",
-            lineHeight: 1.35,
+            fontSize: "clamp(16px, 1.35vw, 21px)",
+            lineHeight: 1.4,
             color: colors.text,
-            margin: `${space.xl}px 0 0`,
-            maxWidth: "min(880px, 70%)",
+            margin: `clamp(20px, 2vw, 32px) 0 0`,
+            maxWidth: "min(780px, 72%)",
           }}
         >
           My work sits at the intersection of four cultures, shaped by
@@ -151,15 +163,15 @@ export default function About() {
           cultural ambitions.
         </p>
 
-        {/* Two-column section: SELECTED EXPERIENCE | SERVICES */}
+        {/* Two-column section: SELECTED EXPERIENCE | AVAILABLE FOR */}
         <div
           className="m-about-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(40px, 6vw, 96px)",
-            marginTop: "clamp(56px, 7vw, 96px)",
-            maxWidth: "min(1280px, 92%)",
+            gap: "clamp(32px, 5vw, 80px)",
+            marginTop: "clamp(28px, 3.5vw, 56px)",
+            maxWidth: "min(1180px, 92%)",
           }}
         >
           <div>
@@ -195,7 +207,7 @@ export default function About() {
         </div>
 
         {/* Contact link */}
-        <div style={{ marginTop: "clamp(56px, 7vw, 96px)" }}>
+        <div style={{ marginTop: "clamp(28px, 3.5vw, 48px)" }}>
           <button
             onClick={() => setContactOpen(true)}
             style={{
@@ -204,7 +216,7 @@ export default function About() {
               padding: 0,
               fontFamily: TIMES,
               fontStyle: "italic",
-              fontSize: "clamp(18px, 1.4vw, 22px)",
+              fontSize: "clamp(16px, 1.2vw, 20px)",
               fontWeight: 400,
               color: colors.text,
               cursor: "pointer",
