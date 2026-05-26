@@ -385,6 +385,10 @@ export const productionCases = [
       { label: "Skating Story →", url: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
       { label: "Writers Portfolio →", url: "https://www.mrporter.com/en-us/journal/fashion/black-history-month-uk-writers-portfolio-24605122" },
     ],
+    videoLinks: {
+      "/work/mr-porter-championing-subcultures/07.mp4": "https://www.instagram.com/reels/Ce8q_j5vnDb/",
+      "/work/mr-porter-championing-subcultures/08.mp4": "https://www.instagram.com/reels/CdfikVmOgkI/",
+    },
     images: [
       "/work/mr-porter-championing-subcultures/07.mp4",
       "/work/mr-porter-championing-subcultures/08.mp4",
