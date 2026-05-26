@@ -203,17 +203,14 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
           className="m-section category-snap-section"
           style={{
             position: "relative",
-            // Extra bottom padding (~96px) reserves a clean strip for the
-            // absolute down-arrow so it never overlaps the last line of
-            // the body copy — even on dense paragraphs like cultural
-            // strategy. minHeight (not height) lets the section grow if
-            // the copy + padding exceed 100vh on narrow viewports.
-            padding: `${space.xxl}px ${space.xl}px ${space.xxl + 96}px`,
+            // Symmetric top/bottom padding so the arrow sits with equal
+            // whitespace above (between body and arrow) and below
+            // (between arrow and section edge).
+            padding: `${space.xxl}px ${space.xl}px ${space.xxl}px`,
             display: "grid",
             gridTemplateColumns: "1fr 6fr",
             gap: space.xl,
             alignItems: "start",
-            minHeight: "100vh",
           }}
         >
           <div
@@ -253,10 +250,9 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
               }}
               aria-label="Scroll to projects"
               style={{
-                position: "absolute",
-                bottom: space.lg,
-                left: "50%",
-                transform: "translateX(-50%)",
+                gridColumn: "1 / -1",
+                justifySelf: "center",
+                marginTop: space.xxl,
                 background: "none",
                 border: "none",
                 padding: 8,

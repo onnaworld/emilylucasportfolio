@@ -11,7 +11,7 @@ const HINOMARU = "#BC002D";
 
 // Vertical breathing room between top/bottom hairlines and the
 // content/contact rows. Used twice so the spacing reads symmetric.
-const RAIL_PAD = "clamp(28px, 3.2vw, 52px)";
+const RAIL_PAD = "clamp(20px, 2.4vw, 36px)";
 
 function SectionHeading({ children }) {
   return (
@@ -21,7 +21,8 @@ function SectionHeading({ children }) {
         fontSize: "clamp(12px, 0.9vw, 14px)",
         fontWeight: 700,
         textTransform: "uppercase",
-        letterSpacing: "0.04em",
+        letterSpacing: "-0.01em",
+        lineHeight: 1,
         color: colors.text,
         marginBottom: 14,
       }}
@@ -36,23 +37,24 @@ function DotItem({ children }) {
     <li
       style={{
         display: "flex",
-        gap: 12,
+        gap: 10,
         alignItems: "baseline",
-        marginBottom: 10,
+        marginBottom: 4,
         fontFamily: TIMES,
         fontStyle: "italic",
-        fontSize: "clamp(15px, 1.1vw, 18px)",
+        fontSize: "clamp(13px, 0.95vw, 16px)",
         fontWeight: 400,
-        lineHeight: 1.45,
+        lineHeight: 1.3,
         color: colors.text,
+        whiteSpace: "nowrap",
       }}
     >
       <span
         aria-hidden="true"
         style={{
           flexShrink: 0,
-          width: 12,
-          height: 12,
+          width: 9,
+          height: 9,
           borderRadius: "50%",
           background: HINOMARU,
           alignSelf: "center",
@@ -87,12 +89,15 @@ export default function About() {
       <PlusMenu />
 
       {/* Top row: ← Home (left). + lives in PlusMenu (fixed top-right).
-          Heights below the two are reserved so the hairline sits beneath
-          both with consistent whitespace. */}
+          Push + up via a scoped style override so it sits closer to the
+          edge than its default of 24px. Header strip is compact so the
+          hairline rides just under both. */}
+      <style>{`
+        .about-page .m-plus { top: 12px !important; }
+      `}</style>
       <div
         style={{
-          padding: `${space.lg}px ${space.xl}px ${space.md}px`,
-          minHeight: 76,
+          padding: `${space.md}px ${space.xl}px ${space.sm}px`,
           display: "flex",
           alignItems: "center",
         }}
@@ -150,7 +155,8 @@ export default function About() {
             fontStyle: "normal",
             fontWeight: 700,
             fontSize: "clamp(16px, 1.35vw, 21px)",
-            lineHeight: 1.4,
+            lineHeight: 1.15,
+            letterSpacing: "-0.015em",
             color: colors.text,
             margin: `clamp(20px, 2vw, 32px) 0 0`,
             maxWidth: "min(780px, 72%)",
@@ -224,14 +230,17 @@ export default function About() {
         </div>
       </div>
 
-      {/* Bottom hairline + © footer */}
-      <div style={{ borderTop: `1px solid ${colors.text}`, width: "100%" }} />
+      {/* Bottom hairline + © footer — matches the Landing footer */}
       <footer
         style={{
           padding: `${space.md}px ${space.xl}px`,
+          borderTop: `1px solid ${colors.border}`,
+          background: colors.bg,
           fontFamily: TIMES,
-          fontSize: 13,
-          color: colors.text,
+          fontSize: 14,
+          fontWeight: 400,
+          color: colors.textMuted,
+          textAlign: "left",
         }}
       >
         © {new Date().getFullYear()} Emily Lucas
