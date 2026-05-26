@@ -246,15 +246,19 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
 }
 
 // Internal image carousel — fixed height, native aspect ratio per
-// asset, explicit touch swipe + ‹ › chevrons. True infinite loop:
-// renders the asset list three times and silently teleports the scroll
-// position when the user crosses a copy boundary, so scrolling forever
-// feels continuous instead of bouncing back to the first asset.
+// asset, native swipe + ‹ › chevrons. True infinite loop: renders the
+// asset list three times and silently teleports the scroll position
+// when the user lands in the leftmost or rightmost copy, so scrolling
+// forever feels continuous.
+//
+// Note: relies on the browser's native overflow scrolling for swipe (no
+// custom touch handlers — layering scrollBy() on top of native momentum
+// caused a visible double-scroll glitch on iOS).
 function Carousel({ images, project }) {
   const trackRef = useRef(null);
-  const touchRef = useRef({ x: 0, y: 0, t: 0 });
   const oneSetWidthRef = useRef(0);
   const teleportingRef = useRef(false);
+  const scrollEndTimerRef = useRef(null);
 
   // Always lead with video assets, then images. Stable order within
   // each group so the relative sequence Emily set in work.js is kept.
@@ -280,24 +284,27 @@ function Carousel({ images, project }) {
     return () => cancelAnimationFrame(id);
   }, [shouldLoop, images]);
 
-  // When scroll crosses into the leftmost or rightmost copy, jump back
-  // to the equivalent position in the middle copy — instant (no smooth)
-  // so it's invisible to the user.
+  // Teleport ONLY after scroll has settled (debounced). Doing this mid
+  // momentum-scroll cancels the inertial scroll on iOS and reads as a
+  // glitch. Wait 140ms after the last scroll event, then normalise the
+  // position back into the middle copy if we drifted into a side copy.
   const handleScroll = () => {
     if (!shouldLoop) return;
-    const el = trackRef.current;
-    if (!el || teleportingRef.current) return;
-    const w = oneSetWidthRef.current;
-    if (!w) return;
-    if (el.scrollLeft < w * 0.5) {
-      teleportingRef.current = true;
-      el.scrollLeft += w;
-      requestAnimationFrame(() => { teleportingRef.current = false; });
-    } else if (el.scrollLeft > w * 1.5) {
-      teleportingRef.current = true;
-      el.scrollLeft -= w;
-      requestAnimationFrame(() => { teleportingRef.current = false; });
-    }
+    if (scrollEndTimerRef.current) clearTimeout(scrollEndTimerRef.current);
+    scrollEndTimerRef.current = setTimeout(() => {
+      const el = trackRef.current;
+      if (!el || teleportingRef.current) return;
+      const w = oneSetWidthRef.current;
+      if (!w) return;
+      // Anywhere outside [w, 2w] (the middle copy) is fair game to
+      // teleport back into the middle, preserving relative offset.
+      if (el.scrollLeft < w || el.scrollLeft >= 2 * w) {
+        teleportingRef.current = true;
+        const offset = ((el.scrollLeft % w) + w) % w;
+        el.scrollLeft = w + offset;
+        requestAnimationFrame(() => { teleportingRef.current = false; });
+      }
+    }, 140);
   };
 
   const step = (dir) => {
@@ -306,35 +313,19 @@ function Carousel({ images, project }) {
     el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
   };
 
-  const onTouchStart = (e) => {
-    const t = e.touches[0];
-    touchRef.current = { x: t.clientX, y: t.clientY, t: Date.now() };
-  };
-  const onTouchEnd = (e) => {
-    const t = e.changedTouches[0];
-    const dx = t.clientX - touchRef.current.x;
-    const dy = t.clientY - touchRef.current.y;
-    const dt = Date.now() - touchRef.current.t;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4 && dt < 700) {
-      step(dx < 0 ? 1 : -1);
-    }
-  };
-
   return (
     <div style={{ position: "relative", paddingLeft: 22, paddingRight: 22 }}>
       <div
         ref={trackRef}
         onScroll={handleScroll}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
         className="cs-card-scroll cs-card-carousel"
         style={{
           display: "flex",
           gap: 8,
           overflowX: "auto",
-          // Proximity (not mandatory) snap — mandatory was fighting the
-          // teleport, snapping to the wrong copy at the boundary.
-          scrollSnapType: "x proximity",
+          // No scroll-snap — combined with native momentum on iOS it
+          // snaps to the wrong copy after a fast swipe, which looks
+          // exactly like the "glitch" the user described.
           touchAction: "pan-x",
           WebkitOverflowScrolling: "touch",
           paddingBottom: 4,
@@ -350,7 +341,6 @@ function Carousel({ images, project }) {
             height: 220,
             width: "auto",
             display: "block",
-            scrollSnapAlign: "start",
             borderRadius: 4,
             background: "#ffffff",
           };
