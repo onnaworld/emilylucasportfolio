@@ -103,10 +103,13 @@ export default function About() {
       <PlusMenu />
 
       {/* Top row: ← Home (left). + lives in PlusMenu (fixed top-right).
-          Pull + up so its visual centre aligns with the ← Home baseline
-          (PlusMenu default top:24 sits too low on this single-screen page). */}
+          Desktop: pull + up so its centre aligns with the ← Home baseline.
+          Mobile: anchor + on the same row as ← Home, above the hairline. */}
       <style>{`
         .about-page .m-plus { top: -8px !important; }
+        @media (max-width: 768px) {
+          .about-page .m-plus { top: 18px !important; right: 14px !important; font-size: 40px !important; }
+        }
       `}</style>
       <div
         className="m-about-header"

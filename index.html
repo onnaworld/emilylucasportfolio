@@ -175,8 +175,12 @@
         .m-section-about { padding-bottom: 44px !important; }
         .m-section-coda { font-size: 17px !important; margin-top: 16px !important; }
 
-        /* /about body — match mobile gutters to the rest of the site */
-        .m-about-header { padding: 14px 16px 10px !important; }
+        /* /about body — match mobile gutters to the rest of the site.
+           Header strip on mobile: more top breathing room so ← Home
+           clears the status bar / notch, and enough bottom padding so
+           the hairline sits BELOW the + button (which is fixed-positioned
+           on the right). */
+        .m-about-header { padding: 28px 16px 28px !important; }
         .m-about-footer { padding: 12px 16px !important; }
         .m-about-body { padding: 16px 16px !important; overflow-y: auto !important; }
         .m-about-title { font-size: 44px !important; }
