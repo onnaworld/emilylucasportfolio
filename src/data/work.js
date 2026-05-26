@@ -50,7 +50,7 @@ export const productionCases = [
     heroImage: "/work/all-work/7.jpg",
     task: "Commissioned by agency IMA MENA to lead the production of an activation that honoured Ramadan 2026, a key moment in the cultural calendar. Translated brand presence into an experience that respected the rhythm of fasting and community spirit, honouring wellness over borrowed iconography.",
     outcome: "Delivered a pre-dawn hike timed to suhoor, iftar arranged at the summit, and catering that respected the fast, anchoring the activation in community and lived cultural practice. Resulted in a campaign delivery that felt authentic to the people it was made for and the brand it served.",
-    viewProjectLink: "https://hypebeast.com/2026/2/columbia-hike-society-ramadan-hike-uae-event-recap",
+    viewProjectLink: { label: "Hypebeast Press Link →", url: "https://hypebeast.com/2026/2/columbia-hike-society-ramadan-hike-uae-event-recap" },
     images: [
       "/work/columbia-ramadan/01.jpg",
       "/work/columbia-ramadan/02.jpg",
