@@ -4,7 +4,54 @@ import Layout from "./components/Layout";
 import Landing from "./pages/Landing";
 import CustomCursor from "./components/CustomCursor";
 import CaseStudyModal from "./components/CaseStudyModal";
+import RouteMeta from "./components/RouteMeta";
 import { productionCases, CATEGORY_BY_SLUG } from "./data/work";
+
+// Word-boundary truncate to a target length. Used to derive case-study
+// meta descriptions from the existing "task" copy without mid-word
+// cuts that look bad in social previews.
+function truncate(text, max) {
+  if (!text || text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut).trimEnd() + "…";
+}
+
+// Build the SEO/social meta payload for a case-study slug. Pulled out
+// so the modal route stays declarative.
+function buildCaseStudyMeta(study, slug) {
+  const titleCore = `${study.client} — ${study.project || study.title}`;
+  const title = `${titleCore} | Emily Lucas | Executive Producer`;
+  const description = truncate(study.task || study.outcome || "", 155);
+  // Image fallback chain: explicit heroImage → first still in images
+  // (videos can't render as og:image previews) → site default hero.
+  const firstStill = study.images?.find(
+    (src) => typeof src === "string" && !/\.(mp4|webm|mov)$/i.test(src)
+  );
+  const image = study.heroImage || firstStill || "/hero.jpg";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: titleCore,
+    headline: study.title,
+    url: `https://emilyelucas.com/work/${slug}`,
+    creator: {
+      "@type": "Person",
+      name: "Emily Lucas",
+      url: "https://emilyelucas.com/",
+      jobTitle: "Executive Producer & Cultural Strategy Consultant",
+    },
+    publisher: study.client
+      ? { "@type": "Organization", name: study.client }
+      : undefined,
+    about: study.tags?.length ? study.tags.join(", ") : undefined,
+    datePublished: study.year ? String(study.year) : undefined,
+    associatedMedia: image
+      ? { "@type": "ImageObject", contentUrl: `https://emilyelucas.com${image}` }
+      : undefined,
+  };
+  return { title, description, image, jsonLd };
+}
 
 // Code-split the Work routes, defers their bundle (and the productionCases
 // payload) until the user actually navigates there.
@@ -143,7 +190,20 @@ function CaseStudyRoute({ slug }) {
   };
 
   if (!study) return null;
-  return <CaseStudyModal study={study} onClose={onClose} />;
+  const meta = buildCaseStudyMeta(study, slug);
+  return (
+    <>
+      <RouteMeta
+        path={`/work/${slug}`}
+        title={meta.title}
+        description={meta.description}
+        image={meta.image}
+        type="article"
+        jsonLd={meta.jsonLd}
+      />
+      <CaseStudyModal study={study} onClose={onClose} />
+    </>
+  );
 }
 
 function AppRoutes() {
@@ -184,6 +244,7 @@ function AppRoutes() {
                 metaTitle="Production | Emily Lucas | Executive Producer"
                 metaDescription="End-to-end executive production for luxury brands across photography, video and complex post-production. Campaigns delivered across the US, UK, GCC and Europe — Aman, Vogue Arabia, Nike, One&Only, MR PORTER, Cipriani, Mastercard, J.Crew."
                 metaImage="/work/aman-saudi-arabia/01.jpg"
+                suppressMeta={!!slug}
               />
             } />
             <Route path="/cultural-strategy" element={
@@ -196,6 +257,7 @@ function AppRoutes() {
                 metaTitle="Strategy & Editorial | Emily Lucas | Executive Producer"
                 metaDescription="Cultural work across writing, production and strategy — features for Trippin and MR PORTER, production rooted in subcultures, and Gen Z consumer research for MR PORTER's TikTok channel."
                 metaImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif"
+                suppressMeta={!!slug}
               />
             } />
             <Route path="/visual-research" element={
@@ -208,6 +270,7 @@ function AppRoutes() {
                 metaTitle="Visual Research | Emily Lucas | Executive Producer"
                 metaDescription="Image sourcing, photography curation and rights licensing for editorial features at MR PORTER Journal, Trippin and Vogue (Condé Nast). Fine art, entertainment IP, runway and archive."
                 metaImage="/Visual%20Research/w1500_q80%20(2).jpg"
+                suppressMeta={!!slug}
               />
             } />
             <Route path="/about" element={<About />} />

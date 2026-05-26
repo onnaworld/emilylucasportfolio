@@ -26,7 +26,7 @@ function Brand({ children }) {
 // Hero landing page for a single discipline (Production, Strategy & Editorial,
 // Visual Research). Same hero as /work, optionally followed by an About-style
 // paragraph block when `body` is provided.
-export default function CategoryPage({ label, heroImage = "/hero.jpg", body, showcases = [], metaPath, metaTitle, metaDescription, metaImage }) {
+export default function CategoryPage({ label, heroImage = "/hero.jpg", body, showcases = [], metaPath, metaTitle, metaDescription, metaImage, suppressMeta = false }) {
   // Snap-scroll removed — proximity-snap was pulling the user back from
   // the footer onto the showcase. Free scroll feels better for these
   // pages now that there's a footer below the last full-bleed section.
@@ -42,7 +42,7 @@ export default function CategoryPage({ label, heroImage = "/hero.jpg", body, sho
   }, []);
   return (
     <div className="category-page page-fade-in" style={{ background: colors.bg, color: colors.text, minHeight: "100vh" }}>
-      {metaPath && (
+      {metaPath && !suppressMeta && (
         <RouteMeta
           path={metaPath}
           title={metaTitle || `${label} | Emily Lucas | Executive Producer`}

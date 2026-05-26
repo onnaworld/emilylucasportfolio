@@ -15,9 +15,16 @@
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
+import { pathToFileURL } from "node:url";
 import puppeteer from "puppeteer-core";
 
-const ROUTES = [
+// Dynamic import of the source data file so the slug list stays in sync
+// with src/data/work.js — single source of truth for both runtime routing
+// (App.jsx) and build-time prerendering (this script).
+const dataUrl = pathToFileURL(resolve(process.cwd(), "src/data/work.js")).href;
+const { productionCases } = await import(dataUrl);
+
+const STATIC_ROUTES = [
   "/",
   "/work",
   "/production",
@@ -25,6 +32,8 @@ const ROUTES = [
   "/visual-research",
   "/about",
 ];
+const CASE_ROUTES = productionCases.map((c) => `/work/${c.slug}`);
+const ROUTES = [...STATIC_ROUTES, ...CASE_ROUTES];
 const PORT = 5174;
 const DIST = resolve(process.cwd(), "dist");
 
@@ -92,15 +101,32 @@ try {
   for (const route of ROUTES) {
     const url = `http://localhost:${PORT}${route}`;
     console.log(`[prerender] ${route}`);
-    await page.goto(url, { waitUntil: "networkidle0", timeout: 30000 });
-    await new Promise((r) => setTimeout(r, 600));
+    // domcontentloaded (not networkidle0) — autoplaying videos in case
+    // study carousels keep the network busy indefinitely, which timed
+    // out at 30s. We just need React + Helmet to mount; the 1200ms
+    // tail gives the route enough time to hydrate and inject head tags.
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await new Promise((r) => setTimeout(r, 1200));
+    // Grab the live document.title up front — Helmet has races with
+    // lazy-loaded route components, but document.title reflects the
+    // *current* truth no matter which Helmet ran last. We force it
+    // into the prerendered HTML below.
+    const liveTitle = await page.evaluate(() => document.title);
     let html = await page.content();
+    if (liveTitle) {
+      const titleRe = /<title>[^<]*<\/title>/g;
+      const tagged = `<title>${escapeHtml(liveTitle)}</title>`;
+      html = html.replace(titleRe, "").replace(
+        "</head>",
+        `${tagged}\n</head>`
+      );
+    }
 
-    // Dedup head tags. Helmet appends its per-route tags on top of the
-    // static ones from index.html — keep the first (Helmet's) occurrence
-    // and strip duplicates so we don't ship multiple titles / OGs.
+    // Dedup head tags. Helmet APPENDS its per-route tags to head (after
+    // the static index.html tags), so we keep the LAST occurrence —
+    // that's Helmet's, which has the correct per-route values.
     html = dedupHeadTags(html, [
-      /<title>[^<]*<\/title>/g,
+      // <title> is handled separately above via document.title
       /<meta\s+property="og:title"[^>]*>/g,
       /<meta\s+property="og:description"[^>]*>/g,
       /<meta\s+property="og:url"[^>]*>/g,
@@ -124,6 +150,37 @@ try {
   }
 
   await browser.close();
+
+  // Regenerate dist/sitemap.xml off the same data so the slug list,
+  // robots.txt and sitemap can't drift. Static/category pages get
+  // higher priority; case studies are leaves.
+  const lastmod = new Date().toISOString().slice(0, 10);
+  const SITEMAP_ENTRIES = [
+    { loc: "/", changefreq: "weekly", priority: "1.0" },
+    { loc: "/work", changefreq: "weekly", priority: "0.9" },
+    { loc: "/production", changefreq: "monthly", priority: "0.8" },
+    { loc: "/cultural-strategy", changefreq: "monthly", priority: "0.8" },
+    { loc: "/visual-research", changefreq: "monthly", priority: "0.8" },
+    { loc: "/about", changefreq: "monthly", priority: "0.7" },
+    ...productionCases.map((c) => ({
+      loc: `/work/${c.slug}`,
+      changefreq: "monthly",
+      priority: "0.6",
+    })),
+  ];
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${SITEMAP_ENTRIES.map((e) => `  <url>
+    <loc>https://emilyelucas.com${e.loc}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${e.changefreq}</changefreq>
+    <priority>${e.priority}</priority>
+  </url>`).join("\n")}
+</urlset>
+`;
+  writeFileSync(resolve(DIST, "sitemap.xml"), sitemap);
+  console.log(`[prerender] sitemap.xml regenerated (${SITEMAP_ENTRIES.length} urls)`);
+
   console.log("[prerender] done");
 } catch (err) {
   console.error("[prerender] error:", err);
@@ -134,13 +191,28 @@ try {
 
 process.exit(exitCode);
 
+function escapeHtml(s) {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function dedupHeadTags(html, patterns) {
   for (const re of patterns) {
-    let first = true;
-    html = html.replace(re, (m) => {
-      if (first) { first = false; return m; }
-      return "";
-    });
+    const matches = [...html.matchAll(re)];
+    if (matches.length <= 1) continue;
+    const keep = matches[matches.length - 1][0];
+    // Strip every match, then re-insert the keeper at the position of
+    // the last original match so head ordering stays sensible.
+    const lastMatchEnd = matches[matches.length - 1].index + matches[matches.length - 1][0].length;
+    let stripped = html.replace(re, "");
+    // Insert keeper just before </head> so it lands inside head reliably.
+    stripped = stripped.replace("</head>", `${keep}\n</head>`);
+    html = stripped;
+    // lastMatchEnd unused now but kept for readability; the strip+inject
+    // approach is robust against position shifts from earlier patterns.
+    void lastMatchEnd;
   }
   return html;
 }
