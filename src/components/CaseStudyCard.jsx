@@ -283,17 +283,19 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
 }
 
 // Single carousel item with its own fade-in load state. Starts at
-// opacity 0 against a white placeholder, transitions to 1 when the
-// asset's first frame / image decode lands — so slow assets fade in
-// rather than popping in abruptly. If `videoLink` is set, videos
+// opacity 0 against a white placeholder + ⋯ loading dots (mirrors the
+// home-page loading indicator), transitions to 1 when the asset's
+// first frame / image decode lands. If `videoLink` is set, videos
 // become clickable and open the project page in a new tab.
 function CarouselAsset({ src, idx, project, videoLink }) {
   const [loaded, setLoaded] = useState(false);
   const isVideo = /\.(mp4|webm|mov)$/i.test(src);
   const clickable = isVideo && !!videoLink;
 
-  const baseStyle = {
-    flex: "0 0 auto",
+  // Unified asset style: every asset is the same fixed height with
+  // intrinsic width. No minWidth / maxWidth / objectFit on images
+  // either, so a portrait image stays portrait at its native ratio.
+  const assetStyle = {
     height: 220,
     width: "auto",
     display: "block",
@@ -301,34 +303,48 @@ function CarouselAsset({ src, idx, project, videoLink }) {
     background: "#ffffff",
     opacity: loaded ? 1 : 0,
     transition: "opacity 0.35s ease-out",
+  };
+
+  const asset = isVideo ? (
+    <video
+      src={src}
+      autoPlay muted loop playsInline
+      preload={idx < 2 ? "auto" : "metadata"}
+      style={{
+        ...assetStyle,
+        // Let the wrapper catch the click — autoplaying videos can
+        // otherwise swallow the click in some browsers.
+        pointerEvents: clickable ? "none" : "auto",
+      }}
+      onLoadedData={() => setLoaded(true)}
+    />
+  ) : (
+    <img
+      src={src}
+      alt={`${project} – ${idx + 1}`}
+      loading={idx < 2 ? "eager" : "lazy"}
+      fetchpriority={idx === 0 ? "high" : "auto"}
+      decoding="async"
+      draggable={false}
+      style={assetStyle}
+      onLoad={() => setLoaded(true)}
+    />
+  );
+
+  // Wrap every asset so we can overlay the loading dots and so the
+  // clickable videos catch their own click reliably. The wrapper is
+  // the flex item that the carousel track lays out.
+  const wrapperStyle = {
+    position: "relative",
+    flex: "0 0 auto",
+    display: "inline-block",
+    lineHeight: 0,
     cursor: clickable ? "pointer" : "default",
   };
-  const style = isVideo
-    ? baseStyle
-    : {
-        ...baseStyle,
-        maxWidth: "85%",
-        minWidth: 160,
-        objectFit: "cover",
-        cursor: "default",
-      };
 
-  if (isVideo) {
-    const video = (
-      <video
-        src={src}
-        autoPlay muted loop playsInline
-        preload={idx < 2 ? "auto" : "metadata"}
-        style={{
-          ...style,
-          // Let the wrapper div catch the click — autoplaying videos
-          // can otherwise swallow the click in some browsers.
-          pointerEvents: clickable ? "none" : "auto",
-        }}
-        onLoadedData={() => setLoaded(true)}
-      />
-    );
-    if (!clickable) return video;
+  const dots = !loaded ? <CarouselLoadingDots /> : null;
+
+  if (clickable) {
     const open = () => window.open(videoLink, "_blank", "noopener,noreferrer");
     return (
       <div
@@ -341,30 +357,59 @@ function CarouselAsset({ src, idx, project, videoLink }) {
             open();
           }
         }}
-        style={{
-          flex: "0 0 auto",
-          display: "inline-block",
-          cursor: "pointer",
-          lineHeight: 0,
-        }}
+        style={wrapperStyle}
         aria-label="View project"
       >
-        {video}
+        {asset}
+        {dots}
       </div>
     );
   }
 
   return (
-    <img
-      src={src}
-      alt={`${project} – ${idx + 1}`}
-      loading={idx < 2 ? "eager" : "lazy"}
-      fetchpriority={idx === 0 ? "high" : "auto"}
-      decoding="async"
-      draggable={false}
-      style={style}
-      onLoad={() => setLoaded(true)}
-    />
+    <div style={wrapperStyle}>
+      {asset}
+      {dots}
+    </div>
+  );
+}
+
+// ⋯ loading indicator overlaid on a carousel asset while it loads.
+// Mirrors the LoadingDots used on the homepage hero so the loading
+// pattern reads as the same site-wide.
+function CarouselLoadingDots() {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        inset: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 6,
+        pointerEvents: "none",
+      }}
+    >
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          style={{
+            width: 5,
+            height: 5,
+            borderRadius: "50%",
+            background: colors.textMuted,
+            animation: `cs-dot-pulse 1.2s ${i * 0.18}s ease-in-out infinite`,
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes cs-dot-pulse {
+          0%, 80%, 100% { opacity: 0.15; transform: scale(0.8); }
+          40%           { opacity: 0.9;  transform: scale(1);   }
+        }
+      `}</style>
+    </div>
   );
 }
 
