@@ -296,13 +296,19 @@
         }
         /* Case-study carousel assets on mobile: drop the fixed height
            from 220 → 160 so 16:9 landscape videos no longer overflow
-           the card. Portrait assets shrink proportionally too. */
-        .cs-card-carousel > * > video,
-        .cs-card-carousel > * > img,
+           the card. Portrait assets shrink proportionally. */
         .cs-card-carousel > video,
         .cs-card-carousel > img {
           height: 160px !important;
           max-width: calc(100vw - 100px) !important;
+        }
+        /* IMG-specific: drop the desktop minWidth (160) and objectFit
+           cover, otherwise a 9:16 portrait image gets forced to 160
+           wide and then cropped to fit. Let images use their intrinsic
+           ratio like videos do. */
+        .cs-card-carousel > img {
+          min-width: 0 !important;
+          object-fit: contain !important;
         }
 
         /* Category page footer — slimmer on mobile */
