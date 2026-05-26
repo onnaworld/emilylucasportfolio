@@ -316,19 +316,43 @@ function CarouselAsset({ src, idx, project, videoLink }) {
       };
 
   if (isVideo) {
-    return (
+    const video = (
       <video
         src={src}
         autoPlay muted loop playsInline
         preload={idx < 2 ? "auto" : "metadata"}
-        style={style}
+        style={{
+          ...style,
+          // Let the wrapper div catch the click — autoplaying videos
+          // can otherwise swallow the click in some browsers.
+          pointerEvents: clickable ? "none" : "auto",
+        }}
         onLoadedData={() => setLoaded(true)}
-        onClick={
-          clickable
-            ? () => window.open(videoLink, "_blank", "noopener,noreferrer")
-            : undefined
-        }
       />
+    );
+    if (!clickable) return video;
+    const open = () => window.open(videoLink, "_blank", "noopener,noreferrer");
+    return (
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={open}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            open();
+          }
+        }}
+        style={{
+          flex: "0 0 auto",
+          display: "inline-block",
+          cursor: "pointer",
+          lineHeight: 0,
+        }}
+        aria-label="View project"
+      >
+        {video}
+      </div>
     );
   }
 

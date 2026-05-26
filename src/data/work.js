@@ -16,6 +16,7 @@ export const productionCases = [
     heroImage: "/work/aman/01.jpg",
     task: "Communicate the essence of upcoming Aman properties in Saudi Arabia prior to physical completion, translating an abstract, atmosphere-driven creative brief into high-quality visual assets across vast regional landscapes.",
     outcome: "Delivered a comprehensive library of cinematic assets that established the emotional foundation for the destinations through atmospheric, localised storytelling, enabling the brand to initiate market presence and residential sales with a visual language that felt established, authentic, and uncompromisingly Aman.",
+    viewProjectLink: { label: "View Project →", url: "https://www.aman.com/resorts/amansamar" },
     videoLink: "https://vimeo.com/1132426046?share=copy&fl=sv&fe=ci",
     images: [
       "/work/aman/05.mp4",
