@@ -36,9 +36,6 @@ export default function PlusMenu() {
           mixBlendMode: "difference",
           zIndex: 300,
           cursor: "pointer",
-          // Rotate-to-× is hover-only on hover-capable devices —
-          // handled by the .m-plus:hover CSS rule in index.css so
-          // touch devices don't get a sticky rotate after tap.
         }}
       >
         +
