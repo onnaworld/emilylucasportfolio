@@ -8,7 +8,7 @@ const NAV_ITEMS = [
 
 export default function Layout({ children }) {
   const location = useLocation();
-  const noChromePaths = ["/", "/work", "/production", "/cultural-strategy", "/visual-research"];
+  const noChromePaths = ["/", "/work", "/production", "/cultural-strategy", "/visual-research", "/about"];
   const noChrome = noChromePaths.includes(location.pathname);
   const noHeader = noChrome;
   const noFooter = noChrome;

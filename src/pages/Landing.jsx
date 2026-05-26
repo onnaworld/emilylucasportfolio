@@ -299,10 +299,47 @@ export default function Landing() {
           relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
           <Brand>Condé Nast</Brand>; production partner to agencies for{" "}
           <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
-          <Brand>Nike</Brand>. Consultancy and advisory engagements across New
-          York, Tokyo, Dubai, and London.
+          <Brand>Nike</Brand>.
         </p>
       </section>
+
+      {/* About link row — italic consultancy line + "About →" link, same
+          centered/bordered treatment as "View All Work →" below. */}
+      <div
+        className="m-link-row"
+        style={{
+          padding: `${space.md}px ${space.xl}px ${space.md}px`,
+          borderBottom: `1px solid ${colors.text}`,
+          textAlign: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontStyle: "italic",
+            fontSize: 15,
+            fontWeight: 400,
+            color: colors.textMuted,
+            lineHeight: 1.3,
+            marginBottom: space.sm,
+          }}
+        >
+          Consultancy and advisory engagements across New York, Tokyo, Dubai, and London.
+        </div>
+        <Link
+          to="/about"
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontSize: 18,
+            fontWeight: 400,
+            color: colors.text,
+            letterSpacing: 0,
+            lineHeight: 1,
+          }}
+        >
+          About →
+        </Link>
+      </div>
 
       <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} viewMoreHref="/production" />
       <CategorySlide label="STRATEGY & EDITORIAL" images={WRITING_IMAGES} compact viewMoreHref="/cultural-strategy" />
@@ -457,7 +494,7 @@ function ContactModal({ onClose }) {
       { prefix: "US", value: "+1 (917) 735-8545", href: "tel:+19177358545" },
     ]},
     { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas", href: "https://www.linkedin.com/in/emilyelucas/", external: true },
-    { label: "RESUME",   value: "On request" },
+    { label: "RESUME",   value: "Available on request" },
   ];
 
   return (

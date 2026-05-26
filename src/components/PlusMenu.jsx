@@ -237,7 +237,7 @@ function ContactModal({ onClose }) {
       { prefix: "US", value: "+1 (917) 735-8545", href: "tel:+19177358545" },
     ]},
     { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas", href: "https://www.linkedin.com/in/emilyelucas/", external: true },
-    { label: "RESUME",   value: "On request" },
+    { label: "RESUME",   value: "Available on request" },
   ];
 
   const valueStyle = {
