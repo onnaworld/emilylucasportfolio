@@ -6,12 +6,16 @@
 // iMessage / GPTBot / ClaudeBot / PerplexityBot (which DON'T execute JS)
 // see real per-route meta and content, not just index.html's defaults.
 //
-// Runs automatically via `postbuild` in package.json after `vite build`.
+// Chromium binary:
+//   - Local (macOS): system Google Chrome
+//   - Linux (Vercel build): @sparticuz/chromium, a serverless-optimised
+//     Chromium that bundles the shared libs Vercel's container is
+//     missing (libnspr4 etc).
 
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 
 const ROUTES = [
   "/",
@@ -27,6 +31,29 @@ const DIST = resolve(process.cwd(), "dist");
 if (!existsSync(DIST)) {
   console.error("[prerender] dist/ doesn't exist — run `vite build` first.");
   process.exit(1);
+}
+
+// Resolve the Chromium binary for the current platform.
+async function resolveBrowser() {
+  if (process.platform === "linux") {
+    const chromium = (await import("@sparticuz/chromium")).default;
+    return {
+      executablePath: await chromium.executablePath(),
+      args: [
+        ...chromium.args,
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+      ],
+      headless: chromium.headless,
+    };
+  }
+  // macOS local dev — assume Google Chrome is installed at the standard path.
+  return {
+    executablePath:
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    headless: true,
+  };
 }
 
 console.log("[prerender] starting local server on dist/");
@@ -45,24 +72,19 @@ server.stdout?.on("data", (chunk) => {
 });
 server.stderr?.on("data", (chunk) => process.stderr.write(chunk));
 
-// Wait up to 8s for the server to be ready.
 for (let i = 0; i < 80 && !serverReady; i++) {
   await new Promise((r) => setTimeout(r, 100));
 }
 if (!serverReady) {
-  // serve doesn't always announce — best-effort assume it's up after 1.5s.
   console.log("[prerender] server didn't announce ready; continuing anyway");
 }
 await new Promise((r) => setTimeout(r, 500));
 
 let exitCode = 0;
 try {
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  const launchOpts = await resolveBrowser();
+  const browser = await puppeteer.launch(launchOpts);
   const page = await browser.newPage();
-  // Identify ourselves so we could opt-out of analytics if we ever add any.
   await page.setUserAgent(
     "EmilyLucasPrerenderer/1.0 (+https://emilyelucas.com)"
   );
@@ -71,15 +93,12 @@ try {
     const url = `http://localhost:${PORT}${route}`;
     console.log(`[prerender] ${route}`);
     await page.goto(url, { waitUntil: "networkidle0", timeout: 30000 });
-    // Give Helmet a tick to flush meta into <head>.
     await new Promise((r) => setTimeout(r, 600));
     let html = await page.content();
 
-    // Dedup head tags. The page captures BOTH the static tags from
-    // index.html and Helmet's per-route tags, so we end up with
-    // multiple <title>, og:*, twitter:*, canonical entries. Helmet's
-    // injected tags appear FIRST in the head for each route, so keep
-    // the first occurrence and remove the rest.
+    // Dedup head tags. Helmet appends its per-route tags on top of the
+    // static ones from index.html — keep the first (Helmet's) occurrence
+    // and strip duplicates so we don't ship multiple titles / OGs.
     html = dedupHeadTags(html, [
       /<title>[^<]*<\/title>/g,
       /<meta\s+property="og:title"[^>]*>/g,
@@ -115,7 +134,6 @@ try {
 
 process.exit(exitCode);
 
-// Keep the first match of each regex, remove subsequent matches.
 function dedupHeadTags(html, patterns) {
   for (const re of patterns) {
     let first = true;

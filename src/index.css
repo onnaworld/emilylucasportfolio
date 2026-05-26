@@ -37,3 +37,47 @@ button {
   background: none;
   border: none;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Hover states (editorial polish). Pair-wise: transition is on the
+   base state so hover-in AND hover-out are both animated.
+
+   .hover-img         standard clickable image (thumbnails, case
+                      study tiles, showcase media). 1.02 lift.
+   .hover-img-large   large/full-bleed hero treatments. 1.015 lift.
+   .hover-text        text links. opacity 1 → 0.7, never scale.
+   .hover-cluster     parent of multiple images; siblings of the
+                      hovered child drop to 0.85 opacity.
+   ───────────────────────────────────────────────────────────── */
+
+.hover-img {
+  cursor: pointer;
+  transition: transform 400ms ease-out;
+  will-change: transform;
+}
+.hover-img:hover {
+  transform: scale(1.02);
+}
+
+.hover-img-large {
+  cursor: pointer;
+  transition: transform 400ms ease-out;
+  will-change: transform;
+}
+.hover-img-large:hover {
+  transform: scale(1.015);
+}
+
+.hover-text {
+  transition: opacity 220ms ease-out;
+}
+.hover-text:hover {
+  opacity: 0.7;
+}
+
+.hover-cluster > * {
+  transition: opacity 400ms ease-out;
+}
+.hover-cluster:hover > *:not(:hover) {
+  opacity: 0.85;
+}

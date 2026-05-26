@@ -339,6 +339,7 @@ export default function Landing() {
       >
         <Link
           to="/about"
+          className="hover-text"
           style={{
             fontFamily: "'Times New Roman', Times, serif",
             fontSize: 18,
@@ -522,6 +523,7 @@ function CategorySlide({ label, images, compact = false, landscape = false, view
         </div>
         <Link
           to={viewMoreHref}
+          className="hover-text"
           style={{
             fontFamily: HEROS,
             fontSize: 13,
@@ -626,6 +628,7 @@ function GridTile({ study }) {
   return (
     <Link
       to={`/work#${study.slug}`}
+      className="hover-img"
       style={{
         position: "relative",
         display: "block",
