@@ -383,6 +383,8 @@ export const productionCases = [
     outcome: "Conceived and produced Mr Porter's Helping Hands as the inaugural franchise series. A/B tested formats against engagement and retention, evolving the series into the community-led Ask Mr Porter format, where audience questions drove content rather than brand-led scripting. The TikTok channel grew to 50K followers in its inaugural year, establishing the social production playbook MR PORTER continued to build on.",
     images: [
       "/work/mr-porter-social-media/01.mp4",
+      "/work/mr-porter-social-media/02.mp4",
+      "/work/mr-porter-social-media/03.mp4",
     ],
     tags: ["Social Media Strategy", "Gen Z Research", "Content Production", "Brand Strategy"],
   },
