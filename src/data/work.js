@@ -385,6 +385,7 @@ export const productionCases = [
       "/work/mr-porter-social-media/01.mp4",
       "/work/mr-porter-social-media/02.mp4",
       "/work/mr-porter-social-media/03.mp4",
+      "/work/mr-porter-social-media/04.mp4",
     ],
     tags: ["Social Media Strategy", "Gen Z Research", "Content Production", "Brand Strategy"],
   },
