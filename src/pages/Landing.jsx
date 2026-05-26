@@ -482,7 +482,10 @@ export default function Landing() {
 
 
 function CategorySlide({ label, images, compact = false, landscape = false, viewMoreHref = "/work" }) {
-  const padV = compact ? space.sm : space.md;
+  // Vertical padding stays constant across all three rows so the gap
+  // between them reads as a uniform rhythm — image heights still vary
+  // by `compact` / `landscape`, but row-to-row spacing is even.
+  const padV = space.md;
   return (
     <section
       className="m-category-slide"
