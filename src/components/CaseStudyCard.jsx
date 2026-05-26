@@ -247,6 +247,8 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
 
 // Internal image carousel — fixed height, auto width (portraits stay
 // portrait), explicit touch swipe + ‹ › chevrons in the side gutter.
+// Loops: clicking › at the end wraps back to the first asset; clicking
+// ‹ at the start jumps to the last.
 function Carousel({ images, project }) {
   const trackRef = useRef(null);
   const touchRef = useRef({ x: 0, y: 0, t: 0 });
@@ -254,6 +256,18 @@ function Carousel({ images, project }) {
   const step = (dir) => {
     const el = trackRef.current;
     if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    const epsilon = 4;
+    if (dir > 0 && el.scrollLeft >= max - epsilon) {
+      // At the end → wrap back to the first asset.
+      el.scrollTo({ left: 0, behavior: "smooth" });
+      return;
+    }
+    if (dir < 0 && el.scrollLeft <= epsilon) {
+      // At the start → wrap forward to the last asset.
+      el.scrollTo({ left: max, behavior: "smooth" });
+      return;
+    }
     el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
   };
 
@@ -300,7 +314,10 @@ function Carousel({ images, project }) {
             display: "block",
             scrollSnapAlign: "start",
             borderRadius: 4,
-            background: "rgba(0,0,0,0.05)",
+            // Pure white placeholder so portrait videos (whose container
+            // briefly shows behind the loading asset) blend into the bg
+            // instead of looking like they have a dark shadow.
+            background: "#ffffff",
             objectFit: "cover",
           };
           return /\.(mp4|webm|mov)$/i.test(src) ? (
