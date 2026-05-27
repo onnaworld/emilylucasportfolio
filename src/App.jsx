@@ -131,15 +131,12 @@ const VISUAL_RESEARCH_BODY = (
 
 const CULTURAL_STRATEGY_BODY = (
   <>
-    Cultural work across writing, production, and strategy, bound by a
-    defining editorial position that champions representation from the
-    inside of culture. Authored features for <B>Trippin</B> and{" "}
-    <B>MR PORTER</B>. Production work rooted in subcultures from Black
-    British literary culture, Saudi Arabian poetry, the London queer
-    community, and London's roller skating scene, each cast and crewed
-    from within. Gen Z consumer research and social media production
-    strategy driving organic growth for <B>MR PORTER</B>'s TikTok
-    channel.
+    Cultural work across writing and production, bound by an editorial
+    position that centers representation from inside the culture
+    itself. Authored features for <B>Trippin</B> and <B>MR PORTER</B>.
+    Production rooted in subcultures — Black British literary culture,
+    Saudi Arabian poetry, London's queer community, London's roller
+    skating scene — each strategized and produced from within.
   </>
 );
 
