@@ -138,8 +138,8 @@ const CULTURAL_STRATEGY_BODY = (
     British literary culture, Saudi Arabian poetry, the London queer
     community, and London's roller skating scene, each cast and crewed
     from within. Gen Z consumer research and social media production
-    strategy driving organic growth for <B>MR PORTER</B>'s TikTok channel
-    to 50K followers in its inaugural year.
+    strategy driving organic growth for <B>MR PORTER</B>'s TikTok
+    channel.
   </>
 );
 
