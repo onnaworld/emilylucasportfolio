@@ -450,7 +450,7 @@ export const productionCases = [
     slug: "jcrew-abraham-moon",
     title: "Yorkshire craftsmanship and street-cast authenticity",
     client: "J.Crew",
-    project: "Abraham Moon Mill",
+    project: "Abraham Moon",
     year: "2023",
     heroVideo: "/work/jcrew-abraham-moon/hero.mp4",
     heroImage: "/work/jcrew-abraham-moon/01.jpg",
@@ -514,7 +514,7 @@ export const productionCases = [
     year: "2025",
     heroVideo: "/work/cipriani-mr-c-residence-dubai/hero.mp4",
     heroImage: "/work/cipriani-mr-c-residence-dubai/01.jpg",
-    task: "Facilitate the visual launch of Mr. C Residences Downtown in partnership with London-based agency Noë & Associates, using the brand's existing jumeirah residences to create content for a new development, acting as on-the-ground production lead between London's creative direction and Dubai's logistical realities.",
+    task: "Facilitate the visual launch of Mr. C Residences Downtown in partnership with London-based agency Noë & Associates, using the brand's existing [[Jumeirah]] residences to create content for a new development, acting as on-the-ground production lead between London's creative direction and Dubai's logistical realities.",
     outcome: "Provided the regional expertise necessary to navigate a sensitive, live residential environment with discretion. Delivered a suite of assets that maintained Cipriani's Italian heritage while speaking to the Dubai luxury market.",
     videoLink: "https://vimeo.com/1160185821?share=copy&fl=sv&fe=ci",
     images: [

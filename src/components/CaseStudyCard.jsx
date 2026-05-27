@@ -14,20 +14,53 @@ const BRAND_TERMS = [
   "Achraf Hakimi", "Halima Aden", "Balqees Fathi", "Luc Braquet", "Txema Yeste",
   "Willson Project", "Wilson Project", "Finneas", "Abraham Moon", "GUESS", "SIRO",
   "IMA MENA", "Tyla", "Alessandro Michele", "Luís Figo",
+  "Noë & Associates",
 ];
+
+// `[[Plain Text]]` marker: lets a single instance opt OUT of the brand-
+// term match (e.g. "Jumeirah" as a Dubai neighbourhood vs. the hotel
+// brand). The rendered output strips the brackets and the inner text
+// stays unstyled even if it matches a BRAND_TERMS entry.
+const PLAIN_RE = /\[\[(.+?)\]\]/g;
 
 export function withBrands(text) {
   if (!text) return null;
+
+  // 1. Extract [[Plain]] markers into placeholders so brand matching skips them.
+  const plainSegments = [];
+  const masked = text.replace(PLAIN_RE, (_, inner) => {
+    const placeholder = ` P${plainSegments.length} `;
+    plainSegments.push(inner);
+    return placeholder;
+  });
+
+  // 2. Run the brand match on the masked text.
   const sorted = [...BRAND_TERMS].sort((a, b) => b.length - a.length);
   const escaped = sorted.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
   const re = new RegExp(`(${escaped.join("|")})`, "g");
-  return text.split(re).map((part, i) =>
-    BRAND_TERMS.includes(part) ? (
-      <em key={i} style={{ fontFamily: TIMES, fontStyle: "italic", fontWeight: 400 }}>{part}</em>
-    ) : (
-      <span key={i}>{part}</span>
-    )
-  );
+  const PLACEHOLDER_RE = / P(\d+) /g;
+
+  return masked.split(re).map((part, i) => {
+    if (BRAND_TERMS.includes(part)) {
+      return <em key={i} style={{ fontFamily: TIMES, fontStyle: "italic", fontWeight: 400 }}>{part}</em>;
+    }
+    // 3. If this part contains placeholder tokens, swap them back to plain text.
+    PLACEHOLDER_RE.lastIndex = 0;
+    if (PLACEHOLDER_RE.test(part)) {
+      PLACEHOLDER_RE.lastIndex = 0;
+      const out = [];
+      let last = 0;
+      let m;
+      while ((m = PLACEHOLDER_RE.exec(part))) {
+        if (m.index > last) out.push(part.slice(last, m.index));
+        out.push(plainSegments[Number(m[1])]);
+        last = m.index + m[0].length;
+      }
+      if (last < part.length) out.push(part.slice(last));
+      return <span key={i}>{out.join("")}</span>;
+    }
+    return <span key={i}>{part}</span>;
+  });
 }
 
 // Inner card: × button + top/bottom fades + scrollable body with the

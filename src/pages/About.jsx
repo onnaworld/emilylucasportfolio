@@ -103,7 +103,7 @@ export default function About() {
       <RouteMeta
         path="/about"
         title="About | Emily Lucas | Executive Producer"
-        description="Tokyo-born Executive Producer with industry experience across London, Dubai, New York and Japan. Production that emerges from inside the communities it represents, and advisory work for brands building strategies that reflect the cultures they speak to."
+        description="Emily Lucas is an Executive Producer and Cultural Strategy Consultant. Previously Senior Editorial Producer at Harvey Nichols and Producer at MR PORTER, Net-a-Porter Group. Independent EP for production, consultancy and advisory across New York, Tokyo, Dubai and London."
         image="/hero.jpg"
         jsonLd={{
           "@context": "https://schema.org",
@@ -150,6 +150,16 @@ export default function About() {
         }
         .about-fade-in {
           animation: about-fade-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        /* Mobile: skip the per-element stagger — it stacks on top of
+           the page-fade-in transform and creates a visible double-bump
+           on the smaller viewport. Page-level fade alone is enough. */
+        @media (max-width: 768px) {
+          .about-fade-in {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
         }
       `}</style>
       <div
@@ -224,11 +234,15 @@ export default function About() {
             animationDelay: "180ms",
           }}
         >
-          Tokyo-born, with industry experience across London, Dubai,
-          New York and Japan. Most interested in production that
-          emerges from inside the communities it represents, and
-          advisory work for brands building strategies that reflect
-          the cultures they speak to.
+          Emily Lucas is an Executive Producer and Cultural Strategy
+          Consultant whose work sits at the intersection of four
+          cultures, shaped by growing up in Tokyo and working across
+          London, Dubai, New York and Japan. She was previously Senior
+          Editorial Producer at Harvey Nichols (2024) and Producer at
+          MR PORTER, Net-a-Porter Group (2019–2024). She is currently
+          an independent EP available for production, consultancy and
+          advisory engagements across New York, Tokyo, Dubai, and
+          London.
         </p>
 
         {/* Two-column section: SELECTED EXPERIENCE | AVAILABLE FOR */}

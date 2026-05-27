@@ -145,6 +145,18 @@ const CULTURAL_STRATEGY_BODY = (
 
 function ScrollToTop() {
   const { pathname, hash, state } = useLocation();
+  // Disable the browser's built-in scroll restoration so a hard
+  // refresh on any route lands at the top instead of wherever the
+  // previous session left off. Runs once on first render.
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    // Force the very first paint to the top — covers reload / direct
+    // URL entry / external link landings, which otherwise can render
+    // mid-page before React mounts.
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (hash) return; // honour anchor links like /work#aman
     // Modal-over-background navigations should leave the background
@@ -155,7 +167,11 @@ function ScrollToTop() {
     //      itself shouldn't auto-scroll to top either way.
     if (state?.backgroundLocation) return;
     if (/^\/work\/[^/]+\/?$/.test(pathname)) return;
-    window.scrollTo(0, 0);
+    // Instant top — Landing's Lenis instance has been destroyed by the
+    // time a different route mounts, so a plain window.scrollTo is safe.
+    // Explicit "instant" so a stray CSS scroll-behavior:smooth somewhere
+    // can't turn this into a visible animation.
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [pathname, hash, state]);
   return null;
 }
