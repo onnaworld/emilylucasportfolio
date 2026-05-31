@@ -315,21 +315,6 @@ export default function Landing() {
             <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
             <Brand>Nike</Brand>.
           </p>
-          <p
-            className="m-section-coda"
-            style={{
-              marginTop: space.lg,
-              marginBottom: 0,
-              fontFamily: "'Times New Roman', Times, serif",
-              fontStyle: "italic",
-              fontSize: "clamp(22px, 2.1vw, 32px)",
-              fontWeight: 400,
-              lineHeight: 1.3,
-              color: colors.textMuted,
-            }}
-          >
-            EP, consultancy and advisory engagements across New York, Tokyo, Dubai, and London.
-          </p>
         </div>
       </section>
 

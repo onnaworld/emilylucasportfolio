@@ -103,7 +103,7 @@ export default function About() {
       <RouteMeta
         path="/about"
         title="About | Emily Lucas | Executive Producer"
-        description="Emily Lucas is an Executive Producer and Cultural Strategy Consultant. Previously Senior Editorial Producer at Harvey Nichols and Producer at MR PORTER, Net-a-Porter Group. Independent EP for production, consultancy and advisory across New York, Tokyo, Dubai and London."
+        description="Emily Lucas is an Executive Producer and Cultural Strategy Consultant. Previously Senior Editorial Producer at Harvey Nichols and Producer at MR PORTER, Net-a-Porter Group."
         image="/hero.jpg"
         jsonLd={{
           "@context": "https://schema.org",
