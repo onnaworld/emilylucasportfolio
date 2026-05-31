@@ -239,10 +239,7 @@ export default function About() {
           cultures, shaped by growing up in Tokyo and working across
           London, Dubai, New York and Japan. She was previously Senior
           Editorial Producer at Harvey Nichols (2024) and Producer at
-          MR PORTER, Net-a-Porter Group (2019–2024). She is currently
-          an independent EP available for production, consultancy and
-          advisory engagements across New York, Tokyo, Dubai, and
-          London.
+          MR PORTER, Net-a-Porter Group (2019–2024).
         </p>
 
         {/* Two-column section: SELECTED EXPERIENCE | AVAILABLE FOR */}
