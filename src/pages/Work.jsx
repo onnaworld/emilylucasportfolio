@@ -24,7 +24,11 @@ function categoryFor(n) {
 // Cursor-following label. When the user is hovering a project row or
 // scattered thumb on /work, this renders next to the dot cursor and
 // shows the project's category. Pure-DOM positioning via refs so the
-// mousemove listener doesn't rerun React renders.
+// mousemove listener doesn't rerun React renders. Portaled to
+// document.body so that position: fixed is genuinely viewport-
+// relative — without the portal, .work-page's .page-fade-in transform
+// makes the label position relative to the page wrapper and it falls
+// off-screen on scroll.
 function CursorLabel({ text }) {
   const ref = useRef(null);
   useEffect(() => {
@@ -37,7 +41,7 @@ function CursorLabel({ text }) {
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
-  return (
+  return createPortal(
     <div
       ref={ref}
       aria-hidden="true"
@@ -60,7 +64,8 @@ function CursorLabel({ text }) {
       }}
     >
       {text}
-    </div>
+    </div>,
+    document.body
   );
 }
 
