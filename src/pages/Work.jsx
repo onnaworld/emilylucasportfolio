@@ -58,6 +58,8 @@ const PROJECTS = [
   { n: 27, client: "MR PORTER",           title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe",       slug: "mr-porter-five-stylish-summertime-movies",       thumb: "/work/all-work/27.jpg",  link: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852" },
   { n: 28, client: "MR PORTER",           title: "Five Ways To Freshen Up Your Work Wardrobe In 2020",                         slug: "mr-porter-five-ways-freshen-work-wardrobe",      thumb: "/work/all-work/28.jpg",  link: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428" },
   { n: 29, client: "MR PORTER",           title: "What To Read, Watch And Do This Black History Month UK",                     slug: "mr-porter-black-history-month-uk",  thumb: "/work/all-work/29.jpg",  link: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134" },
+  { n: 30, client: "VOGUE ARABIA",        title: "Why I Refuse to Use Face-Altering Filters in 2025",                          slug: "vogue-arabia-face-filters-essay",   thumb: "/Visual%20Research/vogue-arabia-filters-hero.webp", link: "https://www.voguearabia.com/article/refuse-to-use-face-altering-filters-in-2025" },
+  { n: 31, client: "VOGUE ARABIA",        title: "DND Mode: The Top Ladies Spas to Visit in Riyadh",                           slug: "vogue-arabia-ladies-spas-riyadh",   thumb: "/Visual%20Research/vogue-arabia-spas-hero.webp",    link: "https://www.voguearabia.com/article/best-ladies-spas-riyadh" },
 ];
 
 export default function Work() {

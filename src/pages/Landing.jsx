@@ -61,6 +61,8 @@ const VISUAL_RESEARCH_IMAGES = [
   { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends" },
   { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "What To Read, Watch And Do This Black History Month UK" },
   { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe" },
+  { src: "/Visual%20Research/vogue-arabia-filters-hero.webp", client: "VOGUE ARABIA", title: "Why I Refuse to Use Face-Altering Filters in 2025", landscape: true },
+  { src: "/Visual%20Research/vogue-arabia-spas-hero.webp", client: "VOGUE ARABIA", title: "DND Mode: The Top Ladies Spas to Visit in Riyadh", landscape: true },
 ];
 
 export default function Landing() {

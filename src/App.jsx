@@ -91,6 +91,8 @@ const VISUAL_RESEARCH_SHOWCASES = [
   { slug: "mr-porter-five-stylish-summertime-movies",      client: "MR PORTER", title: "Summertime Movies",            media: "/Visual%20Research/:visual%20research/2.jpg" },
   { slug: "mr-porter-five-ways-freshen-work-wardrobe",     client: "MR PORTER", title: "Freshen up your Wardrobe",     media: "/Visual%20Research/:visual%20research/03.jpg" },
   { slug: "mr-porter-black-history-month-uk", client: "MR PORTER", title: "Black History Month",          media: "/Visual%20Research/:visual%20research/04.jpg" },
+  { slug: "vogue-arabia-face-filters-essay", client: "Vogue Arabia", title: "Face-Altering Filters",       media: "/Visual%20Research/vogue-arabia-filters-hero.webp" },
+  { slug: "vogue-arabia-ladies-spas-riyadh", client: "Vogue Arabia", title: "Top Ladies Spas, Riyadh",     media: "/Visual%20Research/vogue-arabia-spas-hero.webp" },
 ];
 
 const PRODUCTION_SHOWCASES = [

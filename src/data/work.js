@@ -607,6 +607,36 @@ export const productionCases = [
     ],
     tags: ["Stills Production", "Video Production", "Editorial Direction", "Casting"],
   },
+  {
+    slug: "vogue-arabia-face-filters-essay",
+    title: "Archive visual research for a Vogue Arabia essay on digital beauty standards",
+    client: "Vogue Arabia",
+    project: "Why I Refuse to Use Face-Altering Filters in 2025",
+    year: "2025",
+    heroImage: "/Visual Research/vogue-arabia-filters-hero.webp",
+    task: "Source archive imagery for an article on the homogenising effect of face-altering filters, and what their unchecked rise teaches the next generation of women being raised online. Brief called for a single visual hook strong enough to hold a long-form opinion piece without distracting from the writing.",
+    outcome: "Licensed a 1969 Keystone archive frame from Getty Images: a model wearing comically oversized glasses that magnify her eyes. The vintage physical filter mirrors the digital ones the essay critiques, sharpening the central argument that distorting how we appear is not a new instinct, but one that has evolved over time.",
+    viewProjectLink: { label: "Read on Vogue Arabia →", url: "https://www.voguearabia.com/article/refuse-to-use-face-altering-filters-in-2025" },
+    images: [
+      "/Visual Research/vogue-arabia-filters-hero.webp",
+    ],
+    tags: ["Visual Research", "Photo Sourcing", "Archive Licensing", "Editorial"],
+  },
+  {
+    slug: "vogue-arabia-ladies-spas-riyadh",
+    title: "Archive visual research for a Vogue Arabia roundup of Riyadh's top women's spas",
+    client: "Vogue Arabia",
+    project: "DND Mode: The Top Ladies Spas to Visit in Riyadh",
+    year: "2025",
+    heroImage: "/Visual Research/vogue-arabia-spas-hero.webp",
+    task: "Source archive imagery for a roundup of Riyadh's top women's wellness destinations for Vogue Arabia. Brief called for a cover image with editorial weight that read as wellness-coded without reaching for the predictable spa-stock playbook.",
+    outcome: "Licensed a Graphic House archive frame from Getty Images, a vintage treatment that anchors a service piece in lifestyle archive rather than contemporary spa stock. The result reads distinct against the wider wellness coverage cycle, treating the ritual itself, rather than the product, as the subject.",
+    viewProjectLink: { label: "Read on Vogue Arabia →", url: "https://www.voguearabia.com/article/best-ladies-spas-riyadh" },
+    images: [
+      "/Visual Research/vogue-arabia-spas-hero.webp",
+    ],
+    tags: ["Visual Research", "Photo Sourcing", "Archive Licensing", "Editorial"],
+  },
 ];
 
 export const editorialPieces = [
@@ -713,4 +743,6 @@ export const CATEGORY_BY_SLUG = {
   "mr-porter-five-stylish-summertime-movies": "/visual-research",
   "mr-porter-five-ways-freshen-work-wardrobe": "/visual-research",
   "mr-porter-black-history-month-uk": "/visual-research",
+  "vogue-arabia-face-filters-essay": "/visual-research",
+  "vogue-arabia-ladies-spas-riyadh": "/visual-research",
 };
