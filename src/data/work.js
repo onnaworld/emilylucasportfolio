@@ -545,13 +545,13 @@ export const productionCases = [
   },
   {
     slug: "vogue-bvlgari",
-    title: "Commercial production partner for Vogue Arabia",
+    title: "Bvlgari x Vogue",
     client: "Bvlgari",
-    project: "Vogue Arabia x Bvlgari",
+    project: "Bvlgari x Vogue Arabia",
     year: "2025",
     heroImage: "/work/vogue-bvlgari/hero.jpg",
-    task: "Following the editorial relaunch, transition into trusted commercial production partner for Vogue Arabia, leading a series of high-stakes advertorial executions with brands including Bvlgari, integrating Vogue's brand identity while managing complex advertiser requirements.",
-    outcome: "Acted as an extension of the Vogue team, becoming a primary partner for the publication's most demanding advertiser projects and providing the specialized infrastructure necessary when in-house resources are at capacity.",
+    task: "Following involvement in the editorial relaunch, transitioned into a trusted commercial production partner for Vogue Arabia. Led a series of high-stakes commercial executions for brands including Bvlgari, integrating Vogue's brand identity while managing complex advertiser requirements.",
+    outcome: "Now serving as an extension of the Vogue team and primary partner for the publication's most demanding advertiser projects, providing the specialised infrastructure required when in-house resources are at capacity.",
     images: [
       "/work/vogue-bvlgari/1.jpg",
       "/work/vogue-bvlgari/2.jpg",
@@ -729,6 +729,7 @@ export const CATEGORY_BY_SLUG = {
   "siro-hotel": "/production",
   "hamilton-watches-ventura-xxl": "/production",
   "jumeirah-marsa-al-arab": "/production",
+  "vogue-bvlgari": "/production",
   // Strategy & Editorial (PROJECTS #18–25)
   "mr-porter-championing-subcultures": "/cultural-strategy",
   "mr-porter-social-media-strategy": "/cultural-strategy",

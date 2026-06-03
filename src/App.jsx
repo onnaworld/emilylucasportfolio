@@ -104,6 +104,7 @@ const PRODUCTION_SHOWCASES = [
   { slug: "jcrew-abraham-moon",      client: "J.Crew",     title: "Abraham Moon",                    media: "/Production/:production/6.mp4" },
   { slug: "cipriani-mr-c-residence-dubai",   client: "Cipriani",   title: "Mr C Residence Dubai",            media: "/Production/:production/7.mp4" },
   { slug: "mastercard-sail-grand-prix", client: "Mastercard", title: "Sail Grand Prix x Luís Figo",     media: "/Production/:production/8.mp4" },
+  { slug: "vogue-bvlgari",          client: "Bvlgari",    title: "Bvlgari x Vogue Arabia",          media: "/work/vogue-bvlgari/hero.jpg" },
 ];
 
 const PRODUCTION_BODY = (

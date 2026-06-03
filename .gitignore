@@ -27,6 +27,12 @@ public/ALL WORK/
 # Raw GIFs in here have exceeded GitHub's 100MB hard limit.
 public/work/POP UP FILES*/
 
+# Per-project raw working folders (RAW JPGs / TIFFs from photographers
+# that Emily prepares locally before exporting compressed web versions
+# into /work/<slug>/). These routinely exceed the 100MB limit. Any folder
+# with a trailing space is a working folder, not a deploy target.
+public/work/bvlgari x vogue */
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
