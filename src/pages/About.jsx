@@ -103,7 +103,7 @@ export default function About() {
       <RouteMeta
         path="/about"
         title="About | Emily Lucas | Executive Producer"
-        description="Emily Lucas is an Executive Producer and Cultural Strategy Consultant. Previously Senior Editorial Producer at Harvey Nichols and Producer at MR PORTER, Net-a-Porter Group."
+        description="Multidisciplinary creative specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial. Tokyo-born, Japanese-US-UK heritage, industry experience across the US, UK, GCC and Japan. Brand-side at Net-a-Porter Group; direct-to-client with Aman, One&Only and Condé Nast; agency partner for Columbia, Mastercard and Nike."
         image="/hero.jpg"
         jsonLd={{
           "@context": "https://schema.org",
@@ -234,12 +234,18 @@ export default function About() {
             animationDelay: "180ms",
           }}
         >
-          Emily Lucas is an Executive Producer and Cultural Strategy
-          Consultant whose work sits at the intersection of four
-          cultures, shaped by growing up in Tokyo and working across
-          London, Dubai, New York and Japan. She was previously Senior
-          Editorial Producer at Harvey Nichols (2024) and Producer at
-          MR PORTER, Net-a-Porter Group (2019–2024).
+          Multidisciplinary creative specializing in production,
+          strategy and visual research for luxury brands across
+          fashion, beauty, hospitality and editorial. Tokyo-born,
+          with Japanese-US-UK heritage and industry experience across
+          the US, UK, GCC and Japan. Brand-side at Net-a-Porter
+          Group, producing MR PORTER's editorial, commercial and
+          brand partnerships. Direct-to-client relationships with
+          Aman, One&Only and Condé Nast; production partner to
+          agencies for Columbia, Mastercard and Nike. Executive
+          Producer pre-production through post, specializing in
+          integrating AI agentic tools across budgeting, SOWs,
+          casting and vendor management.
         </p>
 
         {/* Two-column section: SELECTED EXPERIENCE | AVAILABLE FOR */}

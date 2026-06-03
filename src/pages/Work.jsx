@@ -21,6 +21,49 @@ function categoryFor(n) {
   return "Visual Research";
 }
 
+// Cursor-following label. When the user is hovering a project row or
+// scattered thumb on /work, this renders next to the dot cursor and
+// shows the project's category. Pure-DOM positioning via refs so the
+// mousemove listener doesn't rerun React renders.
+function CursorLabel({ text }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    const onMove = (e) => {
+      if (ref.current) {
+        ref.current.style.transform = `translate(${e.clientX + 18}px, ${e.clientY + 14}px)`;
+      }
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+  return (
+    <div
+      ref={ref}
+      aria-hidden="true"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        pointerEvents: "none",
+        zIndex: 9998,
+        fontFamily: TIMES,
+        fontStyle: "italic",
+        fontSize: 14,
+        lineHeight: 1,
+        color: "#fff",
+        mixBlendMode: "difference",
+        whiteSpace: "nowrap",
+        opacity: text ? 1 : 0,
+        transition: "opacity 120ms ease-out",
+        transform: "translate(-9999px, -9999px)",
+      }}
+    >
+      {text}
+    </div>
+  );
+}
+
 // Each entry: { n, client?, title, slug?, link?, thumb? }
 // - client is rendered bold, title regular (split by " - ")
 // - slug opens the in-page case study panel
@@ -464,6 +507,9 @@ export default function Work() {
         © {new Date().getFullYear()} Emily Lucas
       </footer>
 
+      {/* Cursor-following category label: shows next to the dot cursor
+          whenever a project row or scattered thumb is hovered. */}
+      <CursorLabel text={hoveredIdx !== null ? categoryFor(PROJECTS[hoveredIdx].n) : ""} />
     </div>
   );
 }
