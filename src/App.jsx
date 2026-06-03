@@ -105,6 +105,7 @@ const PRODUCTION_SHOWCASES = [
   { slug: "cipriani-mr-c-residence-dubai",   client: "Cipriani",   title: "Mr C Residence Dubai",            media: "/Production/:production/7.mp4" },
   { slug: "mastercard-sail-grand-prix", client: "Mastercard", title: "Sail Grand Prix x Luís Figo",     media: "/Production/:production/8.mp4" },
   { slug: "vogue-bvlgari",          client: "Bvlgari",    title: "Bvlgari x Vogue Arabia",          media: "/work/vogue-bvlgari/hero.jpg" },
+  { slug: "stone-island-life-aquatic", client: "Stone Island", title: "The Life Aquatic",            media: "/work/stone-island-life-aquatic/hero.jpg" },
 ];
 
 const PRODUCTION_BODY = (
