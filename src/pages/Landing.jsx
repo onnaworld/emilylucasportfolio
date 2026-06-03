@@ -56,27 +56,32 @@ const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",                                         client: "MR PORTER", title: "Black British Writers" },
   { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Pride" },
 ];
+// Order is peppered so the two Vogue Arabia frames don't sit back to
+// back as the strip loops; they're interleaved between the four
+// MR PORTER tiles for visual rhythm.
 const VISUAL_RESEARCH_IMAGES = [
   { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Eight Striking Images Of New York City Through The Decades" },
+  { src: "/Visual%20Research/vogue-arabia-filters-hero.webp", client: "VOGUE ARABIA", title: "Why I Refuse to Use Face-Altering Filters in 2025", landscape: true },
   { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends" },
   { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "What To Read, Watch And Do This Black History Month UK" },
-  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe" },
-  { src: "/Visual%20Research/vogue-arabia-filters-hero.webp", client: "VOGUE ARABIA", title: "Why I Refuse to Use Face-Altering Filters in 2025", landscape: true },
   { src: "/Visual%20Research/vogue-arabia-spas-hero.webp", client: "VOGUE ARABIA", title: "DND Mode: The Top Ladies Spas to Visit in Riyadh", landscape: true },
+  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe" },
 ];
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
 
-  // Heavy/bouncy smooth scroll, long duration + gentle easing.
+  // Lighter, snappier smooth scroll. Shorter duration + gentler
+  // multipliers so the page feels more responsive to wheel/touch
+  // without losing the smoothed momentum entirely.
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => 1 - Math.pow(1 - t, 4),
+      duration: 0.7,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
       smoothWheel: true,
-      wheelMultiplier: 1.3,
-      touchMultiplier: 1.6,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.2,
     });
     let rafId;
     const raf = (time) => {
@@ -1037,7 +1042,8 @@ function CredentialsCarousel({ images, compact = false, landscape = false, linkH
       lastTime = time;
       const hw = halfWidthRef.current;
       if (!draggingRef.current && hw > 0) {
-        const pxPerSec = hw / 70; // matches the previous 70s loop
+        // Faster drift: half-width crossed in 45s instead of 70s.
+        const pxPerSec = hw / 45;
         offsetRef.current -= pxPerSec * dt;
       }
       if (hw > 0) {
