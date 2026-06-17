@@ -115,7 +115,7 @@ export default function About() {
             url: "https://emilyelucas.com/about",
             image: "https://emilyelucas.com/hero.jpg",
             sameAs: ["https://www.linkedin.com/in/emilyelucas/"],
-            email: "emilyelucas@gmail.com",
+            email: "emily@emilyelucas.com",
             alumniOf: [
               { "@type": "Organization", name: "Harvey Nichols" },
               { "@type": "Organization", name: "MR PORTER, Net-a-Porter Group" },
