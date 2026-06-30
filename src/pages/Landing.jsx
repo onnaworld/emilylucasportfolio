@@ -106,8 +106,8 @@ export default function Landing() {
     >
       <RouteMeta
         path="/"
-        title="Emily Lucas | Executive Producer"
-        description="Executive Producer and Consultant specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial."
+        title="Emily Lucas | Creative Producer & Strategist"
+        description="Creative producer & strategist specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial."
         image="/hero.jpg"
       />
       {/* CustomCursor mounted globally in App.jsx (outside the
@@ -257,9 +257,8 @@ export default function Landing() {
             pointerEvents: "none",
           }}
         >
-          Executive Producer<br />
-          Cultural Strategist<br />
-          Editorial Consultant
+          Creative Producer<br />
+          & Strategist
         </div>
 
         <DownArrow color="#fff" />
@@ -272,7 +271,35 @@ export default function Landing() {
         />
       )}
 
-      {/* ───── 2. ABOUT (Studio Move-style giant intro paragraph) ───── */}
+      <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} viewMoreHref="/production" />
+      <CategorySlide label="STRATEGY & EDITORIAL" images={WRITING_IMAGES} compact viewMoreHref="/cultural-strategy" />
+      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape viewMoreHref="/visual-research" />
+
+      {/* View all work, small Times link, centered between two lines */}
+      <div
+        className="m-link-row"
+        style={{
+          padding: `${space.md}px ${space.xl}px ${space.md}px`,
+          borderBottom: `1px solid ${colors.text}`,
+          textAlign: "center",
+        }}
+      >
+        <Link
+          to="/work"
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontSize: 18,
+            fontWeight: 400,
+            color: colors.text,
+            letterSpacing: 0,
+            lineHeight: 1,
+          }}
+        >
+          View All Work →
+        </Link>
+      </div>
+
+      {/* ───── ABOUT ───── */}
       <section
         className="m-section m-section-about"
         style={{
@@ -311,7 +338,7 @@ export default function Landing() {
               color: colors.text,
             }}
           >
-            Executive Producer and Consultant specializing in production, strategy
+            Creative producer & strategist specializing in production, strategy
             and visual research for luxury brands across fashion, beauty,
             hospitality and editorial. Tokyo-born, with Japanese-US-UK background
             and industry experience across the US, UK, GCC and Japan. Brand-side
@@ -325,7 +352,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* About link row — same centered/bordered treatment as "View All Work →" */}
+      {/* About link row */}
       <div
         className="m-link-row"
         style={{
@@ -347,34 +374,6 @@ export default function Landing() {
           }}
         >
           About →
-        </Link>
-      </div>
-
-      <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} viewMoreHref="/production" />
-      <CategorySlide label="STRATEGY & EDITORIAL" images={WRITING_IMAGES} compact viewMoreHref="/cultural-strategy" />
-      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape viewMoreHref="/visual-research" />
-
-      {/* View all work, small Times link, centered between two lines */}
-      <div
-        className="m-link-row"
-        style={{
-          padding: `${space.md}px ${space.xl}px ${space.md}px`,
-          borderBottom: `1px solid ${colors.text}`,
-          textAlign: "center",
-        }}
-      >
-        <Link
-          to="/work"
-          style={{
-            fontFamily: "'Times New Roman', Times, serif",
-            fontSize: 18,
-            fontWeight: 400,
-            color: colors.text,
-            letterSpacing: 0,
-            lineHeight: 1,
-          }}
-        >
-          View All Work →
         </Link>
       </div>
 

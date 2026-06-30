@@ -102,7 +102,7 @@ export default function About() {
     >
       <RouteMeta
         path="/about"
-        title="About | Emily Lucas | Executive Producer"
+        title="About | Emily Lucas | Creative Producer & Strategist"
         description="Multidisciplinary creative specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial. Tokyo-born, Japanese-US-UK heritage, industry experience across the US, UK, GCC and Japan. Brand-side at Net-a-Porter Group; direct-to-client with Aman, One&Only and Condé Nast; agency partner for Columbia, Mastercard and Nike."
         image="/hero.jpg"
         jsonLd={{
@@ -111,7 +111,7 @@ export default function About() {
           mainEntity: {
             "@type": "Person",
             name: "Emily Lucas",
-            jobTitle: "Executive Producer & Cultural Strategy Consultant",
+            jobTitle: "Creative Producer & Strategist",
             url: "https://emilyelucas.com/about",
             image: "https://emilyelucas.com/hero.jpg",
             sameAs: ["https://www.linkedin.com/in/emilyelucas/"],
@@ -242,49 +242,8 @@ export default function About() {
           Group, producing MR PORTER's editorial, commercial and
           brand partnerships. Direct-to-client relationships with
           Aman, One&Only and Condé Nast; production partner to
-          agencies for Columbia, Mastercard and Nike. Executive
-          Producer pre-production through post, specializing in
-          integrating AI agentic tools across budgeting, SOWs,
-          casting and vendor management.
+          agencies for Columbia, Mastercard and Nike.
         </p>
-
-        {/* Two-column section: SELECTED EXPERIENCE | AVAILABLE FOR */}
-        <div
-          className="m-about-grid about-fade-in"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(32px, 5vw, 80px)",
-            marginTop: "clamp(40px, 4.5vw, 72px)",
-            maxWidth: "min(1180px, 92%)",
-            animationDelay: "320ms",
-          }}
-        >
-          <div>
-            <SectionHeading>Selected Experience</SectionHeading>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              <DotItem>
-                Executive Producer &amp; Cultural Strategy Consultant → Independent (2024–present)
-              </DotItem>
-              <DotItem>
-                Senior Editorial Producer → Harvey Nichols (2024)
-              </DotItem>
-              <DotItem>
-                Producer → MR PORTER, Net-a-Porter Group (2019–2024)
-              </DotItem>
-            </ul>
-          </div>
-
-          <div>
-            <SectionHeading>Available For</SectionHeading>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              <DotItem>Executive production across stills, video, brand films and editorial shoots</DotItem>
-              <DotItem>Regional production &amp; consultancy across GCC, Japan, London and New York</DotItem>
-              <DotItem>Advisory across content operations, AI integration and brand-side strategy</DotItem>
-              <DotItem>Editorial commissions across writing, visual research and image licensing</DotItem>
-            </ul>
-          </div>
-        </div>
 
         {/* Contact link — marginTop:auto pushes it to the bottom of the
             flex content rail, just above the footer hairline. */}
