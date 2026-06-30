@@ -21,7 +21,7 @@ function truncate(text, max) {
 // so the modal route stays declarative.
 function buildCaseStudyMeta(study, slug) {
   const titleCore = `${study.client} — ${study.project || study.title}`;
-  const title = `${titleCore} | Emily Lucas | Creative Producer & Strategist`;
+  const title = `${titleCore} | Emily Lucas`;
   const description = truncate(study.task || study.outcome || "", 155);
   // Image fallback chain: explicit heroImage → first still in images
   // (videos can't render as og:image previews) → site default hero.
@@ -257,7 +257,7 @@ function AppRoutes() {
                 body={PRODUCTION_BODY}
                 showcases={PRODUCTION_SHOWCASES}
                 metaPath="/production"
-                metaTitle="Production | Emily Lucas | Creative Producer & Strategist"
+                metaTitle="Production | Emily Lucas"
                 metaDescription="End-to-end executive production for luxury brands across photography, video and complex post-production. Campaigns delivered across the US, UK, GCC and Europe — Aman, Vogue Arabia, Nike, One&Only, MR PORTER, Cipriani, Mastercard, J.Crew."
                 metaImage="/production-hero.jpg"
                 suppressMeta={!!slug}
@@ -270,7 +270,7 @@ function AppRoutes() {
                 body={CULTURAL_STRATEGY_BODY}
                 showcases={CULTURAL_STRATEGY_SHOWCASES}
                 metaPath="/cultural-strategy"
-                metaTitle="Strategy & Editorial | Emily Lucas | Creative Producer & Strategist"
+                metaTitle="Strategy & Editorial | Emily Lucas"
                 metaDescription="Cultural work across writing, production and strategy — features for Trippin and MR PORTER, production rooted in subcultures, and Gen Z consumer research for MR PORTER's TikTok channel."
                 metaImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif"
                 suppressMeta={!!slug}
@@ -283,7 +283,7 @@ function AppRoutes() {
                 body={VISUAL_RESEARCH_BODY}
                 showcases={VISUAL_RESEARCH_SHOWCASES}
                 metaPath="/visual-research"
-                metaTitle="Visual Research | Emily Lucas | Creative Producer & Strategist"
+                metaTitle="Visual Research | Emily Lucas"
                 metaDescription="Image sourcing, photography curation and rights licensing for editorial features at MR PORTER Journal, Trippin and Vogue (Condé Nast). Fine art, entertainment IP, runway and archive."
                 metaImage="/Visual%20Research/w1500_q80%20(2).jpg"
                 suppressMeta={!!slug}

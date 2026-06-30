@@ -102,7 +102,7 @@ export default function About() {
     >
       <RouteMeta
         path="/about"
-        title="About | Emily Lucas | Creative Producer & Strategist"
+        title="About | Emily Lucas"
         description="Multidisciplinary creative specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial. Tokyo-born, Japanese-US-UK heritage, industry experience across the US, UK, GCC and Japan. Brand-side at Net-a-Porter Group; direct-to-client with Aman, One&Only and Condé Nast; agency partner for Columbia, Mastercard and Nike."
         image="/hero.jpg"
         jsonLd={{
