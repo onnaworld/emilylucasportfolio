@@ -107,7 +107,7 @@ export default function Landing() {
       <RouteMeta
         path="/"
         title="Emily Lucas"
-        description="Creative producer & strategist specializing in production, strategy and visual research for luxury brands across fashion, beauty, hospitality and editorial."
+        description="Creative Producer & Strategist for luxury brands across fashion, beauty, hospitality and editorial."
         image="/hero.jpg"
       />
       {/* CustomCursor mounted globally in App.jsx (outside the
@@ -338,8 +338,7 @@ export default function Landing() {
               color: colors.text,
             }}
           >
-            Creative producer & strategist specializing in production, strategy
-            and visual research for luxury brands across fashion, beauty,
+            Creative Producer & Strategist for luxury brands across fashion, beauty,
             hospitality and editorial. Tokyo-born, with Japanese-US-UK background
             and industry experience across the US, UK, GCC and Japan. Brand-side
             at <Brand>Net-a-Porter Group</Brand>, producing <Brand>MR PORTER</Brand>'s
