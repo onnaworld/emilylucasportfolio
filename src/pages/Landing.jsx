@@ -106,9 +106,9 @@ export default function Landing() {
     >
       <RouteMeta
         path="/"
-        title="Emily Lucas"
-        description="Creative Producer & Strategist for luxury brands across fashion, beauty, hospitality and editorial."
-        image="/hero.jpg"
+        title="Emily Lucas Portfolio"
+        description="Portfolio spanning production, strategy and visual research across fashion, beauty, hospitality and editorial."
+        image={null}
       />
       {/* CustomCursor mounted globally in App.jsx (outside the
           .page-fade-in transform scope so it stays viewport-fixed). */}

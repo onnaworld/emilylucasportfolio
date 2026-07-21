@@ -20,7 +20,11 @@ export default function RouteMeta({
   jsonLd,
 }) {
   const url = `${BASE}${path === "/" ? "/" : path}`;
-  const fullImage = image?.startsWith("http") ? image : `${BASE}${image || "/hero.jpg"}`;
+  // image === null means "suppress the thumbnail entirely" (e.g. landing
+  // page, which shouldn't carry a link-preview image). Omitting the prop
+  // still falls back to hero.jpg for routes that want a default thumbnail.
+  const fullImage =
+    image === null ? null : image?.startsWith("http") ? image : `${BASE}${image || "/hero.jpg"}`;
   return (
     <Helmet>
       <title>{title}</title>
@@ -31,13 +35,13 @@ export default function RouteMeta({
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
       <meta property="og:url" content={url} />
-      <meta property="og:image" content={fullImage} />
+      {fullImage && <meta property="og:image" content={fullImage} />}
       <meta property="og:site_name" content="Emily Lucas" />
 
-      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:card" content={fullImage ? "summary_large_image" : "summary"} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={fullImage} />
+      {fullImage && <meta name="twitter:image" content={fullImage} />}
 
       {jsonLd && (
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
