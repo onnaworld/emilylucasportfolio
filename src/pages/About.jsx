@@ -243,6 +243,8 @@ export default function About() {
           brand partnerships. Direct-to-client relationships with
           Aman, One&Only and Condé Nast; production partner to
           agencies for Columbia, Mastercard and Nike.
+          <br />
+          Currently based in New York.
         </p>
 
         {/* Contact link — marginTop:auto pushes it to the bottom of the

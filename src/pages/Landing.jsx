@@ -299,58 +299,6 @@ export default function Landing() {
         </Link>
       </div>
 
-      {/* ───── ABOUT ───── */}
-      <section
-        className="m-section m-section-about"
-        style={{
-          padding: `${space.xxl}px ${space.xl}px ${space.xl}px`,
-          display: "grid",
-          gridTemplateColumns: "1fr 6fr",
-          gap: space.xl,
-          alignItems: "start",
-          borderBottom: `1px solid ${colors.text}`,
-        }}
-      >
-        <div
-          className="m-section-title"
-          style={{
-            fontFamily: "'Times New Roman', Times, serif",
-            fontStyle: "italic",
-            fontSize: "clamp(28px, 3.4vw, 48px)",
-            fontWeight: 400,
-            color: colors.text,
-            lineHeight: 1,
-            paddingTop: 8,
-          }}
-        >
-          About
-        </div>
-        <div>
-          <p
-            className="m-section-body"
-            style={{
-              fontFamily: HEROS,
-              fontSize: "clamp(20px, 2.6vw, 42px)",
-              fontWeight: 700,
-              lineHeight: 1.15,
-              letterSpacing: "-0.015em",
-              margin: 0,
-              color: colors.text,
-            }}
-          >
-            Creative Producer & Strategist for luxury brands across fashion, beauty,
-            hospitality and editorial. Tokyo-born, with Japanese-US-UK background
-            and industry experience across the US, UK, GCC and Japan. Brand-side
-            at <Brand>Net-a-Porter Group</Brand>, producing <Brand>MR PORTER</Brand>'s
-            editorial, commercial and brand partnerships. Direct-to-client
-            relationships with <Brand>Aman</Brand>, <Brand>One&amp;Only</Brand> and{" "}
-            <Brand>Condé Nast</Brand>; production partner to agencies for{" "}
-            <Brand>Columbia</Brand>, <Brand>Mastercard</Brand> and{" "}
-            <Brand>Nike</Brand>.
-          </p>
-        </div>
-      </section>
-
       {/* About link row */}
       <div
         className="m-link-row"
