@@ -78,7 +78,7 @@ function CursorLabel({ text }) {
 // /work#mr-porter-finneas regardless of whether a case study exists yet.
 const PROJECTS = [
   { n: 1,  client: "CONDÉ NAST",          title: "Vogue Arabia Relaunch",       slug: "vogue-arabia-relaunch",                       thumb: "/work/all-work/01.jpg" },
-  { n: 2,  client: "AMAN",                title: "Saudi Arabia & Dubai",        slug: "aman-saudi-arabia",                                 thumb: "/work/all-work/2..jpg" },
+  { n: 2,  client: "AMAN",                title: "Saudi Arabia & Dubai",        slug: "aman-saudi-arabia",                                 thumb: "/work/all-work/aman-saudi-arabia-canyon.png" },
   { n: 3,  client: "MR PORTER",           title: "Finneas",                     slug: "mr-porter-finneas",                    thumb: "/work/all-work/3..webp" },
   { n: 4,  client: "ONE&ONLY",            title: "Moonlight Basin",             slug: "one-only-moonlight-basin",                      thumb: "/work/all-work/4..mp4.mp4" },
   { n: 5,  client: "CIPRIANI",            title: "MR C Residence Dubai",        slug: "cipriani-mr-c-residence-dubai",                      thumb: "/work/all-work/5..jpg" },

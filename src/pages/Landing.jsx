@@ -239,28 +239,6 @@ export default function Landing() {
           Lucas
         </div>
 
-        {/* Bottom-left: role list */}
-        <div
-          className="m-hero-bl m-hero-roles"
-          style={{
-            position: "absolute",
-            bottom: space.xl,
-            left: space.xl,
-            color: "#fff",
-            fontFamily: "'Times New Roman', Times, serif",
-            fontStyle: "italic",
-            fontSize: 14,
-            fontWeight: 400,
-            lineHeight: 1.5,
-            letterSpacing: 0,
-            zIndex: 5,
-            pointerEvents: "none",
-          }}
-        >
-          Creative Producer<br />
-          & Strategist
-        </div>
-
         <DownArrow color="#fff" />
       </section>
 
