@@ -179,66 +179,6 @@ export default function Landing() {
           }}
         />
 
-        {/* Top-left: Portfolio 2026 (above) + Emily */}
-        <div
-          className="m-hero-tl"
-          style={{
-            position: "absolute",
-            top: space.xl,
-            left: space.xl,
-            color: "#fff",
-            zIndex: 5,
-          }}
-        >
-          <div
-            className="m-portfolio-label"
-            style={{
-              fontFamily: "'Times New Roman', Times, serif",
-              fontSize: 14,
-              fontWeight: 400,
-              letterSpacing: 0,
-              marginBottom: space.sm,
-              marginLeft: 2,
-              opacity: 0.95,
-            }}
-          >
-            Portfolio 2026
-          </div>
-          <div
-            className="m-hero-title"
-            style={{
-              fontFamily: HEROS,
-              fontSize: "clamp(44px, 7vw, 100px)",
-              fontWeight: 700,
-              lineHeight: 0.9,
-              letterSpacing: "-0.04em",
-              margin: 0,
-            }}
-          >
-            Emily
-          </div>
-        </div>
-
-        {/* Bottom-right: Lucas */}
-        <div
-          className="m-hero-br m-hero-title"
-          style={{
-            position: "absolute",
-            bottom: space.xl,
-            right: space.xl,
-            color: "#fff",
-            fontFamily: "'Times New Roman', Times, serif",
-            fontStyle: "italic",
-            fontSize: "clamp(44px, 7vw, 100px)",
-            fontWeight: 400,
-            lineHeight: 0.9,
-            letterSpacing: "-0.02em",
-            zIndex: 5,
-          }}
-        >
-          Lucas
-        </div>
-
         <DownArrow color="#fff" />
       </section>
 
