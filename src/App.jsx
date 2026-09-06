@@ -60,16 +60,6 @@ const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const About = lazy(() => import("./pages/About"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Brand-name italic Times treatment for inline mentions in the
-// category body paragraphs.
-function B({ children }) {
-  return (
-    <em style={{ fontFamily: "'Times New Roman', Times, serif", fontStyle: "italic", fontWeight: 400, fontSize: "1.05em" }}>
-      {children}
-    </em>
-  );
-}
-
 // Hero showcases shown below the Production about block. Vogue uses a pair
 // (1a + 1b covers side by side); the rest are single hero clips/stills.
 // Asset folder is /public/Production/:production/ — the colon is part of
@@ -107,42 +97,6 @@ const PRODUCTION_SHOWCASES = [
   { slug: "vogue-bvlgari",          client: "Bvlgari",    title: "Bvlgari x Vogue Arabia",          media: "/work/vogue-bvlgari/hero.jpg" },
   { slug: "stone-island-life-aquatic", client: "Stone Island", title: "The Life Aquatic",            media: "/work/stone-island-life-aquatic/hero.jpg" },
 ];
-
-const PRODUCTION_BODY = (
-  <>
-    End-to-end executive production for luxury and lifestyle brands across
-    photography and video. In-house production capabilities as well as
-    external production partner to global agencies and direct-to-client.
-    Experience across <B>Hospitality</B>, <B>Fashion</B>, <B>Beauty</B>,{" "}
-    <B>Editorial</B>, delivering campaigns across the <B>US</B>,{" "}
-    <B>UK</B>, <B>GCC</B>, and <B>Europe</B>. Specialist in integrating
-    AI workflow systems underpinning estimating, SOWs, casting, and
-    vendor management.
-  </>
-);
-
-const VISUAL_RESEARCH_BODY = (
-  <>
-    Image sourcing, photography curation, and rights licensing for editorial
-    features at <B>MR PORTER Journal</B>, <B>Trippin</B>, and <B>Vogue</B>
-    {" "}(<B>Condé Nast</B>). Work spans fine art photography (estates,
-    foundations, galleries), entertainment IP (film stills, studio rights),
-    runway and fashion calendar imagery (IMAXtree and beyond), and
-    multi-discipline publishing rights from broadcast, publisher, gallery,
-    theatre, and archive.
-  </>
-);
-
-const CULTURAL_STRATEGY_BODY = (
-  <>
-    Cultural work across writing and production, bound by an editorial
-    position that centers representation from inside the culture
-    itself. Authored features for <B>Trippin</B> and <B>MR PORTER</B>.
-    Production rooted in subcultures — Black British literary culture,
-    Saudi Arabian poetry, London's queer community, London's roller
-    skating scene — each strategized and produced from within.
-  </>
-);
 
 function ScrollToTop() {
   const { pathname, hash, state } = useLocation();
@@ -254,7 +208,6 @@ function AppRoutes() {
               <CategoryPage
                 label="Production"
                 heroImage="/production-hero.jpg"
-                body={PRODUCTION_BODY}
                 showcases={PRODUCTION_SHOWCASES}
                 metaPath="/production"
                 metaTitle="Production | Emily Lucas"
@@ -267,7 +220,6 @@ function AppRoutes() {
               <CategoryPage
                 label="Strategy & Editorial"
                 heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif"
-                body={CULTURAL_STRATEGY_BODY}
                 showcases={CULTURAL_STRATEGY_SHOWCASES}
                 metaPath="/cultural-strategy"
                 metaTitle="Strategy & Editorial | Emily Lucas"
@@ -280,7 +232,6 @@ function AppRoutes() {
               <CategoryPage
                 label="Visual Research"
                 heroImage="/Visual%20Research/w1500_q80%20(2).jpg"
-                body={VISUAL_RESEARCH_BODY}
                 showcases={VISUAL_RESEARCH_SHOWCASES}
                 metaPath="/visual-research"
                 metaTitle="Visual Research | Emily Lucas"
