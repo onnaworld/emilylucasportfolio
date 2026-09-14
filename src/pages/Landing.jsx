@@ -338,7 +338,8 @@ export default function Landing() {
           <Brand>Brunello Cucinelli</Brand>, <Brand>Tiffany & Co.</Brand>,{" "}
           <Brand>The Frankie Shop</Brand>, <Brand>New Balance</Brand>, <Brand>Loewe</Brand>,{" "}
           <Brand>Gucci</Brand>, <Brand>SMR Days</Brand>, <Brand>The Elder Statesman</Brand>,{" "}
-          <Brand>Greg Lauren</Brand>, <Brand>Burberry</Brand>, <Brand>Bogner</Brand>. EDITORIAL <Brand>The Glass Magazine</Brand>,{" "}
+          <Brand>Greg Lauren</Brand>, <Brand>Burberry</Brand>, <Brand>Bogner</Brand>. EDITORIAL <Brand>Esquire</Brand>,{" "}
+          <Brand>Porter</Brand>, <Brand>The Glass Magazine</Brand>,{" "}
           <Brand>Vogue Arabia</Brand>, <Brand>Trippin</Brand>,{" "}
           <Brand>MR PORTER The Journal</Brand>, <Brand>MR PORTER The Post</Brand>.
         </p>
