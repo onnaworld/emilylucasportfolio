@@ -6,6 +6,7 @@ import { productionCases } from "../data/work";
 import ContactModal from "../components/ContactModal";
 import RouteMeta from "../components/RouteMeta";
 import { useIsMobile } from "../hooks/useIsMobile";
+import { onPageScrollLockChange } from "../hooks/modalScrollLock";
 
 const BRAND_LOGOS = [
   "TIFFANY & CO.",
@@ -89,7 +90,16 @@ export default function Landing() {
       rafId = requestAnimationFrame(raf);
     };
     rafId = requestAnimationFrame(raf);
+    // A case-study modal opened from this page (or from a direct /work/:slug
+    // deep link, which renders Landing as the synthesized background) needs
+    // Lenis fully paused, not just CSS overflow:hidden — Lenis drives scroll
+    // via direct JS, which native overflow rules can't intercept.
+    const unsubscribe = onPageScrollLockChange((locked) => {
+      if (locked) lenis.stop();
+      else lenis.start();
+    });
     return () => {
+      unsubscribe();
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };

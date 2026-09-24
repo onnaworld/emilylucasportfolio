@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CaseStudyCard from "./CaseStudyCard";
+import { lockPageScroll, unlockPageScroll } from "../hooks/modalScrollLock";
 
 // Shared modal shell that wraps a CaseStudyCard. Used by:
 //   - App.jsx's /work/:slug modal route (deep-linkable case studies)
@@ -24,31 +25,32 @@ export default function CaseStudyModal({ study, onClose, onNext, nextLabel }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Lock the background page's scroll while the modal is open. Without
-  // this, a wheel/trackpad scroll over the backdrop scrolls the page
-  // behind the (fixed-position) modal instead of doing nothing — the
-  // modal's own content has its own internal scroll via CaseStudyCard.
-  // Compensate for the scrollbar-width layout shift so the background
-  // doesn't jump sideways when overflow is hidden.
+  // Lock the background page's scroll while the modal is open. Two
+  // parts, because two different things can move the background:
+  //   1. Native user scroll (wheel/trackpad/touch/scrollbar) — blocked
+  //      by overflow:hidden on <body>/<html>.
+  //   2. Landing's Lenis instance, which scrolls document.documentElement
+  //      directly via JS in its own rAF loop — overflow:hidden does NOT
+  //      stop a programmatic scroll, only user-driven ones. Landing
+  //      subscribes to this lock signal and calls lenis.stop()/.start().
   useEffect(() => {
     const { body, documentElement: html } = document;
     const scrollbarWidth = window.innerWidth - html.clientWidth;
     const prevBodyOverflow = body.style.overflow;
     const prevHtmlOverflow = html.style.overflow;
     const prevPaddingRight = body.style.paddingRight;
-    // Lock both <body> AND <html> — Landing's Lenis instance scrolls
-    // document.documentElement directly via JS, which body-only
-    // overflow:hidden doesn't stop.
     body.style.overflow = "hidden";
     html.style.overflow = "hidden";
     if (scrollbarWidth > 0) {
       const currentPaddingRight = parseFloat(window.getComputedStyle(body).paddingRight) || 0;
       body.style.paddingRight = `${currentPaddingRight + scrollbarWidth}px`;
     }
+    lockPageScroll();
     return () => {
       body.style.overflow = prevBodyOverflow;
       html.style.overflow = prevHtmlOverflow;
       body.style.paddingRight = prevPaddingRight;
+      unlockPageScroll();
     };
   }, []);
 
