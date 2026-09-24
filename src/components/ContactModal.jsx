@@ -39,8 +39,8 @@ export default function ContactModal({ onClose }) {
   // Portal to document.body so position: fixed is genuinely relative
   // to the viewport. Without this, .page-fade-in's transform makes any
   // fixed descendant relative to the page wrapper instead — the modal
-  // then renders at the bottom of a tall page (off-screen) on routes
-  // like /cultural-strategy.
+  // then renders at the bottom of a tall page (off-screen) on tall
+  // routes like /work.
   return createPortal(
     <div
       onClick={onClose}

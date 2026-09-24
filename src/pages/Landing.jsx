@@ -37,35 +37,35 @@ const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 // Items can be a string OR { src, landscape?, client?, title? }. When client/title
 // are set, a dark gradient + label fades in over the image on hover.
 const PRODUCTION_IMAGES = [
-  { src: "/Production/01.jpg",        client: "VOGUE ARABIA",        title: "March Cover" },
-  { src: "/Production/2..mov.mp4",    client: "NIKE",                title: "Vomero 18 Activation" },
-  { src: "/Production/3..webp",       client: "MR PORTER",           title: "Finneas" },
-  { src: "/Production/4.%20.jpg",     client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign" },
-  { src: "/Production/5..mp4",        client: "J.CREW",              title: "Abraham Moon" },
-  { src: "/Production/6..jpg",        client: "AMAN",                title: "Saudi Arabia & Dubai" },
-  { src: "/Production/6..mp4.mp4",    client: "ONE&ONLY",            title: "Moonlight Basin" },
-  { src: "/Production/7.mp4",         client: "CIPRIANI",            title: "Mr C Residences Dubai" },
+  { src: "/Production/01.jpg",        client: "VOGUE ARABIA",        title: "March Cover", slug: "vogue-arabia-relaunch" },
+  { src: "/Production/2..mov.mp4",    client: "NIKE",                title: "Vomero 18 Activation", slug: "nike-vomero-18" },
+  { src: "/Production/3..webp",       client: "MR PORTER",           title: "Finneas", slug: "mr-porter-finneas" },
+  { src: "/Production/4.%20.jpg",     client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign", slug: "columbia-sportswear-ramadan-campaign" },
+  { src: "/Production/5..mp4",        client: "J.CREW",              title: "Abraham Moon", slug: "jcrew-abraham-moon" },
+  { src: "/Production/6..jpg",        client: "AMAN",                title: "Saudi Arabia & Dubai", slug: "aman-saudi-arabia" },
+  { src: "/Production/6..mp4.mp4",    client: "ONE&ONLY",            title: "Moonlight Basin", slug: "one-only-moonlight-basin" },
+  { src: "/Production/7.mp4",         client: "CIPRIANI",            title: "Mr C Residences Dubai", slug: "cipriani-mr-c-residence-dubai" },
 ];
 const WRITING_IMAGES = [
-  { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",                     client: "TRIPPIN",   title: "6 Photographers on Ethical Photography" },
-  { src: "/Cultural%20Strategy/w1500_q80%20(1).jpg",                                                          client: "MR PORTER", title: "15 Ways To Improve Your Life, Japanese Style", landscape: true },
-  { src: "/Cultural%20Strategy/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",                      client: "TRIPPIN",   title: "An Exploration of Mexico Through Graciela Iturbide" },
-  { src: "/Cultural%20Strategy/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",                      client: "TRIPPIN",   title: "A History of Tattooing in Japan" },
-  { src: "/Cultural%20Strategy/w1500_q80.jpg",                                                                client: "MR PORTER", title: "Calling All Women" },
-  { src: "/Cultural%20Strategy/w1500_q80.jpeg",                                                               client: "MR PORTER", title: "Tee Store", landscape: true },
-  { src: "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",                                         client: "MR PORTER", title: "Black British Writers" },
-  { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Pride" },
+  { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",                     client: "TRIPPIN",   title: "6 Photographers on Ethical Photography", slug: "trippin-ethical-photography" },
+  { src: "/Cultural%20Strategy/w1500_q80%20(1).jpg",                                                          client: "MR PORTER", title: "15 Ways To Improve Your Life, Japanese Style", landscape: true, slug: "mr-porter-15-ways-japanese-style" },
+  { src: "/Cultural%20Strategy/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",                      client: "TRIPPIN",   title: "An Exploration of Mexico Through Graciela Iturbide", slug: "trippin-mexico-iturbide" },
+  { src: "/Cultural%20Strategy/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",                      client: "TRIPPIN",   title: "A History of Tattooing in Japan", slug: "trippin-tattooing-japan" },
+  { src: "/Cultural%20Strategy/w1500_q80.jpg",                                                                client: "MR PORTER", title: "Calling All Women", slug: "mr-porter-women-buy-menswear" },
+  { src: "/Cultural%20Strategy/w1500_q80.jpeg",                                                               client: "MR PORTER", title: "Tee Store", landscape: true, slug: "mr-porter-championing-subcultures" },
+  { src: "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",                                         client: "MR PORTER", title: "Black British Writers", slug: "mr-porter-championing-subcultures" },
+  { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Pride", slug: "mr-porter-championing-subcultures" },
 ];
 // Order is peppered so the two Vogue Arabia frames don't sit back to
 // back as the strip loops; they're interleaved between the four
 // MR PORTER tiles for visual rhythm.
 const VISUAL_RESEARCH_IMAGES = [
-  { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Eight Striking Images Of New York City Through The Decades" },
-  { src: "/Visual%20Research/vogue-arabia-filters-hero.webp", client: "VOGUE ARABIA", title: "Why I Refuse to Use Face-Altering Filters in 2025", landscape: true },
-  { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends" },
-  { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "What To Read, Watch And Do This Black History Month UK" },
-  { src: "/Visual%20Research/vogue-arabia-spas-hero.webp", client: "VOGUE ARABIA", title: "DND Mode: The Top Ladies Spas to Visit in Riyadh", landscape: true },
-  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe" },
+  { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Eight Striking Images Of New York City Through The Decades", slug: "mr-porter-nyc-street-photography" },
+  { src: "/Visual%20Research/vogue-arabia-filters-hero.webp", client: "VOGUE ARABIA", title: "Why I Refuse to Use Face-Altering Filters in 2025", landscape: true, slug: "vogue-arabia-face-filters-essay" },
+  { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends", slug: "mr-porter-menswear-trends-2022" },
+  { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "What To Read, Watch And Do This Black History Month UK", slug: "mr-porter-black-history-month-uk" },
+  { src: "/Visual%20Research/vogue-arabia-spas-hero.webp", client: "VOGUE ARABIA", title: "DND Mode: The Top Ladies Spas to Visit in Riyadh", landscape: true, slug: "vogue-arabia-ladies-spas-riyadh" },
+  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe", slug: "mr-porter-five-stylish-summertime-movies" },
 ];
 
 export default function Landing() {
@@ -235,9 +235,9 @@ export default function Landing() {
         />
       )}
 
-      <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} viewMoreHref="/production" />
-      <CategorySlide label="STRATEGY & EDITORIAL" images={WRITING_IMAGES} compact viewMoreHref="/cultural-strategy" />
-      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape viewMoreHref="/visual-research" />
+      <CategorySlide label="PRODUCTION" images={PRODUCTION_IMAGES} />
+      <CategorySlide label="STRATEGY & EDITORIAL" images={WRITING_IMAGES} compact />
+      <CategorySlide label="VISUAL RESEARCH" images={VISUAL_RESEARCH_IMAGES} compact landscape />
 
       {/* View all work, small Times link, centered between two lines */}
       <div
@@ -607,9 +607,6 @@ function MenuOverlay({ onClose, onContact }) {
     { label: "Home Page",         to: "/" },
     { label: "About",             to: "/about" },
     { label: "All Work",          to: "/work" },
-    { label: "Production",        to: "/production" },
-    { label: "Strategy & Editorial", to: "/cultural-strategy" },
-    { label: "Visual Research",   to: "/visual-research" },
   ];
   return (
     <div
@@ -919,6 +916,7 @@ function LoadingDots() {
 }
 
 function CredentialsCarousel({ images, compact = false, landscape = false, linkHref }) {
+  const location = useLocation();
   const doubled = [...images, ...images];
   const h = compact ? 240 : 420;
   const trackRef = useRef(null);
@@ -1038,16 +1036,22 @@ function CredentialsCarousel({ images, compact = false, landscape = false, linkH
               title={isObj ? item.title : undefined}
             />
           );
-          if (!linkHref) return media;
+          // Tiles with a case-study slug open that case study directly
+          // (as a modal over this page); others fall back to linkHref
+          // ("/work").
+          const slug = isObj ? item.slug : undefined;
+          const dest = slug ? `/work/${slug}` : linkHref;
+          if (!dest) return media;
           return (
             <Link
               key={i}
-              to={linkHref}
+              to={dest}
+              state={slug ? { backgroundLocation: location } : undefined}
               draggable={false}
               // If the user scrubbed the carousel (drag > 5px), treat
               // pointerup as a drag-release, not a click — block the
-              // navigation so the carousel doesn't yank them to the
-              // category page when they were just nudging the strip.
+              // navigation so the carousel doesn't yank them to a
+              // case study when they were just nudging the strip.
               onClick={(e) => {
                 if (Math.abs(dragDeltaRef.current) > 5) e.preventDefault();
               }}

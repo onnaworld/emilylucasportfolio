@@ -38,10 +38,7 @@ Emily Lucas is an Executive Producer and Cultural Strategy Consultant whose work
 ## Pages
 
 - [Home](https://emilyelucas.com/): Hero, bio, brand list, selected work strips for Production, Strategy & Editorial, Visual Research.
-- [All Work](https://emilyelucas.com/work): Numbered index of every project; each opens a case study popup with task, outcome, assets and tags.
-- [Production](https://emilyelucas.com/production): End-to-end executive production case studies (Aman, Vogue Arabia, Nike, One&Only, MR PORTER, J.Crew, Cipriani, Mastercard).
-- [Strategy & Editorial](https://emilyelucas.com/cultural-strategy): Cultural work across writing, production and strategy — features for Trippin and MR PORTER, MR PORTER's Championing Subcultures and Social Media Strategy.
-- [Visual Research](https://emilyelucas.com/visual-research): Image sourcing, photography curation and rights licensing for editorial features.
+- [All Work](https://emilyelucas.com/work): Numbered index of every project — production, strategy & editorial, and visual research alike; each opens a case study popup with task, outcome, assets and tags.
 - [About](https://emilyelucas.com/about): Bio, selected experience, services.
 
 ## Contact

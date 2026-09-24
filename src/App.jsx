@@ -1,11 +1,11 @@
 import { lazy, Suspense, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Landing from "./pages/Landing";
 import CustomCursor from "./components/CustomCursor";
 import CaseStudyModal from "./components/CaseStudyModal";
 import RouteMeta from "./components/RouteMeta";
-import { productionCases, CATEGORY_BY_SLUG } from "./data/work";
+import { productionCases } from "./data/work";
 
 // Word-boundary truncate to a target length. Used to derive case-study
 // meta descriptions from the existing "task" copy without mid-word
@@ -56,47 +56,8 @@ function buildCaseStudyMeta(study, slug) {
 // Code-split the Work routes, defers their bundle (and the productionCases
 // payload) until the user actually navigates there.
 const Work = lazy(() => import("./pages/Work"));
-const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const About = lazy(() => import("./pages/About"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-
-// Hero showcases shown below the Production about block. Vogue uses a pair
-// (1a + 1b covers side by side); the rest are single hero clips/stills.
-// Asset folder is /public/Production/:production/ — the colon is part of
-// the directory name (Emily's own filing convention) and works fine as a
-// URL path segment.
-const CULTURAL_STRATEGY_SHOWCASES = [
-  { slug: "mr-porter-championing-subcultures", client: "MR PORTER", title: "Championing Subcultures",          media: "/Cultural%20Strategy/:cultural%20strategy/01.mp4" },
-  { slug: "mr-porter-social-media-strategy",             client: "MR PORTER", title: "Social Media Strategy",            media: "/Cultural%20Strategy/:cultural%20strategy/02.mp4" },
-  { slug: "trippin-ethical-photography",        client: "Trippin",   title: "Ethical Photography",              media: "/Cultural%20Strategy/:cultural%20strategy/03.avif" },
-  { slug: "trippin-mexico-iturbide",          client: "Trippin",   title: "Mexico through Graciela Iturbide", media: "/Cultural%20Strategy/:cultural%20strategy/04.avif" },
-  { slug: "trippin-tattooing-japan",            client: "Trippin",   title: "A History of Tattooing",           media: "/Cultural%20Strategy/:cultural%20strategy/05.avif" },
-  { slug: "mr-porter-menswear-trends-2022",     client: "MR PORTER", title: "2022 Menswear Trends",             media: "/Cultural%20Strategy/:cultural%20strategy/06.jpg" },
-  { slug: "mr-porter-15-ways-japanese-style",           client: "MR PORTER", title: "Improve Your Life",                media: "/Cultural%20Strategy/:cultural%20strategy/07.jpg" },
-  { slug: "mr-porter-women-buy-menswear",  client: "MR PORTER", title: "Shop For Yourself",                media: "/Cultural%20Strategy/:cultural%20strategy/08.jpg" },
-];
-
-const VISUAL_RESEARCH_SHOWCASES = [
-  { slug: "mr-porter-nyc-street-photography",        client: "MR PORTER", title: "New York through the Decades", media: "/Visual%20Research/:visual%20research/01.jpg" },
-  { slug: "mr-porter-five-stylish-summertime-movies",      client: "MR PORTER", title: "Summertime Movies",            media: "/Visual%20Research/:visual%20research/2.jpg" },
-  { slug: "mr-porter-five-ways-freshen-work-wardrobe",     client: "MR PORTER", title: "Freshen up your Wardrobe",     media: "/Visual%20Research/:visual%20research/03.jpg" },
-  { slug: "mr-porter-black-history-month-uk", client: "MR PORTER", title: "Black History Month",          media: "/Visual%20Research/:visual%20research/04.jpg" },
-  { slug: "vogue-arabia-face-filters-essay", client: "Vogue Arabia", title: "Face-Altering Filters",       media: "/Visual%20Research/vogue-arabia-filters-hero.webp" },
-  { slug: "vogue-arabia-ladies-spas-riyadh", client: "Vogue Arabia", title: "Top Ladies Spas, Riyadh",     media: "/Visual%20Research/vogue-arabia-spas-hero.webp" },
-];
-
-const PRODUCTION_SHOWCASES = [
-  { slug: "aman-saudi-arabia",              client: "Aman",       title: "Saudi Arabia",                    media: "/Production/:production/1.mp4" },
-  { slug: "vogue-arabia-relaunch",    client: "Condé Nast", title: "Vogue Arabia Relaunch",           media: ["/Production/:production/2a.jpg", "/Production/:production/2b.JPG"], position: "center top" },
-  { slug: "nike-vomero-18",       client: "Nike",       title: "Global Vomero 18 Activation",     media: "/Production/:production/3.mp4" },
-  { slug: "one-only-moonlight-basin",   client: "One&Only",   title: "Moonlight Basin",                 media: "/Production/:production/4.mp4" },
-  { slug: "mr-porter-finneas", client: "MR PORTER",  title: "Finneas",                         media: "/Production/:production/5.jpg" },
-  { slug: "jcrew-abraham-moon",      client: "J.Crew",     title: "Abraham Moon",                    media: "/Production/:production/6.mp4" },
-  { slug: "cipriani-mr-c-residence-dubai",   client: "Cipriani",   title: "Mr C Residence Dubai",            media: "/Production/:production/7.mp4" },
-  { slug: "mastercard-sail-grand-prix", client: "Mastercard", title: "Sail Grand Prix x Luís Figo",     media: "/Production/:production/8.mp4" },
-  { slug: "vogue-bvlgari",          client: "Bvlgari",    title: "Bvlgari x Vogue Arabia",          media: "/work/vogue-bvlgari/hero.jpg" },
-  { slug: "stone-island-life-aquatic", client: "Stone Island", title: "The Life Aquatic",            media: "/work/stone-island-life-aquatic/hero.jpg" },
-];
 
 function ScrollToTop() {
   const { pathname, hash, state } = useLocation();
@@ -154,7 +115,7 @@ function CaseStudyRoute({ slug }) {
     } else {
       // Deep-link entry — there's no history to pop. Replace so the modal
       // close doesn't leave a useless /work/:slug entry on the back stack.
-      navigate(CATEGORY_BY_SLUG[slug] || "/work", { replace: true });
+      navigate("/work", { replace: true });
     }
   };
 
@@ -187,7 +148,7 @@ function AppRoutes() {
 
   let backgroundLocation = state.backgroundLocation;
   if (!backgroundLocation && slug) {
-    backgroundLocation = { pathname: CATEGORY_BY_SLUG[slug] || "/work" };
+    backgroundLocation = { pathname: "/work" };
   }
 
   return (
@@ -204,42 +165,12 @@ function AppRoutes() {
           <Routes location={backgroundLocation || location}>
             <Route path="/" element={<Landing />} />
             <Route path="/work" element={<Work />} />
-            <Route path="/production" element={
-              <CategoryPage
-                label="Production"
-                heroImage="/production-hero.jpg"
-                showcases={PRODUCTION_SHOWCASES}
-                metaPath="/production"
-                metaTitle="Production | Emily Lucas"
-                metaDescription="End-to-end executive production for luxury brands across photography, video and complex post-production. Campaigns delivered across the US, UK, GCC and Europe — Aman, Vogue Arabia, Nike, One&Only, MR PORTER, Cipriani, Mastercard, J.Crew."
-                metaImage="/production-hero.jpg"
-                suppressMeta={!!slug}
-              />
-            } />
-            <Route path="/cultural-strategy" element={
-              <CategoryPage
-                label="Strategy & Editorial"
-                heroImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif"
-                showcases={CULTURAL_STRATEGY_SHOWCASES}
-                metaPath="/cultural-strategy"
-                metaTitle="Strategy & Editorial | Emily Lucas"
-                metaDescription="Cultural work across writing, production and strategy — features for Trippin and MR PORTER, production rooted in subcultures, and Gen Z consumer research for MR PORTER's TikTok channel."
-                metaImage="/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif"
-                suppressMeta={!!slug}
-              />
-            } />
-            <Route path="/visual-research" element={
-              <CategoryPage
-                label="Visual Research"
-                heroImage="/Visual%20Research/w1500_q80%20(2).jpg"
-                showcases={VISUAL_RESEARCH_SHOWCASES}
-                metaPath="/visual-research"
-                metaTitle="Visual Research | Emily Lucas"
-                metaDescription="Image sourcing, photography curation and rights licensing for editorial features at MR PORTER Journal, Trippin and Vogue (Condé Nast). Fine art, entertainment IP, runway and archive."
-                metaImage="/Visual%20Research/w1500_q80%20(2).jpg"
-                suppressMeta={!!slug}
-              />
-            } />
+            {/* Old category pages are retired in favour of the single
+                /work index — redirect so existing bookmarks/backlinks
+                don't dead-end on a 404. */}
+            <Route path="/production" element={<Navigate to="/work" replace />} />
+            <Route path="/cultural-strategy" element={<Navigate to="/work" replace />} />
+            <Route path="/visual-research" element={<Navigate to="/work" replace />} />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
