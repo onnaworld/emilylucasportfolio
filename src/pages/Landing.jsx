@@ -273,31 +273,6 @@ export default function Landing() {
         </Link>
       </div>
 
-      {/* About link row */}
-      <div
-        className="m-link-row"
-        style={{
-          padding: `${space.md}px ${space.xl}px ${space.md}px`,
-          borderBottom: `1px solid ${colors.text}`,
-          textAlign: "center",
-        }}
-      >
-        <Link
-          to="/about"
-          className="hover-text"
-          style={{
-            fontFamily: "'Times New Roman', Times, serif",
-            fontSize: 18,
-            fontWeight: 400,
-            color: colors.text,
-            letterSpacing: 0,
-            lineHeight: 1,
-          }}
-        >
-          About →
-        </Link>
-      </div>
-
       {/* ───── BRANDS (formatted like ABOUT) ───── */}
       <section
         className="m-section"
@@ -434,24 +409,10 @@ function CategorySlide({ label, images, compact = false, landscape = false, view
             letterSpacing: "-0.01em",
             lineHeight: 1,
             color: colors.text,
-            marginBottom: space.sm,
           }}
         >
           {label}
         </div>
-        <Link
-          to={viewMoreHref}
-          className="hover-text"
-          style={{
-            fontFamily: HEROS,
-            fontSize: 13,
-            fontWeight: 400,
-            color: colors.text,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          View More Work →
-        </Link>
       </div>
       <CredentialsCarousel images={images} compact={compact} landscape={landscape} linkHref={viewMoreHref} />
     </section>
