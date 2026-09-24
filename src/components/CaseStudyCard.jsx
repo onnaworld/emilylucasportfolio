@@ -122,7 +122,7 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
       <div
         ref={bodyRef}
         onScroll={onScroll}
-        className="cs-card-scroll"
+        className="cs-card-scroll cs-card-body-scroll"
         style={{
           width: "100%",
           height: "100%",
@@ -368,8 +368,16 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           from { opacity: 0; transform: translateY(12px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        .cs-card-scroll { scrollbar-width: none; -ms-overflow-style: none; }
-        .cs-card-scroll::-webkit-scrollbar { display: none; width: 0; }
+        /* Vertical body scroll keeps a real (if minimal) scrollbar — a
+           visible, always-works fallback for reaching the bottom of the
+           card if a wheel/trackpad gesture doesn't register. The
+           horizontal image carousel stays scrollbar-free since it has
+           its own ‹ › buttons. */
+        .cs-card-body-scroll { scrollbar-width: thin; }
+        .cs-card-body-scroll::-webkit-scrollbar { width: 6px; }
+        .cs-card-body-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.25); border-radius: 3px; }
+        .cs-card-carousel { scrollbar-width: none; -ms-overflow-style: none; }
+        .cs-card-carousel::-webkit-scrollbar { display: none; width: 0; }
       `}</style>
     </>
   );
