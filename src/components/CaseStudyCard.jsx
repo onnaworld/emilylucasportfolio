@@ -80,6 +80,30 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
       ? `cs-card-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`
       : undefined;
 
+  // Drive the card's own vertical scroll explicitly rather than trusting
+  // the browser: a macOS trackpad two-finger scroll gesture doesn't
+  // reliably move this div otherwise (reported: gesture "locks" onto the
+  // pop-up but the content at the bottom stays hidden). Native (not
+  // React's onWheel, which is passive by default and can't preventDefault)
+  // so it can suppress the browser's own attempt and avoid double-scroll.
+  const internalBodyRef = useRef(null);
+  const setBodyRef = (el) => {
+    internalBodyRef.current = el;
+    if (typeof bodyRef === "function") bodyRef(el);
+    else if (bodyRef) bodyRef.current = el;
+  };
+  useEffect(() => {
+    const el = internalBodyRef.current;
+    if (!el) return;
+    const onWheel = (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // horizontal — leave to the carousel
+      e.preventDefault();
+      el.scrollTop += e.deltaY;
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
+
   return (
     <>
       {/* Top + bottom fade gradients (mask scroll edges) */}
@@ -120,7 +144,7 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
       </button>
 
       <div
-        ref={bodyRef}
+        ref={setBodyRef}
         onScroll={onScroll}
         className="cs-card-scroll cs-card-body-scroll"
         style={{
@@ -523,6 +547,34 @@ function CarouselLoadingDots() {
 // caused a visible double-scroll glitch on iOS).
 function Carousel({ images, project, getVideoLink }) {
   const trackRef = useRef(null);
+
+  // A macOS trackpad's two-finger scroll gesture, once it locks onto the
+  // carousel (a horizontally-scrolling strip), doesn't reliably hand a
+  // vertical component off to the card's own vertical scroll body the
+  // way a plain mouse wheel does — native CSS scroll-chaining covers a
+  // mouse wheel fine but not this gesture. Forward it explicitly: a
+  // native (non-passive, so preventDefault actually works — React's
+  // onWheel prop is passive by default and can't block it) listener
+  // that manually scrolls the ancestor .cs-card-body-scroll whenever the
+  // vertical component of a wheel/gesture event dominates the horizontal
+  // one, i.e. the visitor means to scroll the card, not swipe the strip.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const onWheel = (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // horizontal swipe — let the strip handle it
+      const body = el.closest(".cs-card-body-scroll");
+      if (!body) return;
+      e.preventDefault();
+      // Stop the event bubbling to the body's own wheel handler below —
+      // otherwise both handlers apply e.deltaY and the card scrolls twice
+      // as fast whenever the gesture starts over the carousel.
+      e.stopPropagation();
+      body.scrollTop += e.deltaY;
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
 
   // Always lead with video assets, then images. Stable order within
   // each group so the relative sequence Emily set in work.js is kept.
