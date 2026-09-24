@@ -17,7 +17,7 @@ const TIMES = "'Times New Roman', Times, serif";
 // 'Select Work' header to the discipline name on hover.
 function categoryFor(n) {
   if (n <= 19) return "Production";
-  if (n <= 25) return "Strategy & Editorial";
+  if (n <= 22) return "Strategy & Editorial";
   return "Visual Research";
 }
 
@@ -97,13 +97,9 @@ const PROJECTS = [
   { n: 18, client: "BVLGARI",             title: "Bvlgari x Vogue",             slug: "vogue-bvlgari",                        thumb: "/work/vogue-bvlgari/hero.jpg" },
   { n: 19, client: "STONE ISLAND",        title: "The Life Aquatic, With Stone Island", slug: "stone-island-life-aquatic",      thumb: "/work/stone-island-life-aquatic/hero.jpg" },
   { n: 20, client: "MR PORTER",           title: "Championing Subcultures",     slug: "mr-porter-championing-subcultures",    thumb: "/work/all-work/18.jpg", link: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
-  { n: 21, client: "MR PORTER",           title: "Social Media Strategy",       slug: "mr-porter-social-media-strategy",               thumb: "/work/all-work/19.jpg" },
-  { n: 22, client: "TRIPPIN",             title: "6 Photographers on What Ethical Photography Means to Them",                  slug: "trippin-ethical-photography",       thumb: "/work/all-work/20.avif", link: "https://trippin.world/feature/through-the-lens-6-photographers-on-what-ethical-photography-means-to-them" },
-  { n: 23, client: "TRIPPIN",             title: "An Exploration of Mexico Through the Lens of Graciela Iturbide",              slug: "trippin-mexico-iturbide",         thumb: "/work/all-work/21.webp", link: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide" },
-  { n: 24, client: "TRIPPIN",             title: "A History of Tattooing in Japan",                                            slug: "trippin-tattooing-japan",           thumb: "/work/all-work/22.avif", link: "https://trippin.world/feature/a-history-of-tattooing-in-japan" },
-  { n: 25, client: "MR PORTER",           title: "Journal | Editorial & Visual Research",                                      slug: "mr-porter-editorial",               thumb: "/work/all-work/23.jpg" },
-  { n: 26, client: "VOGUE ARABIA",        title: "Why I Refuse to Use Face-Altering Filters in 2025",                          slug: "vogue-arabia-face-filters-essay",   thumb: "/Visual%20Research/vogue-arabia-filters-hero.webp", link: "https://www.voguearabia.com/article/refuse-to-use-face-altering-filters-in-2025" },
-  { n: 27, client: "VOGUE ARABIA",        title: "DND Mode: The Top Ladies Spas to Visit in Riyadh",                           slug: "vogue-arabia-ladies-spas-riyadh",   thumb: "/Visual%20Research/vogue-arabia-spas-hero.webp",    link: "https://www.voguearabia.com/article/best-ladies-spas-riyadh" },
+  { n: 21, client: "MR PORTER",           title: "Journal | Editorial & Visual Research",                                      slug: "mr-porter-editorial",               thumb: "/work/all-work/23.jpg" },
+  { n: 22, client: "TRIPPIN",             title: "Editorial | Long-Form Features",                                             slug: "trippin-editorial",                 thumb: "/work/all-work/20.avif" },
+  { n: 23, client: "VOGUE ARABIA",        title: "Visual Research | Archive Editorial",                                        slug: "vogue-arabia-editorial",            thumb: "/Visual%20Research/vogue-arabia-filters-hero.webp" },
 ];
 
 export default function Work() {
@@ -149,7 +145,7 @@ export default function Work() {
   const nextCase = activeSlug ? nextCaseStudy(activeSlug) : null;
   const nextProject = nextCase ? PROJECTS.find(p => p.slug === nextCase.slug) : null;
   const nextLabel = nextProject
-    ? [nextProject.client, nextProject.title].filter(Boolean).join(" — ")
+    ? [nextProject.client, nextProject.title].filter(Boolean).join(" | ")
     : null;
 
   // Restore selection from URL hash (so /work#aman or /work#siro-hotel deep-link)

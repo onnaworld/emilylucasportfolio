@@ -249,13 +249,38 @@ export const productionCases = [
     ],
     tags: ["Editorial Writing", "Cultural Commentary", "Visual Research"],
   },
+  // Combined /work entry for the 3 Trippin features above — same pattern
+  // as mr-porter-editorial: the individual entries stay (homepage deep
+  // links use them), this one shows as a single row on /work.
+  {
+    slug: "trippin-editorial",
+    client: "Trippin",
+    project: "Editorial | Long-Form Features",
+    year: "2022",
+    task: "Three long-form authored features for Trippin across 2022, each reading a cultural subject seriously rather than as travel content | ethical photography practice across four continents, Mexican photographer Graciela Iturbide's work on Indigenous identity, and the cultural and legal history of tattooing in Japan.",
+    outcome: "Authored 6 Photographers on What Ethical Photography Means to Them, curating six photographers across four continents on the power dynamics of documenting unfamiliar places. Wrote An Exploration of Mexico Through the Lens of Graciela Iturbide, reading her Juchitán and Seri people series through the ethics of the photographer's gaze. Built A History of Tattooing in Japan across three structural arcs, from Ainu ritual practice through Edo-period criminal branding to the contemporary legal grey area, with visual research surfacing four photographers' work on Japanese tattoo culture.",
+    viewProjectLink: [
+      { label: "1. Ethical Photography →", url: "https://trippin.world/feature/through-the-lens-6-photographers-on-what-ethical-photography-means-to-them" },
+      { label: "2. Graciela Iturbide →", url: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide" },
+      { label: "3. Tattooing in Japan →", url: "https://trippin.world/feature/a-history-of-tattooing-in-japan" },
+    ],
+    images: [
+      "/work/trippin-ethical-photography/01.avif",
+      "/work/trippin-ethical-photography/02.avif",
+      "/work/trippin-mexico-iturbide/01.avif",
+      "/work/trippin-mexico-iturbide/02.avif",
+      "/work/trippin-tattooing-japan/01.avif",
+      "/work/trippin-tattooing-japan/02.avif",
+    ],
+    tags: ["Editorial Writing", "Cultural Commentary", "Visual Research", "Photography Curation"],
+  },
   {
     slug: "mr-porter-editorial",
     client: "MR PORTER",
     project: "Journal | Editorial & Visual Research",
     year: "2020–2026",
-    task: "Seven features for MR PORTER's Journal across four years, spanning three kinds of contribution: authored editorial (trend forecasting and cultural commentary), on-record features as a contributor, and visual research | sourcing and licensing imagery for pieces written by others across photography, film, runway and archive rights holders.",
-    outcome: "Authored The Stylish Gent's Guide To 2022's Freshest Menswear Trends, an original trend forecast read against runway, street and TikTok signals. Featured as an on-record contributor in Calling All Women (Nov 2023) and 15 Ways To Improve Your Life, Japanese Style (May 2026), both drawing on a Tokyo-raised perspective. Led visual research and licensing on four further pieces | Eight Striking Images Of New York City Through The Decades (photography estates and galleries), Five Stylish Summertime Movies (studio film stills), Five Ways To Freshen Up Your Work Wardrobe In 2020 (AW20 runway imagery via IMAXtree), and What To Read, Watch And Do This Black History Month UK (broadcast, publisher, gallery and archive rights) | each requiring a different rights-clearance discipline.",
+    task: "Eight features for MR PORTER's Journal and social channels across four years, spanning authored editorial (trend forecasting and cultural commentary), on-record features as a contributor, visual research | sourcing and licensing imagery for pieces written by others, and social media production strategy for the brand's Gen Z push.",
+    outcome: "Authored The Stylish Gent's Guide To 2022's Freshest Menswear Trends, an original trend forecast read against runway, street and TikTok signals. Featured as an on-record contributor in Calling All Women (Nov 2023) and 15 Ways To Improve Your Life, Japanese Style (May 2026), both drawing on a Tokyo-raised perspective. Led visual research and licensing on four further pieces | Eight Striking Images Of New York City Through The Decades (photography estates and galleries), Five Stylish Summertime Movies (studio film stills), Five Ways To Freshen Up Your Work Wardrobe In 2020 (AW20 runway imagery via IMAXtree), and What To Read, Watch And Do This Black History Month UK (broadcast, publisher, gallery and archive rights) | each requiring a different rights-clearance discipline. Led MR PORTER's social media production strategy, conceiving Helping Hands as the inaugural TikTok franchise and evolving it into the community-led Ask Mr Porter format | the channel grew to 50K followers in its first year.",
     viewProjectLink: [
       { label: "1. Menswear Trends 2022 →", url: "https://www.mrporter.com/en-ch/journal/fashion/menswear-trends-forecast-street-style-2022-10321430" },
       { label: "2. Calling All Women →", url: "https://www.mrporter.com/en-dk/journal/fashion/women-shopping-buying-wearing-menswear-style-24622422" },
@@ -264,6 +289,7 @@ export const productionCases = [
       { label: "5. Summertime Movies →", url: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852" },
       { label: "6. Freshen Up Your Wardrobe →", url: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428" },
       { label: "7. Black History Month UK →", url: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134" },
+      { label: "8. Social Media Strategy →", url: "https://www.instagram.com/reels/C0zM2zut65S/" },
     ],
     images: [
       "/work/mr-porter-menswear-trends-2022/01.jpg",
@@ -278,8 +304,14 @@ export const productionCases = [
       "/work/mr-porter-five-ways-freshen-work-wardrobe/02.jpg",
       "/work/mr-porter-black-history-month-uk/01.jpg",
       "/work/mr-porter-black-history-month-uk/02.jpg",
+      "/work/mr-porter-social-media-strategy/01.mp4",
+      "/work/mr-porter-social-media-strategy/02.mp4",
     ],
-    tags: ["Editorial Writing", "Visual Research", "Image Licensing", "Cultural Commentary", "Featured Editorial", "Trend Forecasting"],
+    videoLinks: {
+      "/work/mr-porter-social-media-strategy/01.mp4": "https://www.instagram.com/reels/C0zM2zut65S/",
+      "/work/mr-porter-social-media-strategy/02.mp4": "https://www.instagram.com/reels/C3VdDJPN0fY/",
+    },
+    tags: ["Editorial Writing", "Visual Research", "Image Licensing", "Cultural Commentary", "Featured Editorial", "Trend Forecasting", "Social Media Strategy"],
   },
   // The 7 individual pieces below are kept alongside the combined
   // "mr-porter-editorial" entry above — the /work page shows only the
@@ -695,14 +727,35 @@ export const productionCases = [
     ],
     tags: ["Visual Research", "Photo Sourcing", "Archive Licensing", "Editorial"],
   },
+  // Combined /work entry for the 2 Vogue Arabia essays above — same
+  // pattern as mr-porter-editorial and trippin-editorial.
+  {
+    slug: "vogue-arabia-editorial",
+    client: "Vogue Arabia",
+    project: "Visual Research | Archive Editorial",
+    year: "2025",
+    task: "Two archive visual-research commissions for Vogue Arabia in 2025, each sourcing a single image strong enough to anchor a feature without a photoshoot | an essay on face-altering filters and digital beauty standards, and a roundup of Riyadh's top women's wellness destinations.",
+    outcome: "Licensed a 1969 Keystone archive frame from Getty Images for Why I Refuse to Use Face-Altering Filters in 2025, its comically oversized eye-magnifying glasses mirroring the digital filters the essay critiques. Licensed a Graphic House archive frame from Getty Images for DND Mode: The Top Ladies Spas to Visit in Riyadh, anchoring the wellness roundup in lifestyle archive rather than contemporary spa stock.",
+    viewProjectLink: [
+      { label: "1. Face-Altering Filters →", url: "https://www.voguearabia.com/article/refuse-to-use-face-altering-filters-in-2025" },
+      { label: "2. Riyadh Spas →", url: "https://www.voguearabia.com/article/best-ladies-spas-riyadh" },
+    ],
+    images: [
+      "/Visual Research/vogue-arabia-filters-hero.webp",
+      "/Visual Research/vogue-arabia-spas-hero.webp",
+    ],
+    tags: ["Visual Research", "Photo Sourcing", "Archive Licensing", "Editorial"],
+  },
 ];
 
 // Slugs in the order projects are numbered on /work (mirrors Work.jsx's
 // PROJECTS list). Drives "Next Project" navigation from any case-study
-// popup. Deliberately excludes the 7 individual MR PORTER journal
-// pieces (mr-porter-menswear-trends-2022 etc.) — those are only
-// reachable from the homepage carousel and are represented here as one
-// combined entry, "mr-porter-editorial".
+// popup. Deliberately excludes the individual pieces folded into a
+// combined entry (the 7 MR PORTER journal pieces + Social Media
+// Strategy into "mr-porter-editorial", the 3 Trippin features into
+// "trippin-editorial", the 2 Vogue Arabia essays into
+// "vogue-arabia-editorial") | those individual slugs are only
+// reachable from the homepage carousel now.
 export const WORK_ORDER = [
   "vogue-arabia-relaunch",
   "aman-saudi-arabia",
@@ -724,13 +777,9 @@ export const WORK_ORDER = [
   "vogue-bvlgari",
   "stone-island-life-aquatic",
   "mr-porter-championing-subcultures",
-  "mr-porter-social-media-strategy",
-  "trippin-ethical-photography",
-  "trippin-mexico-iturbide",
-  "trippin-tattooing-japan",
   "mr-porter-editorial",
-  "vogue-arabia-face-filters-essay",
-  "vogue-arabia-ladies-spas-riyadh",
+  "trippin-editorial",
+  "vogue-arabia-editorial",
 ];
 
 // Given the current slug, returns the next case study to show (wraps

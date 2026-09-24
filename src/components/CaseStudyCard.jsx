@@ -325,10 +325,22 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
               animation: anim(0.6),
             }}
           >
-            <span style={{ fontFamily: HEROS_FONT, fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.textMuted }}>
+            <span style={{ fontFamily: HEROS_FONT, fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.textMuted, flexShrink: 0 }}>
               Next Project
             </span>
-            <span style={{ fontFamily: TIMES, fontStyle: "italic", fontSize: 15, fontWeight: 400, color: colors.text }}>
+            <span
+              style={{
+                fontFamily: TIMES,
+                fontStyle: "italic",
+                fontSize: 12,
+                fontWeight: 400,
+                color: colors.text,
+                minWidth: 0,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
               {nextLabel} →
             </span>
           </button>

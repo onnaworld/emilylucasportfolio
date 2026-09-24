@@ -140,7 +140,7 @@ function CaseStudyRoute({ slug }) {
     ? () => navigate(`/work/${nextStudy.slug}`, { state: location.state, replace: true })
     : undefined;
   const nextLabel = nextStudy
-    ? [nextStudy.client, nextStudy.project].filter(Boolean).join(" — ")
+    ? [nextStudy.client, nextStudy.project].filter(Boolean).join(" | ")
     : null;
 
   if (!study) return null;

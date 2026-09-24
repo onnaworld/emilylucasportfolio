@@ -67,11 +67,23 @@ export default function CaseStudyModal({ study, onClose, onNext, nextLabel }) {
     const block = (e) => {
       if (!isInsideScrollable(e.target)) e.preventDefault();
     };
+    // Keyboard-driven scroll (Space, Page Up/Down, Home/End, arrow keys)
+    // moves the page even with overflow:hidden if focus sits on <body> —
+    // block it too, unless focus is inside the modal's own content.
+    const SCROLL_KEYS = new Set([
+      " ", "Spacebar", "PageDown", "PageUp", "Home", "End",
+      "ArrowUp", "ArrowDown",
+    ]);
+    const blockKeys = (e) => {
+      if (SCROLL_KEYS.has(e.key) && !isInsideScrollable(e.target)) e.preventDefault();
+    };
     window.addEventListener("wheel", block, { passive: false, capture: true });
     window.addEventListener("touchmove", block, { passive: false, capture: true });
+    window.addEventListener("keydown", blockKeys, { capture: true });
     return () => {
       window.removeEventListener("wheel", block, { capture: true });
       window.removeEventListener("touchmove", block, { capture: true });
+      window.removeEventListener("keydown", blockKeys, { capture: true });
     };
   }, []);
 
