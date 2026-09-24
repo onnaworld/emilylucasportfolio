@@ -54,6 +54,27 @@ export default function CaseStudyModal({ study, onClose, onNext, nextLabel }) {
     };
   }, []);
 
+  // Belt-and-suspenders: intercept wheel/touch input at the window level,
+  // in the capture phase, before it reaches Lenis, native scroll, OR any
+  // other scroll mechanism the background page might use. overflow:hidden
+  // + lenis.stop() cover the known cases, but this is the one guarantee
+  // that holds regardless of what's driving the background's scroll —
+  // anything outside the modal's own scrollable body (.cs-card-scroll)
+  // is blocked outright.
+  useEffect(() => {
+    const isInsideScrollable = (target) =>
+      target instanceof Element && !!target.closest(".cs-card-scroll");
+    const block = (e) => {
+      if (!isInsideScrollable(e.target)) e.preventDefault();
+    };
+    window.addEventListener("wheel", block, { passive: false, capture: true });
+    window.addEventListener("touchmove", block, { passive: false, capture: true });
+    return () => {
+      window.removeEventListener("wheel", block, { capture: true });
+      window.removeEventListener("touchmove", block, { capture: true });
+    };
+  }, []);
+
   return (
     <div
       onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
