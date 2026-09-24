@@ -69,7 +69,7 @@ const VISUAL_RESEARCH_IMAGES = [
   { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe", slug: "mr-porter-five-stylish-summertime-movies" },
 ];
 
-export default function Landing() {
+export default function Landing({ suppressMeta = false }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
 
@@ -114,12 +114,19 @@ export default function Landing() {
         scrollBehavior: "smooth",
       }}
     >
-      <RouteMeta
-        path="/"
-        title="Emily Lucas Portfolio"
-        description="Portfolio spanning production, strategy and visual research across fashion, beauty, hospitality and editorial."
-        image={null}
-      />
+      {/* Suppressed when a case-study modal is open over this page —
+          otherwise two RouteMeta instances race and crawlers/prerender
+          can end up seeing this page's generic title instead of the
+          modal's specific one (confirmed live: every /work/:slug page
+          was serving "All Work | Emily Lucas" for its <title>). */}
+      {!suppressMeta && (
+        <RouteMeta
+          path="/"
+          title="Emily Lucas Portfolio"
+          description="Portfolio spanning production, strategy and visual research across fashion, beauty, hospitality and editorial."
+          image={null}
+        />
+      )}
       {/* CustomCursor mounted globally in App.jsx (outside the
           .page-fade-in transform scope so it stays viewport-fixed). */}
       <style>{`

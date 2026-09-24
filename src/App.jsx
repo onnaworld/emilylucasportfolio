@@ -20,9 +20,15 @@ function truncate(text, max) {
 // Build the SEO/social meta payload for a case-study slug. Pulled out
 // so the modal route stays declarative.
 function buildCaseStudyMeta(study, slug) {
-  const titleCore = `${study.client} — ${study.project || study.title}`;
+  const titleCore = `${study.client} | ${study.project || study.title}`;
   const title = `${titleCore} | Emily Lucas`;
-  const description = truncate(study.task || study.outcome || "", 155);
+  // Combined entries (mr-porter-editorial etc.) carry the summary in their
+  // numbered viewProjectLink list instead of task/outcome prose — fall
+  // back to that list's labels so the description isn't empty.
+  const fallbackDescription = Array.isArray(study.viewProjectLink)
+    ? `${study.project || study.title}: ${study.viewProjectLink.map((l) => l.label.replace(/^\d+\.\s*/, "").replace(/\s*→$/, "")).join(", ")}.`
+    : "";
+  const description = truncate(study.task || study.outcome || fallbackDescription, 155);
   // Image fallback chain: explicit heroImage → first still in images
   // (videos can't render as og:image previews) → site default hero.
   const firstStill = study.images?.find(
@@ -207,8 +213,8 @@ function AppRoutes() {
       <Layout>
         <Suspense fallback={null}>
           <Routes location={backgroundLocation || location}>
-            <Route path="/" element={<Landing />} />
-            <Route path="/work" element={<Work />} />
+            <Route path="/" element={<Landing suppressMeta={!!slug} />} />
+            <Route path="/work" element={<Work suppressMeta={!!slug} />} />
             {/* Old category pages are retired in favour of the single
                 /work index — redirect so existing bookmarks/backlinks
                 don't dead-end on a 404. */}

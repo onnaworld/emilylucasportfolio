@@ -102,7 +102,7 @@ const PROJECTS = [
   { n: 23, client: "VOGUE ARABIA",        title: "Visual Research | Archive Editorial",                                        slug: "vogue-arabia-editorial",            thumb: "/Visual%20Research/vogue-arabia-filters-hero.webp" },
 ];
 
-export default function Work() {
+export default function Work({ suppressMeta = false }) {
   const [activeSlug, setActiveSlug] = useState(null);
   // Set when a numbered sub-piece is opened from a combined entry
   // (mr-porter-editorial etc.) via onOpenSub, so the pop-up can show an
@@ -234,12 +234,16 @@ export default function Work() {
 
   return (
     <div className="work-page page-fade-in" style={{ minHeight: "100vh", background: colors.bg, color: colors.text, position: "relative" }}>
-      <RouteMeta
-        path="/work"
-        title="All Work | Emily Lucas"
-        description="Selected production, strategy and visual research work by Emily Lucas. Luxury campaigns and editorial across MR PORTER, Aman, Condé Nast, One&Only, Nike, Mastercard, Cipriani, Charlotte Tilbury and more."
-        image="/work/one-only-moonlight-basin/03.jpg"
-      />
+      {/* Suppressed when a case-study modal is open over this page — see
+          the matching comment in Landing.jsx for why this matters. */}
+      {!suppressMeta && (
+        <RouteMeta
+          path="/work"
+          title="All Work | Emily Lucas"
+          description="Selected production, strategy and visual research work by Emily Lucas. Luxury campaigns and editorial across MR PORTER, Aman, Condé Nast, One&Only, Nike, Mastercard, Cipriani, Charlotte Tilbury and more."
+          image="/work/one-only-moonlight-basin/03.jpg"
+        />
+      )}
       <style>{`
         /* Page is intentionally non-scrollbar-driven on /work, list hover advances the thumbs */
         html { scrollbar-width: none; }
