@@ -9,7 +9,7 @@ import { lockPageScroll, unlockPageScroll } from "../hooks/modalScrollLock";
 // The shell handles the backdrop + card animation in/out and the
 // 160ms close-delay so the user sees the card shrink back down before
 // the route actually changes. Escape key + backdrop click both close.
-export default function CaseStudyModal({ study, onClose, onNext, nextLabel }) {
+export default function CaseStudyModal({ study, onClose, onNext, nextLabel, onOpenSub }) {
   const [closing, setClosing] = useState(false);
 
   const handleClose = () => {
@@ -54,39 +54,6 @@ export default function CaseStudyModal({ study, onClose, onNext, nextLabel }) {
     };
   }, []);
 
-  // Belt-and-suspenders: intercept wheel/touch input at the window level,
-  // in the capture phase, before it reaches Lenis, native scroll, OR any
-  // other scroll mechanism the background page might use. overflow:hidden
-  // + lenis.stop() cover the known cases, but this is the one guarantee
-  // that holds regardless of what's driving the background's scroll —
-  // anything outside the modal's own scrollable body (.cs-card-scroll)
-  // is blocked outright.
-  useEffect(() => {
-    const isInsideScrollable = (target) =>
-      target instanceof Element && !!target.closest(".cs-card-scroll");
-    const block = (e) => {
-      if (!isInsideScrollable(e.target)) e.preventDefault();
-    };
-    // Keyboard-driven scroll (Space, Page Up/Down, Home/End, arrow keys)
-    // moves the page even with overflow:hidden if focus sits on <body> —
-    // block it too, unless focus is inside the modal's own content.
-    const SCROLL_KEYS = new Set([
-      " ", "Spacebar", "PageDown", "PageUp", "Home", "End",
-      "ArrowUp", "ArrowDown",
-    ]);
-    const blockKeys = (e) => {
-      if (SCROLL_KEYS.has(e.key) && !isInsideScrollable(e.target)) e.preventDefault();
-    };
-    window.addEventListener("wheel", block, { passive: false, capture: true });
-    window.addEventListener("touchmove", block, { passive: false, capture: true });
-    window.addEventListener("keydown", blockKeys, { capture: true });
-    return () => {
-      window.removeEventListener("wheel", block, { capture: true });
-      window.removeEventListener("touchmove", block, { capture: true });
-      window.removeEventListener("keydown", blockKeys, { capture: true });
-    };
-  }, []);
-
   return (
     <div
       onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
@@ -127,7 +94,7 @@ export default function CaseStudyModal({ study, onClose, onNext, nextLabel }) {
             : "cs-modal-in 0.18s ease-out both",
         }}
       >
-        <CaseStudyCard study={study} onClose={handleClose} onNext={onNext} nextLabel={nextLabel} />
+        <CaseStudyCard study={study} onClose={handleClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} />
       </div>
 
       <style>{`

@@ -115,7 +115,7 @@ function ScrollToTop() {
 // close, navigates back to either the prior location (if the user got
 // here by clicking from a category page) or the parent category route
 // (if this was a direct deep link).
-function CaseStudyRoute({ slug }) {
+function CaseStudyRoute({ slug, backgroundLocation }) {
   const navigate = useNavigate();
   const location = useLocation();
   const study = productionCases.find((c) => c.slug === slug);
@@ -143,6 +143,16 @@ function CaseStudyRoute({ slug }) {
     ? [nextStudy.client, nextStudy.project].filter(Boolean).join(" | ")
     : null;
 
+  // A combined entry's numbered sub-pieces open their own case study in
+  // place. Pushes (not replace) so closing that sub-piece's modal pops
+  // back to the combined entry via the existing onClose/navigate(-1) path.
+  // Explicitly carries the ALREADY-RESOLVED backgroundLocation (real page,
+  // synthesized "/work" fallback included) rather than the possibly-
+  // undefined raw location.state — a direct deep link into the combined
+  // entry has no state of its own, and without this, closing the
+  // sub-piece would skip past the combined entry straight to /work.
+  const onOpenSub = (subSlug) => navigate(`/work/${subSlug}`, { state: { backgroundLocation } });
+
   if (!study) return null;
   const meta = buildCaseStudyMeta(study, slug);
   return (
@@ -155,7 +165,7 @@ function CaseStudyRoute({ slug }) {
         type="article"
         jsonLd={meta.jsonLd}
       />
-      <CaseStudyModal study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} />
+      <CaseStudyModal study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} />
     </>
   );
 }
@@ -200,7 +210,7 @@ function AppRoutes() {
           </Routes>
         </Suspense>
       </Layout>
-      {slug && <CaseStudyRoute slug={slug} />}
+      {slug && <CaseStudyRoute slug={slug} backgroundLocation={backgroundLocation} />}
     </>
   );
 }

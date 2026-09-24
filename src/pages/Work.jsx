@@ -121,18 +121,21 @@ export default function Work() {
   // Merge minimal PROJECTS data into the case so editorial pieces that only
   // exist in PROJECTS still render the popup, and full case studies pick up
   // the project's `link` as viewProjectLink and `tags` if not explicitly
-  // set in productionCases.
-  const activeStudy = activeSlug && activeProject
+  // set in productionCases. Falls back to baseCase alone for a slug with
+  // no PROJECTS row at all — e.g. a numbered sub-piece opened via
+  // onOpenSub from a combined entry (mr-porter-editorial etc.), which
+  // only exists in productionCases, not in the /work numbered list.
+  const activeStudy = activeSlug && (activeProject || baseCase)
     ? {
-        slug: activeProject.slug,
-        client: baseCase?.client ?? activeProject.client,
-        project: baseCase?.project ?? activeProject.title,
-        year: baseCase?.year ?? activeProject.year ?? "",
+        slug: activeProject?.slug ?? baseCase?.slug ?? activeSlug,
+        client: baseCase?.client ?? activeProject?.client,
+        project: baseCase?.project ?? activeProject?.title,
+        year: baseCase?.year ?? activeProject?.year ?? "",
         task: baseCase?.task ?? "",
         outcome: baseCase?.outcome ?? "",
-        images: baseCase?.images ?? activeProject.images ?? [],
-        tags: baseCase?.tags ?? activeProject.tags ?? [],
-        viewProjectLink: baseCase?.viewProjectLink ?? activeProject.link ?? null,
+        images: baseCase?.images ?? activeProject?.images ?? [],
+        tags: baseCase?.tags ?? activeProject?.tags ?? [],
+        viewProjectLink: baseCase?.viewProjectLink ?? activeProject?.link ?? null,
         videoLink: baseCase?.videoLink ?? null,
         videoLinks: baseCase?.videoLinks ?? null,
       }
@@ -461,6 +464,7 @@ export default function Work() {
             onClose={() => setActive(null)}
             onNext={nextCase ? () => setActive(nextCase.slug) : undefined}
             nextLabel={nextLabel}
+            onOpenSub={setActive}
             isMobile={isMobile}
           />
         )}
@@ -832,7 +836,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
   );
 }
 
-function CaseStudyPopup({ study, panelRef, onClose, onNext, nextLabel, isMobile }) {
+function CaseStudyPopup({ study, panelRef, onClose, onNext, nextLabel, onOpenSub, isMobile }) {
   const innerRef = useRef(null);
   const setRefs = (el) => {
     innerRef.current = el;
@@ -878,7 +882,7 @@ function CaseStudyPopup({ study, panelRef, onClose, onNext, nextLabel, isMobile 
             transformOrigin: "center",
           }}
         >
-          <CaseStudyCard study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} stagger bodyRef={setRefs} />
+          <CaseStudyCard study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} stagger bodyRef={setRefs} />
         </div>
 
         {/* End-of-scroll ↓, sits in the white space just below the popup card */}

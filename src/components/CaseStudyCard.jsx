@@ -74,7 +74,7 @@ export function withBrands(text) {
 //               (matches the /work popup feel)
 //   bodyRef   — optional ref to the inner scrollable element
 //   onScroll  — optional scroll handler (e.g. for end-of-scroll detection)
-export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef, onScroll, onNext, nextLabel }) {
+export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef, onScroll, onNext, nextLabel, onOpenSub }) {
   const anim = (delay) =>
     stagger
       ? `cs-card-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`
@@ -160,20 +160,36 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           {study.viewProjectLink && (() => {
             const raw = Array.isArray(study.viewProjectLink) ? study.viewProjectLink : [study.viewProjectLink];
             const links = raw.map((l) => typeof l === "string" ? { label: "View Project →", url: l } : l);
+            const linkStyle = { fontFamily: TIMES, fontSize: 14, fontWeight: 400, color: colors.text, textDecoration: "none", whiteSpace: "nowrap" };
             return (
               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
-                {links.map((l) => (
-                  <a
-                    key={l.url}
-                    href={l.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover-text"
-                    style={{ fontFamily: TIMES, fontSize: 14, fontWeight: 400, color: colors.text, textDecoration: "none", whiteSpace: "nowrap" }}
-                  >
-                    {l.label}
-                  </a>
-                ))}
+                {links.map((l) =>
+                  // A combined entry's numbered sub-pieces (e.g. MR PORTER's
+                  // 8 journal pieces) carry a slug instead of an external
+                  // url — clicking one opens that piece's own case study in
+                  // place, rather than navigating away to the article.
+                  l.slug && onOpenSub ? (
+                    <button
+                      key={l.slug}
+                      onClick={() => onOpenSub(l.slug)}
+                      className="hover-text"
+                      style={{ ...linkStyle, background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "right" }}
+                    >
+                      {l.label}
+                    </button>
+                  ) : (
+                    <a
+                      key={l.url}
+                      href={l.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover-text"
+                      style={linkStyle}
+                    >
+                      {l.label}
+                    </a>
+                  )
+                )}
               </div>
             );
           })()}

@@ -260,9 +260,9 @@ export const productionCases = [
     task: "Three long-form authored features for Trippin across 2022, each reading a cultural subject seriously rather than as travel content | ethical photography practice across four continents, Mexican photographer Graciela Iturbide's work on Indigenous identity, and the cultural and legal history of tattooing in Japan.",
     outcome: "Authored 6 Photographers on What Ethical Photography Means to Them, curating six photographers across four continents on the power dynamics of documenting unfamiliar places. Wrote An Exploration of Mexico Through the Lens of Graciela Iturbide, reading her Juchitán and Seri people series through the ethics of the photographer's gaze. Built A History of Tattooing in Japan across three structural arcs, from Ainu ritual practice through Edo-period criminal branding to the contemporary legal grey area, with visual research surfacing four photographers' work on Japanese tattoo culture.",
     viewProjectLink: [
-      { label: "1. Ethical Photography →", url: "https://trippin.world/feature/through-the-lens-6-photographers-on-what-ethical-photography-means-to-them" },
-      { label: "2. Graciela Iturbide →", url: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide" },
-      { label: "3. Tattooing in Japan →", url: "https://trippin.world/feature/a-history-of-tattooing-in-japan" },
+      { label: "1. Ethical Photography →", slug: "trippin-ethical-photography" },
+      { label: "2. Graciela Iturbide →", slug: "trippin-mexico-iturbide" },
+      { label: "3. Tattooing in Japan →", slug: "trippin-tattooing-japan" },
     ],
     images: [
       "/work/trippin-ethical-photography/01.avif",
@@ -282,14 +282,14 @@ export const productionCases = [
     task: "Eight features for MR PORTER's Journal and social channels across four years, spanning authored editorial (trend forecasting and cultural commentary), on-record features as a contributor, visual research | sourcing and licensing imagery for pieces written by others, and social media production strategy for the brand's Gen Z push.",
     outcome: "Authored The Stylish Gent's Guide To 2022's Freshest Menswear Trends, an original trend forecast read against runway, street and TikTok signals. Featured as an on-record contributor in Calling All Women (Nov 2023) and 15 Ways To Improve Your Life, Japanese Style (May 2026), both drawing on a Tokyo-raised perspective. Led visual research and licensing on four further pieces | Eight Striking Images Of New York City Through The Decades (photography estates and galleries), Five Stylish Summertime Movies (studio film stills), Five Ways To Freshen Up Your Work Wardrobe In 2020 (AW20 runway imagery via IMAXtree), and What To Read, Watch And Do This Black History Month UK (broadcast, publisher, gallery and archive rights) | each requiring a different rights-clearance discipline. Led MR PORTER's social media production strategy, conceiving Helping Hands as the inaugural TikTok franchise and evolving it into the community-led Ask Mr Porter format | the channel grew to 50K followers in its first year.",
     viewProjectLink: [
-      { label: "1. Menswear Trends 2022 →", url: "https://www.mrporter.com/en-ch/journal/fashion/menswear-trends-forecast-street-style-2022-10321430" },
-      { label: "2. Calling All Women →", url: "https://www.mrporter.com/en-dk/journal/fashion/women-shopping-buying-wearing-menswear-style-24622422" },
-      { label: "3. 15 Ways, Japanese Style →", url: "https://www.mrporter.com/en-us/journal/lifestyle/life-lessons-people-tokyo-japan-style-food-24538500" },
-      { label: "4. NYC Street Photography →", url: "https://www.mrporter.com/en-gb/journal/lifestyle/new-york-street-photography-bruce-davidson-vivian-maier-10037722" },
-      { label: "5. Summertime Movies →", url: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852" },
-      { label: "6. Freshen Up Your Wardrobe →", url: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428" },
-      { label: "7. Black History Month UK →", url: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134" },
-      { label: "8. Social Media Strategy →", url: "https://www.instagram.com/reels/C0zM2zut65S/" },
+      { label: "1. Menswear Trends 2022 →", slug: "mr-porter-menswear-trends-2022" },
+      { label: "2. Calling All Women →", slug: "mr-porter-women-buy-menswear" },
+      { label: "3. 15 Ways, Japanese Style →", slug: "mr-porter-15-ways-japanese-style" },
+      { label: "4. NYC Street Photography →", slug: "mr-porter-nyc-street-photography" },
+      { label: "5. Summertime Movies →", slug: "mr-porter-five-stylish-summertime-movies" },
+      { label: "6. Freshen Up Your Wardrobe →", slug: "mr-porter-five-ways-freshen-work-wardrobe" },
+      { label: "7. Black History Month UK →", slug: "mr-porter-black-history-month-uk" },
+      { label: "8. Social Media Strategy →", slug: "mr-porter-social-media-strategy" },
     ],
     images: [
       "/work/mr-porter-menswear-trends-2022/01.jpg",
@@ -737,8 +737,8 @@ export const productionCases = [
     task: "Two archive visual-research commissions for Vogue Arabia in 2025, each sourcing a single image strong enough to anchor a feature without a photoshoot | an essay on face-altering filters and digital beauty standards, and a roundup of Riyadh's top women's wellness destinations.",
     outcome: "Licensed a 1969 Keystone archive frame from Getty Images for Why I Refuse to Use Face-Altering Filters in 2025, its comically oversized eye-magnifying glasses mirroring the digital filters the essay critiques. Licensed a Graphic House archive frame from Getty Images for DND Mode: The Top Ladies Spas to Visit in Riyadh, anchoring the wellness roundup in lifestyle archive rather than contemporary spa stock.",
     viewProjectLink: [
-      { label: "1. Face-Altering Filters →", url: "https://www.voguearabia.com/article/refuse-to-use-face-altering-filters-in-2025" },
-      { label: "2. Riyadh Spas →", url: "https://www.voguearabia.com/article/best-ladies-spas-riyadh" },
+      { label: "1. Face-Altering Filters →", slug: "vogue-arabia-face-filters-essay" },
+      { label: "2. Riyadh Spas →", slug: "vogue-arabia-ladies-spas-riyadh" },
     ],
     images: [
       "/Visual Research/vogue-arabia-filters-hero.webp",
