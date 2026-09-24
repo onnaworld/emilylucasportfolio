@@ -5,7 +5,7 @@ import Landing from "./pages/Landing";
 import CustomCursor from "./components/CustomCursor";
 import CaseStudyModal from "./components/CaseStudyModal";
 import RouteMeta from "./components/RouteMeta";
-import { productionCases } from "./data/work";
+import { productionCases, nextCaseStudy } from "./data/work";
 
 // Word-boundary truncate to a target length. Used to derive case-study
 // meta descriptions from the existing "task" copy without mid-word
@@ -119,6 +119,7 @@ function CaseStudyRoute({ slug }) {
   const navigate = useNavigate();
   const location = useLocation();
   const study = productionCases.find((c) => c.slug === slug);
+  const nextStudy = nextCaseStudy(slug);
 
   const onClose = () => {
     if (location.state?.backgroundLocation) {
@@ -130,6 +131,17 @@ function CaseStudyRoute({ slug }) {
       navigate("/work", { replace: true });
     }
   };
+
+  // Swaps the modal to the next project in place — replace (not push)
+  // so repeated "next" clicks don't pile up /work/:slug history entries,
+  // and carries the same backgroundLocation state so the underlying
+  // page stays put.
+  const onNext = nextStudy
+    ? () => navigate(`/work/${nextStudy.slug}`, { state: location.state, replace: true })
+    : undefined;
+  const nextLabel = nextStudy
+    ? [nextStudy.client, nextStudy.project].filter(Boolean).join(" — ")
+    : null;
 
   if (!study) return null;
   const meta = buildCaseStudyMeta(study, slug);
@@ -143,7 +155,7 @@ function CaseStudyRoute({ slug }) {
         type="article"
         jsonLd={meta.jsonLd}
       />
-      <CaseStudyModal study={study} onClose={onClose} />
+      <CaseStudyModal study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} />
     </>
   );
 }

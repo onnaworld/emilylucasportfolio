@@ -74,7 +74,7 @@ export function withBrands(text) {
 //               (matches the /work popup feel)
 //   bodyRef   — optional ref to the inner scrollable element
 //   onScroll  — optional scroll handler (e.g. for end-of-scroll detection)
-export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef, onScroll }) {
+export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef, onScroll, onNext, nextLabel }) {
   const anim = (delay) =>
     stagger
       ? `cs-card-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`
@@ -301,6 +301,37 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
               </span>
             ))}
           </div>
+        )}
+
+        {onNext && (
+          <button
+            onClick={onNext}
+            className="hover-text"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: space.md,
+              width: "100%",
+              marginTop: space.lg,
+              paddingTop: space.md,
+              borderTop: `1px solid rgba(0,0,0,0.1)`,
+              borderLeft: "none",
+              borderRight: "none",
+              borderBottom: "none",
+              background: "none",
+              cursor: "pointer",
+              textAlign: "left",
+              animation: anim(0.6),
+            }}
+          >
+            <span style={{ fontFamily: HEROS_FONT, fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.textMuted }}>
+              Next Project
+            </span>
+            <span style={{ fontFamily: TIMES, fontStyle: "italic", fontSize: 15, fontWeight: 400, color: colors.text }}>
+              {nextLabel} →
+            </span>
+          </button>
         )}
       </div>
 

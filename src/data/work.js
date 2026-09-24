@@ -252,7 +252,7 @@ export const productionCases = [
   {
     slug: "mr-porter-editorial",
     client: "MR PORTER",
-    project: "Journal — Editorial & Visual Research",
+    project: "Journal | Editorial & Visual Research",
     year: "2020–2026",
     task: "Seven features for MR PORTER's Journal across four years, spanning three kinds of contribution: authored editorial (trend forecasting and cultural commentary), on-record features as a contributor, and visual research — sourcing and licensing imagery for pieces written by others across photography, film, runway and archive rights holders.",
     outcome: "Authored The Stylish Gent's Guide To 2022's Freshest Menswear Trends, an original trend forecast read against runway, street and TikTok signals. Featured as an on-record contributor in Calling All Women (Nov 2023) and 15 Ways To Improve Your Life, Japanese Style (May 2026), both drawing on a Tokyo-raised perspective. Led visual research and licensing on four further pieces — Eight Striking Images Of New York City Through The Decades (photography estates and galleries), Five Stylish Summertime Movies (studio film stills), Five Ways To Freshen Up Your Work Wardrobe In 2020 (AW20 runway imagery via IMAXtree), and What To Read, Watch And Do This Black History Month UK (broadcast, publisher, gallery and archive rights) — each requiring a different rights-clearance discipline.",
@@ -280,6 +280,136 @@ export const productionCases = [
       "/work/mr-porter-black-history-month-uk/02.jpg",
     ],
     tags: ["Editorial Writing", "Visual Research", "Image Licensing", "Cultural Commentary", "Featured Editorial", "Trend Forecasting"],
+  },
+  // The 7 individual pieces below are kept alongside the combined
+  // "mr-porter-editorial" entry above — the /work page shows only the
+  // combined entry (avoids repeating MR PORTER 7x in the numbered
+  // list), but the homepage carousel still deep-links each tile to its
+  // own original case study.
+  {
+    slug: "mr-porter-menswear-trends-2022",
+    client: "MR PORTER",
+    project: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends",
+    year: "2022",
+    task: "Authored editorial trend forecast for the MR PORTER Journal entering 2022, publishing a credible menswear trend piece for the start of the year. Through trend forecasting, writing the editorial, and sourcing the visual research, the piece was published as an original read of the menswear landscape based on the runway, street, and emerging cultural signals.",
+    outcome: "Concepted and authored seven menswear trends with a deliberate cultural-signal mix: surfacing the rubber mule as the next phase of the ugly-shoe moment (Bottega Veneta Puddle, Balenciaga Crocs), the return of varsity jackets through the Aimé Leon Dore and Rhude Ivy League revival, custom denim through BODE's New York embroidery practice and KAPITAL's Japanese patchwork tradition, the continued blurring of gender-coded fabrics, Pantone's Very Peri, and the Gorpcore-influenced quilted slipper. Each trend was anchored against specific brand and cultural reference points; not generic forecasting, but a piece that read the runway, street, and TikTok as parallel signals shaping menswear at the same time, which performed strongly on social channel (Instagram).",
+    viewProjectLink: "https://www.mrporter.com/en-ch/journal/fashion/menswear-trends-forecast-street-style-2022-10321430",
+    images: [
+      "/work/mr-porter-menswear-trends-2022/01.jpg",
+      "/work/mr-porter-menswear-trends-2022/02.jpg",
+      "/work/mr-porter-menswear-trends-2022/03.jpg",
+      "/work/mr-porter-menswear-trends-2022/04.jpg",
+      "/work/mr-porter-menswear-trends-2022/05.jpg",
+      "/work/mr-porter-menswear-trends-2022/06.jpg",
+      "/work/mr-porter-menswear-trends-2022/07.jpg",
+      "/work/mr-porter-menswear-trends-2022/08.jpg",
+    ],
+    tags: ["Editorial Writing", "Cultural Commentary", "Visual Research", "Trend Forecasting"],
+  },
+  {
+    slug: "mr-porter-women-buy-menswear",
+    client: "MR PORTER",
+    project: "Calling All Women: Why You Should Shop (For Yourself) On MR PORTER",
+    year: "2023",
+    task: "Selected by the MR PORTER editorial team as one of three staffers profiled in this editorial on women shopping menswear. Contributed personal style commentary and posed for an editorial fashion shoot styling menswear pieces from the site.",
+    outcome: "Featured in the November 2023 editorial alongside MR PORTER's Fashion Editor and Senior Editor, photographed by Suleika Mueller and styled by Charlie Schneider-Jacobson. Brought a Tokyo-raised perspective to the piece, speaking on the influence of Japanese design philosophy on personal style by highlighting brands including KAPITAL and Sacai. Intentionally bringing attention to the cultural orientation toward capsule wardrobes built from timeless, well-crafted pieces designed to last. The editorial sat as part of MR PORTER's broader conversation on dissolving menswear/womenswear distinctions, a thread the brand has been building publicly over several years.",
+    viewProjectLink: "https://www.mrporter.com/en-dk/journal/fashion/women-shopping-buying-wearing-menswear-style-24622422",
+    images: [
+      "/work/mr-porter-women-buy-menswear/01.jpg",
+      "/work/mr-porter-women-buy-menswear/02.jpg",
+      "/work/mr-porter-women-buy-menswear/03.jpg",
+      "/work/mr-porter-women-buy-menswear/04.jpg",
+    ],
+    tags: ["Featured Editorial", "Cultural Commentary"],
+  },
+  {
+    slug: "mr-porter-15-ways-japanese-style",
+    client: "MR PORTER",
+    project: "15 Ways To Improve Your Life, Japanese Style",
+    year: "2026",
+    task: "Selected by MR PORTER's editorial team as one of the cultural sources interviewed for this feature on what the world can learn from life in Japan, alongside producers, journalists, designers, and consultants based in or specialising in the country.",
+    outcome: "Featured in the May 2026 piece authored by Ashley Ogawa Clarke, providing on-record cultural commentary on Japanese approaches to food, mindfulness, and everyday social etiquette. Quoted on the Japanese breakfast tradition and the cultural courtesy around public phone use, both rooted in personal experience of growing up in Tokyo. The piece sat alongside MR PORTER's Made In Japan edit, part of the brand's broader editorial conversation on Japanese craft and culture.",
+    viewProjectLink: "https://www.mrporter.com/en-us/journal/lifestyle/life-lessons-people-tokyo-japan-style-food-24538500",
+    images: [],
+    tags: ["Featured Editorial", "Cultural Commentary"],
+  },
+  {
+    slug: "mr-porter-nyc-street-photography",
+    client: "MR PORTER",
+    project: "Eight Striking Images Of New York City Through The Decades",
+    year: "2021",
+    task: "Concepted and researched a visual essay for the MR PORTER Journal celebrating New York street photography across the decades, timed to three concurrent photography exhibitions in autumn 2021: Jamel Shabazz's Prospect Park: An Oasis In Brooklyn, Vivian Maier at the Musée du Luxembourg, and Bruce Davidson at Magnum Photos' Paris gallery. Publishing a visual essay that read New York through eight photographers' lenses, sourcing the imagery, securing licensing, and shaping the editorial frame.",
+    outcome: "Curated eight photographers spanning seven decades of New York: Saul Leiter (1957), Vivian Maier (1954), Joel Meyerowitz (1968), Joseph Rodriguez (1977–87), Bruce Davidson (1980), Jamel Shabazz (1997), Amani Willett (2005), and Andre D Wagner (2017). Sourced and licensed each image through the relevant estate, foundation, or gallery (Saul Leiter Foundation, Maloof Collection / Howard Greenberg Gallery, Magnum Photos, Gallery Stock), handing the editorial team a curated set of rights-cleared work to write around. The piece sat as part of MR PORTER's broader Style Council framing for the city.",
+    viewProjectLink: "https://www.mrporter.com/en-gb/journal/lifestyle/new-york-street-photography-bruce-davidson-vivian-maier-10037722",
+    images: [
+      "/work/mr-porter-nyc-street-photography/01.jpg",
+      "/work/mr-porter-nyc-street-photography/02.jpg",
+      "/work/mr-porter-nyc-street-photography/03.jpg",
+      "/work/mr-porter-nyc-street-photography/04.jpg",
+      "/work/mr-porter-nyc-street-photography/05.jpg",
+      "/work/mr-porter-nyc-street-photography/06.jpg",
+      "/work/mr-porter-nyc-street-photography/07.jpg",
+    ],
+    tags: ["Visual Research", "Photography Curation", "Image Licensing", "Editorial Direction"],
+  },
+  {
+    slug: "mr-porter-five-stylish-summertime-movies",
+    client: "MR PORTER",
+    project: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe",
+    year: "2020",
+    task: "Visual research and image sourcing for a MR PORTER Journal feature on cinematic summer style, published June 2020. Sourced and licensed still imagery across five films spanning six decades of cinema, working through the rights complexity of studio stills, agency photo libraries, and licensed archive imagery.",
+    outcome: "Visual Research of Plein Soleil (1960), Do The Right Thing (1989), The Great Gatsby (1974), Once Upon A Time in Hollywood (2019), and Call Me By Your Name (2017). Navigating licensing across Universal, Paramount, Sony Pictures Entertainment, Times Film, AKG Images, Alamy, and Photofest, handing the editorial team a rights-cleared visual set to write the piece around. Demonstrates production capability around film stills and entertainment IP licensing, distinct from photography rights work.",
+    viewProjectLink: "https://www.mrporter.com/en-us/journal/fashion/stylish-summer-movies-style-aesthetic-inspiration-1292852",
+    images: [
+      "/work/mr-porter-five-stylish-summertime-movies/01.jpg",
+      "/work/mr-porter-five-stylish-summertime-movies/02.jpg",
+      "/work/mr-porter-five-stylish-summertime-movies/03.jpg",
+      "/work/mr-porter-five-stylish-summertime-movies/04.jpg",
+      "/work/mr-porter-five-stylish-summertime-movies/05.jpg",
+      "/work/mr-porter-five-stylish-summertime-movies/06.jpg",
+    ],
+    tags: ["Visual Research", "Image Licensing"],
+  },
+  {
+    slug: "mr-porter-five-ways-freshen-work-wardrobe",
+    client: "MR PORTER",
+    project: "Five Ways To Freshen Up Your Work Wardrobe In 2020",
+    year: "2020",
+    task: "Visual research and runway image sourcing for a MR PORTER Journal feature reading the AW20 menswear shows as a work wardrobe forecast, published February 2020, within weeks of the Milan and Paris men's shows. Working to a tight editorial turnaround to license runway imagery from the shows immediately after they ran.",
+    outcome: "Sourced and licensed runway stills across fifteen shows from the AW20 men's calendar (Berluti, Bode, Casablanca, Dior, Dries Van Noten, Fendi, Givenchy, Gucci, JW Anderson, Louis Vuitton, Off-White, Prada, Raf Simons, Vetements, and 1017 ALYX 9SM), working through IMAXtree, the primary runway photo agency, and individual photographer credits including Salvatore Dragone, Alessandro Lucioni, Daniele Oberrauch, Isidore Montag, and Armando Grillo. Demonstrates runway image licensing as a distinct visual research discipline: fast-turnaround, agency-led, time-bound to the editorial cycle of the fashion calendar.",
+    viewProjectLink: "https://www.mrporter.com/en-gb/journal/fashion/five-ways-to-freshen-up-your-work-wardrobe-in-2020-1086428",
+    images: [
+      "/work/mr-porter-five-ways-freshen-work-wardrobe/01.jpg",
+      "/work/mr-porter-five-ways-freshen-work-wardrobe/02.jpg",
+      "/work/mr-porter-five-ways-freshen-work-wardrobe/03.jpg",
+      "/work/mr-porter-five-ways-freshen-work-wardrobe/04.jpg",
+      "/work/mr-porter-five-ways-freshen-work-wardrobe/05.jpg",
+      "/work/mr-porter-five-ways-freshen-work-wardrobe/06.jpg",
+    ],
+    tags: ["Visual Research", "Image Licensing"],
+  },
+  {
+    slug: "mr-porter-black-history-month-uk",
+    client: "MR PORTER",
+    project: "What To Read, Watch And Do This Black History Month UK",
+    year: "2021",
+    task: "Visual research and image sourcing for a MR PORTER Journal feature marking Black History Month UK, published October 2021. Working with writer Fedora Abu to source imagery across nine cultural recommendations spanning podcasts, books, television, exhibitions, theatre, and archival photography, each with its own rights-holder and licensing regime.",
+    outcome: "Licensed imagery across a broad range of source types: BBC and ITV broadcast stills (Uprising, Stephen), publisher cover imagery from Penguin and Penguin Press (Assembly, What White People Can Do Next, Manifesto), gallery and artist representation (Lisson Gallery for John Akomfrah's The Monuments of Being), theatre production photography (Soho Theatre and the National Theatre), and historic archive imagery (Charlie Phillips's documentation of Notting Hill via Akehurst Creative Management). Each source type required different rights conversations, demonstrating the full breadth of editorial image sourcing across cultural disciplines.",
+    viewProjectLink: "https://www.mrporter.com/en-gb/journal/lifestyle/what-to-read-watch-see-do-black-history-month-uk-2021-10037134",
+    images: [
+      "/work/mr-porter-black-history-month-uk/01.jpg",
+      "/work/mr-porter-black-history-month-uk/02.jpg",
+      "/work/mr-porter-black-history-month-uk/03.jpg",
+      "/work/mr-porter-black-history-month-uk/04.jpg",
+      "/work/mr-porter-black-history-month-uk/05.jpg",
+      "/work/mr-porter-black-history-month-uk/06.jpg",
+      "/work/mr-porter-black-history-month-uk/07.jpg",
+      "/work/mr-porter-black-history-month-uk/08.jpg",
+      "/work/mr-porter-black-history-month-uk/09.jpg",
+      "/work/mr-porter-black-history-month-uk/10.jpg",
+      "/work/mr-porter-black-history-month-uk/11.jpg",
+    ],
+    tags: ["Visual Research", "Image Licensing", "Cultural Commentary"],
   },
   {
     slug: "mr-porter-championing-subcultures",
@@ -566,6 +696,52 @@ export const productionCases = [
     tags: ["Visual Research", "Photo Sourcing", "Archive Licensing", "Editorial"],
   },
 ];
+
+// Slugs in the order projects are numbered on /work (mirrors Work.jsx's
+// PROJECTS list). Drives "Next Project" navigation from any case-study
+// popup. Deliberately excludes the 7 individual MR PORTER journal
+// pieces (mr-porter-menswear-trends-2022 etc.) — those are only
+// reachable from the homepage carousel and are represented here as one
+// combined entry, "mr-porter-editorial".
+export const WORK_ORDER = [
+  "vogue-arabia-relaunch",
+  "aman-saudi-arabia",
+  "mr-porter-finneas",
+  "one-only-moonlight-basin",
+  "cipriani-mr-c-residence-dubai",
+  "mr-porter-in-america",
+  "columbia-sportswear-ramadan-campaign",
+  "mastercard-sail-grand-prix",
+  "nike-vomero-18",
+  "jcrew-abraham-moon",
+  "charlotte-tilbury-disney-100",
+  "louis-vuitton-glass-magazine",
+  "harvey-nichols-festive-beauty",
+  "guess-global-ramadan",
+  "siro-hotel",
+  "hamilton-watches-ventura-xxl",
+  "jumeirah-marsa-al-arab",
+  "vogue-bvlgari",
+  "stone-island-life-aquatic",
+  "mr-porter-championing-subcultures",
+  "mr-porter-social-media-strategy",
+  "trippin-ethical-photography",
+  "trippin-mexico-iturbide",
+  "trippin-tattooing-japan",
+  "mr-porter-editorial",
+  "vogue-arabia-face-filters-essay",
+  "vogue-arabia-ladies-spas-riyadh",
+];
+
+// Given the current slug, returns the next case study to show (wraps
+// around at the end). Returns null if the slug isn't part of the
+// canonical /work order (e.g. a homepage-only MR PORTER journal piece).
+export function nextCaseStudy(slug) {
+  const idx = WORK_ORDER.indexOf(slug);
+  if (idx === -1) return null;
+  const nextSlugValue = WORK_ORDER[(idx + 1) % WORK_ORDER.length];
+  return productionCases.find((c) => c.slug === nextSlugValue) || null;
+}
 
 export const editorialPieces = [
   {

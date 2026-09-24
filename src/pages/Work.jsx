@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { colors, fonts, space, t } from "../theme";
-import { productionCases } from "../data/work";
+import { productionCases, nextCaseStudy } from "../data/work";
 import PlusMenu from "../components/PlusMenu";
 import CaseStudyCard from "../components/CaseStudyCard";
 import RouteMeta from "../components/RouteMeta";
@@ -101,7 +101,7 @@ const PROJECTS = [
   { n: 22, client: "TRIPPIN",             title: "6 Photographers on What Ethical Photography Means to Them",                  slug: "trippin-ethical-photography",       thumb: "/work/all-work/20.avif", link: "https://trippin.world/feature/through-the-lens-6-photographers-on-what-ethical-photography-means-to-them" },
   { n: 23, client: "TRIPPIN",             title: "An Exploration of Mexico Through the Lens of Graciela Iturbide",              slug: "trippin-mexico-iturbide",         thumb: "/work/all-work/21.webp", link: "https://trippin.world/feature/an-exploration-of-mexico-graciela-iturbide" },
   { n: 24, client: "TRIPPIN",             title: "A History of Tattooing in Japan",                                            slug: "trippin-tattooing-japan",           thumb: "/work/all-work/22.avif", link: "https://trippin.world/feature/a-history-of-tattooing-in-japan" },
-  { n: 25, client: "MR PORTER",           title: "Journal — Editorial & Visual Research",                                      slug: "mr-porter-editorial",               thumb: "/work/all-work/23.jpg" },
+  { n: 25, client: "MR PORTER",           title: "Journal | Editorial & Visual Research",                                      slug: "mr-porter-editorial",               thumb: "/work/all-work/23.jpg" },
   { n: 26, client: "VOGUE ARABIA",        title: "Why I Refuse to Use Face-Altering Filters in 2025",                          slug: "vogue-arabia-face-filters-essay",   thumb: "/Visual%20Research/vogue-arabia-filters-hero.webp", link: "https://www.voguearabia.com/article/refuse-to-use-face-altering-filters-in-2025" },
   { n: 27, client: "VOGUE ARABIA",        title: "DND Mode: The Top Ladies Spas to Visit in Riyadh",                           slug: "vogue-arabia-ladies-spas-riyadh",   thumb: "/Visual%20Research/vogue-arabia-spas-hero.webp",    link: "https://www.voguearabia.com/article/best-ladies-spas-riyadh" },
 ];
@@ -140,6 +140,16 @@ export default function Work() {
         videoLink: baseCase?.videoLink ?? null,
         videoLinks: baseCase?.videoLinks ?? null,
       }
+    : null;
+
+  // "Next Project" footer target — wraps to the first project after
+  // the last. nextProject is null for a slug outside WORK_ORDER (there
+  // is none on /work, but the shared CaseStudyCard component needs the
+  // guard since it's also used from the homepage carousel).
+  const nextCase = activeSlug ? nextCaseStudy(activeSlug) : null;
+  const nextProject = nextCase ? PROJECTS.find(p => p.slug === nextCase.slug) : null;
+  const nextLabel = nextProject
+    ? [nextProject.client, nextProject.title].filter(Boolean).join(" — ")
     : null;
 
   // Restore selection from URL hash (so /work#aman or /work#siro-hotel deep-link)
@@ -453,6 +463,8 @@ export default function Work() {
             study={activeStudy}
             panelRef={rightPanelRef}
             onClose={() => setActive(null)}
+            onNext={nextCase ? () => setActive(nextCase.slug) : undefined}
+            nextLabel={nextLabel}
             isMobile={isMobile}
           />
         )}
@@ -813,7 +825,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
               {String(p.n).padStart(2, "0")}
             </div>
             {thumbSrc ? (
-              <FadeInMedia src={thumbSrc} isVideo={isVideo} alt={[p.client, p.title].filter(Boolean).join(" — ")} />
+              <FadeInMedia src={thumbSrc} isVideo={isVideo} alt={[String(p.n).padStart(2, "0"), p.client, p.title].filter(Boolean).join(" | ")} />
             ) : (
               <div style={{ background: "#f2f2f2", aspectRatio: "4 / 3" }} />
             )}
@@ -824,7 +836,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
   );
 }
 
-function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
+function CaseStudyPopup({ study, panelRef, onClose, onNext, nextLabel, isMobile }) {
   const innerRef = useRef(null);
   const setRefs = (el) => {
     innerRef.current = el;
@@ -866,11 +878,11 @@ function CaseStudyPopup({ study, panelRef, onClose, isMobile }) {
             height: isMobile ? "min(640px, calc(100vh - 80px))" : "min(540px, calc(100vh - 240px))",
             background: "#fff",
             overflow: "hidden",
-            animation: "case-popup-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+            animation: "case-popup-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both",
             transformOrigin: "center",
           }}
         >
-          <CaseStudyCard study={study} onClose={onClose} stagger bodyRef={setRefs} />
+          <CaseStudyCard study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} stagger bodyRef={setRefs} />
         </div>
 
         {/* End-of-scroll ↓, sits in the white space just below the popup card */}

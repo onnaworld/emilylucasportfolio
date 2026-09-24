@@ -48,10 +48,10 @@ const PRODUCTION_IMAGES = [
 ];
 const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",                     client: "TRIPPIN",   title: "6 Photographers on Ethical Photography", slug: "trippin-ethical-photography" },
-  { src: "/Cultural%20Strategy/w1500_q80%20(1).jpg",                                                          client: "MR PORTER", title: "15 Ways To Improve Your Life, Japanese Style", landscape: true, slug: "mr-porter-editorial" },
+  { src: "/Cultural%20Strategy/w1500_q80%20(1).jpg",                                                          client: "MR PORTER", title: "15 Ways To Improve Your Life, Japanese Style", landscape: true, slug: "mr-porter-15-ways-japanese-style" },
   { src: "/Cultural%20Strategy/a3cb25a58717bc13af849caf71d30ea83ccad8f1-3107x3308.avif",                      client: "TRIPPIN",   title: "An Exploration of Mexico Through Graciela Iturbide", slug: "trippin-mexico-iturbide" },
   { src: "/Cultural%20Strategy/fde0b3f980e5e6973e1feee0c30baa5717e56588-1072x1072.avif",                      client: "TRIPPIN",   title: "A History of Tattooing in Japan", slug: "trippin-tattooing-japan" },
-  { src: "/Cultural%20Strategy/w1500_q80.jpg",                                                                client: "MR PORTER", title: "Calling All Women", slug: "mr-porter-editorial" },
+  { src: "/Cultural%20Strategy/w1500_q80.jpg",                                                                client: "MR PORTER", title: "Calling All Women", slug: "mr-porter-women-buy-menswear" },
   { src: "/Cultural%20Strategy/w1500_q80.jpeg",                                                               client: "MR PORTER", title: "Tee Store", landscape: true, slug: "mr-porter-championing-subcultures" },
   { src: "/Cultural%20Strategy/Black%20british%20writersOtamere.jpg",                                         client: "MR PORTER", title: "Black British Writers", slug: "mr-porter-championing-subcultures" },
   { src: "/Cultural%20Strategy/Group_Shot.jpg",                                                                client: "MR PORTER", title: "Pride", slug: "mr-porter-championing-subcultures" },
@@ -60,12 +60,12 @@ const WRITING_IMAGES = [
 // back as the strip loops; they're interleaved between the four
 // MR PORTER tiles for visual rhythm.
 const VISUAL_RESEARCH_IMAGES = [
-  { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Eight Striking Images Of New York City Through The Decades", slug: "mr-porter-editorial" },
+  { src: "/Visual%20Research/w1500_q80%20(2).jpg", client: "MR PORTER", title: "Eight Striking Images Of New York City Through The Decades", slug: "mr-porter-nyc-street-photography" },
   { src: "/Visual%20Research/vogue-arabia-filters-hero.webp", client: "VOGUE ARABIA", title: "Why I Refuse to Use Face-Altering Filters in 2025", landscape: true, slug: "vogue-arabia-face-filters-essay" },
-  { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends", slug: "mr-porter-editorial" },
-  { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "What To Read, Watch And Do This Black History Month UK", slug: "mr-porter-editorial" },
+  { src: "/Visual%20Research/w1500_q80%20(3).jpg", client: "MR PORTER", title: "The Stylish Gent's Guide To 2022's Freshest Menswear Trends", slug: "mr-porter-menswear-trends-2022" },
+  { src: "/Visual%20Research/w1500_q80%20(4).jpg", client: "MR PORTER", title: "What To Read, Watch And Do This Black History Month UK", slug: "mr-porter-black-history-month-uk" },
   { src: "/Visual%20Research/vogue-arabia-spas-hero.webp", client: "VOGUE ARABIA", title: "DND Mode: The Top Ladies Spas to Visit in Riyadh", landscape: true, slug: "vogue-arabia-ladies-spas-riyadh" },
-  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe", slug: "mr-porter-editorial" },
+  { src: "/Visual%20Research/w1500_q80%20(5).jpg", client: "MR PORTER", title: "Five Stylish Summertime Movies To Inspire Your Warm-Weather Wardrobe", slug: "mr-porter-five-stylish-summertime-movies" },
 ];
 
 export default function Landing() {
