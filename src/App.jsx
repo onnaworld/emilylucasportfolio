@@ -61,6 +61,12 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 function ScrollToTop() {
   const { pathname, hash, state } = useLocation();
+  // Tracks the pathname from the previous render so a modal CLOSING
+  // (navigating away from /work/:slug back to its background page) can
+  // be told apart from a genuine page-to-page navigation. Without this,
+  // closing a case-study modal forced the background page's scroll back
+  // to the top instead of leaving it where the visitor had it.
+  const prevPathnameRef = useRef(pathname);
   // Disable the browser's built-in scroll restoration so a hard
   // refresh on any route lands at the top instead of wherever the
   // previous session left off. Runs once on first render.
@@ -74,15 +80,21 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
+    const prevPathname = prevPathnameRef.current;
+    prevPathnameRef.current = pathname;
     if (hash) return; // honour anchor links like /work#aman
     // Modal-over-background navigations should leave the background
-    // page where it was. Two cases:
-    //   1. Opened from a category page — state.backgroundLocation is set.
+    // page where it was. Cases:
+    //   1. Opened from a background page — state.backgroundLocation is set.
     //   2. Direct deep link to /work/:slug — pathname matches the case
-    //      study pattern; the background is the parent category which
+    //      study pattern; the background is the parent page which
     //      itself shouldn't auto-scroll to top either way.
+    //   3. Closing that modal — the PREVIOUS pathname was /work/:slug,
+    //      meaning this navigation is just the modal handing control
+    //      back to the background page it was already sitting on top of.
     if (state?.backgroundLocation) return;
     if (/^\/work\/[^/]+\/?$/.test(pathname)) return;
+    if (/^\/work\/[^/]+\/?$/.test(prevPathname)) return;
     // Instant top — Landing's Lenis instance has been destroyed by the
     // time a different route mounts, so a plain window.scrollTo is safe.
     // Explicit "instant" so a stray CSS scroll-behavior:smooth somewhere
