@@ -591,11 +591,11 @@ function WorkHero() {
             letterSpacing: "-0.04em",
           }}
         >
-          Project
+          Selected
         </div>
       </div>
 
-      {/* Bottom-right: Overview */}
+      {/* Bottom-right: Projects */}
       <div
         className="m-hero-br m-hero-title"
         style={{
@@ -612,7 +612,7 @@ function WorkHero() {
           zIndex: 5,
         }}
       >
-        Overview
+        Projects
       </div>
 
       {/* Bottom-left: All Work */}
