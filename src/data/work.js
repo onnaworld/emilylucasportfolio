@@ -279,8 +279,8 @@ export const productionCases = [
     client: "MR PORTER",
     project: "Journal | Editorial & Visual Research",
     year: "2020–2026",
-    task: "Eight features for MR PORTER's Journal and social channels across four years, spanning authored editorial (trend forecasting and cultural commentary), on-record features as a contributor, visual research | sourcing and licensing imagery for pieces written by others, and social media production strategy for the brand's Gen Z push.",
-    outcome: "Authored The Stylish Gent's Guide To 2022's Freshest Menswear Trends, an original trend forecast read against runway, street and TikTok signals. Featured as an on-record contributor in Calling All Women (Nov 2023) and 15 Ways To Improve Your Life, Japanese Style (May 2026), both drawing on a Tokyo-raised perspective. Led visual research and licensing on four further pieces | Eight Striking Images Of New York City Through The Decades (photography estates and galleries), Five Stylish Summertime Movies (studio film stills), Five Ways To Freshen Up Your Work Wardrobe In 2020 (AW20 runway imagery via IMAXtree), and What To Read, Watch And Do This Black History Month UK (broadcast, publisher, gallery and archive rights) | each requiring a different rights-clearance discipline. Led MR PORTER's social media production strategy, conceiving Helping Hands as the inaugural TikTok franchise and evolving it into the community-led Ask Mr Porter format | the channel grew to 50K followers in its first year.",
+    task: "",
+    outcome: "",
     viewProjectLink: [
       { label: "1. Menswear Trends 2022 →", slug: "mr-porter-menswear-trends-2022" },
       { label: "2. Calling All Women →", slug: "mr-porter-women-buy-menswear" },

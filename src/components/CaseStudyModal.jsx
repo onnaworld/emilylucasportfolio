@@ -9,7 +9,7 @@ import { lockPageScroll, unlockPageScroll } from "../hooks/modalScrollLock";
 // The shell handles the backdrop + card animation in/out and the
 // 160ms close-delay so the user sees the card shrink back down before
 // the route actually changes. Escape key + backdrop click both close.
-export default function CaseStudyModal({ study, onClose, onNext, nextLabel, onOpenSub }) {
+export default function CaseStudyModal({ study, onClose, onNext, nextLabel, onOpenSub, backTo }) {
   const [closing, setClosing] = useState(false);
 
   const handleClose = () => {
@@ -94,7 +94,7 @@ export default function CaseStudyModal({ study, onClose, onNext, nextLabel, onOp
             : "cs-modal-in 0.18s ease-out both",
         }}
       >
-        <CaseStudyCard study={study} onClose={handleClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} />
+        <CaseStudyCard study={study} onClose={handleClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} backTo={backTo} />
       </div>
 
       <style>{`

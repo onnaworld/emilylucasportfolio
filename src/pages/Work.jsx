@@ -104,6 +104,11 @@ const PROJECTS = [
 
 export default function Work() {
   const [activeSlug, setActiveSlug] = useState(null);
+  // Set when a numbered sub-piece is opened from a combined entry
+  // (mr-porter-editorial etc.) via onOpenSub, so the pop-up can show an
+  // explicit "← Back to [parent]" link rather than only a "×" that
+  // closes everything.
+  const [parentSlug, setParentSlug] = useState(null);
   const [windowStart, setWindowStart] = useState(0); // first project index in the 3-thumb window
   const [hoveredIdx, setHoveredIdx] = useState(null); // for dimming non-hovered titles
   const sectionRef = useRef(null);
@@ -202,6 +207,7 @@ export default function Work() {
   };
 
   const setActive = (slug) => {
+    setParentSlug(null);
     setActiveSlug(slug);
     if (slug) {
       window.history.replaceState(null, "", `#${slug}`);
@@ -211,6 +217,19 @@ export default function Work() {
     } else {
       window.history.replaceState(null, "", window.location.pathname);
     }
+  };
+
+  // Opens a numbered sub-piece from a combined entry (mr-porter-editorial
+  // etc.), remembering the parent so the pop-up can show an explicit
+  // "← Back to [parent]" link. "×" still fully closes rather than
+  // stepping back — Back and Close stay distinct actions.
+  const openSub = (subSlug) => {
+    setParentSlug(activeSlug);
+    setActiveSlug(subSlug);
+    window.history.replaceState(null, "", `#${subSlug}`);
+    setTimeout(() => {
+      if (rightPanelRef.current) rightPanelRef.current.scrollTop = 0;
+    }, 0);
   };
 
   return (
@@ -464,7 +483,11 @@ export default function Work() {
             onClose={() => setActive(null)}
             onNext={nextCase ? () => setActive(nextCase.slug) : undefined}
             nextLabel={nextLabel}
-            onOpenSub={setActive}
+            onOpenSub={openSub}
+            backTo={parentSlug ? {
+              label: PROJECTS.find(p => p.slug === parentSlug)?.title || "project",
+              onBack: () => setActive(parentSlug),
+            } : undefined}
             isMobile={isMobile}
           />
         )}
@@ -836,7 +859,7 @@ function ScatteredThumbs({ projects, productionCases, windowStart, hoveredIdx, o
   );
 }
 
-function CaseStudyPopup({ study, panelRef, onClose, onNext, nextLabel, onOpenSub, isMobile }) {
+function CaseStudyPopup({ study, panelRef, onClose, onNext, nextLabel, onOpenSub, backTo, isMobile }) {
   const innerRef = useRef(null);
   const setRefs = (el) => {
     innerRef.current = el;
@@ -882,7 +905,7 @@ function CaseStudyPopup({ study, panelRef, onClose, onNext, nextLabel, onOpenSub
             transformOrigin: "center",
           }}
         >
-          <CaseStudyCard study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} stagger bodyRef={setRefs} />
+          <CaseStudyCard study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} backTo={backTo} stagger bodyRef={setRefs} />
         </div>
 
         {/* End-of-scroll ↓, sits in the white space just below the popup card */}

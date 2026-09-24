@@ -151,7 +151,17 @@ function CaseStudyRoute({ slug, backgroundLocation }) {
   // undefined raw location.state — a direct deep link into the combined
   // entry has no state of its own, and without this, closing the
   // sub-piece would skip past the combined entry straight to /work.
-  const onOpenSub = (subSlug) => navigate(`/work/${subSlug}`, { state: { backgroundLocation } });
+  const onOpenSub = (subSlug) => navigate(`/work/${subSlug}`, { state: { backgroundLocation, parentSlug: slug } });
+
+  // Explicit "← Back to [parent]" link when this study was opened as a
+  // numbered sub-piece from a combined entry — distinct from "×", which
+  // always fully closes rather than stepping back one level.
+  const parentStudy = location.state?.parentSlug
+    ? productionCases.find((c) => c.slug === location.state.parentSlug)
+    : null;
+  const backTo = parentStudy
+    ? { label: parentStudy.project || parentStudy.client, onBack: () => navigate(-1) }
+    : undefined;
 
   if (!study) return null;
   const meta = buildCaseStudyMeta(study, slug);
@@ -165,7 +175,7 @@ function CaseStudyRoute({ slug, backgroundLocation }) {
         type="article"
         jsonLd={meta.jsonLd}
       />
-      <CaseStudyModal study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} />
+      <CaseStudyModal study={study} onClose={onClose} onNext={onNext} nextLabel={nextLabel} onOpenSub={onOpenSub} backTo={backTo} />
     </>
   );
 }

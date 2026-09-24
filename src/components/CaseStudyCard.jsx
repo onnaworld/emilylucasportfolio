@@ -74,7 +74,7 @@ export function withBrands(text) {
 //               (matches the /work popup feel)
 //   bodyRef   — optional ref to the inner scrollable element
 //   onScroll  — optional scroll handler (e.g. for end-of-scroll detection)
-export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef, onScroll, onNext, nextLabel, onOpenSub }) {
+export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef, onScroll, onNext, nextLabel, onOpenSub, backTo }) {
   const anim = (delay) =>
     stagger
       ? `cs-card-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`
@@ -117,6 +117,31 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
         background: "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%)",
         pointerEvents: "none", zIndex: 3,
       }} />
+
+      {backTo && (
+        <button
+          onClick={backTo.onBack}
+          className="hover-text"
+          style={{
+            position: "absolute",
+            top: 10,
+            left: 10,
+            background: "none",
+            border: "none",
+            padding: "4px 6px",
+            cursor: "pointer",
+            fontFamily: HEROS_FONT,
+            fontSize: 10,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "-0.01em",
+            color: colors.textMuted,
+            zIndex: 5,
+          }}
+        >
+          ← Back to {backTo.label}
+        </button>
+      )}
 
       <button
         onClick={onClose}
