@@ -277,48 +277,33 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           {study.year}
         </div>
 
-        {/* Credit-forward structure: role, what you actually owned, the
-            result, who else was on it. Replaces the old Task/Outcome
-            prose blocks — those buried the useful, hireable facts
-            (exact title, real responsibilities, a concrete deliverable)
-            inside broad narrative language. Falls back to task/outcome
-            for any case study not yet migrated to the new fields. */}
+        {/* Credit-forward structure: role, one flowing paragraph (what you
+            owned + the result), then credits. Replaces the old
+            Task/Outcome prose blocks — those buried the useful, hireable
+            facts (exact title, real responsibilities, a concrete
+            deliverable) inside broad narrative language and too many
+            labeled sub-sections. Falls back to task/outcome for any case
+            study not yet migrated to the new fields. */}
         {(study.role || study.owned || study.result || study.team) ? (
           <>
             {study.role && (
               <div style={{ marginBottom: 6, animation: anim(0.28) }}>
-                <span style={{ fontFamily: HEROS_FONT, fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.textMuted }}>
-                  Role{" "}
-                </span>
                 <span style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 700, color: colors.text }}>
                   {study.role}
                 </span>
               </div>
             )}
-            {study.owned && (
+            {(study.owned || study.result) && (
               <div style={{ marginBottom: space.sm, animation: anim(0.32) }}>
-                <div style={{ fontFamily: HEROS_FONT, fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.text, marginBottom: 6 }}>
-                  You Owned
-                </div>
                 <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
-                  {withBrands(study.owned)}
-                </p>
-              </div>
-            )}
-            {study.result && (
-              <div style={{ marginBottom: space.sm, animation: anim(0.36) }}>
-                <div style={{ fontFamily: HEROS_FONT, fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.text, marginBottom: 6 }}>
-                  Result
-                </div>
-                <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
-                  {withBrands(study.result)}
+                  {withBrands([study.owned, study.result].filter(Boolean).join(" "))}
                 </p>
               </div>
             )}
             {study.team && (
               <div style={{ marginBottom: space.md, animation: anim(0.4) }}>
                 <div style={{ fontFamily: HEROS_FONT, fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.text, marginBottom: 6 }}>
-                  Selected Team
+                  Credits
                 </div>
                 <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
                   {withBrands(Array.isArray(study.team) ? study.team.join(", ") : study.team)}
