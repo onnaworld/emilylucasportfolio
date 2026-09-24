@@ -25,10 +25,17 @@ function buildCaseStudyMeta(study, slug) {
   // Combined entries (mr-porter-editorial etc.) carry the summary in their
   // numbered viewProjectLink list instead of task/outcome prose — fall
   // back to that list's labels so the description isn't empty.
-  const fallbackDescription = Array.isArray(study.viewProjectLink)
+  const linkListDescription = Array.isArray(study.viewProjectLink)
     ? `${study.project || study.title}: ${study.viewProjectLink.map((l) => l.label.replace(/^\d+\.\s*/, "").replace(/\s*→$/, "")).join(", ")}.`
     : "";
-  const description = truncate(study.task || study.outcome || fallbackDescription, 155);
+  // Most production case studies now carry role/owned/result instead of
+  // task/outcome prose (see CaseStudyCard's credit-forward structure) —
+  // "owned" reads best as a standalone description since it names the
+  // client, responsibilities and deliverable in one sentence.
+  const description = truncate(
+    study.task || study.outcome || study.owned || study.result || linkListDescription,
+    155
+  );
   // Image fallback chain: explicit heroImage → first still in images
   // (videos can't render as og:image previews) → site default hero.
   const firstStill = study.images?.find(
