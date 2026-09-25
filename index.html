@@ -234,30 +234,6 @@
         .m-section-body { font-size: 16px !important; line-height: 1.35 !important; }
         .m-section-coda { font-size: 17px !important; margin-top: 16px !important; }
 
-        /* /about body — match mobile gutters to the rest of the site.
-           Header strip: lower ← Home (clear of status bar) with extra
-           top padding; bottom padding sits the hairline below ← Home. */
-        .m-about-header { padding: 32px 16px 14px !important; }
-        .m-about-footer { padding: 10px 16px !important; }
-        /* Sit Contact → close to the bottom hairline. */
-        .m-about-contact { margin-bottom: 8px !important; padding-top: 16px !important; }
-        /* About + button on mobile: no override — uses the global
-           .m-plus rule so the open-state position animates cleanly. */
-        .m-about-body { padding: 14px 16px !important; overflow: hidden !important; }
-        /* Tighter section heading → bullets gap on mobile so each block
-           is more compact. */
-        .m-about-grid > div > div:first-child { margin-bottom: 8px !important; }
-        .m-about-title { font-size: 38px !important; }
-        /* Equal vertical rhythm on mobile, kept tight so the page
-           fits in one viewport: About→bio, bio→SE, SE→AF all share
-           the same compact gap. */
-        .m-about-bio { max-width: 100% !important; font-size: 13px !important; margin-top: 20px !important; }
-        .m-about-grid { grid-template-columns: 1fr !important; gap: 20px !important; margin-top: 20px !important; max-width: 100% !important; }
-        /* List items wrap on mobile (desktop forces nowrap to fit on one
-           line per item — too narrow for that on a phone). Slightly smaller
-           Times so all four bullets fit comfortably on one screen. */
-        .m-about-grid li { white-space: normal !important; font-size: 12px !important; }
-
         /* CategorySlide, stack label above carousel */
         .m-category-slide {
           grid-template-columns: 1fr !important;

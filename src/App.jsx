@@ -69,7 +69,6 @@ function buildCaseStudyMeta(study, slug) {
 // Code-split the Work routes, defers their bundle (and the productionCases
 // payload) until the user actually navigates there.
 const Work = lazy(() => import("./pages/Work"));
-const About = lazy(() => import("./pages/About"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 function ScrollToTop() {
@@ -228,7 +227,8 @@ function AppRoutes() {
             <Route path="/production" element={<Navigate to="/work" replace />} />
             <Route path="/cultural-strategy" element={<Navigate to="/work" replace />} />
             <Route path="/visual-research" element={<Navigate to="/work" replace />} />
-            <Route path="/about" element={<About />} />
+            {/* Retired — redirect so old bookmarks/links don't dead-end. */}
+            <Route path="/about" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

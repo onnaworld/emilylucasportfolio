@@ -583,7 +583,6 @@ function MenuOverlay({ onClose, onContact }) {
 
   const items = [
     { label: "Home Page",         to: "/" },
-    { label: "About",             to: "/about" },
     { label: "All Work",          to: "/work" },
   ];
   return (

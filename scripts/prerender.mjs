@@ -27,7 +27,6 @@ const { productionCases } = await import(dataUrl);
 const STATIC_ROUTES = [
   "/",
   "/work",
-  "/about",
 ];
 const CASE_ROUTES = productionCases.map((c) => `/work/${c.slug}`);
 const ROUTES = [...STATIC_ROUTES, ...CASE_ROUTES];
@@ -155,7 +154,6 @@ try {
   const SITEMAP_ENTRIES = [
     { loc: "/", changefreq: "weekly", priority: "1.0" },
     { loc: "/work", changefreq: "weekly", priority: "0.9" },
-    { loc: "/about", changefreq: "monthly", priority: "0.7" },
     ...productionCases.map((c) => ({
       loc: `/work/${c.slug}`,
       changefreq: "monthly",

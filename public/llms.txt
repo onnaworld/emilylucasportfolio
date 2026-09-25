@@ -39,7 +39,6 @@ Emily Lucas is an Executive Producer and Cultural Strategy Consultant whose work
 
 - [Home](https://emilyelucas.com/): Hero, bio, brand list, selected work strips for Production, Strategy & Editorial, Visual Research.
 - [All Work](https://emilyelucas.com/work): Numbered index of every project — production, strategy & editorial, and visual research alike; each opens a case study popup with task, outcome, assets and tags.
-- [About](https://emilyelucas.com/about): Bio, selected experience, services.
 
 ## Contact
 

@@ -5,8 +5,8 @@ import { colors, space } from "../theme";
 const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 const TIMES = "'Times New Roman', Times, serif";
 
-// Corner-anchored contact card. Used from the + menu and from the
-// Contact → link on /about. Esc / outside-click / × all close.
+// Corner-anchored contact card. Used from the + menu and the homepage
+// Contact → link. Esc / outside-click / × all close.
 export default function ContactModal({ onClose }) {
   useEffect(() => {
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
