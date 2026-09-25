@@ -210,11 +210,11 @@ export default function Landing({ suppressMeta = false }) {
           <div
             className="m-hero-title"
             style={{
-              fontFamily: HEROS,
+              fontFamily: UNICA,
               fontSize: "clamp(44px, 7vw, 100px)",
               fontWeight: 700,
               lineHeight: 0.9,
-              letterSpacing: "-0.04em",
+              letterSpacing: "-0.045em",
               margin: 0,
             }}
           >
@@ -230,12 +230,12 @@ export default function Landing({ suppressMeta = false }) {
             bottom: space.xl,
             right: space.xl,
             color: "#fff",
-            fontFamily: "'Times New Roman', Times, serif",
-            fontStyle: "italic",
+            fontFamily: UNICA,
+            fontStyle: "normal",
             fontSize: "clamp(44px, 7vw, 100px)",
-            fontWeight: 400,
+            fontWeight: 700,
             lineHeight: 0.9,
-            letterSpacing: "-0.02em",
+            letterSpacing: "-0.045em",
             zIndex: 5,
           }}
         >
