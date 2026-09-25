@@ -51,7 +51,7 @@ export const productionCases = [
     slug: "columbia-sportswear-ramadan-campaign",
     title: "Ramadan as lived practice, not marketing moment",
     client: "Columbia Sportswear",
-    project: "Ramadan Activation: Light Your Path",
+    project: "Light Your Path",
     year: "2024",
     heroImage: "/work/all-work/7.jpg",
     role: "Local Production Lead",
@@ -265,7 +265,7 @@ export const productionCases = [
   {
     slug: "trippin-editorial",
     client: "Trippin",
-    project: "Editorial | Long-Form Features",
+    project: "Journalism & Visual Research",
     year: "2022",
     task: "Three long-form authored features for Trippin across 2022, each reading a cultural subject seriously rather than as travel content | ethical photography practice across four continents, Mexican photographer Graciela Iturbide's work on Indigenous identity, and the cultural and legal history of tattooing in Japan.",
     outcome: "Authored 6 Photographers on What Ethical Photography Means to Them, curating six photographers across four continents on the power dynamics of documenting unfamiliar places. Wrote An Exploration of Mexico Through the Lens of Graciela Iturbide, reading her Juchitán and Seri people series through the ethics of the photographer's gaze. Built A History of Tattooing in Japan across three structural arcs, from Ainu ritual practice through Edo-period criminal branding to the contemporary legal grey area, with visual research surfacing four photographers' work on Japanese tattoo culture.",
@@ -287,7 +287,7 @@ export const productionCases = [
   {
     slug: "mr-porter-editorial",
     client: "MR PORTER",
-    project: "Journal | Editorial & Visual Research",
+    project: "Editorial & Visual Research",
     year: "2020–2026",
     task: "",
     outcome: "",
@@ -754,7 +754,7 @@ export const productionCases = [
   {
     slug: "vogue-arabia-editorial",
     client: "Vogue Arabia",
-    project: "Visual Research | Archive Editorial",
+    project: "Visual Research",
     year: "2025",
     task: "Two archive visual-research commissions for Vogue Arabia in 2025, each sourcing a single image strong enough to anchor a feature without a photoshoot | an essay on face-altering filters and digital beauty standards, and a roundup of Riyadh's top women's wellness destinations.",
     outcome: "Licensed a 1969 Keystone archive frame from Getty Images for Why I Refuse to Use Face-Altering Filters in 2025, its comically oversized eye-magnifying glasses mirroring the digital filters the essay critiques. Licensed a Graphic House archive frame from Getty Images for DND Mode: The Top Ladies Spas to Visit in Riyadh, anchoring the wellness roundup in lifestyle archive rather than contemporary spa stock.",

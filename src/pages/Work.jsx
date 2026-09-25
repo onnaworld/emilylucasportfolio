@@ -83,7 +83,7 @@ const PROJECTS = [
   { n: 4,  client: "ONE&ONLY",            title: "Moonlight Basin",             slug: "one-only-moonlight-basin",                      thumb: "/work/all-work/4..mp4.mp4" },
   { n: 5,  client: "CIPRIANI",            title: "MR C Residence Dubai",        slug: "cipriani-mr-c-residence-dubai",                      thumb: "/work/all-work/5..jpg" },
   { n: 6,  client: "MR PORTER",           title: "In America",                  slug: "mr-porter-in-america",                 thumb: "/work/all-work/06.jpg" },
-  { n: 7,  client: "COLUMBIA SPORTSWEAR", title: "Ramadan Activation: Light Your Path", slug: "columbia-sportswear-ramadan-campaign",                     thumb: "/work/all-work/7.jpg" },
+  { n: 7,  client: "COLUMBIA SPORTSWEAR", title: "Light Your Path", slug: "columbia-sportswear-ramadan-campaign",                     thumb: "/work/all-work/7.jpg" },
   { n: 8,  client: "MASTERCARD",          title: "Sail Grand Prix x Luís Figo", slug: "mastercard-sail-grand-prix" },
   { n: 9,  client: "NIKE",                title: "Global Vomero 18 Activation", slug: "nike-vomero-18" },
   { n: 10, client: "J.CREW",              title: "Abraham Moon",                slug: "jcrew-abraham-moon",                         thumb: "/work/all-work/10.mp4" },
@@ -97,9 +97,9 @@ const PROJECTS = [
   { n: 18, client: "BVLGARI",             title: "Bvlgari x Vogue",             slug: "vogue-bvlgari",                        thumb: "/work/vogue-bvlgari/hero.jpg" },
   { n: 19, client: "STONE ISLAND",        title: "The Life Aquatic, With Stone Island", slug: "stone-island-life-aquatic",      thumb: "/work/stone-island-life-aquatic/hero.jpg" },
   { n: 20, client: "MR PORTER",           title: "Championing Subcultures",     slug: "mr-porter-championing-subcultures",    thumb: "/work/all-work/18.jpg", link: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
-  { n: 21, client: "MR PORTER",           title: "Journal | Editorial & Visual Research",                                      slug: "mr-porter-editorial",               thumb: "/work/all-work/23.jpg" },
-  { n: 22, client: "TRIPPIN",             title: "Editorial | Long-Form Features",                                             slug: "trippin-editorial",                 thumb: "/work/all-work/20.avif" },
-  { n: 23, client: "VOGUE ARABIA",        title: "Visual Research | Archive Editorial",                                        slug: "vogue-arabia-editorial",            thumb: "/Visual%20Research/vogue-arabia-filters-hero.webp" },
+  { n: 21, client: "MR PORTER",           title: "Editorial & Visual Research",                                                slug: "mr-porter-editorial",               thumb: "/work/all-work/23.jpg" },
+  { n: 22, client: "TRIPPIN",             title: "Journalism & Visual Research",                                               slug: "trippin-editorial",                 thumb: "/work/all-work/20.avif" },
+  { n: 23, client: "VOGUE ARABIA",        title: "Visual Research",                                                            slug: "vogue-arabia-editorial",            thumb: "/Visual%20Research/vogue-arabia-filters-hero.webp" },
 ];
 
 export default function Work({ suppressMeta = false }) {
