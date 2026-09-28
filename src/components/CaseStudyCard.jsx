@@ -286,14 +286,14 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
         </div>
 
         {isLinkList && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, margin: `${space.lg}px 0`, animation: anim(0.32) }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10, margin: `${space.lg}px 0`, animation: anim(0.32) }}>
             {study.viewProjectLink.map((l) =>
               l.slug && onOpenSub ? (
                 <button
                   key={l.slug}
                   onClick={() => onOpenSub(l.slug)}
                   className="hover-text"
-                  style={{ fontFamily: TIMES, fontSize: 16, fontWeight: 400, color: colors.text, background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "center" }}
+                  style={{ fontFamily: HEROS_FONT, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.text, background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left" }}
                 >
                   {l.label}
                 </button>
@@ -304,7 +304,7 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover-text"
-                  style={{ fontFamily: TIMES, fontSize: 16, fontWeight: 400, color: colors.text, textDecoration: "none", textAlign: "center" }}
+                  style={{ fontFamily: HEROS_FONT, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.text, textDecoration: "none", textAlign: "left" }}
                 >
                   {l.label}
                 </a>
@@ -408,7 +408,7 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           );
         })()}
 
-        {study.tags && study.tags.length > 0 && (
+        {!isLinkList && study.tags && study.tags.length > 0 && (
           <div style={{ marginTop: space.lg, display: "flex", flexWrap: "wrap", gap: 6, animation: anim(0.54) }}>
             {study.tags.map((tag) => (
               <span
