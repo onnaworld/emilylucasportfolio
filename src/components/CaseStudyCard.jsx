@@ -75,6 +75,12 @@ export function withBrands(text) {
 //   bodyRef   — optional ref to the inner scrollable element
 //   onScroll  — optional scroll handler (e.g. for end-of-scroll detection)
 export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef, onScroll, onNext, nextLabel, onOpenSub, backTo }) {
+  // A combined entry (e.g. MR PORTER's editorial pieces, Trippin's three
+  // features) lists multiple sub-projects instead of showing its own
+  // images — it's a menu into individual case studies, not a case study
+  // itself, so it renders centered below the title and skips the gallery.
+  const isLinkList = Array.isArray(study.viewProjectLink) && study.viewProjectLink.length > 1;
+
   const anim = (delay) =>
     stagger
       ? `cs-card-row-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`
@@ -206,7 +212,7 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           >
             {study.client}
           </div>
-          {study.viewProjectLink && (() => {
+          {study.viewProjectLink && !isLinkList && (() => {
             const raw = Array.isArray(study.viewProjectLink) ? study.viewProjectLink : [study.viewProjectLink];
             const links = raw.map((l) => typeof l === "string" ? { label: "View Project →", url: l } : l);
             const linkStyle = { fontFamily: TIMES, fontSize: 14, fontWeight: 400, color: colors.text, textDecoration: "none", whiteSpace: "nowrap" };
@@ -277,6 +283,34 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           {study.year}
         </div>
 
+        {isLinkList && (
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, margin: `${space.lg}px 0`, animation: anim(0.32) }}>
+            {study.viewProjectLink.map((l) =>
+              l.slug && onOpenSub ? (
+                <button
+                  key={l.slug}
+                  onClick={() => onOpenSub(l.slug)}
+                  className="hover-text"
+                  style={{ fontFamily: TIMES, fontSize: 16, fontWeight: 400, color: colors.text, background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "center" }}
+                >
+                  {l.label}
+                </button>
+              ) : (
+                <a
+                  key={l.url}
+                  href={l.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover-text"
+                  style={{ fontFamily: TIMES, fontSize: 16, fontWeight: 400, color: colors.text, textDecoration: "none", textAlign: "center" }}
+                >
+                  {l.label}
+                </a>
+              )
+            )}
+          </div>
+        )}
+
         {/* Credit-forward structure: role, one flowing paragraph (what you
             owned + the result), then credits. Replaces the old
             Task/Outcome prose blocks — those buried the useful, hireable
@@ -329,7 +363,7 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           </>
         )}
 
-        {study.images && study.images.length > 0 && (() => {
+        {!isLinkList && study.images && study.images.length > 0 && (() => {
           // Per-asset resolver for video click target:
           //   1. study.videoLinks[src] (per-asset override, e.g. each
           //      video opens its own Instagram reel)
