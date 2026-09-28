@@ -269,21 +269,24 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           {study.project}
         </div>
 
-        {/* Year */}
-        <div
-          style={{
-            fontFamily: HEROS_FONT,
-            fontSize: 10,
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "-0.01em",
-            color: colors.textMuted,
-            marginBottom: space.md,
-            animation: anim(0.28),
-          }}
-        >
-          {study.year}
-        </div>
+        {/* Year — omitted for link-list entries, whose multi-year ranges
+            (e.g. "2020–2026") only get more visibly stale over time. */}
+        {!isLinkList && (
+          <div
+            style={{
+              fontFamily: HEROS_FONT,
+              fontSize: 10,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+              color: colors.textMuted,
+              marginBottom: space.md,
+              animation: anim(0.28),
+            }}
+          >
+            {study.year}
+          </div>
+        )}
 
         {isLinkList && (
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10, margin: `${space.lg}px 0`, animation: anim(0.32) }}>
