@@ -96,7 +96,7 @@ const PROJECTS = [
   { n: 17, client: "JUMEIRAH",            title: "Jumeirah Beach Hotel Al Bahar Villa", slug: "jumeirah-marsa-al-arab",               thumb: "/work/all-work/17.jpg" },
   { n: 18, client: "BVLGARI",             title: "Bvlgari x Vogue",             slug: "vogue-bvlgari",                        thumb: "/work/vogue-bvlgari/hero.jpg" },
   { n: 19, client: "STONE ISLAND",        title: "The Life Aquatic, With Stone Island", slug: "stone-island-life-aquatic",      thumb: "/work/stone-island-life-aquatic/hero.jpg" },
-  { n: 20, client: "MR PORTER",           title: "Championing Subcultures",     slug: "mr-porter-championing-subcultures",    thumb: "/work/all-work/18.jpg", link: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
+  { n: 20, client: "MR PORTER",           title: "Social Media Strategy",       slug: "mr-porter-championing-subcultures",    thumb: "/work/all-work/18.jpg" },
   { n: 21, client: "MR PORTER",           title: "Editorial & Visual Research",                                                slug: "mr-porter-editorial",               thumb: "/work/all-work/23.jpg" },
   { n: 22, client: "TRIPPIN",             title: "Journalism & Visual Research",                                               slug: "trippin-editorial",                 thumb: "/work/all-work/20.avif" },
   { n: 23, client: "VOGUE ARABIA",        title: "Visual Research",                                                            slug: "vogue-arabia-editorial",            thumb: "/Visual%20Research/vogue-arabia-filters-hero.webp" },

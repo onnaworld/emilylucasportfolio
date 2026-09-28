@@ -267,8 +267,8 @@ export const productionCases = [
     client: "Trippin",
     project: "Journalism & Visual Research",
     year: "2022",
-    task: "Three long-form authored features for Trippin across 2022, each reading a cultural subject seriously rather than as travel content | ethical photography practice across four continents, Mexican photographer Graciela Iturbide's work on Indigenous identity, and the cultural and legal history of tattooing in Japan.",
-    outcome: "Authored 6 Photographers on What Ethical Photography Means to Them, curating six photographers across four continents on the power dynamics of documenting unfamiliar places. Wrote An Exploration of Mexico Through the Lens of Graciela Iturbide, reading her Juchitán and Seri people series through the ethics of the photographer's gaze. Built A History of Tattooing in Japan across three structural arcs, from Ainu ritual practice through Edo-period criminal branding to the contemporary legal grey area, with visual research surfacing four photographers' work on Japanese tattoo culture.",
+    task: "",
+    outcome: "",
     viewProjectLink: [
       { label: "1. Ethical Photography →", slug: "trippin-ethical-photography" },
       { label: "2. Graciela Iturbide →", slug: "trippin-mexico-iturbide" },
@@ -289,8 +289,8 @@ export const productionCases = [
     client: "MR PORTER",
     project: "Editorial & Visual Research",
     year: "2020–2026",
-    task: "Eight editorial commissions for MR PORTER's Journal and social channels between 2020 and 2026, spanning trend forecasting, visual research, cultural commentary and social strategy | menswear trend forecasting, runway and archive image licensing, and building the brand's Gen Z social strategy.",
-    outcome: "Authored The Stylish Gent's Guide to 2022's Freshest Menswear Trends and led the social strategy that grew MR PORTER's TikTok channel to 50K followers in its first year. Sourced and licensed visual research across features spanning New York street photography, cinematic summer style, AW20 runway trends and Black History Month UK, plus editorial features on shopping menswear and life in Japan.",
+    task: "",
+    outcome: "",
     viewProjectLink: [
       { label: "1. Menswear Trends 2022 →", slug: "mr-porter-menswear-trends-2022" },
       { label: "2. Calling All Women →", slug: "mr-porter-women-buy-menswear" },
@@ -456,14 +456,12 @@ export const productionCases = [
   {
     slug: "mr-porter-championing-subcultures",
     client: "MR PORTER",
-    project: "Championing Subcultures",
-    year: "2023–2025",
-    role: "Producer & Casting Lead",
-    owned: "Produced and cast three community-rooted campaigns at MR PORTER over three years: London's roller-skating scene (Feels on Wheels, part of the Tee Store men's mental health initiative), a Black British writers portfolio, and the brand's Pride social takeover, casting from within each community including partner Queer Direct.",
-    result: "Delivered three campaigns, each cast from within its respective community rather than through traditional casting channels.",
+    project: "Social Media Strategy",
+    year: "2022–2025",
     viewProjectLink: [
-      { label: "Skating Story →", url: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
-      { label: "Writers Portfolio →", url: "https://www.mrporter.com/en-us/journal/fashion/black-history-month-uk-writers-portfolio-24605122" },
+      { label: "1. Social Media Strategy →", slug: "mr-porter-social-media-strategy" },
+      { label: "2. Skating Story →", url: "https://www.mrporter.com/en-us/journal/lifestyle/tee-store-london-skate-scene-mental-health-in-mind-10716186" },
+      { label: "3. Writers Portfolio →", url: "https://www.mrporter.com/en-us/journal/fashion/black-history-month-uk-writers-portfolio-24605122" },
     ],
     videoLinks: {
       "/work/mr-porter-championing-subcultures/07.mp4": "https://www.instagram.com/reels/Ce8q_j5vnDb/",
@@ -756,8 +754,8 @@ export const productionCases = [
     client: "Vogue Arabia",
     project: "Visual Research",
     year: "2025",
-    task: "Two archive visual-research commissions for Vogue Arabia in 2025, each sourcing a single image strong enough to anchor a feature without a photoshoot | an essay on face-altering filters and digital beauty standards, and a roundup of Riyadh's top women's wellness destinations.",
-    outcome: "Licensed a 1969 Keystone archive frame from Getty Images for Why I Refuse to Use Face-Altering Filters in 2025, its comically oversized eye-magnifying glasses mirroring the digital filters the essay critiques. Licensed a Graphic House archive frame from Getty Images for DND Mode: The Top Ladies Spas to Visit in Riyadh, anchoring the wellness roundup in lifestyle archive rather than contemporary spa stock.",
+    task: "",
+    outcome: "",
     viewProjectLink: [
       { label: "1. Face-Altering Filters →", slug: "vogue-arabia-face-filters-essay" },
       { label: "2. Riyadh Spas →", slug: "vogue-arabia-ladies-spas-riyadh" },
