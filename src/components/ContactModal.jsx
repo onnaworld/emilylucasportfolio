@@ -20,10 +20,6 @@ export default function ContactModal({ onClose }) {
 
   const rows = [
     { label: "EMAIL",    value: "emily@emilyelucas.com",       href: "mailto:emily@emilyelucas.com" },
-    { label: "PHONE",    phones: [
-      { prefix: "UK", value: "+44 7766 546348",  href: "tel:+447766546348" },
-      { prefix: "US", value: "+1 (917) 735-8545", href: "tel:+19177358545" },
-    ]},
     { label: "LINKEDIN", value: "linkedin.com/in/emilyelucas", href: "https://www.linkedin.com/in/emilyelucas/", external: true },
     { label: "RESUME",   value: "Available on request" },
   ];

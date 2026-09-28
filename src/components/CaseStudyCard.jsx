@@ -183,6 +183,8 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
           height: "100%",
           overflowY: "auto",
           overscrollBehavior: "contain",
+          WebkitOverflowScrolling: "touch",
+          touchAction: "pan-y",
           padding: `${space.md}px ${space.lg}px ${space.lg}px`,
           position: "relative",
         }}
