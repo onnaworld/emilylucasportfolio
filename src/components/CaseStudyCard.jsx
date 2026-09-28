@@ -284,15 +284,8 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
             deliverable) inside broad narrative language and too many
             labeled sub-sections. Falls back to task/outcome for any case
             study not yet migrated to the new fields. */}
-        {(study.role || study.owned || study.result || study.team) ? (
+        {(study.owned || study.result || study.team) ? (
           <>
-            {study.role && (
-              <div style={{ marginBottom: 6, animation: anim(0.28) }}>
-                <span style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 700, color: colors.text }}>
-                  {study.role}
-                </span>
-              </div>
-            )}
             {(study.owned || study.result) && (
               <div style={{ marginBottom: space.sm, animation: anim(0.32) }}>
                 <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>

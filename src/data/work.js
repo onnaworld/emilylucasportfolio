@@ -289,8 +289,8 @@ export const productionCases = [
     client: "MR PORTER",
     project: "Editorial & Visual Research",
     year: "2020–2026",
-    task: "",
-    outcome: "",
+    task: "Eight editorial commissions for MR PORTER's Journal and social channels between 2020 and 2026, spanning trend forecasting, visual research, cultural commentary and social strategy | menswear trend forecasting, runway and archive image licensing, and building the brand's Gen Z social strategy.",
+    outcome: "Authored The Stylish Gent's Guide to 2022's Freshest Menswear Trends and led the social strategy that grew MR PORTER's TikTok channel to 50K followers in its first year. Sourced and licensed visual research across features spanning New York street photography, cinematic summer style, AW20 runway trends and Black History Month UK, plus editorial features on shopping menswear and life in Japan.",
     viewProjectLink: [
       { label: "1. Menswear Trends 2022 →", slug: "mr-porter-menswear-trends-2022" },
       { label: "2. Calling All Women →", slug: "mr-porter-women-buy-menswear" },
