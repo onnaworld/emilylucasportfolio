@@ -337,9 +337,11 @@ export default function CaseStudyCard({ study, onClose, stagger = false, bodyRef
                 <div style={{ fontFamily: HEROS_FONT, fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.01em", color: colors.text, marginBottom: 6 }}>
                   Credits
                 </div>
-                <p style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
-                  {withBrands(Array.isArray(study.team) ? study.team.join(", ") : study.team)}
-                </p>
+                {(Array.isArray(study.team) ? study.team : [study.team]).map((line, i) => (
+                  <p key={i} style={{ fontFamily: HEROS_FONT, fontSize: 12, fontWeight: 400, lineHeight: 1.55, color: colors.text, margin: 0 }}>
+                    {withBrands(line)}
+                  </p>
+                ))}
               </div>
             )}
           </>

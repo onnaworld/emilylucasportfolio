@@ -14,8 +14,8 @@ export const productionCases = [
     year: "2026",
     heroImage: "/work/porter-october-jessica-chastain/01.jpg",
     role: "Local Producer",
-    owned: "Local producer, alongside Hattie Gable, on PORTER magazine's October cover story starring Jessica Chastain, working alongside the PORTER creative and editorial team.",
-    result: "Delivered on-the-ground production support for the cover shoot and story.",
+    owned: "",
+    result: "",
     team: [
       "Creative Director: @charliemiles",
       "Head of Editorial: @kasiahastings",
@@ -27,7 +27,7 @@ export const productionCases = [
       "Hair: @renatocampora, @sinaia.campora",
       "Makeup: @kristoferbuckle",
       "Nail Artist: @julieknailsnyc",
-      "Local Producers: Hattie Gable & Emily Lucas",
+      "Local Producers: @hattiegable & @emilyelucas",
     ],
     images: [
       "/work/porter-october-jessica-chastain/01.jpg",
@@ -51,8 +51,8 @@ export const productionCases = [
     year: "2026",
     heroImage: "/work/esquire-uk-paul-anthony-kelly/01.jpg",
     role: "Local Producer",
-    owned: "Local producer, alongside Hattie Gable, on Esquire UK's cover story with Paul Anthony Kelly at The Fifth Avenue Hotel, working alongside Esquire UK's editorial and picture teams.",
-    result: "Delivered on-the-ground production support for the cover shoot and story.",
+    owned: "",
+    result: "",
     team: [
       "Editor-in-Chief: @teovandenbroeke",
       "Photography: @chantalanderson",
