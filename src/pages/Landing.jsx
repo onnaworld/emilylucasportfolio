@@ -38,16 +38,16 @@ const HEROS = "'TeX Gyre Heros', 'Helvetica Neue', 'Arial', sans-serif";
 // Items can be a string OR { src, landscape?, client?, title? }. When client/title
 // are set, a dark gradient + label fades in over the image on hover.
 const PRODUCTION_IMAGES = [
+  { src: "/Production/8.jpg",         client: "PORTER",              title: "October Cover x Jessica Chastain", slug: "porter-october-jessica-chastain" },
   { src: "/Production/01.jpg",        client: "VOGUE ARABIA",        title: "March Cover", slug: "vogue-arabia-relaunch" },
   { src: "/Production/2..mov.mp4",    client: "NIKE",                title: "Vomero 18 Activation", slug: "nike-vomero-18" },
   { src: "/Production/3..webp",       client: "MR PORTER",           title: "Finneas", slug: "mr-porter-finneas" },
+  { src: "/Production/9.jpg",         client: "ESQUIRE UK",          title: "Cover Story x Paul Anthony Kelly", slug: "esquire-uk-paul-anthony-kelly" },
   { src: "/Production/4.%20.jpg",     client: "COLUMBIA SPORTSWEAR", title: "Ramadan Campaign", slug: "columbia-sportswear-ramadan-campaign" },
   { src: "/Production/5..mp4",        client: "J.CREW",              title: "Abraham Moon", slug: "jcrew-abraham-moon" },
   { src: "/Production/6..jpg",        client: "AMAN",                title: "Saudi Arabia & Dubai", slug: "aman-saudi-arabia" },
   { src: "/Production/6..mp4.mp4",    client: "ONE&ONLY",            title: "Moonlight Basin", slug: "one-only-moonlight-basin" },
   { src: "/Production/7.mp4",         client: "CIPRIANI",            title: "Mr C Residences Dubai", slug: "cipriani-mr-c-residence-dubai" },
-  { src: "/Production/8.jpg",         client: "PORTER",              title: "October Cover x Jessica Chastain", slug: "porter-october-jessica-chastain" },
-  { src: "/Production/9.jpg",         client: "ESQUIRE UK",          title: "Cover Story x Paul Anthony Kelly", slug: "esquire-uk-paul-anthony-kelly" },
 ];
 const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",                     client: "TRIPPIN",   title: "6 Photographers on Ethical Photography", slug: "trippin-ethical-photography" },
