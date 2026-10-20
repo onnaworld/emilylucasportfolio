@@ -46,6 +46,8 @@ const PRODUCTION_IMAGES = [
   { src: "/Production/6..jpg",        client: "AMAN",                title: "Saudi Arabia & Dubai", slug: "aman-saudi-arabia" },
   { src: "/Production/6..mp4.mp4",    client: "ONE&ONLY",            title: "Moonlight Basin", slug: "one-only-moonlight-basin" },
   { src: "/Production/7.mp4",         client: "CIPRIANI",            title: "Mr C Residences Dubai", slug: "cipriani-mr-c-residence-dubai" },
+  { src: "/Production/8.jpg",         client: "PORTER",              title: "October Cover x Jessica Chastain", slug: "porter-october-jessica-chastain" },
+  { src: "/Production/9.jpg",         client: "ESQUIRE UK",          title: "Cover Story x Paul Anthony Kelly", slug: "esquire-uk-paul-anthony-kelly" },
 ];
 const WRITING_IMAGES = [
   { src: "/Cultural%20Strategy/4ba827b33bdd00f5f3f83428a7e1ae3310f31833-4000x3200.avif",                     client: "TRIPPIN",   title: "6 Photographers on Ethical Photography", slug: "trippin-ethical-photography" },
